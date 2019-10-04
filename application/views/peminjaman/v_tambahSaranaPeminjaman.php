@@ -1,0 +1,168 @@
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-md-8 order-md-1">
+      <h4 class="mb-3">Form Data Peminjaman</h4>
+      
+        <?php 
+        $id = null;
+        $tgl_mulai = null;
+        $tgl_selesai = null;
+        $jam_mulai = null;
+        $jam_selesai = null;
+        foreach ($peminjaman as $u){ ?>
+        <form class="user" method="post">
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">NIM NIP ID Peminjam</label>
+                <input disabled type="text"  required name="id_peminjam" class="form-control " value="<?= $id = $u->id_peminjaman; ?>">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">NIM NIP ID Peminjam</label>
+                <input disabled type="text"  required name="id_peminjam" class="form-control " value="<?= $id = $u->id_peminjaman; ?>">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Tanggal Penggunaan</label>
+                <input disabled type="text"  required name="tanggal_mulai_penggunaan" class="form-control " value="<?= date("l, d-m-Y", strtotime($u->tanggal_mulai_penggunaan)); ?>">
+            </div>
+            <?php   $tgl_mulai = $u->tanggal_mulai_penggunaan;
+                                        $tgl_selesai = $u->tanggal_selesai_penggunaan; 
+                                        $jam_mulai = $u->jam_mulai;
+                                        $jam_selesai = $u->jam_selesai;?>
+            <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Jam Mulai</label>
+                    <input disabled type="text"  required name="tanggal_mulai_penggunaan" class="form-control " value="<?php 
+                            if($u->jam_mulai<10){
+                                echo "0".$u->jam_mulai.".00";
+                            }else{
+                                echo $u->jam_mulai.".00";
+                            } ?>">
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Jam Selesai</label>
+                    <input disabled type="text"  required name="tanggal_mulai_penggunaan" class="form-control " value="<?php 
+                            if($u->jam_selesai<10){
+                                echo "0".$u->jam_selesai.".59";
+                            }else{
+                                echo $u->jam_selesai.".59";
+                            }; ?>">
+                </div>
+            </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Penyelenggara</label>
+                <input disabled type="text"  required name="penyelenggara" class="form-control " value="<?= $u->penyelenggara; ?>">
+            </div>
+            <div class="form-group">
+                <label for="">Keterangan</label>
+                <textarea disabled class="form-control"  name="keterangan" rows="3" value=""><?= $u->keterangan; ?></textarea>
+            </div>
+            <hr class="mb-4">
+            <h5 class="mb-3">Ruangan yang akan dipinjam</h5>
+            <div class="d-block my-3"><?php $jumRuangan = 0;
+                foreach ($sarana as $a){ ?>
+                <div class="custom-control custom-radio py-1">
+                    <label class="" for="credit"><?= $a->nama_ruangan ?>
+                    <a href="<?php echo site_url('Peminjaman/hapusSaranaPeminjaman/'.$jenis_peminjaman.'/'.$id.'/'.$a->id_sarana.'/'.$tgl_mulai.'/'.$tgl_selesai.'/'.$jam_mulai.'/'.$jam_selesai); ?>"  class="btn btn-danger btn-sm text-white" title="Hapus Ruangan">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                    </label>
+                </div>
+                <?php $jumRuangan++;} ?>
+            </div>
+
+            <?php if($jumRuangan == 0){ ?>
+                <a href="<?php echo site_url('Peminjaman/hapusPeminjaman/'.$id); ?>"   type="submit" class="btn btn-warning btn-user btn-block" title="Selesaikan Peminjaman Ruangan">
+                    Batalkan Peminjaman
+                </a>
+            <?php }else{ ?>
+                <a href="<?php echo site_url('Peminjaman/kirimPeminjaman/'.$u->jenis_peminjaman.'/'.$id); ?>"   type="submit" class="btn btn-warning btn-user btn-block" title="Selesaikan Peminjaman Ruangan">
+                    Kirim Peminjaman
+                </a>
+            <?php }?>
+        </form> 
+        <?php } ?>
+      
+    </div>
+
+    
+    <div class="col-md-4 order-md-2 mb-4 card shadow">
+      <h4 class="d-flex justify-content-between align-items-center mb-3">
+        <span class="text-muted">Pilih Ruangan</span>
+        <a  data-toggle="modal" data-target="#modalPanduan"><span class="" title="panduan"><i class="far fa-question-circle"></i></span></a>
+      </h4>
+        <?php if($jumRuangan == 0){ ?>
+            <?php 
+            $no = 1;
+            foreach ($sarana_tersedia as $u){ 
+        ?>
+        <ul class="list-group mb-1">
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+                <h6 class="my-0"><?php echo $u->nama_ruangan ?></h6>
+                <small class="text-muted">Kapasitas 40 orang</small>
+            </div>
+            <span class="text-muted"> <form action="<?php echo site_url('Peminjaman/tambahSaranaPeminjaman'); ?>" method="post">
+                    <input type="text" hidden name="jenis" value="nonkelas">
+                    <input type="text" hidden name="id_peminjaman" value="<?= $id?>">
+                    <input type="text" hidden name="id_sarana" value="<?= $u->id_ruangan?>">
+                    <input type="text" hidden name="tgl_mulai" value="<?= $tgl_mulai?>">
+                    <input type="text" hidden name="tgl_selesai" value="<?= $tgl_selesai?>">
+                    <input type="text" hidden name="jam_mulai" value="<?= $jam_mulai?>">
+                    <input type="text" hidden name="jam_selesai" value="<?= $jam_selesai?>">
+                    <button class="btn btn-secondary text-white" title="Tambahkan" type="submit"><i class="fas fa-plus-square"></i> </button>
+                </form></span>
+            </li>
+        </ul>
+        <?php } ?>
+        <?php }else{ ?>
+            <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <div>
+                    <small class="text-muted">Ruangan Sudah Ditambahkan</small>
+                </div>
+                </li>
+            </ul>
+        <?php }?>
+        
+     
+    </div>
+  </div>
+
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">© 2017-2019 Company Name</p>
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="#">Privacy</a></li>
+      <li class="list-inline-item"><a href="#">Terms</a></li>
+      <li class="list-inline-item"><a href="#">Support</a></li>
+    </ul>
+  </footer>
+</div>
+
+
+<div class="modal fade" id="modalPanduan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Panduan Meminjam Ruangan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>Tahapan peminjaman</div>
+        <div>
+            <p>1. Mengisi form data peminjaman dan menekan tombol Lanjut ke proses selanjutnya</p>
+            <p>2. Sistem kemudian menampilkan ruangan yang boleh dipinjamkan</p>
+            <p>2. User dapat memilih ruangan dengan menekan tombol plus yang berada disamping nama ruangan</p>
+            <p>4. User kemudian menekan tombol kirim peminjaman untuk menyelesaikan proses peminjaman</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
