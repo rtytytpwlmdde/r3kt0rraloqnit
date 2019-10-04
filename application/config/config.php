@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/rektor/';
+$config['base_url'] = 'http://10.22.253.178/r3kt0rraloqnit/';
 
 /*
 |--------------------------------------------------------------------------

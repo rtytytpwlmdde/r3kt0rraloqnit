@@ -34,99 +34,63 @@
                     <td>NIM/NIP</td>
                     <td><?= $u->id_peminjam; ?></td>
                 </tr>
-                <?php 
-                    if($u->jenis_peminjaman == 'kelas'){ ?>
-                       
+                <tr>
+                    <td>Tanggal Penggunaan</td>
+                    <td><?= date("l, d-m-Y", strtotime($u->tanggal_mulai_penggunaan)); ?> sd <?= date("l, d-m-Y", strtotime($u->tanggal_selesai_penggunaan)); ?></td>
+                </tr>
+                <tr>
+                    <td>Ruangan</td>
+                    <td> <?php  
+                        foreach ($sarana as $u){ 
+                            echo $u->nama_ruangan."<br>";
+                        }
+                        ?> 
+                    </td>
+                </tr>
+                <tr>
+                    <td>Jam Penggunaan</td>
+                    <td><?php 
+                        foreach($waktu as $w){
+                            if($w->id_waktu == $u->jam_mulai){
+                                $mulai = explode("-", $w->nama_waktu);
+                                $start = $mulai[0];
+                            }
+                            if($w->id_waktu == $u->jam_selesai){
+                                $selesai = explode("-", $w->nama_waktu);
+                                $end = $selesai[1];
+                            }
+                        }
+                        ?>
+                        
+                        <?= $start?> - <?= $end?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Penyelenggara</td>
+                    <td><?= $u->penyelenggara; ?></td>
+                </tr>
+                <tr>
+                    <td>Keterangan</td>
+                    <td><?= $u->keterangan; ?></td>
+                </tr>
+                <tr>
+                    <td>Status Validasi</td>
+                    <?php if($u->validasi_akademik == 'terkirim'){?>
+                        <td class="text-warning"><?= $u->validasi_akademik; ?></td>
+                    <?php }else if($u->validasi_akademik == 'setuju'){?>
+                        <td class="text-success"><?= $u->validasi_akademik; ?></td>
                     <?php }else{ ?>
+                        <td class="text-danger"><?= $u->validasi_akademik; ?></td>
+                    <?php }?>
+                </tr>
+                <?php 
+                    if($u->validasi_akademik == 'tolak' || $u->validasi_umum == 'tolak' || $u->validasi_kemahasiswaan == 'tolak'){ ?>
                         <tr>
-                            <td>Tanggal Penggunaan</td>
-                            <td><?= date("l, d-m-Y", strtotime($u->tanggal_mulai_penggunaan)); ?> sd <?= date("l, d-m-Y", strtotime($u->tanggal_selesai_penggunaan)); ?></td>
+                            <td>Catatan Penolakan</td>
+                            <td><?= $u->catatan_penolakan; ?></td>
                         </tr>
-                        <tr>
-                            <td>Jam Penggunaan</td>
-                            <td><?php 
-                                foreach($waktu as $w){
-                                    if($w->id_waktu == $u->jam_mulai){
-                                        $mulai = explode("-", $w->nama_waktu);
-                                        $start = $mulai[0];
-                                    }
-                                    if($w->id_waktu == $u->jam_selesai){
-                                        $selesai = explode("-", $w->nama_waktu);
-                                        $end = $selesai[1];
-                                    }
-                                }
-                               ?>
-                               
-                               <?= $start?> - <?= $end?>
-                            </td>
-                        </tr>
-                        
-                        <?php 
-                            if($u->jenis_peminjaman == 'non kelas'){ ?>
-                                <tr>
-                                    <td>Ruangan</td>
-                                    <td> <?php  
-                                        foreach ($sarana as $u){ 
-                                            echo $u->nama_ruangan."<br>";
-                                        }
-                                        ?> 
-                                    </td>
-                                </tr>
-                            <?php } else {?>
-                                <tr>
-                                    <td>Barang</td>
-                                    <td> <?php  
-                                        foreach ($sarana as $u){ 
-                                            echo $u->nama_barang."<br>";
-                                        } 
-                                        ?>
-                                </td>
-                                </tr>
-                            <?php } ?>
-                        <tr>
-                            <td>Penyelenggara</td>
-                            <td><?= $u->penyelenggara; ?></td>
-                        </tr>
-                        <tr>
-                            <td>Keterangan</td>
-                            <td><?= $u->keterangan; ?></td>
-                        </tr>
-                        <tr>
-                            <td>Status Validasi</td>
-                            <?php if($u->validasi_akademik == 'terkirim'){?>
-                                <td class="text-warning"><?= $u->validasi_akademik; ?></td>
-                            <?php }else if($u->validasi_akademik == 'setuju'){?>
-                                <td class="text-success"><?= $u->validasi_akademik; ?></td>
-                            <?php }else{ ?>
-                                <td class="text-danger"><?= $u->validasi_akademik; ?></td>
-                            <?php }?>
-                        </tr>
-                        <?php 
-                            if($u->validasi_akademik == 'tolak' || $u->validasi_umum == 'tolak' || $u->validasi_kemahasiswaan == 'tolak'){ ?>
-                                <tr>
-                                    <td>Catatan Penolakan</td>
-                                    <td><?= $u->catatan_penolakan; ?></td>
-                                </tr>
-                        <?php } ?> 
-                        
-                        <?php if($u->jenis_peminjaman == 'barang'){ ?>
-                        <tr>
-                            <td>Status pengembalian barang</td>
-                            <td><?= $u->status_kembali; ?>
-                            
-                            <?php if($u->status_kembali == 'belum dikembalikan'){ ?>
-                                 <a data-toggle="modal" data-id="<?php echo $u->id_peminjaman; ?>"  class="modalPengembalianBarang btn btn-outline-danger btn-sm" href="#modalPengembalianBarang">Barang telah kembali?</a>
-                            <?php } ?>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td>Catatan pengembalian</td>
-                            <td><?= $u->catatan_pengembalian; ?></td>
-                        </tr>
-                        <?php  }?>
-                    <?php } 
-                ?> 
+                <?php } ?>
+             
             <?php } ?>
             </tbody>
         </table>

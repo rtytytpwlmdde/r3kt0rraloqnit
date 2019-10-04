@@ -47,7 +47,7 @@ class Peminjaman extends CI_Controller {
             $data['peminjaman'] = $this->M_Peminjaman->getDataPeminjamanNonKelasBarang()->result();
         }
         $data['main_view'] = 'peminjaman/v_historyPeminjaman';
-        if($this->session->userdata('status') == "pengguna"){ 
+        if($this->session->userdata('status') == "pengguna" ){ 
             $this->load->view('template/template_user',$data);
         }else{
             $this->load->view('template/template_operator',$data);
@@ -59,7 +59,7 @@ class Peminjaman extends CI_Controller {
         $data['waktu'] = $this->M_Peminjaman->getDataWaktu()->result();
         $data['peminjaman'] = $this->M_Peminjaman->getDetailPeminjaman($id_peminjaman,$jenis_peminjaman);
         $data['sarana'] = $this->M_Peminjaman->getSaranaPeminjamanById($id_peminjaman,$jenis_peminjaman);
-        if($this->session->userdata('status') == "pengguna"){ 
+        if($this->session->userdata('status') == "pengguna" || $this->session->userdata('logged_in') == FALSE){ 
             $this->load->view('template/template_user',$data);
         }else{
             $this->load->view('template/template_operator',$data);
@@ -348,10 +348,8 @@ class Peminjaman extends CI_Controller {
         $jenis_peminjaman = null;
         if($this->M_Peminjaman->cekIdPeminjaman($id_peminjaman) != false){
             foreach ($peminjaman as $u){ $jenis_peminjaman = $u->jenis_peminjaman; }
-            $data['main_view'] = 'peminjaman/v_detailPeminjaman';
-            $data['peminjaman'] = $this->M_Peminjaman->getDataPeminjaman($id_peminjaman,$jenis_peminjaman);
-            $data['sarana'] = $this->M_Peminjaman->getSaranaPeminjamanById($id_peminjaman,$jenis_peminjaman);
-            $this->load->view('template/template_user',$data);
+            
+        redirect('peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$u->jenis_peminjaman);
         }else{
             $this->session->set_flashdata('notif', "ID peminjaman tidak ditemukan");
             redirect('peminjaman/formCekPeminjaman');

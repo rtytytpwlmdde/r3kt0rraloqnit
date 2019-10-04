@@ -3,6 +3,12 @@ body table tr td{
     color:#3f3f3f;
   }
   
+  .bg-login-images {
+    background: url("https://source.unsplash.com/F8t2VGnI47I/600x800");
+    background-position: center;
+    background-size: cover;
+  }
+
   .bg-thead{
     background-color: rgb(79, 96, 116);
   }

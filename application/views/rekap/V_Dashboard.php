@@ -60,8 +60,8 @@
                 </div>
                 
                 <div class="card-body">
-                  <div class=""  style="width: 800px; height: 500px;">
-                    <div id="columnchart_material" style="width: 1000px; height: 500px;"></div>
+                  <div class=""  style="width: 800px; height: 400px;">
+                    <div id="columnchart_material" style="width: 650px; height: 400px;"></div>
                   </div>
                 </div>
               </div>
@@ -76,19 +76,11 @@
                   </div>
                 </div>
                 <div class="card-body">
-                  <div class="chart-pie pt-4 pb-2"  style="height:500px;">
+                  <div class="chart-pie pt-4 pb-2"  style="height:400px;">
                   <div id="chart_div"></div>
                   </div>
                   <div class="mt-4 text-center small">
-                    <span class="mr-2">
-                      <i class="fas fa-circle" style="color:#c50404;"></i> Setuju - 
-                    </span>
-                    <span class="mr-2">
-                      <i class="fas fa-circle" style="color:#e34a43;"></i> Tolak - 
-                    </span>
-                    <span class="mr-2">
-                      <i class="fas fa-circle" style="color:#e3ca43;"></i> Belum Diproses 
-                    </span>
+                    
                   </div>
                 </div>
               </div>
@@ -124,8 +116,8 @@
         ]);
         // Set chart options
         var options = {'title':'Status Peminjaman',
-                       'width':500,
-                       'height':300};
+                       'width':300,
+                       'height':200};
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));

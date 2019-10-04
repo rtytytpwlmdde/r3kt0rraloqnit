@@ -32,7 +32,7 @@
         <div class="card o-hidden border-0 shadow-lg my-5">
           <div class="card-body p-0 ">
             <div class="row ">
-              <div class="col-lg-6 d-none d-lg-block bg-login-image bg-primary">
+              <div class="col-lg-6 d-none d-lg-block bg-login-images bg-primary">
               <div class="p-5 my-3 text-center">
               <img class="d-block mx-auto mb-4" src="<?php echo base_url('assets/img/ub.png'); ?>" alt="" width="90" height="90">
               <h5 class="text-white">UNIVERSITAS BRAWIJAYA</h5>

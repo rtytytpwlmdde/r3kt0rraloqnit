@@ -13,7 +13,7 @@ class Agenda extends CI_Controller {
 	{
         $data['agenda'] = $this->m_agenda->getDataAgenda()->result();
 		$data['main_view'] = 'agenda/v_list_agenda';
-		if($this->session->userdata('status') == "pengguna"){ 
+		if($this->session->userdata('status') == "pengguna" || $this->session->userdata('logged_in') == FALSE){ 
             $this->load->view('template/template_user',$data);
         }else{
             $this->load->view('template/template_operator',$data);
