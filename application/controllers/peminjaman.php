@@ -39,8 +39,8 @@ class Peminjaman extends CI_Controller {
 
 
     function historyPeminjaman(){
-        if($this->session->userdata('status') == "sekretariat kuliah"){
-            $data['peminjaman'] = $this->M_Peminjaman->getDataPeminjaman("kelas")->result();
+        if($this->session->userdata('status') == "pengguna"){
+            $data['peminjaman'] = $this->M_Peminjaman->getDataPeminjamanByMahasiswa()->result();
         }else if($this->session->userdata('status') == "staff pelayanan"){
             $data['peminjaman'] = $this->M_Peminjaman->getDataPeminjaman("nonkelas")->result();
         }else {

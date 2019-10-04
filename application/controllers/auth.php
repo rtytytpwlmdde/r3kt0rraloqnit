@@ -33,6 +33,8 @@ class Auth extends CI_Controller {
 					}else{
 						redirect('kasubag_akademik/index');
 					}
+				}else if($this->M_Auth->cek_mahasiswa() == TRUE){
+					redirect('agenda');
 				}else{
 					$this->session->set_flashdata('notifsukses', 'Username atau Password salah');
 					redirect('auth/login');

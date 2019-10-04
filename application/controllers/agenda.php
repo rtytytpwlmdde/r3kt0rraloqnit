@@ -7,11 +7,13 @@ class Agenda extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->model('m_agenda');
+		$this->load->model('m_peminjaman');
 	}
 
 	public function index()
 	{
         $data['agenda'] = $this->m_agenda->getDataAgenda()->result();
+        $data['waktu'] = $this->m_peminjaman->getDataWaktu()->result();
 		$data['main_view'] = 'agenda/v_list_agenda';
 		if($this->session->userdata('status') == "pengguna" || $this->session->userdata('logged_in') == FALSE){ 
             $this->load->view('template/template_user',$data);

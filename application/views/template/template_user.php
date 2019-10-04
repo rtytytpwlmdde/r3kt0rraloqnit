@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Gazebo - UB</title>
+  <title>SIBORU - UB</title>
   <link rel="icon" href="<?php echo base_url() ?>/assets/img/ub.png">
   <!-- Custom fonts for this template-->
   <link href="<?php echo base_url() ?>/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -33,7 +33,7 @@
     <div class="">
         <nav class="navbar navbar-expand-lg navbar-light bg-biru shadow">
           <div class="container">
-            <a class="navbar-brand text-white " href="<?php echo base_url('agenda'); ?>"><img src="<?php echo base_url(); ?>/assets/img/ub.png" width="35" height="35" alt=""> Gazebo <sup>UB</sup></a>
+            <a class="navbar-brand text-white " href="<?php echo base_url('agenda'); ?>"><img src="<?php echo base_url(); ?>/assets/img/ub.png" width="35" height="35" alt=""> Siboru <sup>UB</sup></a>
             <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon text-white"></span>
             </button>
@@ -55,10 +55,21 @@
                 <li class="nav-item">
                     <a class="nav-link text-white" href="<?php echo base_url('peminjaman/formCekPeminjaman'); ?>">Cek Peminjaman</a>
                 </li>
-               
+               <?php
+                if($this->session->userdata('status') == "pengguna" ){ ?>
+                  <li class="nav-item">
+                      <a class="nav-link text-white" href="<?php echo base_url('peminjaman/historyPeminjaman'); ?>">History Peminjaman</a>
+                  </li>
+                <?php
+                }
+               ?>
                 </ul>
                 <form class="form-inline my-2 my-lg-0 ">
+                <?php if($this->session->userdata('logged_in') == FALSE){ ?>
                     <a class="my-2 my-sm-0 text-white" href="<?php echo base_url('auth/login') ?>">Login</a>
+                      <?php }else{ ?>
+                    <a class="my-2 my-sm-0 text-white" data-toggle="modal" data-target="#logoutModal" ><?= $this->session->userdata('nama')?></a>
+                      <?php }?>
                 </form>
             </div>
           </div>

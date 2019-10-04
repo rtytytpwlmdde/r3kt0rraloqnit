@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>GEZEBO - UB</title>
+  <title>SIBORU - UB</title>
   <link rel="icon" href="<?php echo base_url() ?>/assets/img/ub.png">
   <!-- Custom fonts for this template-->
   <link href="<?php echo base_url() ?>/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -38,7 +38,7 @@
         <div class="sidebar-brand-icon ">
           <img src="<?php echo base_url(); ?>/assets/img/ub.png" width="35" height="35" alt="">
         </div>
-        <div class="sidebar-brand-text mx-3 text-light">Gazebo <sup>UB</sup></div>
+        <div class="sidebar-brand-text mx-3 text-light">Siboru <sup>UB</sup></div>
       </a>
 
       <!-- Divider -->
@@ -250,7 +250,7 @@
       <footer class="sticky-footer ">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Gazebo UB</span>
+            <span>Copyright &copy; Siboru UB</span>
             <span>2019</span>
           </div>
         </div>

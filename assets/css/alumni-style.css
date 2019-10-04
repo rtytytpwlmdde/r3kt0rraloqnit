@@ -234,7 +234,7 @@ a.badge-kuning:focus, a.badge-kuning.focus {
   border-radius: .375rem;
 }
 .calendar .calendar-month {
-  background-color: #e63757;
+  background-color: #e6e337;
   color: #fff;
   border-radius: .375rem .375rem 0 0;
   padding: .25rem;
@@ -244,8 +244,8 @@ a.badge-kuning:focus, a.badge-kuning.focus {
 .calendar .calendar-day {
 font-size: 1.728rem;
 padding: .25rem;
-border: .125rem solid rgba(230,55,87,.3);
-    border-top-color: rgba(230, 55, 87, 0.3);
+border: .125rem solid rgba(227, 230, 55, 0.3);
+    border-top-color: rgba(230, 227, 55, 0.3);
     border-top-style: solid;
     border-top-width: 0.125rem;
 border-top: 0;

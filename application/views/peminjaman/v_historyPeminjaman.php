@@ -46,8 +46,7 @@
             <thead>
                 <tr>
                 <th class="text-center" scope="col">No</th>
-                <th class="text-center" scope="col">Id</th>
-                <th class="text-center" scope="col">Jenis</th>
+                <th class="text-center" scope="col">Kode Booking</th>
                 <th class="text-center" scope="col">Peminjam</th>
                 <th class="text-center" scope="col">Tanggal Peminjaman</th>
                 <th class="text-center" scope="col">Validasi</th>
@@ -64,7 +63,6 @@
                 <tr class="text-center">
                     <td><?php echo $no++; ?></td>
                     <td><a href="<?php echo site_url('Peminjaman/detailPeminjaman/'.$u->id_peminjaman.'/'.$u->jenis_peminjaman); ?>"><?php echo $u->id_peminjaman; ?></a></td>
-                    <td><?php echo $u->jenis_peminjaman;?></td>
                     <?php if($u->nama_mahasiswa == 'dosen'){ ?>
                         <td><?php echo $u->nama_mahasiswa; ?></td>
                     <?php }else{ ?>

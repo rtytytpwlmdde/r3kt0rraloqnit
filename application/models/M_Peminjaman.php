@@ -84,6 +84,18 @@ class M_Peminjaman extends CI_Model{
 		$query=$this->db->get();
 		return $query;
 	}
+
+	function getDataPeminjamanByMahasiswa(){
+		$operator = $this->session->userdata('username');
+        $this->db->select('*');
+        $this->db->from('peminjaman');
+		$this->db->join('mahasiswa','peminjaman.id_peminjam = mahasiswa.id_mahasiswa');
+		$this->db->join('sarana_peminjaman','peminjaman.id_peminjaman = sarana_peminjaman.id_peminjaman');
+		$this->db->join('ruangan','ruangan.id_ruangan = sarana_peminjaman.id_sarana');
+		$this->db->where('peminjaman.id_peminjam', $operator);;
+		$query=$this->db->get();
+		return $query;
+	}
 	
 	function getDetailPeminjaman($id_peminjaman, $jenis_peminjaman){
         $this->db->select('*');

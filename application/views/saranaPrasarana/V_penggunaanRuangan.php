@@ -8,7 +8,7 @@
             </div>
             <form class="pr-2 form-inline" action="<?php echo site_url('saranaPrasarana/penggunaanRuangan');?>"  method="get">
                 <div class="form-group mb-2">
-                    <input type="date" class="form-control-sm " >
+                    <input type="date" name="tanggal" class="form-control-sm " >
                 </div>
                 <button type="submit" class="btn btn-sm btn-primary mb-2">Search</button>
             </form>
@@ -22,7 +22,12 @@
                         <tr>
                                 <th>R/J</th>
                                 <?php foreach ($waktu as $r){?>
-                                <th style="font-size:10px;"><?= $r->nama_waktu?></th>
+                                <th style="font-size:10px;">
+                            <?php 
+                             $mulai = explode("-", $r->nama_waktu);
+                             $start = $mulai[0];
+                             ?><?= $start?>
+                                </th>
                                 <?php }?>
                         </tr>
                     </thead>
@@ -30,7 +35,7 @@
                     <?php 
                             foreach ($ruangan as $r){?>
                         <tr>
-                            <th><?php echo $r->nama_ruangan?></th>
+                            <th class="text-left"><?php echo $r->nama_ruangan?></th>
                             <?php 
                             foreach ($waktu as $w){
                                 $result = 0;
