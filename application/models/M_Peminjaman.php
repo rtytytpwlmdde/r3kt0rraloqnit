@@ -298,14 +298,13 @@ class M_Peminjaman extends CI_Model{
 	}
 
 	function getDataPeminjamanNonKelasBarang(){
-		$jenis = $this->input->get('jenis');
+		$status = $this->input->post('status');
         $this->db->select('*');
 		$this->db->from('peminjaman');
 		$this->db->join('mahasiswa','peminjaman.id_peminjam = mahasiswa.id_mahasiswa');
-		if($jenis != NULL){
-			$this->db->where('peminjaman.jenis_peminjaman',$jenis);
+		if($status != NULL){
+			$this->db->where('peminjaman.validasi_akademik',$status);
 		}
-		$this->db->where('peminjaman.validasi_akademik !=','pending');
 		$query=$this->db->get();
 		return $query;
 	}

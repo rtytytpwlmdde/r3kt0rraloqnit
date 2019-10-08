@@ -37,12 +37,26 @@ if($this->session->userdata('status') == "pengguna"){
                 </div>
                 <div class="col-6 col-md-4">
                     <div class="d-flex flex-row-reverse bd-highlight">
-                    <form class="pr-2 form-inline">
-                        <div class="form-group mb-2">
-                            <input type="text" class="form-control-sm " placeholder="search">
+                        <button class="btn btn-sm btn-secondary dropdown-toggle mb-2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Filter
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <form action="<?php  echo base_url('peminjaman/historyPeminjaman'); ?>" method="post"><input hidden name="status" value="setuju">
+                                <button class="dropdown-item text-success" type="submit">Setuju</button>
+                            </form>
+                            <form action="<?php  echo base_url('peminjaman/historyPeminjaman'); ?>" method="post"><input hidden name="status" value="tolak">
+                                <button class="dropdown-item text-danger" type="submit">Tolak</button>
+                            </form>
+                            <form action="<?php  echo base_url('peminjaman/historyPeminjaman'); ?>" method="post"><input hidden name="status" value="terkirim">
+                                <button class="dropdown-item text-warning" type="submit">Terkirim</button>
+                            </form>
                         </div>
-                        <button type="submit" class="btn btn-sm btn-primary mb-2">Search</button>
-                    </form>
+                        <form class="pr-2 form-inline">
+                            <div class="form-group mb-2">
+                                <input type="text" class="form-control-sm " placeholder="search">
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-primary mb-2">Search</button>
+                        </form>
                     </div>
                 </div>
             </div>

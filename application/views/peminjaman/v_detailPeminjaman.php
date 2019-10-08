@@ -18,9 +18,9 @@
              <?php 
                 foreach ($peminjaman as $u){ 
              ?>
-                <tr>
-                    <td>Kode Peminjaman</td>
-                    <td><?= $u->id_peminjaman; ?></td>
+                <tr class="bg-thead ">
+                    <td class="text-white">Kode Peminjaman</td>
+                    <td class="text-white"><?= $u->id_peminjaman; ?></td>
                 </tr>
                 <tr>
                     <td>Tanggal Peminjaman</td>
