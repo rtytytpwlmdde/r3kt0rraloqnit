@@ -38,7 +38,7 @@
         </div>
     <div class="kotak py-2 px-2 shadow" >
         <table class="table table-bordered" id="tblmatakuliah">
-            <thead>
+            <thead class="bg-thead text-white">
                 <tr>
                 <th class="text-center" scope="col">No</th>
                 <th class="text-center" scope="col">NIK</th>

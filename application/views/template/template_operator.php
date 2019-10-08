@@ -70,13 +70,14 @@
       </li>
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
+        <i class="fas fa-database"></i>
           <span>Master Data</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<?php echo base_url('user/operator'); ?>">Operator</a>
             <a class="collapse-item" href="<?php echo base_url('saranaPrasarana/ruangan'); ?>">Ruangan</a>
+            <a class="collapse-item" href="<?php echo base_url('user/user'); ?>">User</a>
           </div>
         </div>
       </li>
@@ -163,52 +164,22 @@
             </li>
 
             <!-- Nav Item - Alerts -->
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle text-white" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <li class="nav-item dropdown no-arrow mx-1"><?php foreach($jumlahPeminjaman as $u){ $jumPeminjaman =  $u->jumPeminjamanTerkirim; }?>
+              <a class="nav-link dropdown-toggle text-white" title="Terdapat <?= $jumPeminjaman?> Peminjaman Yang Belum Di Proses" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter">3+</span>
+                <span class="badge badge-danger badge-counter" > <?= $jumPeminjaman?> </span>
               </a>
               <!-- Dropdown - Alerts -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                <h6 class="dropdown-header">
-                  Terdapat Peminjaman Yang Belum Di Proses
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-warning">
-                      <i class="fas fa-file-alt text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 12, 2019</div>
-                    <span class="font-weight-bold">Ruang Samanta Krida</span>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-warning">
-                      <i class="fas fa-donate text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 7, 2019</div>
-                    <span class="font-weight-bold">Ruang Samanta Krida</span>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-warning">
-                      <i class="fas fa-exclamation-triangle text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 2, 2019</div>
-                    <span class="font-weight-bold">Ruang Samanta Krida</span>
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Tampilkan Semua Ruangan Yang Belum Diproses</a>
-              </div>
+            </li>
+            <li class="nav-item dropdown no-arrow mx-1"><?php foreach($jumlahUser as $u){ $jumUser =  $u->jumUserBaru; }?>
+              <a class="nav-link dropdown-toggle text-white" title="Terdapat <?= $jumUser?> User Baru Yang Belum Divalidasi" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bell fa-fw"></i>
+                <!-- Counter - Alerts -->
+                <span class="badge badge-danger badge-counter" > <?= $jumUser?> </span>
+              </a>
+              <!-- Dropdown - Alerts -->
+             
             </li>
 
          

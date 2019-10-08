@@ -17,7 +17,7 @@
             <?php foreach($agenda as $u){?>
             <div class="media">
                 <div class="calendar">
-                    <span class="calendar-month mt-2">
+                    <span class="calendar-month mt-0">
                     <?php
                         $date=date_create($u->tanggal_mulai_penggunaan);
                         echo date_format($date,"M");
@@ -31,9 +31,9 @@
                     </span>
                 </div>
                 <div class="position-relative pl-3 media-body">
-                    <h4 class="fs-0 mb-0"><a href="/pages/event-detail"><?= $u->keterangan?></a> </h4>
-                    <small class="mb-1">Organized by <a class="text-700" href="/pages/profile#!"><?= $u->penyelenggara?></a></small><br>
-                    <p class="text-1000 mb-0">Duration: 
+                    <h4 class="fs-0 mb-0"><a class=""><?= $u->keterangan?></a> </h4>
+                    <span class="mb-1">Penyelenggara <a class="text-700" ><?= $u->penyelenggara?></a></span> <i class="fas fa-clock text-warning ml-2"> </i>
+                    <span class="text-1000 mb-0">
                     <?php 
                         foreach($waktu as $w){
                             if($w->id_waktu == $u->jam_mulai){
@@ -45,8 +45,8 @@
                                 $end = $selesai[1];
                             }
                         }
-                        ?><?= $start?> - <?= $end?></p>
-                    <p class="mb-0">Place: <?= $u->nama_ruangan?></p>
+                        ?><?= $start?> - <?= $end?></span>
+                    <span class="mb-0 ml-2"><i class="fas fa-map-marker-alt text-warning"></i> <?= $u->nama_ruangan?></span>
                     <hr class="border-dashed border-bottom-0">
                 </div>
             </div>

@@ -8,30 +8,37 @@ class SaranaPrasarana extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->model('M_SaranaPrasarana');
 		$this->load->model('M_JadwalKuliah');
-		$this->load->model('M_Peminjaman');
+		$this->load->model('m_peminjaman');
 		$this->load->model('M_User');
 	}
 
 	public function index()
 	{
+		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
+		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
 		$data['main_view'] = 'SaranaPrasarana/V_Dashboard';
 		$this->load->view('template/template_operator', $data);
 	}
 
 // ruangan
     public function ruangan(){
+		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
+		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
         $data['ruangan'] = $this->M_SaranaPrasarana->getDataRuangan()->result();
         $data['main_view'] = 'SaranaPrasarana/V_ListRuangan';
         $this->load->view('template/template_operator', $data);
     }
 
     public function formTambahRuangan(){
+		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
+		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
 		$data['operator'] = $this->M_User->getDataOperator()->result();
         $data['main_view'] = 'SaranaPrasarana/V_TambahRuangan';
         $this->load->view('template/template_operator', $data);
     }
 
     public function tambahRuangan(){
+		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
         $nama_ruangan = $this->input->post('nama_ruangan');
         $jenis_ruangan = $this->input->post('jenis_ruangan');
         $id_operator = $this->input->post('id_operator');
@@ -53,6 +60,8 @@ class SaranaPrasarana extends CI_Controller {
     }
 
     function updateRuangan($id_ruangan){
+		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
+		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
         $data['main_view'] = 'SaranaPrasarana/v_EditRuangan';
 		$data['operator'] = $this->M_User->getDataOperator()->result();
         $data['ruangan'] = $this->M_SaranaPrasarana->getDataRuanganById($id_ruangan);
@@ -79,78 +88,7 @@ class SaranaPrasarana extends CI_Controller {
     }
 //akhir ruangan
 
-// barang
-public function barang(){
-	$data['barang'] = $this->M_SaranaPrasarana->getDataBarang()->result();
-	$data['main_view'] = 'SaranaPrasarana/V_ListBarang';
-	$this->load->view('template/template_operator', $data);
-}
 
-public function formTambahBarang(){
-	$data['main_view'] = 'SaranaPrasarana/V_TambahBarang';
-	$this->load->view('template/template_operator', $data);
-}
-
-public function tambahBarang(){
-	$nama_barang = $this->input->post('nama_barang');
-	$status_barang = "bagus";
-	$data = array(
-		'status_barang' => $status_barang,
-		'nama_barang' => $nama_barang
-	);
-	$this->M_SaranaPrasarana->tambahBarang($data,'barang');
-	$this->session->set_flashdata('notifsukses', "Data barang $id_barang berhasil ditambahkan");
-	redirect('SaranaPrasarana/barang');
-}
-
-function hapusBarang($id_barang){
-	$where = array('id_barang' => $id_barang);
-	$this->M_SaranaPrasarana->hapusBarang($where,'barang');
-	$this->session->set_flashdata('notifsukses', "Data barang $id_barang berhasil dihapus");
-	redirect('SaranaPrasarana/barang');
-}
-
-function updateBarang($id_barang){
-	$data['main_view'] = 'SaranaPrasarana/v_EditBarang';
-	$data['barang'] = $this->M_SaranaPrasarana->getDataBarangById($id_barang);
-	$this->load->view('template/template_operator',$data);
-}
-
-function editBarang(){
-	$id_barang = $this->input->post('id_barang');
-	$nama_barang = $this->input->post('nama_barang');
-	$status_barang = $this->input->post('status_barang');
-		
-	$data = array(
-		'status_barang' => $status_barang,
-		'nama_barang' => $nama_barang
-	);
-
-	$where = array('id_barang' => $id_barang);
-
-	$this->M_SaranaPrasarana->updateBarang($where,$data,'barang');
-	$this->session->set_flashdata('notifsukses', "Data barang $id_barang berhasil diubah");
-	redirect('SaranaPrasarana/barang');
-}
-
-function petaPenggunaanRuanganKelas(){
-	$tanggal = $this->input->get('tanggal');
-	if($tanggal == NULL){
-		$tanggal = date("Y-m-d");
-	}
-	$level = $this->session->userdata('status');
-	$data['jadwalKuliah'] = $this->M_JadwalKuliah->getJadwalKuliah();
-	$data['jam_kuliah'] = $this->M_JadwalKuliah->getDataJamKuliah()->result();
-	$data['peminjaman'] = $this->M_Peminjaman->getPeminjaman();
-	$data['ruangan'] = $this->M_SaranaPrasarana->getDataRuanganKelas()->result();
-	$data['tanggal'] = $tanggal;
-	$data['main_view'] = 'SaranaPrasarana/V_PetaPenggunaanRuanganKelas';
-	if($level == 'admin'){
-		$this->load->view('template/template_operator',$data);
-	}else{
-		$this->load->view('template/template_user',$data);
-	}
-}
 
 function penggunaanRuangan(){
 	$tanggal = $this->input->get('tanggal');
@@ -158,10 +96,12 @@ function penggunaanRuangan(){
 		$tanggal = date("Y-m-d");
 	}
 	$level = $this->session->userdata('status');
-	$data['peminjaman'] = $this->M_Peminjaman->getSaranaPeminjaman('non kelas');
-	$data['waktu'] = $this->M_Peminjaman->getDataWaktu()->result();
+	$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+	$data['peminjaman'] = $this->m_peminjaman->getSaranaPeminjaman('non kelas');
+	$data['waktu'] = $this->m_peminjaman->getDataWaktu()->result();
 	$data['ruangan'] = $this->M_SaranaPrasarana->getDataRuanganNonKelas();
 	$data['tanggal'] = $tanggal;
+	$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 	$data['main_view'] = 'SaranaPrasarana/v_penggunaanRuangan';
 	if($level == 'admin'){
 		$this->load->view('template/template_operator',$data);
@@ -170,22 +110,6 @@ function penggunaanRuangan(){
 	}
 }
 
-function petaPenggunaanBarang(){
-	$tanggal = $this->input->get('tanggal');
-	if($tanggal == NULL){
-		$tanggal = date("Y-m-d");
-	}
-	$level = $this->session->userdata('status');
-	$data['peminjaman'] = $this->M_Peminjaman->getSaranaPeminjaman('barang');
-	$data['barang'] = $this->M_SaranaPrasarana->getDataBarang()->result();
-	$data['tanggal'] = $tanggal;
-	$data['main_view'] = 'SaranaPrasarana/V_PetaPenggunaanBarang';
-	if($level == 'admin'){
-		$this->load->view('template/template_operator',$data);
-	}else{
-		$this->load->view('template/template_user',$data);
-	}
-}
 
 //akhir barang
 }

@@ -60,7 +60,36 @@ class M_Peminjaman extends CI_Model{
 	function updateData($id,$data,$tabel){
 		$this->db->where($id);
 		$this->db->update($tabel,$data);
-    }
+	}
+	
+	function getDataPeminjamanTerkirim(){
+		$operator = $this->session->userdata('status');
+        $this->db->select('*');
+        $this->db->from('peminjaman');
+		$this->db->join('mahasiswa','peminjaman.id_peminjam = mahasiswa.id_mahasiswa');
+		$this->db->join('sarana_peminjaman','peminjaman.id_peminjaman = sarana_peminjaman.id_peminjaman');
+		$this->db->join('ruangan','ruangan.id_ruangan = sarana_peminjaman.id_sarana');
+		if($operator == "admin"){
+		}else{
+			$this->db->where('ruangan.id_operator', $operator);
+		}
+		$this->db->where('peminjaman.validasi_akademik ','terkirim');
+		$query=$this->db->get();
+		return $query;
+	}
+
+	function getCountPeminjamanTerkirim(){
+		$operator = $this->session->userdata('status');
+		$this->db->select('id_peminjaman ,count(id_peminjaman) as jumPeminjamanTerkirim');
+        $this->db->from('peminjaman');
+		if($operator == "admin"){
+		}else{
+			//$this->db->where('ruangan.id_operator', $operator);
+		}
+		$this->db->where('validasi_akademik ','terkirim');
+		$query=$this->db->get();
+		return $query->result();
+	}
 	
 	function getDataPeminjaman($jenis_peminjaman){
 		$operator = $this->session->userdata('username');

@@ -7,16 +7,21 @@ class User extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->model('M_User');
+		$this->load->model('m_peminjaman');
 	}
 
 // operator
 	public function operator(){
+		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
 		$data['operator'] = $this->M_User->getDataOperator()->result();
+		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['main_view'] = 'User/V_ListOperator';
 		$this->load->view('template/template_operator', $data);
 	}
 
 	public function formTambahOperator(){
+		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['main_view'] = 'User/V_TambahOperator';
 		$this->load->view('template/template_operator', $data);
 	}
@@ -48,6 +53,8 @@ class User extends CI_Controller {
 	}
 
 	function updateOperator($username){
+		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
+		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
 		$data['main_view'] = 'User/V_EditOperator';
 		$data['operator'] = $this->M_User->getDataOperatorById($username);
 		$this->load->view('template/template_operator',$data);
@@ -74,12 +81,16 @@ class User extends CI_Controller {
 
 // dosen
     public function dosen(){
+		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
+		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
         $data['dosen'] = $this->M_User->getDataDosen()->result();
         $data['main_view'] = 'User/V_ListDosen';
         $this->load->view('template/template_operator', $data);
     }
 
     public function formTambahDosen(){
+		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
+		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
         $data['main_view'] = 'User/V_TambahDosen';
         $this->load->view('template/template_operator', $data);
     }
@@ -110,6 +121,8 @@ class User extends CI_Controller {
     }
 
     function updateDosen($id_dosen){
+		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
+		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
         $data['main_view'] = 'User/V_EditDosen';
         $data['dosen'] = $this->M_User->getDataDosenById($id_dosen);
         $this->load->view('template/template_operator',$data);
@@ -133,20 +146,25 @@ class User extends CI_Controller {
 //akhir dosen
 
 // mahasiswa
-    public function mahasiswa(){
+    public function user(){
+		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
         $data['mahasiswa'] = $this->M_User->getDataMahasiswa()->result();
         $data['main_view'] = 'User/V_ListMahasiswa';
         $this->load->view('template/template_operator', $data);
     }
 
-    public function formTambahMahasiswa(){
+    public function formTambahUser(){
+		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
+		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
         $data['main_view'] = 'User/V_TambahMahasiswa';
         $this->load->view('template/template_operator', $data);
     }
 
-    public function tambahMahasiswa(){
+    public function tambahUser(){
         $id_mahasiswa = $this->input->post('id_mahasiswa');
         $nama_mahasiswa = $this->input->post('nama_mahasiswa');
+        $status_mahasiswa = 'belum divalidasi';
         
         if($this->M_User->cek_id_mahasiswa() == TRUE){
             $this->session->set_flashdata('notif', "nik $id_mahasiswa sudah terdaftar didatabase");
@@ -154,7 +172,8 @@ class User extends CI_Controller {
         }else{
             $data = array(
                 'id_mahasiswa' => $id_mahasiswa,
-                'nama_mahasiswa' => $nama_mahasiswa
+                'nama_mahasiswa' => $nama_mahasiswa,
+                'status_mahasiswa' => $status_mahasiswa
             );
             $this->M_User->tambahUser($data,'mahasiswa');
             $this->session->set_flashdata('notifsukses', "Data mahasiswa berhasil ditambahkan");
@@ -162,23 +181,24 @@ class User extends CI_Controller {
         }
     }
 
-    function hapusMahasiswa($id_mahasiswa){
+    function hapusUser($id_mahasiswa){
         $where = array('id_mahasiswa' => $id_mahasiswa);
         $this->M_User->hapusUser($where,'mahasiswa');
         $this->session->set_flashdata('notifsukses', "Data mahasiswa berhasil dihapus");
         redirect('User/mahasiswa');
     }
 
-    function updateMahasiswa($id_mahasiswa){
+    function updateUser($id_mahasiswa){
+		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
+		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
         $data['main_view'] = 'User/V_EditMahasiswa';
         $data['mahasiswa'] = $this->M_User->getDataMahasiswaById($id_mahasiswa);
         $this->load->view('template/template_operator',$data);
     }
 
-    function editMahasiswa(){
+    function editUser(){
         $id_mahasiswa = $this->input->post('id_mahasiswa');
         $nama_mahasiswa = $this->input->post('nama_mahasiswa');
-            
         $data = array(
             'id_mahasiswa' => $id_mahasiswa,
             'nama_mahasiswa' => $nama_mahasiswa
@@ -190,57 +210,5 @@ class User extends CI_Controller {
         $this->session->set_flashdata('notifsukses', "Data mahasiswa berhasil diubah");
         redirect('User/mahasiswa');
     }
-//akhir mahasiswa
 
-public function lembaga(){
-    $data['lembaga'] = $this->M_User->getDataLembaga()->result();
-    $data['main_view'] = 'User/V_ListLembaga';
-    $this->load->view('template/template_operator', $data);
-}
-
-public function formTambahLembaga(){
-    $data['main_view'] = 'User/V_TambahLembaga';
-    $this->load->view('template/template_operator', $data);
-}
-
-public function tambahLembaga(){
-    $id_lembaga = $this->input->post('id_lembaga');
-    $nama_lembaga = $this->input->post('nama_lembaga');
-    $data = array(
-        'id_lembaga' => $id_lembaga,
-        'nama_lembaga' => $nama_lembaga
-    );
-    $this->M_User->tambahUser($data,'lembaga');
-    $this->session->set_flashdata('notifsukses', "Data lembaga berhasil ditambahkan");
-    redirect('User/lembaga');
-}
-
-function hapusLembaga($id_lembaga){
-    $where = array('id_lembaga' => $id_lembaga);
-    $this->M_User->hapusUser($where,'lembaga');
-    $this->session->set_flashdata('notifsukses', "Data lembaga berhasil dihapus");
-    redirect('User/lembaga');
-}
-
-function updateLembaga($id_lembaga){
-    $data['main_view'] = 'User/V_EditLembaga';
-    $data['lembaga'] = $this->M_User->getDataLembagaById($id_lembaga);
-    $this->load->view('template/template_operator',$data);
-}
-
-function editLembaga(){
-    $id_lembaga = $this->input->post('id_lembaga');
-    $nama_lembaga = $this->input->post('nama_lembaga');
-        
-    $data = array(
-        'id_lembaga' => $id_lembaga,
-        'nama_lembaga' => $nama_lembaga
-    );
-
-    $where = array('id_lembaga' => $id_lembaga);
-
-    $this->M_User->updateUser($where,$data,'lembaga');
-    $this->session->set_flashdata('notifsukses', "Data lembaga berhasil diubah");
-    redirect('User/lembaga');
-}
 }

@@ -65,7 +65,15 @@ class M_User extends CI_Model{
 		$this->db->where('id_dosen',$id_dosen);
 		$query=$this->db->get();
 		return $query->result();
-    }
+		}
+		
+		function getCountUserBaru(){
+			$this->db->select('id_mahasiswa ,count(id_mahasiswa) as jumUserBaru');
+			$this->db->from('mahasiswa');
+			$this->db->where('status_mahasiswa','belum divalidasi');
+			$query = $this->db->get();
+			return $query->result();
+		}
 
     public function cek_id_dosen(){
 		$id_dosen = $this->input->post('id_dosen');
@@ -79,7 +87,14 @@ class M_User extends CI_Model{
     }
     
     function getDataMahasiswa(){
-        return $this->db->get('mahasiswa');
+			$status_mahasiswa = $this->input->post('status_mahasiswa');
+			$this->db->select('*');
+			$this->db->from('mahasiswa');
+			if($status_mahasiswa != null){
+				$this->db->where('status_mahasiswa',$status_mahasiswa);
+			}
+			$query=$this->db->get();
+			return $query;
     }
 
     function getDataMahasiswaById($id_mahasiswa){

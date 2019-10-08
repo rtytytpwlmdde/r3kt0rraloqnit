@@ -43,21 +43,27 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Gazebo UB</h1>
                   </div>
-                  <form class="user" action="<?php echo base_url().'auth/cek_login'; ?>" method="post">
+                  <form class="user" action="<?php echo base_url().'auth/register'; ?>" method="post">
                     <div class="form-group">
-                      <input required type="text" name="username" class="form-control form-control-user" placeholder="Username">
+                      <input required type="text" name="id_mahasiswa" class="form-control form-control-user" placeholder="NIM">
+                    </div>
+                    <div class="form-group">
+                      <input required type="text" name="nama_mahasiswa" class="form-control form-control-user" placeholder="Nama">
                     </div>
                     <div class="form-group">
                       <input required type="password" name="password" class="form-control form-control-user" placeholder="Password">
                     </div>
+                    <div class="form-group">
+                      <input required type="password" name="passwsord" class="form-control form-control-user" placeholder="Masukkan Password Anda Sekali Lagi">
+                    </div>
                     <button type="submit" class="btn btn-primary btn-user btn-block">
-                      Login
+                      Daftar
                     </button>
                   </form>
                   <hr>
                   <div class="text-center">
                     <a class="small" href="forgot-password.html">Lupa Password?</a>
-                    <a class="small ml-2" href="<?php echo base_url().'auth/formRegister'; ?>">Daftar</a>
+                    <a class="small ml-2" href="<?php echo base_url().'auth/login'; ?>">Login</a>
                   </div>
                 </div>
               </div>

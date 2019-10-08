@@ -2,32 +2,36 @@
     <div class="container">
 <?php }else{?><div class="">
 <?php }?>
-  <div class="row mt-4 ml-2">
-    <div class="col-md-4 order-md-2 mb-4">
-      <h4 class="d-flex justify-content-between align-items-center mb-3">
-        <span class="text-muted">Pilih Ruangan</span>
-        <a  data-toggle="modal" data-target="#modalPanduan"><span class="" title="panduan"><i class="far fa-question-circle"></i></span></a>
-      </h4>
-      <ul class="list-group mb-3">
-        <li class="list-group-item d-flex justify-content-between lh-condensed">
-          <div>
-            <h6 class="my-0"></h6>
-            <small class="text-muted">Ruangan yang dapat dipinjam akan tampil setelah form data peminjaman diisi dan user telah menekan tombol "Lanjut ke proses selanjutnya"</small>
-          </div>
-          <span class="text-muted"></span>
-        </li>
-      </ul>
-
+  <div class="row mt-4 ">
     
+
+
+    <div class="col-md-4 order-md-2 mb-4">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-thead text-white">
+          <h6 class="m-0 font-weight-bold  d-flex justify-content-between">Pilih Ruangan 
+            <a  data-toggle="modal" data-target="#modalPanduan"><span class="" title="panduan"><i class="far fa-question-circle"></i></span></a></h6>
+        </div>
+        <div class="card-body">
+          <small class="text-muted">Ruangan yang dapat dipinjam akan tampil setelah form data peminjaman diisi dan user telah menekan tombol "Lanjut ke proses selanjutnya"</small>
+        </div>
+      </div>
     </div>
-    <div class="col-md-8 order-md-1 card shadow mb-2 pb-2">
-      <h4 class="mb-3">Form Data Peminjaman</h4>
-      <form class="user" action="<?php echo base_url().'peminjaman/tambahPeminjaman'; ?>" method="post">
+    
+
+
+    <div class="col-md-8 order-md-1 mb-2 pb-2">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-thead text-white">
+          <h6 class="m-0 font-weight-bold ">Form Data Peminjaman</h6>
+        </div>
+        <div class="card-body">
+          <form class="user" action="<?php echo base_url().'peminjaman/tambahPeminjaman'; ?>" method="post">
             <div class="form-group">
                 <label for="exampleFormControlSelect1">NIM Peminjam</label>
                 <?php if($this->session->userdata('status') == 'pengguna'){ ?>
-                 <?php }else{ ?>
-                 <?php }?>
+                <?php }else{ ?>
+                <?php }?>
                 <?php ?>
                 <input type="text"  required name="id_peminjam" class="form-control " placeholder="masukkan nim/nik sebagai identitas peminjam">
             </div>
@@ -36,38 +40,38 @@
                 <input type="date"  required name="tanggal_mulai_penggunaan" class="form-control " placeholder="masukkan nim/nik sebagai identitas peminjam">
             </div>
             <div class="row">
-            <div class="col-md-6 mb-3">
-                <div class="form-group">
-                    <label for="exampleFormControlSelect1">Jam Mulai</label>
-                    <select name="jam_mulai" required class="form-control" id="exampleFormControlSelect1">
-                            <?php foreach ($waktu as $u) { 
-                              $pieces = explode("-", $u->nama_waktu);
-                              $start = $pieces[0];
-                              $end = $pieces[1];
-                              ?>
-                            <option value="<?= $u->id_waktu ?>">
-                            <?= $start?>
-                            </option>
-                        <?php } ?>         
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-6 mb-3">
-                <div class="form-group">
-                    <label for="exampleFormControlSelect1">Jam Selesai</label>
-                    <select name="jam_selesai" required class="form-control" id="exampleFormControlSelect1">
-                       <?php foreach ($waktu as $u) { 
-                              $pieces = explode("-", $u->nama_waktu);
-                              $start = $pieces[0];
-                              $end = $pieces[1];
-                              ?>
-                            <option value="<?= $u->id_waktu ?>">
-                            <?= $end?>
-                            </option>
-                        <?php } ?>        
-                    </select>
-                </div>
-            </div>
+              <div class="col-md-6 mb-3">
+                  <div class="form-group">
+                      <label for="exampleFormControlSelect1">Jam Mulai</label>
+                      <select name="jam_mulai" required class="form-control" id="exampleFormControlSelect1">
+                              <?php foreach ($waktu as $u) { 
+                                $pieces = explode("-", $u->nama_waktu);
+                                $start = $pieces[0];
+                                $end = $pieces[1];
+                                ?>
+                              <option value="<?= $u->id_waktu ?>">
+                              <?= $start?>
+                              </option>
+                          <?php } ?>         
+                      </select>
+                  </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                  <div class="form-group">
+                      <label for="exampleFormControlSelect1">Jam Selesai</label>
+                      <select name="jam_selesai" required class="form-control" id="exampleFormControlSelect1">
+                        <?php foreach ($waktu as $u) { 
+                                $pieces = explode("-", $u->nama_waktu);
+                                $start = $pieces[0];
+                                $end = $pieces[1];
+                                ?>
+                              <option value="<?= $u->id_waktu ?>">
+                              <?= $end?>
+                              </option>
+                          <?php } ?>        
+                      </select>
+                  </div>
+              </div>
             </div>
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Penyelenggara</label>
@@ -77,11 +81,18 @@
                 <label for="">Keterangan Kegiatan</label>
                 <textarea class="form-control"  name="keterangan" rows="3"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary btn-user btn-block">
-                Lanjut ke proses selanjutnya
-            </button>
-        </form> 
-      
+            <?php if($this->session->userdata('status_validasi') == 'belum divalidasi' || $this->session->userdata('status_validasi') == 'tidak valid'){?>
+              <a href="#" class="btn btn-secondary btn-user btn-block">
+                  Peminjaman tidak dapat dilakukan, Silahkan validasi akun anda terlebih dahulu dengan menghubungi operator
+              </a>
+             <?php }else{ ?>
+              <button type="submit" class="btn btn-primary btn-user btn-block">
+                  Lanjut ke proses selanjutnya
+              </button>
+            <?php }?>
+          </form> 
+        </div>
+      </div>
     </div>
   </div>
 

@@ -15,12 +15,12 @@
           </div>
 
           <!-- Content Row -->
-          <div class="row px-2 py-2 card shadow">
+          <div class="row card  shadow">
             <div class="table-responsive ">
-                <table class="table table-bordered text-center ">
-                    <thead class="bg-thead text-white">
+                <table class="table table-sm table-penggunaan-ruangan table-bordered mx-0 text-center " >
+                    <thead class="bg-thead text-white" >
                         <tr>
-                                <th>R/J</th>
+                                <th style="font-size:14px;" class="text-left">R/J</th>
                                 <?php foreach ($waktu as $r){?>
                                 <th style="font-size:10px;">
                             <?php 
@@ -35,7 +35,7 @@
                     <?php 
                             foreach ($ruangan as $r){?>
                         <tr>
-                            <th class="text-left"><?php echo $r->nama_ruangan?></th>
+                            <th class="text-left" style="font-size:14px;"><?php echo $r->nama_ruangan?></th>
                             <?php 
                             foreach ($waktu as $w){
                                 $result = 0;

@@ -259,6 +259,11 @@ font-weight: 700;
 box-shadow: 0 7px 14px 0 rgba(59,65,94,.1),0 3px 6px 0 rgba(0,0,0,.07);
 }
 
+.chart {
+  width: 100%; 
+  min-height: 450px;
+}
+
 
 
 

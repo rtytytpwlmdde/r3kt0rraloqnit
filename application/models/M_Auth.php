@@ -35,6 +35,7 @@ class M_Auth extends CI_Model{
 									'logged_in' => TRUE,
 									'username' => $data_login->id_mahasiswa,
 									'nama' => $data_login->nama_mahasiswa,
+									'status_validasi' => $data_login->status_mahasiswa,
 									'status' => 'pengguna',
 								);
 			$this->session->set_userdata($data_session);

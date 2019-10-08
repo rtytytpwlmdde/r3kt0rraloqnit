@@ -19,7 +19,7 @@
                 </div>
             <div class="card py-2 px-2 shadow" >
                 <table class="table table-bordered">
-                    <thead>
+                    <thead class="bg-thead text-white">
                         <tr>
                         <th class="text-center" scope="col">Jan</th>
                         <th class="text-center" scope="col">Feb</th>

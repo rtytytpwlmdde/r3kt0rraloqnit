@@ -53,15 +53,15 @@
           <div class="row">
             <div class="col-xl-8 col-lg-7">
               <div class="card shadow mb-4">
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Grafik Jumlah Peminjaman</h6>
+                <div class="card-header bg-thead  py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-white">Grafik Jumlah Peminjaman</h6>
                   <div  class="dropdown  no-arrow">
                   </div>
                 </div>
                 
                 <div class="card-body">
-                  <div class=""  style="width: 800px; height: 400px;">
-                    <div id="columnchart_material" style="width: 650px; height: 400px;"></div>
+                  <div class="" >
+                    <div class="chart" id="columnchart_material"></div>
                   </div>
                 </div>
               </div>
@@ -70,14 +70,14 @@
             <!-- Pie Chart -->
             <div class="col-xl-4 col-lg-5">
               <div class="card shadow mb-4">
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Status Peminjaman</h6>
+                <div class="card-header bg-thead  py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-white">Status Peminjaman</h6>
                   <div class="dropdown  no-arrow">
                   </div>
                 </div>
                 <div class="card-body">
-                  <div class="chart-pie pt-4 pb-2"  style="height:400px;">
-                  <div id="chart_div"></div>
+                  <div class="chart-pie pt-4 pb-2"  >
+                  <div class="chart" id="chart_div"></div>
                   </div>
                   <div class="mt-4 text-center small">
                     

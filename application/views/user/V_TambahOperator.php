@@ -24,41 +24,36 @@
             ';
         }
     ?>
-    <div class="mt-2">
-            <div class="row py-2 ">
-                <div class="col-6 col-md-8 ">
-                    <h3 class="text-muted">Tambah Data Operator</h3>
-                </div>
-                <div class="col-6 col-md-4">
-                    <div class="d-flex flex-row-reverse bd-highlight">
-                    </div>
-                </div>
-            </div>
+
+<div class="card shadow mb-4 mt-2">
+        <div class="card-header bg-thead  py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-white">Tambah Data Operator</h6>
         </div>
-    <div class="kotak py-2 px-2 shadow" >
-        <form class="user" action="<?php echo base_url().'User/tambahOperator'; ?>" method="post">
-            <div class="form-group">
-                <label for="">Username</label>
-                <input required type="text" name="username" class="form-control form-control-user" placeholder="">
-            </div>
-            <div class="form-group">
-                <label for="">Passwprd</label>
-                <input required type="text" name="password" class="form-control form-control-user" placeholder="">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlSelect1">Status</label>
-                <select name="status_operator" class="form-control" id="exampleFormControlSelect1">
-                <option>admin</option>
-                <option>staff pelayanan</option>
-                <option>sekretariat kuliah</option>
-                <option>kasubag akademik</option>
-                <option>kasubag kemahasiswaan</option>
-                <option>kasubag umum</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary btn-user btn-block">
-                Tambah Operator
-            </button>
-        </form> 
+        <div class="card-body">
+            <form class="user" action="<?php echo base_url().'User/tambahOperator'; ?>" method="post">
+                <div class="form-group">
+                    <label for="">Username</label>
+                    <input required type="text" name="username" class="form-control" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="">Passwprd</label>
+                    <input required type="text" name="password" class="form-control" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Status</label>
+                    <select name="status_operator" class="form-control" id="exampleFormControlSelect1">
+                    <option>admin</option>
+                    <option>staff pelayanan</option>
+                    <option>sekretariat kuliah</option>
+                    <option>kasubag akademik</option>
+                    <option>kasubag kemahasiswaan</option>
+                    <option>kasubag umum</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-user btn-block">
+                    Tambah Operator
+                </button>
+            </form> 
+        </div>
     </div>
-</div>
+    

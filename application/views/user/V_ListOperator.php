@@ -31,14 +31,14 @@
                 </div>
                 <div class="col-6 col-md-4">
                     <div class="d-flex flex-row-reverse bd-highlight">
-                        <a class="btn btn-primary"  href="<?php  echo base_url('User/formTambahOperator'); ?>" role="button">Tambah Operator</a>
+                        <a class="btn btn-sm btn-primary"  href="<?php  echo base_url('User/formTambahOperator'); ?>" role="button">Tambah Operator</a>
                     </div>
                 </div>
             </div>
         </div>
-    <div class="card py-2 px-2 shadow" >
+    <div class="bg-white  shadow" >
         <table class="table table-bordered">
-            <thead>
+            <thead class="bg-thead text-white">
                 <tr>
                 <th class="text-center" scope="col">No</th>
                 <th class="text-center" scope="col">Username</th>
@@ -58,10 +58,10 @@
                     <td><?php echo $u->password;?></td>
                     <td><?php echo $u->status_operator;?></td>
                     <td >
-                        <a href="<?php echo site_url('user/updateOperator/'.$u->username); ?>"  class="btn btn-warning text-white" title="Edit">
+                        <a href="<?php echo site_url('user/updateOperator/'.$u->username); ?>"  class="btn btn-sm btn-warning text-white" title="Edit">
                         <i class="fas fa-pencil-alt"></i>
                         </a>
-                        <a href="<?php echo site_url('user/hapusOperator/'.$u->username); ?>"  class="btn btn-danger text-white"  title="Hapus">
+                        <a href="<?php echo site_url('user/hapusOperator/'.$u->username); ?>"  class="btn btn-sm btn-danger text-white"  title="Hapus">
                             <i class="fas fa-trash"></i>
                         </a>
                     </td>

@@ -9,6 +9,7 @@ class Rekap extends CI_Controller {
 		$this->load->model('M_Rekap');
 		$this->load->model('M_SaranaPrasarana');
 		$this->load->model('M_User');
+		$this->load->model('m_peminjaman');
     }
     
     function dashboard(){
@@ -17,6 +18,7 @@ class Rekap extends CI_Controller {
 			$tahun = date("Y");
 		}
 		$data['tahun'] = $tahun;
+		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
 		$data['peminjamanKelasPerBulan'] = $this->M_Rekap->getDataRekapPeminjamanKelasPerBulan();
 		$data['peminjamanKelasPertahun'] = $this->M_Rekap->getDataRekapPeminjamanKelasPerTahun();
 		$data['peminjamanNonKelasPerBulan'] = $this->M_Rekap->getDataRekapPeminjamanNonKelasPerBulan();
@@ -42,6 +44,7 @@ class Rekap extends CI_Controller {
 		$data['peminjamanSetujuPertahun'] = $this->M_Rekap->getDataRekapPeminjamanSetujuPertahun();
 		$data['peminjamanGagalPertahun'] = $this->M_Rekap->getDataRekapPeminjamanGagalPertahun();
 		$data['peminjamanPendingPertahun'] = $this->M_Rekap->getDataRekapPeminjamanPendingPertahun();
+		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['main_view'] = 'rekap/V_Dashboard';
 		$this->load->view('template/template_operator',$data);
 	}
@@ -52,6 +55,7 @@ class Rekap extends CI_Controller {
 			$tahun = date("Y");
 		}
 		$data['tahun'] = $tahun;
+		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
 		$data['peminjamanKelasPerBulan'] = $this->M_Rekap->getDataRekapPeminjamanKelasPerBulan();
 		$data['peminjamanKelasPertahun'] = $this->M_Rekap->getDataRekapPeminjamanKelasPerTahun();
 		$data['peminjamanNonKelasPerBulan'] = $this->M_Rekap->getDataRekapPeminjamanNonKelasPerBulan();
@@ -60,6 +64,7 @@ class Rekap extends CI_Controller {
 		$data['peminjamanBarangPertahun'] = $this->M_Rekap->getDataRekapPeminjamanBarangPerTahun();
 		$data['peminjamanPerBulan'] = $this->M_Rekap->getDataRekapPeminjamanPerBulan();
 		$data['peminjamanPertahun'] = $this->M_Rekap->getDataRekapPeminjamanPerTahun();
+		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['main_view'] = 'Rekap/V_RekapPeminjaman';
 		$this->load->view('template/template_operator',$data);
 	}
@@ -70,39 +75,14 @@ class Rekap extends CI_Controller {
 			$tahun = date("Y");
 		}
 		$data['tahun'] = $tahun;
+		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
 		$data['ruanganPerBulan'] = $this->M_Rekap->getDataRekapPemakaianRuanganPerBulan();
 		$data['ruanganPerTahun'] = $this->M_Rekap->getDataRekapPemakaianRuanganPerTahun();
         $data['ruangan'] = $this->M_SaranaPrasarana->getDataRuangan()->result();
+				$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['main_view'] = 'Rekap/V_RekapPemakaianRuangan';
 		$this->load->view('template/template_operator',$data);
 	}
 
-	function rekapPemakaianBarang(){
-		$tahun = $this->input->get('tahun');
-		if($tahun == NULL){
-			$tahun = date("Y");
-		}
-		$data['tahun'] = $tahun;
-		$data['barangPerBulan'] = $this->M_Rekap->getDataRekapPemakaianBarangPerBulan();
-		$data['barangPerTahun'] = $this->M_Rekap->getDataRekapPemakaianBarangPerTahun();
-        $data['barang'] = $this->M_SaranaPrasarana->getDataBarang()->result();
-		$data['main_view'] = 'Rekap/V_RekapPemakaianBarang';
-		$this->load->view('template/template_operator',$data);
-	}
 
-	function rekapComplaint(){
-		$tahun = $this->input->get('tahun');
-		if($tahun == NULL){
-			$tahun = date("Y");
-		}
-		$data['tahun'] = $tahun;
-		$data['complaintPerBulan'] = $this->M_Rekap->getDataComplaintPerBulan();
-		$data['complaintPertahun'] = $this->M_Rekap->getDataComplaintPertahun();
-		$data['complaintTinjauPerBulan'] = $this->M_Rekap->getDataComplaintTinjauPerBulan();
-		$data['complaintTinjauPertahun'] = $this->M_Rekap->getDataComplaintTinjauPertahun();
-		$data['complaintTerkirimPerBulan'] = $this->M_Rekap->getDataComplaintTerkirimPerBulan();
-		$data['complaintTerkirimPertahun'] = $this->M_Rekap->getDataComplaintTerkirimPertahun();
-		$data['main_view'] = 'Rekap/V_RekapComplaint';
-		$this->load->view('template/template_operator',$data);
-	}
 }

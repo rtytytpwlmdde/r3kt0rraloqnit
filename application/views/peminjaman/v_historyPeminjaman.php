@@ -1,5 +1,11 @@
 
-<div class="col-md-12">
+<div class="
+
+<?php 
+if($this->session->userdata('status') == "pengguna"){
+    echo "container";
+}
+?>">
 <?php
         $notif = $this->session->flashdata('notif');
         if($notif != NULL){
@@ -41,9 +47,9 @@
                 </div>
             </div>
         </div>
-    <div class="card py-2 px-2 shadow" >
+    <div class="bg-white  shadow" >
         <table id="tblPeminjaman" class="table table-bordered">
-            <thead>
+            <thead class="bg-thead text-white">
                 <tr>
                 <th class="text-center" scope="col">No</th>
                 <th class="text-center" scope="col">Kode Booking</th>

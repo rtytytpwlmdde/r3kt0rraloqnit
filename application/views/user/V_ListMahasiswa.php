@@ -27,22 +27,39 @@
     <div class="mt-2">
             <div class="row py-2 ">
                 <div class="col-6 col-md-8 ">
-                    <h3 class="text-muted">Data Mahasiswa</h3>
+                    <h3 class="text-muted">Data User</h3>
                 </div>
                 <div class="col-6 col-md-4">
                     <div class="d-flex flex-row-reverse bd-highlight">
-                        <a class="btn btn-primary"  href="<?php  echo base_url('User/formTambahMahasiswa'); ?>" role="button">Tambah Mahasiswa</a>
+                    <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Filter
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <form action="<?php  echo base_url('user/user'); ?>" method="post"><input hidden name="status_mahasiswa" value="valid">
+                            <button class="dropdown-item text-success" type="submit">Valid</button>
+                        </form>
+                        <form action="<?php  echo base_url('user/user'); ?>" method="post"><input hidden name="status_mahasiswa" value="tidak valid">
+                            <button class="dropdown-item text-danger" type="submit">Tidak Valid</button>
+                        </form>
+                        <form action="<?php  echo base_url('user/user'); ?>" method="post"><input hidden name="status_mahasiswa" value="belum divalidasi">
+                            <button class="dropdown-item text-warning" type="submit">Belum Divalidasi</button>
+                        </form>
+                      
+                    </div>
+                        <a class="btn btn-sm btn-primary"  href="<?php  echo base_url('User/formTambahUser'); ?>"><i class="fas fa-plus"></i> User</a>
                     </div>
                 </div>
             </div>
         </div>
-    <div class="kotak py-2 px-2 shadow" >
+    <div class="bg-white  shadow" >
         <table class="table table-bordered" id="tabel">
-            <thead>
+            <thead class="bg-thead text-white">
                 <tr>
                 <th class="text-center" scope="col">No</th>
-                <th class="text-center" scope="col">NIM</th>
+                <th class="text-center" scope="col">ID User</th>
                 <th class="text-center" scope="col">Nama</th>
+                <th class="text-center" scope="col">Password</th>
+                <th class="text-center" scope="col">Status</th>
                 <th class="text-center" scope="col">Aksi</th>
                 </tr>
             </thead>
@@ -55,11 +72,13 @@
                     <td><?php echo $no++; ?></td>
                     <td><?php echo $u->id_mahasiswa; ?></td>
                     <td><?php echo $u->nama_mahasiswa;?></td>
+                    <td><?php echo $u->password;?></td>
+                    <td><?php echo $u->status_mahasiswa;?></td>
                     <td >
-                        <a href="<?php echo site_url('user/updateMahasiswa/'.$u->id_mahasiswa); ?>"  class="btn btn-warning text-white" title="Edit">
+                        <a href="<?php echo site_url('user/updateMahasiswa/'.$u->id_mahasiswa); ?>"  class="btn  btn-sm btn-warning text-white" title="Edit">
                         <i class="fas fa-pencil-alt"></i>
                         </a>
-                        <a href="<?php echo site_url('user/hapusMahasiswa/'.$u->id_mahasiswa); ?>"  class="btn btn-danger text-white"  title="Hapus">
+                        <a href="<?php echo site_url('user/hapusMahasiswa/'.$u->id_mahasiswa); ?>"  class="btn  btn-sm btn-danger text-white"  title="Hapus">
                             <i class="fas fa-trash"></i>
                         </a>
                     </td>

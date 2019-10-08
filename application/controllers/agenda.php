@@ -8,10 +8,13 @@ class Agenda extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->model('m_agenda');
 		$this->load->model('m_peminjaman');
+		$this->load->model('m_user');
 	}
 
 	public function index()
 	{
+		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+		$data['jumlahUser'] = $this->m_user->getCountUserBaru();
         $data['agenda'] = $this->m_agenda->getDataAgenda()->result();
         $data['waktu'] = $this->m_peminjaman->getDataWaktu()->result();
 		$data['main_view'] = 'agenda/v_list_agenda';
