@@ -16,11 +16,11 @@
 
           <!-- Content Row -->
           <div class="row card  shadow">
-            <div class="table-responsive ">
-                <table class="table table-sm table-penggunaan-ruangan table-bordered mx-0 text-center " >
+            <div class="table-responsive div">
+                <table class="table table-sm  table-penggunaan-ruangan  mx-0 text-center table-hover" >
                     <thead class="bg-thead text-white" >
                         <tr>
-                                <th style="font-size:14px;" class="text-left">R/J</th>
+                                <th style="font-size:14px;" class="text-left text-dark headcol">R/J</th>
                                 <?php foreach ($waktu as $r){?>
                                 <th style="font-size:10px;">
                             <?php 
@@ -35,12 +35,12 @@
                     <?php 
                             foreach ($ruangan as $r){?>
                         <tr>
-                            <th class="text-left" style="font-size:14px;"><?php echo $r->nama_ruangan?></th>
+                            <th class="text-left headcol" style="font-size:14px;"><?php echo $r->nama_ruangan?></th>
                             <?php 
                             foreach ($waktu as $w){
                                 $result = 0;
                             ?>
-                            <th style="max-width:120px;" class="text-center">
+                            <th  class="text-center table-bordered">
                                 <?php 
                                 foreach ($peminjaman as $j){
                                     $start = $j->jam_mulai;
@@ -50,12 +50,12 @@
                                             if($w->id_waktu == $jam){
                                                 if($j->validasi_akademik == 'setuju'){
                                                 ?> 
-                                                    <a data-toggle="modal"  style="cursor: pointer;" data-keterangan="<?= $j->keterangan; ?>" data-ruangan="<?= $r->nama_ruangan; ?>" data-penyelenggara="<?= $j->penyelenggara; ?>"
+                                                    <a data-toggle="modal"  style="cursor: pointer;" data-keterangan="<?= $j->keterangan; ?>" data-ruangan="<?= $r->nama_ruangan; ?>" data-jam="<?= $w->nama_waktu; ?>" data-penyelenggara="<?= $j->penyelenggara; ?>"
                                                         class="btn open-modaRuangan text-dark" href="#modaRuangan">
                                                         <i class="fas fa-times-circle fa-lg text-danger"  title="Ruangan Digunakan"></i>
                                                     </a>
-                                                <?php }else{?>
-                                                    <a data-toggle="modal"  style="cursor: pointer;" data-keterangan="<?= $j->keterangan; ?>" data-ruangan="<?= $r->nama_ruangan; ?>" data-penyelenggara="<?= $j->penyelenggara; ?>"
+                                                <?php }else if($j->validasi_akademik == 'terkirim'){?>
+                                                    <a data-toggle="modal"  style="cursor: pointer;" data-keterangan="<?= $j->keterangan; ?>" data-ruangan="<?= $r->nama_ruangan; ?>" data-jam="<?= $w->nama_waktu; ?>" data-penyelenggara="<?= $j->penyelenggara; ?>"
                                                     class="btn open-modaRuangan text-dark" href="#modaRuangan">
                                                     <i class="fas fa-times-circle fa-lg text-warning"  title="Ruangan Sedang Menungu Proses Validasi Peminjaman"></i>
                                                     </a>
@@ -86,17 +86,17 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div>
-            <div class="position-relative pl-3 my-2 media-body">
+            <div class="position-relative pl-3 mt-2 media-body">
 
                 
                 <h4 class="fs-0 mb-0"><a href="" ><input id="keterangan"  style="border:none" ></a> </h4>
-                <small class="mb-1">Organized by <a class="text-700" ><input id="penyelenggara"  style="border:none" ></a></small><br>
-                <p class="text-1000 mb-0">Time: 6:00AM<br>Duration: 6:00AM - 5:00PM</p>
-                <p class="mb-0">Place: <input id="ruangan"  style="border:none" ></p>
+                <small class="mb-1">Penyelenggara <a class="text-700" ><input id="penyelenggara"  style="border:none" ></a></small><br>
+                <small class="mb-1">Jam :<a class="text-700" ><input id="jam"  style="border:none" ></a></small><br>
+                <p class="mb-0 text-muted">Ruangan: <input id="ruangan"   style="border:none" ></p>
             </div>
         </div>
         <div class="modal-footer no-border">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
         </form>
         </div>
       </div>
@@ -110,5 +110,7 @@ $(document).on("click", ".open-modaRuangan", function () {
      $(".modal-content #ruangan").val( ruangan );
      var penyelenggara = $(this).data('penyelenggara');
      $(".modal-content #penyelenggara").val( penyelenggara );
+     var jam = $(this).data('jam');
+     $(".modal-content #jam").val( jam );
 });
 </script>

@@ -25,18 +25,12 @@
             ';
         }
     ?>
-    <div class="mt-2">
-            <div class="row py-2 ">
-                <div class="col-6 col-md-8 ">
-                    <h3 class="text-muted">Edit Data Ruangan</h3>
-                </div>
-                <div class="col-6 col-md-4">
-                    <div class="d-flex flex-row-reverse bd-highlight">
-                    </div>
-                </div>
-            </div>
+ 
+<div class="card shadow mb-4 mt-2">
+        <div class="card-header bg-thead  py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-white">Edit Data Ruangan</h6>
         </div>
-    <div class="kotak py-2 px-2 shadow" >
+        <div class="card-body">
         <?php foreach($ruangan as $u): ?>
         <form class="user" action="<?php echo base_url().'SaranaPrasarana/editRuangan'; ?>" method="post">
             <div class="form-group">
@@ -49,10 +43,14 @@
                 <input required type="text" name="nama_ruangan" class="form-control form-control-user" value="<?= $u->nama_ruangan; ?>">
             </div>
             <div class="form-group">
-                <label for="feInputAddress">Jenis Ruangan</label>
-                <select required  name="jenis_ruangan" id="feInputState" class="form-control">
-                <option value="kelas" <?php echo ($u->jenis_ruangan=='kelas')?'selected="selected"':''; ?>>kelas</option>
-                <option value="non kelas" <?php echo ($u->jenis_ruangan=='non kelas')?'selected="selected"':''; ?>>non kelas</option>
+                <label for="">Kapasitas Ruangan</label>
+                <input required type="text" name="kapasitas" class="form-control form-control-user" value="<?= $u->kapasitas; ?>">
+            </div>
+            <div class="form-group" >
+                <label for="feInputAddress">Status Ruangan</label>
+                <select required  name="status_ruangan" id="feInputState" class="form-control">
+                <option value="bagus" <?php echo ($u->status_ruangan=='bagus')?'selected="selected"':''; ?>>Bagus</option>
+                <option value="rusak" <?php echo ($u->status_ruangan=='rusak')?'selected="selected"':''; ?>>Rusak</option>
                 </select>
             </div>
             <div class="form-group">
@@ -73,6 +71,8 @@
             </button>
         <?php endforeach ?>
         </form> 
+        </div>
     </div>
+   
 </div>
 </div>

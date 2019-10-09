@@ -40,11 +40,15 @@ class SaranaPrasarana extends CI_Controller {
     public function tambahRuangan(){
 		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
         $nama_ruangan = $this->input->post('nama_ruangan');
-        $jenis_ruangan = $this->input->post('jenis_ruangan');
+        $jenis_ruangan = 'non kelas';
         $id_operator = $this->input->post('id_operator');
+        $kapasitas = $this->input->post('kapasitas');
+        $status_ruangan = 'bagus';
 		$data = array(
 			'jenis_ruangan' => $jenis_ruangan,
 			'nama_ruangan' => $nama_ruangan,
+			'status_ruangan' => $status_ruangan,
+			'kapasitas' => $kapasitas,
 			'id_operator' => $id_operator
 		);
 		$this->M_SaranaPrasarana->tambahRuangan($data,'ruangan');
@@ -71,12 +75,14 @@ class SaranaPrasarana extends CI_Controller {
     function editRuangan(){
         $id_ruangan = $this->input->post('id_ruangan');
         $nama_ruangan = $this->input->post('nama_ruangan');
-        $jenis_ruangan = $this->input->post('jenis_ruangan');
+        $status_ruangan = $this->input->post('status_ruangan');
         $id_operator = $this->input->post('id_operator');
+        $kapasitas = $this->input->post('kapasitas');
             
         $data = array(
-            'jenis_ruangan' => $jenis_ruangan,
+            'status_ruangan' => $status_ruangan,
             'nama_ruangan' => $nama_ruangan,
+            'kapasitas' => $kapasitas,
 			'id_operator' => $id_operator
         );
 
@@ -104,6 +110,8 @@ function penggunaanRuangan(){
 	$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 	$data['main_view'] = 'SaranaPrasarana/v_penggunaanRuangan';
 	if($level == 'admin'){
+		$this->load->view('template/template_operator',$data);
+	}else if($level == 'staff pelayanan'){
 		$this->load->view('template/template_operator',$data);
 	}else{
 		$this->load->view('template/template_user',$data);

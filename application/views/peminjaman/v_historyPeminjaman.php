@@ -32,13 +32,16 @@ if($this->session->userdata('status') == "pengguna"){
     ?>
     <div class="mt-2">
             <div class="row py-2 ">
-                <div class="col-6 col-md-8 ">
+                <div class="col-6 col-md-6 ">
                     <h3 class="text-muted">History Peminjaman</h3>
                 </div>
-                <div class="col-6 col-md-4">
+                <div class="col-6 col-md-6">
                     <div class="d-flex flex-row-reverse bd-highlight">
+                        <?php if($this->session->userdata('status') != "pengguna"){?>
+                        <a class="btn btn-sm btn-success text-white mb-2 ml-1" href="<?php echo base_url("rekap/exportHistoryPeminjaman");?>"><i class="fas fa-file-excel"></i>  </a>
+                        <?php } ?>
                         <button class="btn btn-sm btn-secondary dropdown-toggle mb-2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Filter
+                        <i class="fas fa-filter"></i>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <form action="<?php  echo base_url('peminjaman/historyPeminjaman'); ?>" method="post"><input hidden name="status" value="setuju">
@@ -68,9 +71,11 @@ if($this->session->userdata('status') == "pengguna"){
                 <th class="text-center" scope="col">No</th>
                 <th class="text-center" scope="col">Kode Booking</th>
                 <th class="text-center" scope="col">Peminjam</th>
-                <th class="text-center" scope="col">Tanggal Peminjaman</th>
+                <th class="text-center" scope="col">Tgl Penggunaan</th>
+                <th class="text-center" scope="col">Ruangan</th>
+                <th class="text-center" scope="col">Jam Mulai</th>
                 <th class="text-center" scope="col">Validasi</th>
-                <?php if($this->session->userdata('status') == 'sekretariat kuliah' || $this->session->userdata('status') == 'kasubag akademik' || $this->session->userdata('status') == 'kasubag kemahasiswaan' || $this->session->userdata('status') == 'kasubag umum' || $this->session->userdata('status') == 'admin') { ?>
+                <?php if($this->session->userdata('status') == 'staff pelayanan' || $this->session->userdata('status') == 'admin') { ?>
                     <th class="text-center" scope="col">Aksi</th>
                 <?php }?>
                 </tr>
@@ -88,7 +93,10 @@ if($this->session->userdata('status') == "pengguna"){
                     <?php }else{ ?>
                         <td><?php echo $u->nama_mahasiswa; ?></td>
                     <?php } ?>
-                    <td><?= date("d-m-Y", strtotime($u->tanggal_peminjaman)); ?></td>
+                    <td><?= date("d-m-Y", strtotime($u->tanggal_mulai_penggunaan)); ?></td>
+                    <td><?php echo $u->nama_ruangan; ?></td>
+                    <td><?php $mulai = explode("-", $u->nama_waktu);
+                                echo $start = $mulai[0]; ?></td>
                     <td
                     <?php
                         if($u->validasi_akademik == 'setuju'){ ?>
@@ -102,7 +110,7 @@ if($this->session->userdata('status') == "pengguna"){
                         <?php }
                     ?>><?= $u->validasi_akademik;?>
                     </td>
-                    <?php if($this->session->userdata('status') == 'validator' || $this->session->userdata('status') == 'admin' ) { ?>
+                    <?php if($this->session->userdata('status') == 'staff pelayanan' || $this->session->userdata('status') == 'admin' ) { ?>
                         <th class="text-center">
                         <?php if( $u->validasi_akademik == 'terkirim'){ ?>
                             <a href="<?php echo site_url('Peminjaman/validasiPeminjaman/'.$u->id_peminjaman); ?>"  class="btn btn-success btn-sm" title="Setuju Peminjaman">Setuju</a>

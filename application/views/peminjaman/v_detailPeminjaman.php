@@ -12,7 +12,7 @@
             </div>
         </div>
     </div>
-    <div class="card py-2 px-2 shadow" >
+    <div class="card shadow" >
         <table id="tblmatakuliah" class="table table-bordered">
             <tbody>
              <?php 

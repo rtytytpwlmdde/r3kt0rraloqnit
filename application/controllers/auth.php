@@ -48,18 +48,10 @@ class Auth extends CI_Controller {
 					$status = $this->session->userdata('status');
 					if($status=='admin'){
 						redirect('rekap/dashboard');
-					}elseif($status=='sekretariat kuliah'){
-						redirect('JadwalKuliah/petaJadwalKuliah');
 					}elseif($status=='staff pelayanan'){
-						redirect('JadwalKuliah/petaJadwalKuliah');
-					}elseif($status=='kasubag akademik'){
-						redirect('JadwalKuliah/petaJadwalKuliah');
-					}elseif($status=='kasubag kemahasiswaan'){
-						redirect('JadwalKuliah/petaJadwalKuliah');
-					}elseif($status=='kasubag umum'){
-						redirect('JadwalKuliah/petaJadwalKuliah');
+						redirect('agenda');
 					}else{
-						redirect('kasubag_akademik/index');
+						redirect('auth/logout');
 					}
 				}else if($this->M_Auth->cek_mahasiswa() == TRUE){
 					redirect('agenda');

@@ -33,7 +33,8 @@
                 <?php }else{ ?>
                 <?php }?>
                 <?php ?>
-                <input type="text"  required name="id_peminjam" class="form-control " placeholder="masukkan nim/nik sebagai identitas peminjam">
+                <input type="text"  disabled name="" class="form-control " value="<?= $this->session->userdata('username')?>">
+                <input type="text"  hidden name="id_peminjam" class="form-control " value="<?= $this->session->userdata('username')?>">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Tanggal Penggunaan</label>

@@ -17,7 +17,7 @@
                         </div>
                     </div>
                 </div>
-            <div class="card py-2 px-2 shadow" >
+            <div class="card shadow" >
                 <table class="table table-bordered">
                     <thead class="bg-thead text-white">
                         <tr>

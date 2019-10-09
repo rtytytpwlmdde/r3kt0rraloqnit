@@ -8,16 +8,17 @@
                     <div class="col-6 col-md-4">
                         <div class="d-flex flex-row-reverse bd-highlight">
                             <form class="form-inline" action="<?php  echo base_url('Rekap/rekapPemakaianRuangan'); ?>">
-                                <div class="form-group sm">
-                                    <input type="text" name="tahun" class="form-control" value="<?= $tahun; ?>">
-                                    <button type="submit" class="btn btn-light"><i class="fas fa-search"></i></button>
+                                <div class="form-group ">
+                                    <input type="text" name="tahun" class="form-control-sm" value="<?= $tahun; ?>">
+                                    <button type="submit" class="btn btn-sm btn-light"><i class="fas fa-search"></i></button>
                                 </div>
                             </form>
+                            
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card py-2 px-2 shadow" >
+            <div class="card shadow" >
                 <table class="table table-bordered" id="tbl">
                     <thead class="bg-thead text-white">
                         <tr>

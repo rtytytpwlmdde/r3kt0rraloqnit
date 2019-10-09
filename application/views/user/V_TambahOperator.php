@@ -44,10 +44,6 @@
                     <select name="status_operator" class="form-control" id="exampleFormControlSelect1">
                     <option>admin</option>
                     <option>staff pelayanan</option>
-                    <option>sekretariat kuliah</option>
-                    <option>kasubag akademik</option>
-                    <option>kasubag kemahasiswaan</option>
-                    <option>kasubag umum</option>
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary btn-user btn-block">

@@ -164,23 +164,29 @@
             </li>
 
             <!-- Nav Item - Alerts -->
-            <li class="nav-item dropdown no-arrow mx-1"><?php foreach($jumlahPeminjaman as $u){ $jumPeminjaman =  $u->jumPeminjamanTerkirim; }?>
+            <li class="nav-item dropdown no-arrow mx-1"><?php foreach($jumlahPeminjaman as $u){ $jumPeminjaman =  $u->jumPeminjamanTerkirim; } $a = $jumPeminjaman?>
               <a class="nav-link dropdown-toggle text-white" title="Terdapat <?= $jumPeminjaman?> Peminjaman Yang Belum Di Proses" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
+                <?php if($a > 0){ ?>
                 <span class="badge badge-danger badge-counter" > <?= $jumPeminjaman?> </span>
+                <?php } ?>
               </a>
               <!-- Dropdown - Alerts -->
             </li>
+            <?php if($this->session->userdata('status') == "admin"){ ?>
             <li class="nav-item dropdown no-arrow mx-1"><?php foreach($jumlahUser as $u){ $jumUser =  $u->jumUserBaru; }?>
               <a class="nav-link dropdown-toggle text-white" title="Terdapat <?= $jumUser?> User Baru Yang Belum Divalidasi" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
+                <i class="fas fa-user"></i>
                 <!-- Counter - Alerts -->
+                <?php if($jumUser > 0){ ?>
                 <span class="badge badge-danger badge-counter" > <?= $jumUser?> </span>
+                <?php } ?>
               </a>
               <!-- Dropdown - Alerts -->
              
             </li>
+            <?php } ?>
 
          
 
@@ -189,7 +195,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-200 small"><?php echo $this->session->userdata('nama_login'); ?></span>
+                <span class="mr-2 d-none d-lg-inline text-gray-200 small"><?php echo $this->session->userdata('username'); ?></span>
                 <img class="img-profile rounded-circle" src="<?php echo base_url('assets/img/guest.jpg'); ?>">
               </a>
               <!-- Dropdown - User Information -->

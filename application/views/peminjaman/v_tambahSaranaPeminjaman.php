@@ -1,8 +1,14 @@
-<div class="container">
-  <div class="row mt-4">
-    <div class="col-md-8 order-md-1">
-      <h4 class="mb-3">Form Data Peminjaman</h4>
-      
+<?php if($this->session->userdata('status') == "pengguna"){ ?>
+    <div class="container">
+<?php }else{?><div class="">
+<?php }?>
+  <div class="row mt-4 ">
+    <div class="col-md-8 order-md-1 mb-2 pb-2">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-thead text-white">
+          <h6 class="m-0 font-weight-bold ">Form Data Peminjaman</h6>
+        </div>
+        <div class="card-body">
         <?php 
         $id = null;
         $tgl_mulai = null;
@@ -84,50 +90,52 @@
             <?php }?>
         </form> 
         <?php } ?>
-      
+        </div>
+      </div>
     </div>
-
     
-    <div class="col-md-4 order-md-2 mb-4 card shadow">
-      <h4 class="d-flex justify-content-between align-items-center mb-3">
-        <span class="text-muted">Pilih Ruangan</span>
-        <a  data-toggle="modal" data-target="#modalPanduan"><span class="" title="panduan"><i class="far fa-question-circle"></i></span></a>
-      </h4>
-        <?php if($jumRuangan == 0){ ?>
-            <?php 
-            $no = 1;
-            foreach ($sarana_tersedia as $u){ 
-        ?>
-        <ul class="list-group mb-1">
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-            <div>
-                <h6 class="my-0"><?php echo $u->nama_ruangan ?></h6>
-                <small class="text-muted">Kapasitas 40 orang</small>
-            </div>
-            <span class="text-muted"> <form action="<?php echo site_url('Peminjaman/tambahSaranaPeminjaman'); ?>" method="post">
-                    <input type="text" hidden name="jenis" value="nonkelas">
-                    <input type="text" hidden name="id_peminjaman" value="<?= $id?>">
-                    <input type="text" hidden name="id_sarana" value="<?= $u->id_ruangan?>">
-                    <input type="text" hidden name="tgl_mulai" value="<?= $tgl_mulai?>">
-                    <input type="text" hidden name="tgl_selesai" value="<?= $tgl_selesai?>">
-                    <input type="text" hidden name="jam_mulai" value="<?= $jam_mulai?>">
-                    <input type="text" hidden name="jam_selesai" value="<?= $jam_selesai?>">
-                    <button class="btn btn-secondary text-white" title="Tambahkan" type="submit"><i class="fas fa-plus-square"></i> </button>
-                </form></span>
-            </li>
-        </ul>
-        <?php } ?>
-        <?php }else{ ?>
-            <ul class="list-group mb-3">
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
+    <div class="col-md-4 order-md-2 mb-4">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-thead text-white">
+          <h6 class="m-0 font-weight-bold  d-flex justify-content-between">Pilih Ruangan 
+            <a  data-toggle="modal" data-target="#modalPanduan"><span class="" title="panduan"><i class="far fa-question-circle"></i></span></a></h6>
+        </div>
+        <div class="card-body" style="height:350px; overflow-y: scroll;">
+            <?php if($jumRuangan == 0){ ?>
+                <?php 
+                $no = 1;
+                foreach ($sarana_tersedia as $u){ 
+            ?>
+            <ul class="list-group mb-1 anyClass" >
+                <li class="list-group-item d-flex justify-content-between lh-condensed ">
                 <div>
-                    <small class="text-muted">Ruangan Sudah Ditambahkan</small>
+                    <h6 class="my-0"><?php echo $u->nama_ruangan ?></h6>
+                    <small class="text-muted">Kapasitas 40 orang</small>
                 </div>
+                <span class="text-muted"> <form action="<?php echo site_url('Peminjaman/tambahSaranaPeminjaman'); ?>" method="post">
+                        <input type="text" hidden name="jenis" value="nonkelas">
+                        <input type="text" hidden name="id_peminjaman" value="<?= $id?>">
+                        <input type="text" hidden name="id_sarana" value="<?= $u->id_ruangan?>">
+                        <input type="text" hidden name="tgl_mulai" value="<?= $tgl_mulai?>">
+                        <input type="text" hidden name="tgl_selesai" value="<?= $tgl_selesai?>">
+                        <input type="text" hidden name="jam_mulai" value="<?= $jam_mulai?>">
+                        <input type="text" hidden name="jam_selesai" value="<?= $jam_selesai?>">
+                        <button class="btn btn-secondary text-white" title="Tambahkan" type="submit"><i class="fas fa-plus-square"></i> </button>
+                    </form></span>
                 </li>
             </ul>
-        <?php }?>
-        
-     
+            <?php } ?>
+            <?php }else{ ?>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <small class="text-muted">Ruangan Sudah Ditambahkan</small>
+                    </div>
+                    </li>
+                </ul>
+            <?php }?>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -140,6 +148,7 @@
     </ul>
   </footer>
 </div>
+
 
 
 <div class="modal fade" id="modalPanduan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

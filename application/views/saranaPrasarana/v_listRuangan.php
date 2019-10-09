@@ -31,7 +31,18 @@
                 </div>
                 <div class="col-6 col-md-4">
                     <div class="d-flex flex-row-reverse bd-highlight">
-                        <a class="btn btn-sm btn-primary"  href="<?php  echo base_url('SaranaPrasarana/formTambahRuangan'); ?>" role="button">Tambah Ruangan</a>
+                        <button class="btn btn-sm btn-secondary dropdown-toggle mb-2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Filter
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <form action="<?php  echo base_url('saranaPrasarana/ruangan'); ?>" method="post"><input hidden name="status" value="bagus">
+                                <button class="dropdown-item text-success" type="submit">Bagus</button>
+                            </form>
+                            <form action="<?php  echo base_url('saranaPrasarana/ruangan'); ?>" method="post"><input hidden name="status" value="rusak">
+                                <button class="dropdown-item text-danger" type="submit">Rusak</button>
+                            </form>
+                        </div>
+                        <a class="btn btn-sm btn-primary mb-2"  href="<?php  echo base_url('SaranaPrasarana/formTambahRuangan'); ?>" role="button">Tambah Ruangan</a>
                     </div>
                 </div>
             </div>
@@ -43,7 +54,7 @@
                 <th class="text-center" scope="col">No</th>
                 <th class="text-center" scope="col">Kode Ruangan</th>
                 <th class="text-center" scope="col">Ruangan</th>
-                <th class="text-center" scope="col">Jenis</th>
+                <th class="text-center" scope="col">Kapasitas</th>
                 <th class="text-center" scope="col">Operator</th>
                 <th class="text-center" scope="col">Status</th>
                 <th class="text-center" scope="col">Aksi</th>
@@ -58,7 +69,7 @@
                     <td><?php echo $no++; ?></td>
                     <td><?php echo $u->id_ruangan; ?></td>
                     <td><?php echo $u->nama_ruangan;?></td>
-                    <td><?php echo $u->jenis_ruangan;?></td>
+                    <td><?php echo $u->kapasitas;?></td>
                     <td><?php echo $u->id_operator;?></td>
                     <td><?php echo $u->status_ruangan;?></td>
                     <td >

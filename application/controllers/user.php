@@ -29,6 +29,7 @@ class User extends CI_Controller {
 	public function tambahOperator(){
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
+		$status_operator = $this->input->post('status_operator');
 		
 		if($this->M_User->cek_id_operator() == TRUE){
 			$this->session->set_flashdata('notif', "username $username sudah terdaftar didatabase");

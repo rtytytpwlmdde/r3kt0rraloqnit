@@ -109,18 +109,17 @@ class Peminjaman extends CI_Controller {
 
     function formTambahSaranaPeminjaman($jenis, $tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai){
         $data['peminjaman'] = $this->M_Peminjaman->getDataPeminjamanNonKelasByDate($tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai);
-        if($jenis == 'barang'){
-            $data['sarana_tersedia'] = $this->M_Peminjaman->getBarangTersedia($tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai);
-            $data['sarana'] = $this->M_Peminjaman->getBarangPeminjamanBarangByDate($tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai);
-        }else{
-            $data['sarana_tersedia'] = $this->M_Peminjaman->getRuanganTersedia($tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai);
-            $data['sarana'] = $this->M_Peminjaman->getRuanganPeminjamanNonKelasByDate($tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai);
-        }
+        $data['sarana_tersedia'] = $this->M_Peminjaman->getRuanganTersedia($tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai);
+        $data['sarana'] = $this->M_Peminjaman->getRuanganPeminjamanNonKelasByDate($tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai);
 		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
         $data['jenis_peminjaman'] = $jenis;
-        $data['main_view'] = 'peminjaman/v_tambahSaranaPeminjaman';
-        $this->load->view('template/template_user',$data);
+        $data['main_view'] = 'peminjaman/v_tambahSaranaPeminjaman'; 
+        if($this->session->userdata('status') == "pengguna" ){ 
+            $this->load->view('template/template_user',$data);
+        }else{
+            $this->load->view('template/template_operator',$data);
+        }
     }
 
     function tambahSaranaPeminjaman(){
@@ -176,7 +175,7 @@ class Peminjaman extends CI_Controller {
     function validasiPeminjaman($id_peminjaman){
         $status = "setuju";
         $operator = $this->session->userdata('status');
-        if($operator == 'admin'){
+        if($operator == 'admin' || $operator == 'staff pelayanan'){
             $data = array(
                 'validasi_akademik' => $status,
                 'validasi_kemahasiswaan' => $status,
@@ -207,7 +206,7 @@ class Peminjaman extends CI_Controller {
         $catatan_penolakan = $this->input->post('catatan_penolakan');
         $status = "tolak";
         $operator = $this->session->userdata('status');
-        if($operator == 'sekretariat kuliah'){
+        if($operator == 'admin' || $operator == 'staff pelayanan'){
             $data = array(
                 'validasi_akademik' => $status,
                 'validasi_kemahasiswaan' => $status,

@@ -3,8 +3,12 @@
 class M_SaranaPrasarana extends CI_Model{
 
     function getDataRuangan(){
+			$status = $this->input->post('status');
 			$this->db->select('*');
 			$this->db->from('ruangan');
+			if($status != NULL){
+				$this->db->where('status_ruangan', $status);
+			}
 			$this->db->order_by("jenis_ruangan", "asc");
 			$this->db->order_by("nama_ruangan", "asc");
 			$query=$this->db->get();
