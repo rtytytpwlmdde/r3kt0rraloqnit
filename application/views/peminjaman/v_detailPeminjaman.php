@@ -19,12 +19,33 @@
                 foreach ($peminjaman as $u){ 
              ?>
                 <tr class="bg-thead ">
-                    <td class="text-white">Kode Peminjaman</td>
+                    <td class="text-white">Kode Boking</td>
                     <td class="text-white"><?= $u->id_peminjaman; ?></td>
                 </tr>
                 <tr>
                     <td>Tanggal Peminjaman</td>
-                    <td><?= date("l, d-m-Y", strtotime($u->tanggal_peminjaman)); ?></td>
+                    <td> 
+                    <?php $tanggal = $u->tanggal_peminjaman;
+                $day = date("l", strtotime($tanggal));
+                $hari = null;
+                if($day == "Sunday"){
+                    echo $hari = "Minggu";
+                }else if($day == "Monday"){
+                    echo $hari = "Senin";
+                }else if($day == "Tuesday"){
+                    echo $hari = "Selasa";
+                }else if($day == "Wednesday "){
+                    echo $hari = "Rabu";
+                }else if($day == "Thursday "){
+                    echo $hari = "Kamis";
+                }else if($day == "Friday"){
+                    echo $hari = "Jumat";
+                }else if($day == "Saturday"){
+                    echo $hari = "Sabtu";
+                }
+                ?><?= ", "?>
+            <?= date("d-m-Y", strtotime($tanggal)); ?>
+                    </td>
                 </tr>
                 <tr>
                     <td>Nama Peminjam</td>
@@ -36,7 +57,28 @@
                 </tr>
                 <tr>
                     <td>Tanggal Penggunaan</td>
-                    <td><?= date("l, d-m-Y", strtotime($u->tanggal_mulai_penggunaan)); ?> sd <?= date("l, d-m-Y", strtotime($u->tanggal_selesai_penggunaan)); ?></td>
+                    <td>
+                    <?php
+                $day = date("l", strtotime($u->tanggal_mulai_penggunaan));
+                $hari = null;
+                if($day == "Sunday"){
+                    echo $hari = "Minggu";
+                }else if($day == "Monday"){
+                    echo $hari = "Senin";
+                }else if($day == "Tuesday"){
+                    echo $hari = "Selasa";
+                }else if($day == "Wednesday "){
+                    echo $hari = "Rabu";
+                }else if($day == "Thursday "){
+                    echo $hari = "Kamis";
+                }else if($day == "Friday"){
+                    echo $hari = "Jumat";
+                }else if($day == "Saturday"){
+                    echo $hari = "Sabtu";
+                }
+                ?><?= ", "?>
+            <?= date("d-m-Y", strtotime($u->tanggal_mulai_penggunaan)); ?>
+                    </td>
                 </tr>
                 <tr>
                     <td>Ruangan</td>

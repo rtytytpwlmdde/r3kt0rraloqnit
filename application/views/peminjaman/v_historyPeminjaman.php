@@ -54,9 +54,9 @@ if($this->session->userdata('status') == "pengguna"){
                                 <button class="dropdown-item text-warning" type="submit">Terkirim</button>
                             </form>
                         </div>
-                        <form class="pr-2 form-inline">
+                        <form class="pr-2 form-inline" action="<?php echo base_url("peminjaman/historyPeminjaman")?>" method="post">
                             <div class="form-group mb-2">
-                                <input type="text" class="form-control-sm " placeholder="search">
+                                <input type="text" name="search" class="form-control-sm " placeholder="search">
                             </div>
                             <button type="submit" class="btn btn-sm btn-primary mb-2">Search</button>
                         </form>

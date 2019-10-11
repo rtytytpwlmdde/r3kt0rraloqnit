@@ -44,6 +44,7 @@
                 <th class="text-center" scope="col">Username</th>
                 <th class="text-center" scope="col">Password</th>
                 <th class="text-center" scope="col">Status</th>
+                <th class="text-center" scope="col">Ruangan</th>
                 <th class="text-center" scope="col">Aksi</th>
                 </tr>
             </thead>
@@ -57,6 +58,16 @@
                     <td><?php echo $u->username; ?></td>
                     <td><?php echo $u->password;?></td>
                     <td><?php echo $u->status_operator;?></td>
+                    <td>
+                    <?php 
+                    foreach($ruangan as $r){
+                        if($r->id_operator == $u->username){
+                            echo $r->nama_ruangan."<br>";
+                        }
+                    }
+                    ?>
+                
+                    </td>
                     <td >
                         <a href="<?php echo site_url('user/updateOperator/'.$u->username); ?>"  class="btn btn-sm btn-warning text-white" title="Edit">
                         <i class="fas fa-pencil-alt"></i>

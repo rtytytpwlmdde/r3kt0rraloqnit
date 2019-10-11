@@ -45,10 +45,20 @@
                   </div>
                   <form class="user" action="<?php echo base_url().'auth/register'; ?>" method="post">
                     <div class="form-group">
-                      <input required type="text" name="id_mahasiswa" class="form-control form-control-user" placeholder="NIM">
+                      <input required type="text" name="id_mahasiswa" class="form-control form-control-user" placeholder="Username">
                     </div>
                     <div class="form-group">
                       <input required type="text" name="nama_mahasiswa" class="form-control form-control-user" placeholder="Nama">
+                    </div>
+                    
+                    <div class="form-group">
+                        <input required type="text" name="nomor_telpon" class="form-control form-control-user" placeholder="Nomor Telpon">
+                    </div>
+                    <div class="form-group">
+                        <input required type="text" name="alamat" class="form-control form-control-user" placeholder="Alamat">
+                    </div>
+                    <div class="form-group">
+                        <input required type="text" name="instansi" class="form-control form-control-user" placeholder="Instansi">
                     </div>
                     <div class="form-group">
                       <input required type="password" name="password" class="form-control form-control-user" placeholder="Password">

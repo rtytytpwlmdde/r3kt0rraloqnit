@@ -68,7 +68,16 @@
                 <?php if($this->session->userdata('logged_in') == FALSE){ ?>
                     <a class="my-2 my-sm-0 text-white" href="<?php echo base_url('auth/login') ?>">Login</a>
                       <?php }else{ ?>
-                    <a class="my-2 my-sm-0 text-white" data-toggle="modal" data-target="#logoutModal" ><?= $this->session->userdata('nama')?></a>
+                        <div class="btn-group">
+                          <a  class="dropdown-toggle text-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <?= $this->session->userdata('nama')?>
+                          </a>
+                          <div class="dropdown-menu dropdown-menu-right">
+                            <a class="my-2 my-sm-0  dropdown-item" href="<?php echo base_url('auth/profil') ?>" >Profil</a>
+                            <a class="my-2 my-sm-0  text-danger dropdown-item" data-toggle="modal" data-target="#logoutModal" >Logout</a>
+                          </div>
+                        </div>
+                    
                       <?php }?>
                 </form>
             </div>

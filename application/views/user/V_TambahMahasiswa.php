@@ -24,31 +24,43 @@
             ';
         }
     ?>
-    <div class="mt-2">
-            <div class="row py-2 ">
-                <div class="col-6 col-md-8 ">
-                    <h3 class="text-muted">Tambah Data Mahasiswa</h3>
-                </div>
-                <div class="col-6 col-md-4">
-                    <div class="d-flex flex-row-reverse bd-highlight">
-                    </div>
-                </div>
-            </div>
+
+    
+<div class="card shadow mb-4 mt-2">
+        <div class="card-header bg-thead  py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-white">Tambah Data User</h6>
         </div>
-    <div class="kotak py-2 px-2 shadow" >
+        <div class="card-body">
         <form class="user" action="<?php echo base_url().'User/tambahMahasiswa'; ?>" method="post">
             <div class="form-group">
-                <label for="">NIM</label>
-                <input required type="text" name="id_mahasiswa" class="form-control form-control-user" placeholder="">
+                <label for="">Username</label>
+                <input required type="text" name="id_mahasiswa" class="form-control " placeholder="">
             </div>
             <div class="form-group">
                 <label for="">Nama</label>
-                <input required type="text" name="nama_mahasiswa" class="form-control form-control-user" placeholder="">
+                <input required type="text" name="nama_mahasiswa" class="form-control " placeholder="">
             </div>
             
+            <div class="form-group">
+                <label for="">Nomor Telpon</label>
+                <input required type="text" name="nomor_telpon" class="form-control " >
+            </div>
+            <div class="form-group">
+                <label for="">Alamat</label>
+                <input required type="text" name="alamat" class="form-control " >
+            </div>
+            <div class="form-group">
+                <label for="">Instansi</label>
+                <input required type="text" name="instansi" class="form-control " >
+            </div>
+            <div class="form-group">
+                <label for="">Password</label>
+                <input required type="text" name="password" class="form-control " >
+            </div>
             <button type="submit" class="btn btn-primary btn-user btn-block">
-                Tambah Mahasiswa
+                Tambah User
             </button>
         </form> 
+        </div>
     </div>
-</div>
+    

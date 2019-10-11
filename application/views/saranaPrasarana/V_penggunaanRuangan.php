@@ -4,7 +4,29 @@
           <div class="d-sm-flex align-items-center justify-content-between mb-2">
             <div>
             <h1 class="h3 mb-0 text-gray-800">Penggunaan Ruangan</h1>
-            <h6 class="text-muted"><?= date("l, d-m-Y", strtotime($tanggal)); ?></h6>
+            <h6 class="text-muted">
+                <?php 
+                $day = date("l", strtotime($tanggal));
+                $hari = null;
+                if($day == "Sunday"){
+                    echo $hari = "Minggu";
+                }else if($day == "Monday"){
+                    echo $hari = "Senin";
+                }else if($day == "Tuesday"){
+                    echo $hari = "Selasa";
+                }else if($day == "Wednesday "){
+                    echo $hari = "Rabu";
+                }else if($day == "Thursday "){
+                    echo $hari = "Kamis";
+                }else if($day == "Friday"){
+                    echo $hari = "Jumat";
+                }else if($day == "Saturday"){
+                    echo $hari = "Sabtu";
+                }
+                ?><?= ", "?>
+            <?= date("d-m-Y", strtotime($tanggal)); ?>
+        
+        </h6>
             </div>
             <form class="pr-2 form-inline" action="<?php echo site_url('saranaPrasarana/penggunaanRuangan');?>"  method="get">
                 <div class="form-group mb-2">
@@ -90,12 +112,12 @@
 
                 
                 <h4 class="fs-0 mb-0"><a href="" ><input id="keterangan"  style="border:none" ></a> </h4>
-                <small class="mb-1">Penyelenggara <a class="text-700" ><input id="penyelenggara"  style="border:none" ></a></small><br>
-                <small class="mb-1">Jam :<a class="text-700" ><input id="jam"  style="border:none" ></a></small><br>
-                <p class="mb-0 text-muted">Ruangan: <input id="ruangan"   style="border:none" ></p>
+                <small class="mb-1">Penyelenggara <a class="text-700" ><input id="penyelenggara"  style="border:none" ></a></small>
+                <small class="">Jam :<a class="text-700" ><input id="jam"  style="border:none" ></a></small>
+                <small class="mb-0 text-muted">Ruangan: <input id="ruangan"   style="border:none" ></small>
             </div>
         </div>
-        <div class="modal-footer no-border">
+        <div class="modal-footer">
           <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
         </form>
         </div>

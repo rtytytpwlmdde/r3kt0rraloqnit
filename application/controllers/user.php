@@ -8,12 +8,14 @@ class User extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->model('M_User');
 		$this->load->model('m_peminjaman');
+		$this->load->model('M_SaranaPrasarana');
 	}
 
 // operator
 	public function operator(){
 		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
 		$data['operator'] = $this->M_User->getDataOperator()->result();
+        $data['ruangan'] = $this->M_SaranaPrasarana->getDataRuangan()->result();
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['main_view'] = 'User/V_ListOperator';
 		$this->load->view('template/template_operator', $data);
@@ -165,6 +167,10 @@ class User extends CI_Controller {
     public function tambahUser(){
         $id_mahasiswa = $this->input->post('id_mahasiswa');
         $nama_mahasiswa = $this->input->post('nama_mahasiswa');
+        $nomor_telpon = $this->input->post('nomor_telpon');
+        $alamat = $this->input->post('alamat');
+        $instansi = $this->input->post('instansi');
+        $password = $this->input->post('password');
         $status_mahasiswa = 'belum divalidasi';
         
         if($this->M_User->cek_id_mahasiswa() == TRUE){
@@ -174,6 +180,10 @@ class User extends CI_Controller {
             $data = array(
                 'id_mahasiswa' => $id_mahasiswa,
                 'nama_mahasiswa' => $nama_mahasiswa,
+                'nomor_telpon' => $nomor_telpon,
+                'alamat' => $alamat,
+                'instansi' => $instansi,
+                'password' => $password,
                 'status_mahasiswa' => $status_mahasiswa
             );
             $this->M_User->tambahUser($data,'mahasiswa');

@@ -27,6 +27,7 @@ class M_SaranaPrasarana extends CI_Model{
 			$this->db->select('*');
 			$this->db->from('ruangan');
 			$this->db->where('jenis_ruangan','non kelas');
+			$this->db->order_by("ruangan.nama_ruangan", "asc");
 			$query=$this->db->get();
 			return $query->result();
 		}
