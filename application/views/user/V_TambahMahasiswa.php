@@ -31,7 +31,7 @@
             <h6 class="m-0 font-weight-bold text-white">Tambah Data User</h6>
         </div>
         <div class="card-body">
-        <form class="user" action="<?php echo base_url().'User/tambahMahasiswa'; ?>" method="post">
+        <form class="user" action="<?php echo base_url().'User/tambahUser'; ?>" method="post">
             <div class="form-group">
                 <label for="">Username</label>
                 <input required type="text" name="id_mahasiswa" class="form-control " placeholder="">

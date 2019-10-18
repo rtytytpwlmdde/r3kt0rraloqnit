@@ -188,15 +188,16 @@ class User extends CI_Controller {
             );
             $this->M_User->tambahUser($data,'mahasiswa');
             $this->session->set_flashdata('notifsukses', "Data mahasiswa berhasil ditambahkan");
-            redirect('User/mahasiswa');
+            redirect('User/user');
         }
     }
 
-    function hapusUser($id_mahasiswa){
+    function hapusUser(){
+        $id_mahasiswa = $this->input->post('username');
         $where = array('id_mahasiswa' => $id_mahasiswa);
         $this->M_User->hapusUser($where,'mahasiswa');
         $this->session->set_flashdata('notifsukses', "Data mahasiswa berhasil dihapus");
-        redirect('User/mahasiswa');
+        redirect('User/user');
     }
 
     function updateUser($id){
@@ -230,6 +231,32 @@ class User extends CI_Controller {
 
         $this->M_User->updateUser($where,$data,'mahasiswa');
         $this->session->set_flashdata('notifsukses', "Data mahasiswa berhasil diubah");
+        redirect('User/user');
+    }
+
+    function validasiUser($username){
+        $status = 'valid';
+        $data = array(
+            'status_mahasiswa' => $status
+        );
+
+        $where = array('id_mahasiswa' => $username);
+
+        $this->M_User->updateUser($where,$data,'mahasiswa');
+        $this->session->set_flashdata('notifsukses', "Data user berhasil divalidasi");
+        redirect('User/user');
+    }
+
+    function tolakUser($username){
+        $status = 'valid';
+        $data = array(
+            'status_mahasiswa' => $status
+        );
+
+        $where = array('id_mahasiswa' => $username);
+
+        $this->M_User->updateUser($where,$data,'mahasiswa');
+        $this->session->set_flashdata('notifsukses', "Data user berhasil divalidasi");
         redirect('User/user');
     }
 

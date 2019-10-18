@@ -127,7 +127,7 @@
 
 
 <script type="text/javascript">
-      google.charts.load('current', {'packages':['bar']});
+      google.charts.load('current', {'packages':['line']});
       google.charts.setOnLoadCallback(drawChart);
 
       function drawChart() {
@@ -151,12 +151,15 @@
           chart: {
             title: 'Grafik Peminjaman',
             subtitle: 'Perbandingan status peminjaman dalam perbulan',
-          }
+          legend: { position: 'bottom' }
+          },
+          legend: { position: 'bottom' }
+
         };
 
-        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+        var chart = new google.charts.Line(document.getElementById('columnchart_material'));
 
-        chart.draw(data, google.charts.Bar.convertOptions(options));
+        chart.draw(data, google.charts.Line.convertOptions(options));
       }
     </script>
 

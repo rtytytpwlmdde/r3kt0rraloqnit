@@ -36,15 +36,15 @@
             <div class="form-group">
                 <label for="">ID Ruangan</label>
                 <input hidden type="text" name="id_ruangan" class="form-control form-control-user" value="<?= $u->id_ruangan; ?>">
-                <input disabled type="text" name="" class="form-control form-control-user" value="<?= $u->id_ruangan; ?>">
+                <input disabled type="text" name="" class="form-control " value="<?= $u->id_ruangan; ?>">
             </div>
             <div class="form-group">
                 <label for="">Nama Ruangan</label>
-                <input required type="text" name="nama_ruangan" class="form-control form-control-user" value="<?= $u->nama_ruangan; ?>">
+                <input required type="text" name="nama_ruangan" class="form-control " value="<?= $u->nama_ruangan; ?>">
             </div>
             <div class="form-group">
                 <label for="">Kapasitas Ruangan</label>
-                <input required type="text" name="kapasitas" class="form-control form-control-user" value="<?= $u->kapasitas; ?>">
+                <input required type="text" name="kapasitas" class="form-control " value="<?= $u->kapasitas; ?>">
             </div>
             <div class="form-group" >
                 <label for="feInputAddress">Status Ruangan</label>

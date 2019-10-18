@@ -2,6 +2,30 @@
     <div class="container">
 <?php }else{?><div class="">
 <?php }?>
+<?php
+        $notif = $this->session->flashdata('notif');
+        if($notif != NULL){
+            echo '
+            <div class="alert alert-danger alert-dismissible fade show bg-danger text-white" role="alert">
+              <strong></strong> '.$notif.'
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            ';
+        }
+        $notifsukses = $this->session->flashdata('notifsukses');
+        if($notifsukses != NULL){
+            echo '
+            <div class="alert alert-success alert-dismissible fade show bg-success text-white" role="alert">
+              <strong></strong> '.$notifsukses.'
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            ';
+        }
+    ?>
   <div class="row mt-4 ">
     
 

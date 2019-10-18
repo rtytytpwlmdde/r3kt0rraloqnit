@@ -115,6 +115,16 @@ if($this->session->userdata('status') == "pengguna"){
                         <?php if( $u->validasi_akademik == 'terkirim'){ ?>
                             <a href="<?php echo site_url('Peminjaman/validasiPeminjaman/'.$u->id_peminjaman); ?>"  class="btn btn-success btn-sm" title="Setuju Peminjaman">Setuju</a>
                             <a data-toggle="modal" data-id="<?php echo $u->id_peminjaman; ?>" title="Tolak Peminjaman" class="modalTolakPeminjaman btn btn-outline-danger btn-sm" href="#modalTolakPeminjaman">Tolak</a>
+                            <a href="https://api.whatsapp.com/send?phone=<?= $u->nomor_telpon?>&text=Hi%20Peminjaman%20Ruangan%20Telah%20Selesai%20Diproses.%20 Terimakasih" 
+                            target="_blank"class="btn btn-outline-success btn-sm" title="Kirim Pesan WA"><i class="fab fa-whatsapp"></i></a>
+                            <?php if( $u->id_peminjam == $this->session->userdata('username') || $this->session->userdata('username') == 'admin'){ ?>
+                                <a data-toggle="modal" data-id="<?php echo $u->id_peminjaman; ?>" title="Batalkan Peminjaman" class="modalBatalPeminjaman btn btn-outline-secondary btn-sm" href="#modalBatalPeminjaman">Batal</a>
+                            <?php } ?> 
+                        <?php } ?> 
+                        <?php if( $u->validasi_akademik != 'tolak'){ ?>
+                           <?php if( $u->id_peminjam == $this->session->userdata('username') || $this->session->userdata('username') == 'admin'){ ?>
+                                <a data-toggle="modal" data-id="<?php echo $u->id_peminjaman; ?>" title="Batalkan Peminjaman" class="modalBatalPeminjaman btn btn-outline-secondary btn-sm" href="#modalBatalPeminjaman">Batal</a>
+                            <?php } ?> 
                         <?php } ?> 
                         </th>
                     <?php }?>
@@ -165,9 +175,38 @@ if($this->session->userdata('status') == "pengguna"){
   </div>
 </div>
 
+<div class="modal fade" id="modalBatalPeminjaman" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div>
+            <h6>Silahkan Isi Alasan Pembatalan</h6>
+        </div>
+        <form action="<?php echo base_url().'Peminjaman/batalPeminjaman'; ?>" method="post">
+        <input type="text"  hidden class="form-control" name="id_peminjaman" id="id_peminjaman" value=""/>
+        <textarea class="form-control"  name="catatan_penolakan" rows="3"></textarea>
+            <div class="d-flex flex-row-reverse bd-highlight py-2">
+                <div class="px-1"><button type="submit" class="btn btn-primary btn-sm">Batalkan Peminjaman</button></div>
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <script>
 $(document).on("click", ".modalTolakPeminjaman", function () {
+     var peminjaman = $(this).data('id');
+     $(".modal-body #id_peminjaman").val( peminjaman );
+     $(".peminjaman").val( peminjaman );
+});
+</script>
+
+<script>
+$(document).on("click", ".modalBatalPeminjaman", function () {
      var peminjaman = $(this).data('id');
      $(".modal-body #id_peminjaman").val( peminjaman );
      $(".peminjaman").val( peminjaman );

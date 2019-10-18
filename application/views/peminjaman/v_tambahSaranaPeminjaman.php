@@ -57,23 +57,30 @@
             <div class="col-md-6 mb-3">
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Jam Mulai</label>
-                    <input disabled type="text"  required name="tanggal_mulai_penggunaan" class="form-control " value="<?php 
-                            if($u->jam_mulai<10){
-                                echo "0".$u->jam_mulai.".00";
-                            }else{
-                                echo $u->jam_mulai.".00";
-                            } ?>">
+                    <input disabled type="text"  required name="tanggal_mulai_penggunaan" class="form-control " value="
+                    <?php foreach ($waktu as $a) { 
+                        if($a->id_waktu == $u->jam_mulai){
+                            $pieces = explode("-", $a->nama_waktu);
+                            echo $start = $pieces[0];
+                            $end = $pieces[1];
+                        }
+                                ?>
+                          <?php } ?>  ">
                 </div>
             </div>
             <div class="col-md-6 mb-3">
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Jam Selesai</label>
-                    <input disabled type="text"  required name="tanggal_mulai_penggunaan" class="form-control " value="<?php 
-                            if($u->jam_selesai<10){
-                                echo "0".$u->jam_selesai.".59";
-                            }else{
-                                echo $u->jam_selesai.".59";
-                            }; ?>">
+                    <input disabled type="text"  required name="tanggal_mulai_penggunaan" class="form-control " value="
+                         <?php foreach ($waktu as $a) { 
+                                 if($a->id_waktu == $u->jam_selesai){
+                                    $pieces = explode("-", $a->nama_waktu);
+                                    $start = $pieces[0];
+                                    echo $end = $pieces[1];
+                                    }
+                                ?>
+                          <?php } ?>  
+                            ">
                 </div>
             </div>
             </div>
@@ -87,10 +94,10 @@
             </div>
             <hr class="mb-4">
             <h5 class="mb-3">Ruangan yang akan dipinjam</h5>
-            <div class="d-block my-3"><?php $jumRuangan = 0;
+            <div class="d-block my-3"><?php $jumRuangan = 0; $operator=null;
                 foreach ($sarana as $a){ ?>
                 <div class="custom-control custom-radio py-1">
-                    <label class="" for="credit"><?= $a->nama_ruangan ?>
+                    <label class="" for="credit"><?= $a->nama_ruangan ?><?php $operator = $a->id_operator;?>
                     <a href="<?php echo site_url('Peminjaman/hapusSaranaPeminjaman/'.$jenis_peminjaman.'/'.$id.'/'.$a->id_sarana.'/'.$tgl_mulai.'/'.$tgl_selesai.'/'.$jam_mulai.'/'.$jam_selesai); ?>"  class="btn btn-danger btn-sm text-white" title="Hapus Ruangan">
                         <i class="fas fa-trash"></i>
                     </a>
@@ -104,7 +111,7 @@
                     Batalkan Peminjaman
                 </a>
             <?php }else{ ?>
-                <a href="<?php echo site_url('Peminjaman/kirimPeminjaman/'.$u->jenis_peminjaman.'/'.$id); ?>"   type="submit" class="btn btn-warning btn-user btn-block" title="Selesaikan Peminjaman Ruangan">
+                <a href="<?php echo site_url('Peminjaman/kirimPeminjaman/'.$u->jenis_peminjaman.'/'.$id.'/'.$operator); ?>"   type="submit" class="btn btn-warning btn-user btn-block" title="Selesaikan Peminjaman Ruangan">
                     Kirim Peminjaman
                 </a>
             <?php }?>

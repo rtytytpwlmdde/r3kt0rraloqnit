@@ -78,15 +78,11 @@
                         <a href="<?php echo site_url('user/updateUser/'.$u->id_mahasiswa); ?>"  class="btn  btn-sm btn-warning text-white" title="Edit">
                         <i class="fas fa-pencil-alt"></i>
                         </a>
-                        <a href="<?php echo site_url('user/hapusUser/'.$u->id_mahasiswa); ?>"  class="btn  btn-sm btn-danger text-white"  title="Hapus">
-                            <i class="fas fa-trash"></i>
-                        </a>
+                        <a data-toggle="modal" data-id="<?php echo $u->id_mahasiswa; ?>" title="Hapus User" class="modalHapusUser btn btn-sm btn-danger" href="#modalHapusUser"><i class="fas fa-trash"></i></a>
                         <a href="<?php echo site_url('user/validasiUser/'.$u->id_mahasiswa); ?>"  class="btn  btn-sm btn-outline-primary"  title="Validasi Status User">
                             <i class="fas fa-check"></i>
                         </a>
-                        <a href="<?php echo site_url('user/validasiUser/'.$u->id_mahasiswa); ?>"  class="btn  btn-sm btn-outline-danger"  title="Tolak Status User">
-                            <i class="fas fa-window-close"></i>
-                        </a>
+                        <a data-toggle="modal" data-id="<?php echo $u->id_mahasiswa; ?>" title="Tolak User" class="modalTolakUser btn btn-sm btn-outline-danger" href="#modalTolakUser"><i class="fas fa-window-close"></i></a>
                     </td>
                 </tr>
             <?php } ?>
@@ -97,4 +93,63 @@
 
 <script>
     $('#tabel').DataTable();
+</script>
+
+<div class="modal fade" id="modalTolakUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div>
+            <h6>Silahkan Isi Alasan Penolakan</h6>
+        </div>
+        <form action="<?php echo base_url().'Peminjaman/tolakUser'; ?>" method="post">
+        <input type="text"   hidden class="form-control" name="username" id="username" value=""/>
+        <textarea class="form-control"  name="catatan_penolakan" rows="3"></textarea>
+            <div class="d-flex flex-row-reverse bd-highlight py-2">
+                <div class="px-1"><button type="submit" class="btn btn-primary btn-sm">Tolak</button></div>
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+$(document).on("click", ".modalTolakUser", function () {
+     var peminjaman = $(this).data('id');
+     $(".modal-body #username").val( peminjaman );
+     $(".peminjaman").val( peminjaman );
+});
+</script>
+
+<div class="modal fade" id="modalHapusUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div>
+            <h6>Konfirmasi Hapus User</h6>
+        </div>
+        <form action="<?php echo base_url().'user/hapusUser'; ?>" method="post">
+        <input type="text"   hidden class="form-control" name="username" id="username" value=""/>
+            <div class="d-flex flex-row-reverse bd-highlight py-2">
+                <div class="px-1"><button type="submit" class="btn btn-danger btn-sm">Hapus</button></div>
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+$(document).on("click", ".modalHapusUser", function () {
+     var peminjaman = $(this).data('id');
+     $(".modal-body #username").val( peminjaman );
+     $(".peminjaman").val( peminjaman );
+});
 </script>

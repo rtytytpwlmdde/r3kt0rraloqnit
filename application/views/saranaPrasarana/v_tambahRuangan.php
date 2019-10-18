@@ -66,10 +66,6 @@
                     <input required type="text" name="kapasitas" class="form-control" placeholder="">
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlSelect1">Jenis Ruangan</label>
-                    <input required hidden type="jenis_ruangan" name="nama_ruangan" value="non kelas" placeholder="">
-                </div>
-                <div class="form-group">
                     <label for="exampleFormControlSelect1">Operator</label>
                     <select name="id_operator" required class="form-control" id="exampleFormControlSelect1">
                         <option value="">Pilih</option>

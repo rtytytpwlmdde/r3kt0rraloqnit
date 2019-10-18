@@ -233,6 +233,8 @@ class M_Peminjaman extends CI_Model{
 			OR ((jam_mulai <= '$jam_selesai') and ('$jam_selesai' <= jam_selesai))
 		OR (('$jam_mulai' <= jam_mulai) and (jam_mulai <= '$jam_selesai')) 
 			OR (('$jam_mulai' <= jam_selesai) and (jam_selesai <= '$jam_selesai')))
+		AND
+		((peminjaman.validasi_akademik != 'batal') || (peminjaman.validasi_akademik != 'tolak'))
 		)"
 		, NULL, FALSE);
 		$this->db->where('jenis_ruangan','non kelas');
@@ -282,7 +284,7 @@ class M_Peminjaman extends CI_Model{
 	}
 
 	function getRuanganPeminjamanNonKelasByDate($tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai){
-		$this->db->select('sarana_peminjaman.id_sarana, ruangan.nama_ruangan');
+		$this->db->select('sarana_peminjaman.id_sarana, ruangan.nama_ruangan, ruangan.id_operator');
         $this->db->from('peminjaman');
 		$this->db->join('sarana_peminjaman','sarana_peminjaman.id_peminjaman = peminjaman.id_peminjaman');
 		$this->db->join('ruangan','sarana_peminjaman.id_sarana = ruangan.id_ruangan');
