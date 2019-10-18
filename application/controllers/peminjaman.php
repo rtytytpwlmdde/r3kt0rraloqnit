@@ -103,7 +103,7 @@ class Peminjaman extends CI_Controller {
             redirect('peminjaman/formTambahSaranaPeminjaman/nonkelas/'.$tanggal_mulai_penggunaan.'/'.$tanggal_selesai_penggunaan.'/'.$jam_mulai.'/'.$jam_selesai);
         }else{
             $this->session->set_flashdata('notif', "data mahasiswa tidak ditemukan");
-            redirect('peminjaman/formTambahPeminjamanBarang/');
+            redirect('peminjaman/formTambahPeminjaman/');
         }
     }
 

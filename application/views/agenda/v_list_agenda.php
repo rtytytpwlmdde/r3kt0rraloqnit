@@ -9,9 +9,17 @@
     <div class="mb-3 mb-lg-0 card ">
         <div class="bg-light card-header d-sm-flex  align-items-center justify-content-between">
             <h5 class="mb-0">Events</h5>
-            <form action="">
-            <input class="form-control form-control-sm" type="text" placeholder="search">
-        </form>
+                <form class="pr-2 form-inline" action="<?php echo site_url('agenda');?>"  method="get">
+                    <div class="form-group mb-2">
+                        <input type="text" name="search" class="form-control-sm" placeholder="search" value="<?= $search?>">
+                        <div class="form-group">
+                        <input type="date" title="tgl mulai" name="start" class="form-control-sm  ml-2" value="<?= $start?>"> s/d
+                        </div>
+                        <input type="date" title="tgl selesai" name="end" class="form-control-sm" value="<?= $end?>" >
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-primary mb-2"><i class="fas fa-search"></i> </button>
+                </form>
+           
         </div>
         <div class="fs--1 card-body">
             <?php foreach($agenda as $u){?>

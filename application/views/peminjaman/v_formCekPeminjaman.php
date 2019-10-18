@@ -33,7 +33,7 @@
                   <form  action="<?php echo base_url().'Peminjaman/cekPeminjaman'; ?>" method="get" >
                     <div class="row">
                       <div class="col-md-12 mb-3">
-                        <label for="">ID Peminjaman</label>
+                        <label for="">Kode Boking</label>
                         <input type="text" required name="id_peminjaman" class="form-control">
                       </div>
                     </div>

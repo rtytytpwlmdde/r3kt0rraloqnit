@@ -13,6 +13,9 @@ class Agenda extends CI_Controller {
 
 	public function index()
 	{
+		$data['search'] = $this->input->get('search');
+		$data['start'] = $this->input->get('start');
+		$data['end'] = $this->input->get('end');
 		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
 		$data['jumlahUser'] = $this->m_user->getCountUserBaru();
         $data['agenda'] = $this->m_agenda->getDataAgenda()->result();
@@ -21,7 +24,7 @@ class Agenda extends CI_Controller {
 		if($this->session->userdata('status') == "pengguna" || $this->session->userdata('logged_in') == FALSE){ 
             $this->load->view('template/template_user',$data);
         }else{
-            $this->load->view('template/template_operator',$data);
+           $this->load->view('template/template_operator',$data);
         }
 	}
 

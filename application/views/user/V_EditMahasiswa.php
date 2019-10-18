@@ -25,34 +25,53 @@
             ';
         }
     ?>
-    <div class="mt-2">
-            <div class="row py-2 ">
-                <div class="col-6 col-md-8 ">
-                    <h3 class="text-muted">Edit Data Mahasiswa</h3>
-                </div>
-                <div class="col-6 col-md-4">
-                    <div class="d-flex flex-row-reverse bd-highlight">
-                    </div>
-                </div>
-            </div>
+<div class="card shadow mb-4 mt-2">
+        <div class="card-header bg-thead  py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-white">Edit Data User</h6>
         </div>
-    <div class="kotak py-2 px-2 shadow" >
-        <?php foreach($mahasiswa as $u): ?>
-        <form class="user" action="<?php echo base_url().'User/editMahasiswa'; ?>" method="post">
-            <div class="form-group">
-                <label for="">NIK</label>
-                <input hidden type="text" name="id_mahasiswa" class="form-control form-control-user" value="<?= $u->id_mahasiswa; ?>">
-                <input disabled type="text" name="" class="form-control form-control-user" value="<?= $u->id_mahasiswa; ?>">
-            </div>
-            <div class="form-group">
-                <label for="">Nama</label>
-                <input required type="text" name="nama_mahasiswa" class="form-control form-control-user" value="<?= $u->nama_mahasiswa; ?>">
-            </div>
-            <button type="submit" class="btn btn-primary btn-user btn-block">
-                Edit Mahasiswa
-            </button>
-        <?php endforeach ?>
-        </form> 
+        <div class="card-body">
+            <form class="user" action="<?php echo base_url().'User/editUser'; ?>" method="post">
+            <?php foreach($mahasiswa as $u): ?>
+                <div class="form-group">
+                    <label for="">Username</label>
+                    <input hidden type="text" name="id_mahasiswa" class="form-control form-control-user" value="<?= $u->id_mahasiswa; ?>">
+                    <input disabled type="text" name="" class="form-control " value="<?= $u->id_mahasiswa; ?>">
+                </div>
+                <div class="form-group">
+                    <label for="">Nama</label>
+                    <input required type="text" name="nama_mahasiswa" class="form-control " value="<?= $u->nama_mahasiswa; ?>">
+                </div>
+                <div class="form-group">
+                    <label for="">Password</label>
+                    <input required type="text" name="password" class="form-control " value="<?= $u->password; ?>">
+                </div>
+                <div class="form-group">
+                    <label for="feInputAddress">Status</label>
+                    <select required  name="status_mahasiswa" id="feInputState" class="form-control">
+                    <option value="valid" <?php echo ($u->status_mahasiswa=='valid')?'selected="selected"':''; ?>>valid</option>
+                    <option value="tidak valid" <?php echo ($u->status_mahasiswa=='tidak valid')?'selected="selected"':''; ?>>tidak valid</option>
+                    <option value="belum divalidasi" <?php echo ($u->status_mahasiswa=='belum divalidasi')?'selected="selected"':''; ?>>belum divalidasi</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Nomor Telpon</label>
+                    <input  type="text" name="nomor_telpon" class="form-control " value="<?= $u->nomor_telpon; ?>">
+                </div>
+                <div class="form-group">
+                    <label for="">Alamat</label>
+                    <input  type="text" name="alamat" class="form-control " value="<?= $u->alamat; ?>">
+                </div>
+                <div class="form-group">
+                    <label for="">Instansi</label>
+                    <input  type="text" name="instansi" class="form-control " value="<?= $u->instansi; ?>">
+                </div>
+                <button type="submit" class="btn btn-primary btn-user btn-block">
+                    Edit Data User
+                </button>
+            <?php endforeach ?>
+            </form> 
+        </div>
     </div>
+   
 </div>
 </div>

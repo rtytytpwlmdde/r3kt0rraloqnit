@@ -177,8 +177,7 @@ class M_Peminjaman extends CI_Model{
 		$this->db->join('ruangan','sarana_peminjaman.id_sarana = ruangan.id_ruangan');
 		$this->db->where('peminjaman.tanggal_mulai_penggunaan <=',$tanggal);
 		$this->db->where('peminjaman.tanggal_selesai_penggunaan >=',$tanggal);
-		$where = "validasi_akademik='terkirim'  OR validasi_akademik='setuju'";
-		$this->db->where($where);
+		$this->db->where('peminjaman.validasi_akademik !=','tolak');
 		$query=$this->db->get();
 		return $query->result();
 	}

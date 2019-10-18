@@ -18,16 +18,36 @@
         foreach ($peminjaman as $u){ ?>
         <form class="user" method="post">
             <div class="form-group">
-                <label for="exampleFormControlSelect1">NIM NIP ID Peminjam</label>
+                <label for="exampleFormControlSelect1">Username</label>
                 <input disabled type="text"  required name="id_peminjam" class="form-control " value="<?= $id = $u->id_peminjaman; ?>">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlSelect1">NIM NIP ID Peminjam</label>
-                <input disabled type="text"  required name="id_peminjam" class="form-control " value="<?= $id = $u->id_peminjaman; ?>">
+                <label for="exampleFormControlSelect1">Nama</label>
+                <input disabled type="text"  required name="id_peminjam" class="form-control " value="<?= $u->nama_mahasiswa; ?>">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Tanggal Penggunaan</label>
-                <input disabled type="text"  required name="tanggal_mulai_penggunaan" class="form-control " value="<?= date("l, d-m-Y", strtotime($u->tanggal_mulai_penggunaan)); ?>">
+                <input disabled type="text"  required name="tanggal_mulai_penggunaan" class="form-control " 
+                value="<?php 
+                $day = date("l", strtotime($u->tanggal_mulai_penggunaan));
+                $hari = null;
+                if($day == "Sunday"){
+                    echo $hari = "Minggu";
+                }else if($day == "Monday"){
+                    echo $hari = "Senin";
+                }else if($day == "Tuesday"){
+                    echo $hari = "Selasa";
+                }else if($day == "Wednesday"){
+                    echo $hari = "Rabu";
+                }else if($day == "Thursday"){
+                    echo $hari = "Kamis";
+                }else if($day == "Friday"){
+                    echo $hari = "Jumat";
+                }else if($day == "Saturday"){
+                    echo $hari = "Sabtu";
+                }
+                ?><?= ","?>
+            <?= date("d-m-Y", strtotime($u->tanggal_mulai_penggunaan)); ?>">
             </div>
             <?php   $tgl_mulai = $u->tanggal_mulai_penggunaan;
                                         $tgl_selesai = $u->tanggal_selesai_penggunaan; 
@@ -100,7 +120,7 @@
           <h6 class="m-0 font-weight-bold  d-flex justify-content-between">Pilih Ruangan 
             <a  data-toggle="modal" data-target="#modalPanduan"><span class="" title="panduan"><i class="far fa-question-circle"></i></span></a></h6>
         </div>
-        <div class="card-body" style="height:350px; overflow-y: scroll;">
+        <div class="card-body" style="height:500px; overflow-y: scroll;">
             <?php if($jumRuangan == 0){ ?>
                 <?php 
                 $no = 1;

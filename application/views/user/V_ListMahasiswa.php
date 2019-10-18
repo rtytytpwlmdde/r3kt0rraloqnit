@@ -56,7 +56,7 @@
             <thead class="bg-thead text-white">
                 <tr>
                 <th class="text-center" scope="col">No</th>
-                <th class="text-center" scope="col">ID User</th>
+                <th class="text-center" scope="col">Username</th>
                 <th class="text-center" scope="col">Nama</th>
                 <th class="text-center" scope="col">Password</th>
                 <th class="text-center" scope="col">Status</th>
@@ -70,16 +70,22 @@
             ?>
                 <tr class="text-center">
                     <td><?php echo $no++; ?></td>
-                    <td><?php echo $u->id_mahasiswa; ?></td>
+                    <td><a href="<?php echo site_url('user/detailUser/'.$u->id_mahasiswa); ?>" ><?= $u->id_mahasiswa; ?></a></td>
                     <td><?php echo $u->nama_mahasiswa;?></td>
                     <td><?php echo $u->password;?></td>
                     <td><?php echo $u->status_mahasiswa;?></td>
                     <td >
-                        <a href="<?php echo site_url('user/updateMahasiswa/'.$u->id_mahasiswa); ?>"  class="btn  btn-sm btn-warning text-white" title="Edit">
+                        <a href="<?php echo site_url('user/updateUser/'.$u->id_mahasiswa); ?>"  class="btn  btn-sm btn-warning text-white" title="Edit">
                         <i class="fas fa-pencil-alt"></i>
                         </a>
-                        <a href="<?php echo site_url('user/hapusMahasiswa/'.$u->id_mahasiswa); ?>"  class="btn  btn-sm btn-danger text-white"  title="Hapus">
+                        <a href="<?php echo site_url('user/hapusUser/'.$u->id_mahasiswa); ?>"  class="btn  btn-sm btn-danger text-white"  title="Hapus">
                             <i class="fas fa-trash"></i>
+                        </a>
+                        <a href="<?php echo site_url('user/validasiUser/'.$u->id_mahasiswa); ?>"  class="btn  btn-sm btn-outline-primary"  title="Validasi Status User">
+                            <i class="fas fa-check"></i>
+                        </a>
+                        <a href="<?php echo site_url('user/validasiUser/'.$u->id_mahasiswa); ?>"  class="btn  btn-sm btn-outline-danger"  title="Tolak Status User">
+                            <i class="fas fa-window-close"></i>
                         </a>
                     </td>
                 </tr>

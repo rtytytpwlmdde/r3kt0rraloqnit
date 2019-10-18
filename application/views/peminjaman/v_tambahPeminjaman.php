@@ -28,7 +28,7 @@
         <div class="card-body">
           <form class="user" action="<?php echo base_url().'peminjaman/tambahPeminjaman'; ?>" method="post">
             <div class="form-group">
-                <label for="exampleFormControlSelect1">NIM Peminjam</label>
+                <label for="exampleFormControlSelect1">Username</label>
                 <?php if($this->session->userdata('status') == 'pengguna'){ ?>
                 <?php }else{ ?>
                 <?php }?>

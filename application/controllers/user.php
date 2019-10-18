@@ -199,27 +199,47 @@ class User extends CI_Controller {
         redirect('User/mahasiswa');
     }
 
-    function updateUser($id_mahasiswa){
+    function updateUser($id){
+		$data['username'] = $id;
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
         $data['main_view'] = 'User/V_EditMahasiswa';
-        $data['mahasiswa'] = $this->M_User->getDataMahasiswaById($id_mahasiswa);
+        $data['mahasiswa'] = $this->M_User->getDataMahasiswaById($id);
         $this->load->view('template/template_operator',$data);
     }
 
     function editUser(){
         $id_mahasiswa = $this->input->post('id_mahasiswa');
         $nama_mahasiswa = $this->input->post('nama_mahasiswa');
+        $password = $this->input->post('password');
+        $alamat = $this->input->post('alamat');
+        $status_mahasiswa = $this->input->post('status_mahasiswa');
+        $nomor_telpon = $this->input->post('nomor_telpon');
+        $instansi = $this->input->post('instansi');
         $data = array(
             'id_mahasiswa' => $id_mahasiswa,
-            'nama_mahasiswa' => $nama_mahasiswa
+            'nama_mahasiswa' => $nama_mahasiswa,
+            'password' => $password,
+            'alamat' => $alamat,
+            'instansi' => $instansi,
+            'status_mahasiswa' => $status_mahasiswa,
+            'nomor_telpon' => $nomor_telpon
         );
 
         $where = array('id_mahasiswa' => $id_mahasiswa);
 
         $this->M_User->updateUser($where,$data,'mahasiswa');
         $this->session->set_flashdata('notifsukses', "Data mahasiswa berhasil diubah");
-        redirect('User/mahasiswa');
+        redirect('User/user');
+    }
+
+    function detailUser($id){
+		$data['username'] = $id;
+		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
+		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+        $data['mahasiswa'] = $this->M_User->getDataMahasiswaById($id);
+        $data['main_view'] = 'User/V_DetailUser';
+        $this->load->view('template/template_operator', $data);
     }
 
 }

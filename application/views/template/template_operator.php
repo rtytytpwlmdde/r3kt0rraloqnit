@@ -165,7 +165,8 @@
 
             <!-- Nav Item - Alerts -->
             <li class="nav-item dropdown no-arrow mx-1"><?php foreach($jumlahPeminjaman as $u){ $jumPeminjaman =  $u->jumPeminjamanTerkirim; } $a = $jumPeminjaman?>
-              <a class="nav-link dropdown-toggle text-white" title="Terdapat <?= $jumPeminjaman?> Peminjaman Yang Belum Di Proses" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle text-white" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                title="Terdapat <?= $jumPeminjaman?> Peminjaman Yang Belum Di Proses" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
                 <?php if($a > 0){ ?>
@@ -173,10 +174,17 @@
                 <?php } ?>
               </a>
               <!-- Dropdown - Alerts -->
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                <h6 class="dropdown-header"> Terdapat <?= $jumPeminjaman?> Peminjaman Baru</h6> 
+                <form class="dropdown-item" action="<?php  echo base_url('peminjaman/historyPeminjaman'); ?>" method="post"><input hidden name="status" value="terkirim">
+                    <button class="text-center small text-gray-800" type="submit">Tampilkan Semua</button>
+                </form>
+              </div>
             </li>
             <?php if($this->session->userdata('status') == "admin"){ ?>
             <li class="nav-item dropdown no-arrow mx-1"><?php foreach($jumlahUser as $u){ $jumUser =  $u->jumUserBaru; }?>
-              <a class="nav-link dropdown-toggle text-white" title="Terdapat <?= $jumUser?> User Baru Yang Belum Divalidasi" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle text-white" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                title="Terdapat <?= $jumUser?> User Baru Yang Belum Divalidasi" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-user"></i>
                 <!-- Counter - Alerts -->
                 <?php if($jumUser > 0){ ?>
@@ -185,6 +193,12 @@
               </a>
               <!-- Dropdown - Alerts -->
              
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                <h6 class="dropdown-header"> Terdapat <?= $jumUser?> User Baru</h6>
+                <form class="dropdown-item" action="<?php  echo base_url('user/user'); ?>" method="post"><input hidden name="status_mahasiswa" value="belum divalidasi">
+                    <button class="text-center small text-gray-800" type="submit">Tampilkan Semua</button>
+                </form>
+              </div>
             </li>
             <?php } ?>
 

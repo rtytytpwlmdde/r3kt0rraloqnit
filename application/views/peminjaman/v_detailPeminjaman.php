@@ -52,7 +52,7 @@
                     <td><?= $u->nama_mahasiswa; ?></td>
                 </tr>
                 <tr>
-                    <td>NIM/NIP</td>
+                    <td>Username</td>
                     <td><?= $u->id_peminjam; ?></td>
                 </tr>
                 <tr>

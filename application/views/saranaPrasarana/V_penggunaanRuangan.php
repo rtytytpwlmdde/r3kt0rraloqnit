@@ -14,9 +14,9 @@
                     echo $hari = "Senin";
                 }else if($day == "Tuesday"){
                     echo $hari = "Selasa";
-                }else if($day == "Wednesday "){
+                }else if($day == "Wednesday"){
                     echo $hari = "Rabu";
-                }else if($day == "Thursday "){
+                }else if($day == "Thursday"){
                     echo $hari = "Kamis";
                 }else if($day == "Friday"){
                     echo $hari = "Jumat";
@@ -76,7 +76,7 @@
                                                         class="btn open-modaRuangan text-dark" href="#modaRuangan">
                                                         <i class="fas fa-times-circle fa-lg text-danger"  title="Ruangan Digunakan"></i>
                                                     </a>
-                                                <?php }else if($j->validasi_akademik == 'terkirim'){?>
+                                                <?php }else{?>
                                                     <a data-toggle="modal"  style="cursor: pointer;" data-keterangan="<?= $j->keterangan; ?>" data-ruangan="<?= $r->nama_ruangan; ?>" data-jam="<?= $w->nama_waktu; ?>" data-penyelenggara="<?= $j->penyelenggara; ?>"
                                                     class="btn open-modaRuangan text-dark" href="#modaRuangan">
                                                     <i class="fas fa-times-circle fa-lg text-warning"  title="Ruangan Sedang Menungu Proses Validasi Peminjaman"></i>
