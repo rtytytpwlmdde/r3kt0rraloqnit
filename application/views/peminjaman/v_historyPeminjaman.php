@@ -127,11 +127,15 @@ if($this->session->userdata('status') == "pengguna"){
                             target="_blank"class="btn btn-outline-success btn-sm" title="Kirim Pesan WA"><i class="fab fa-whatsapp"></i></a>
                            
                            <?php } ?>
-                    <?php if( $this->session->userdata('status') == 'pengguna' || $u->validasi_akademik == 'terkirim'){ ?>
-                                <a data-toggle="modal" data-id="<?php echo $u->id_peminjaman; ?>" title="Batalkan Peminjaman" class="modalBatalPeminjaman btn btn-outline-secondary btn-sm" href="#modalBatalPeminjaman">Batal</a>
-                            <?php } ?> 
                         </th>
-                    <?php }?>
+                    <?php } ?>
+                    <?php if($this->session->userdata('status') == 'pengguna' || $u->validasi_akademik == 'terkirim' ) { ?>
+                        <th class="text-center">
+                        <a data-toggle="modal" data-id="<?php echo $u->id_peminjaman; ?>" title="Batalkan Peminjaman" class="modalBatalPeminjaman btn btn-outline-secondary btn-sm" href="#modalBatalPeminjaman">Batal</a>
+
+                        </th>
+                    <?php } ?>
+                    
                 </tr>
             <?php } ?>
             </tbody>

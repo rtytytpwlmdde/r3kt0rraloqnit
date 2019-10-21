@@ -3,16 +3,10 @@
               <div class="row py-2 ">
                   <div class="col-6 col-md-8 ">
                       <h3 class="text-muted px-1">Dashboard</h3>
-                      <h5 class="text-info px-1">Tahun <?php echo $tahun; ?></h5>
+                      <h5 class="text-primary px-1">Tahun <?php echo $tahun; ?></h5>
                   </div>
                   <div class="col-6 col-md-4">
                       <div class="d-flex flex-row-reverse bd-highlight">
-                          <form class="form-inline" action="<?php  echo base_url('Rekap/dashboard'); ?>" method="get">
-                              <div class="form-group">
-                                  <input type="text" required name="tahun" class="form-control" placeholder="<?php echo $tahun; ?>">
-                                  <button type="submit" class="btn btn-light"><i class="fas fa-search"></i></button>
-                              </div>
-                          </form>
                       </div>
                   </div>
               </div>
@@ -25,7 +19,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Peminjaman</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">100</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?php foreach($peminjamanPertahun as $u){ echo $u->jumPeminjamanPertahun;} ?></div>
                       </div>
                   </div>
                 </div>
@@ -56,6 +50,13 @@
                 <div class="card-header bg-thead  py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-white">Grafik Jumlah Peminjaman</h6>
                   <div  class="dropdown  no-arrow">
+                  
+                  <form class="form-inline" action="<?php  echo base_url('Rekap/dashboard'); ?>" method="get">
+                              <div class="form-group">
+                                  <input type="text" required name="tahun" class="form-control-sm" placeholder="<?php echo $tahun; ?>">
+                                  <button type="submit" class="btn btn-sm btn-light"><i class="fas fa-search"></i></button>
+                              </div>
+                          </form>
                   </div>
                 </div>
                 
@@ -69,57 +70,74 @@
 
             <!-- Pie Chart -->
             <div class="col-xl-4 col-lg-5">
-              <div class="card shadow mb-4">
-                <div class="card-header bg-thead  py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-white">Status Peminjaman</h6>
+              <div class="card shadow ">
+                <div class="card-header bg-thead  pt-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-white">Jumlah Peminjaman</h6>
                   <div class="dropdown  no-arrow">
                   </div>
                 </div>
                 <div class="card-body">
-                  <div class="chart-pie pt-4 pb-2"  >
-                  <div class="chart" id="chart_div">
-                    <table>
-                      <tr>
-                        <td>
-                        
-                          </td>
-                        <td></td>
-                        <td></td>
+                  <div class="table-responsive pt-2 "  >
+                    <table class="table table-bordered">
+                      <thead>
+                      <tr class="text-center">
+                        <td>Bln</td>
+                        <td class="" title="setuju"><span class="badge badge-success text-success">.</span></td>
+                        <td class="" title="terkirim"><span class="badge badge-warning text-warning">.</span></td>
+                        <td class="" title="tolak"><span class="badge badge-danger text-danger">.</span></td>
+                        <td class="" title="total peminjaman"><span class="badge badge-primary text-primary">.</span></td>
                       </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                      <?php
+                        for($i=1; $i<13; $i++){
+                             
+                          $result = 0;
+                          $setuju = 0;
+                          $terkirim = 0;
+                          $tolak = 0;
+                          foreach($peminjamanPerBulan as $u){
+                              if($i == $u->bulan){ 
+                                  $result = $u->jumPeminjamanPerbulan;
+                              }
+                          } 
+                          foreach($peminjamanSetujuPerbulan as $u){
+                            if($i == $u->bulan){ 
+                                $setuju = $u->jumPeminjamanSetujuPerbulan;
+                            }
+                          } 
+                          foreach($peminjamanTerkirimPerbulan as $u){
+                            if($i == $u->bulan){ 
+                                $terkirim = $u->jumPeminjamanTerkirimPerbulan;
+                            }
+                          } 
+                          foreach($peminjamanTolakPerbulan as $u){
+                            if($i == $u->bulan){ 
+                                $tolak = $u->jumPeminjamanTolakPerbulan;
+                            }
+                          } 
+                          ?>
+                          <tr>
+                          <td><?php
+                              $monthNum = $i;
+                              $monthName = date("M", mktime(0, 0, 0, $monthNum, 10));
+                              echo $monthName; // Output: May
+                              ?></td>
+                          <td title="semua peminjaman"><?= $result; ?></td>
+                          <td title="setuju"><?= $setuju; ?></td>
+                          <td title="terkirim"><?= $terkirim; ?></td>
+                          <td title="tolak"><?= $tolak; ?></td>
+                          </tr>
+                          <?php
+                        }
+                          
+                      ?>
+                      </tr>
+                      </tbody>
                     </table>
                   </div>
-                  </div>
-                  <div class="mt-4 text-center small">
-                    
-                  </div>
-                  <?php 
-                  for($i=1; $i<13; $i++){
-                    $result = 0;
-                    $setuju = 0;
-                    foreach($peminjamanPerBulan as $u){
-                        if($i == $u->bulan){ 
-                            $result = $u->jumPeminjamanPerbulan;
-                        }
-                    }  
-                    foreach($peminjamanSetujuPerbulan as $s){
-                      if($i == $s->bulan){ 
-                          $setuju = $s->jumPeminjamanSetujuPerbulan;
-                    }
-                  } 
-                    if($result == 0){ 
-                      if($setuju == 0){?>
-                      [<?= $monthName;?>,<?= '0';?>,<?= '0';?>], 
-                      <?php }else{?>
-                      [<?= $monthName;?>,<?= '0';?>,<?= $setuju;?>], 
-
-                      <?php }
-                    }else{?>
-                      [<?= $monthName;?>,<?= $result;?>,<?= $setuju;?>],
-                        <?php 
-                    }
-               
-            }
-            ?>
+                  
                 </div>
               </div>
             </div>
@@ -199,8 +217,7 @@
                                       }
                                     } 
                                     if($result == 0){ ?>
-                                      [<?= $i;?>,<?= '0';?>,<?= '0';?>,<?= '0';?>,<?= '0';?>], 
-                                      <?php
+                                        [<?= $i;?>,<?= '0';?>,<?= '0';?>,<?= '0';?>,<?= '0';?>],<?php
                                     }else{?>
                                       [<?= $i;?>,<?= $result;?>,<?= $tolak;?>,<?= $terkirim;?>,<?= $setuju;?>],
                                         <?php 
