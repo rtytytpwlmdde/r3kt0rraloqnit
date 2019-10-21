@@ -60,14 +60,14 @@ class Peminjaman extends CI_Controller {
     }
 
     function tambahPeminjaman(){
+        $jam_mulai = $this->input->post('jam_mulai');
+        $jam_selesai = $this->input->post('jam_selesai');
         if($jam_mulai >= $jam_selesai){
             $this->session->set_flashdata('notifsukses', "Pastikan Jam Peminjaman Telah Sesuai");
             redirect('peminjaman/formTambahPeminjaman/');
         }else{
             $tanggal_mulai_penggunaan = $this->input->post('tanggal_mulai_penggunaan');
             $tanggal_selesai_penggunaan = $this->input->post('tanggal_mulai_penggunaan');
-            $jam_mulai = $this->input->post('jam_mulai');
-            $jam_selesai = $this->input->post('jam_selesai');
             $id_peminjam = $this->input->post('id_peminjam');
             $id_lembaga = $this->input->post('id_lembaga');
             $penyelenggara = $this->input->post('penyelenggara');
@@ -253,12 +253,17 @@ class Peminjaman extends CI_Controller {
     }
 
     function formCekPeminjaman(){
+		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
         $data['main_view'] = 'peminjaman/v_formCekPeminjaman';
         if($this->session->userdata('status') == "pengguna" ){ 
             $this->load->view('template/template_user',$data);
-        }else{
+        }else if($this->session->userdata('status') == "admin"){
             $this->load->view('template/template_operator',$data);
+        }else if($this->session->userdata('status') == "staff pelayanan"){
+            $this->load->view('template/template_operator',$data);
+        }else{
+            $this->load->view('template/template_user',$data);
         }
     }
 

@@ -1,4 +1,5 @@
 <div class="col-md-12">
+
             <div class="mt-2">
                     <div class="row py-2 ">
                         <div class="col-6 col-md-8 ">
@@ -71,4 +72,64 @@
                     </tbody>
                 </table>
             </div>
+            <div class="row mt-4">
+            <div class="col-xl-12 col-lg-7">
+              <div class="card shadow mb-4">
+                <div class="card-header bg-thead  py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-white">Grafik Jumlah Peminjaman</h6>
+                  <div  class="dropdown  no-arrow">
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="" >
+                    <div class="chart" id="columnchart_material"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            
+
+            
+          </div>
       </div>
+      
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['line']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Bulan', 'Total Peminjaman'],
+          ['Jan',97],
+          ['Feb', 100],
+          ['Mar', 130],
+          ['Apr', 101],
+          ['Mei', 89],
+          ['Jun', 69],
+          ['Jul', 89],
+          ['Agu', 78],
+          ['Sep', 80],
+          ['Okt', 111],
+          ['Nov', 80],
+          ['Des', 100]
+        ]);
+
+        var options = {
+          chart: {
+            title: 'Grafik Peminjaman',
+            subtitle: 'Dalam Perbulan',
+          legend: { position: 'bottom' }
+          },
+          legend: { position: 'bottom' }
+
+        };
+
+        var chart = new google.charts.Line(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Line.convertOptions(options));
+      }
+    </script>
+
+
+
