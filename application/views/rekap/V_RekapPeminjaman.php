@@ -101,18 +101,25 @@
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Bulan', 'Total Peminjaman'],
-          ['Jan',97],
-          ['Feb', 100],
-          ['Mar', 130],
-          ['Apr', 101],
-          ['Mei', 89],
-          ['Jun', 69],
-          ['Jul', 89],
-          ['Agu', 78],
-          ['Sep', 80],
-          ['Okt', 111],
-          ['Nov', 80],
-          ['Des', 100]
+          <?php
+                            for($i=1; $i<13; $i++){
+                                    $result = 0;
+                                    foreach($peminjamanPerBulan as $u){
+                                        if($i == $u->bulan){ 
+                                            $result = $u->jumPeminjamanPerbulan;
+                                        }
+                                    } 
+                                    if($result == 0){ ?>
+                                      [<?= $i;?>,<?= '0';?>], 
+                                      <?php
+                                    }else{?>
+                                      [<?= $i;?>,<?= $result;?>],
+                                        <?php 
+                                    }
+                               
+                            }
+                            ?>
+          
         ]);
 
         var options = {

@@ -25,9 +25,10 @@ class Rekap extends CI_Controller {
 			$data['peminjamanTerkirimPertahun'] = $this->M_Rekap->getDataRekapPeminjamanTerkirimPerTahun();
 			$data['peminjamanTolakPerbulan'] = $this->M_Rekap->getDataRekapPeminjamanTolakPerbulan();
 			$data['peminjamanTolakPertahun'] = $this->M_Rekap->getDataRekapPeminjamanTolakPertahun();
-			$data['peminjamanPerbulan'] = $this->M_Rekap->getDataRekapPeminjamanNonKelasPerbulan();
-			$data['peminjamanPertahun'] = $this->M_Rekap->getDataRekapPeminjamanNonKelasPertahun();
 			
+			$data['peminjamanPerBulan'] = $this->M_Rekap->getDataRekapPeminjamanPerbulan();
+			$data['peminjamanPertahun'] = $this->M_Rekap->getDataRekapPeminjamanPertahun();
+			$data['setuju'] = $this->M_Rekap->getDataRekapPeminjamanSetujuPerbulan();
 
 			$data['jumlahRuangan'] = $this->M_SaranaPrasarana->getJumlahRuangan();
 			$data['jumlahBarang'] = $this->M_SaranaPrasarana->getJumlahBarang();
@@ -47,14 +48,10 @@ class Rekap extends CI_Controller {
 		}
 		$data['tahun'] = $tahun;
 		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
-		$data['peminjamanKelasPerBulan'] = $this->M_Rekap->getDataRekapPeminjamanKelasPerBulan();
-		$data['peminjamanKelasPertahun'] = $this->M_Rekap->getDataRekapPeminjamanKelasPerTahun();
-		$data['peminjamanNonKelasPerBulan'] = $this->M_Rekap->getDataRekapPeminjamanNonKelasPerBulan();
-		$data['peminjamanNonKelasPertahun'] = $this->M_Rekap->getDataRekapPeminjamanNonKelasPerTahun();
-		$data['peminjamanBarangPerBulan'] = $this->M_Rekap->getDataRekapPeminjamanBarangPerBulan();
-		$data['peminjamanBarangPertahun'] = $this->M_Rekap->getDataRekapPeminjamanBarangPerTahun();
-		$data['peminjamanPerBulan'] = $this->M_Rekap->getDataRekapPeminjamanPerBulan();
-		$data['peminjamanPertahun'] = $this->M_Rekap->getDataRekapPeminjamanPerTahun();
+		$data['peminjamanNonKelasPerBulan'] = $this->M_Rekap->getDataRekapPeminjamanNonKelasPerbulan();
+		$data['peminjamanNonKelasPertahun'] = $this->M_Rekap->getDataRekapPeminjamanNonKelasPertahun();
+		$data['peminjamanPerBulan'] = $this->M_Rekap->getDataRekapPeminjamanPerbulan();
+		$data['peminjamanPertahun'] = $this->M_Rekap->getDataRekapPeminjamanPertahun();
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['main_view'] = 'Rekap/V_RekapPeminjaman';
 		$this->load->view('template/template_operator',$data);

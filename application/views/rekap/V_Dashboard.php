@@ -81,9 +81,7 @@
                     <table>
                       <tr>
                         <td>
-                          <?php foreach($peminjamanSetujuPerbulan as $u){
-                            echo $u->jumPeminjamanPerbulan;
-                          }?>
+                        
                           </td>
                         <td></td>
                         <td></td>
@@ -94,6 +92,34 @@
                   <div class="mt-4 text-center small">
                     
                   </div>
+                  <?php 
+                  for($i=1; $i<13; $i++){
+                    $result = 0;
+                    $setuju = 0;
+                    foreach($peminjamanPerBulan as $u){
+                        if($i == $u->bulan){ 
+                            $result = $u->jumPeminjamanPerbulan;
+                        }
+                    }  
+                    foreach($peminjamanSetujuPerbulan as $s){
+                      if($i == $s->bulan){ 
+                          $setuju = $s->jumPeminjamanSetujuPerbulan;
+                    }
+                  } 
+                    if($result == 0){ 
+                      if($setuju == 0){?>
+                      [<?= $monthName;?>,<?= '0';?>,<?= '0';?>], 
+                      <?php }else{?>
+                      [<?= $monthName;?>,<?= '0';?>,<?= $setuju;?>], 
+
+                      <?php }
+                    }else{?>
+                      [<?= $monthName;?>,<?= $result;?>,<?= $setuju;?>],
+                        <?php 
+                    }
+               
+            }
+            ?>
                 </div>
               </div>
             </div>
@@ -123,8 +149,8 @@
         data.addColumn('number', 'Slices');
         data.addRows([
           ['Setuju', <?php foreach($peminjamanSetujuPertahun as $u){ echo $u->jumPeminjamanSetujuPertahun; }?>],
-          ['Tolak', <?php foreach($peminjamanGagalPertahun as $u){ echo $u->jumPeminjamanGagalPertahun; }?>],
-          ['Belum Diproses', <?php foreach($peminjamanPendingPertahun as $u){ echo $u->jumPeminjamanPendingPertahun; }?>]
+          ['Tolak', <?php foreach($peminjamanTolakPertahun as $u){ echo $u->jumPeminjamanTolakPertahun; }?>],
+          ['Belum Diproses', <?php foreach($peminjamanTerkirimPertahun as $u){ echo $u->jumPeminjamanTerkirimPertahun; }?>]
         ]);
         // Set chart options
         var options = {'title':'Status Peminjaman',
@@ -145,18 +171,43 @@
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Bulan', 'Total Peminjaman', 'Tolak', 'Terkirim', 'Setuju'],
-          ['Jan', 200, 40, 10, 97],
-          ['Feb', 170, 60, 25, 100],
-          ['Mar', 160, 10, 16, 130],
-          ['Apr', 160, 20, 15, 101],
-          ['Mei', 120, 30, 7, 89],
-          ['Jun', 120, 50, 11, 69],
-          ['Jul', 100, 40, 30, 89],
-          ['Agu', 130, 20, 20, 78],
-          ['Sep', 125, 20, 30, 80],
-          ['Okt', 170, 50, 35, 111],
-          ['Nov', 130, 20, 30, 80],
-          ['Des', 130, 10, 20, 100]
+          <?php
+                            for($i=1; $i<13; $i++){
+                             
+                                    $result = 0;
+                                    $setuju = 0;
+                                    $terkirim = 0;
+                                    $tolak = 0;
+                                    foreach($peminjamanPerBulan as $u){
+                                        if($i == $u->bulan){ 
+                                            $result = $u->jumPeminjamanPerbulan;
+                                        }
+                                    } 
+                                    foreach($peminjamanSetujuPerbulan as $u){
+                                      if($i == $u->bulan){ 
+                                          $setuju = $u->jumPeminjamanSetujuPerbulan;
+                                      }
+                                    } 
+                                    foreach($peminjamanTerkirimPerbulan as $u){
+                                      if($i == $u->bulan){ 
+                                          $terkirim = $u->jumPeminjamanTerkirimPerbulan;
+                                      }
+                                    } 
+                                    foreach($peminjamanTolakPerbulan as $u){
+                                      if($i == $u->bulan){ 
+                                          $tolak = $u->jumPeminjamanTolakPerbulan;
+                                      }
+                                    } 
+                                    if($result == 0){ ?>
+                                      [<?= $i;?>,<?= '0';?>,<?= '0';?>,<?= '0';?>,<?= '0';?>], 
+                                      <?php
+                                    }else{?>
+                                      [<?= $i;?>,<?= $result;?>,<?= $tolak;?>,<?= $terkirim;?>,<?= $setuju;?>],
+                                        <?php 
+                                    }
+                               
+                            }
+                            ?>
         ]);
 
         var options = {

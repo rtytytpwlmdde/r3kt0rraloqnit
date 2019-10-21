@@ -76,12 +76,25 @@ class M_Rekap extends CI_Model{
 		return $query->result();
 	}
 
+	function getDataRekapPeminjamanPertahun(){
+		$tahun = $this->input->get('tahun');
+		if($tahun == NULL){
+			$tahun = date("Y");
+		}
+		$this->db->select('id_peminjaman ,count(id_peminjaman) as jumPeminjamanPertahun');
+		$this->db->select('date_format(tanggal_peminjaman,"%m") as bulan');
+		$this->db->from('peminjaman');
+		$this->db->where('YEAR(tanggal_peminjaman)',$tahun);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	function getDataRekapPeminjamanSetujuPerbulan(){
 		$tahun = $this->input->get('tahun');
 		if($tahun == NULL){
 			$tahun = date("Y");
 		}
-		$this->db->select('id_peminjaman ,count(id_peminjaman) as jumPeminjamanPerbulan');
+		$this->db->select('id_peminjaman ,count(id_peminjaman) as jumPeminjamanSetujuPerbulan');
 		$this->db->select('date_format(tanggal_peminjaman,"%m") as bulan');
 		$this->db->from('peminjaman');
 		$this->db->group_by('bulan');
@@ -96,7 +109,7 @@ class M_Rekap extends CI_Model{
 		if($tahun == NULL){
 			$tahun = date("Y");
 		}
-		$this->db->select('id_peminjaman ,count(id_peminjaman) as jumPeminjamanPerbulan');
+		$this->db->select('id_peminjaman ,count(id_peminjaman) as jumPeminjamanTolakPerbulan');
 		$this->db->select('date_format(tanggal_peminjaman,"%m") as bulan');
 		$this->db->from('peminjaman');
 		$this->db->group_by('bulan');
@@ -111,7 +124,7 @@ class M_Rekap extends CI_Model{
 		if($tahun == NULL){
 			$tahun = date("Y");
 		}
-		$this->db->select('id_peminjaman ,count(id_peminjaman) as jumPeminjamanPerbulan');
+		$this->db->select('id_peminjaman ,count(id_peminjaman) as jumPeminjamanTerkirimPerbulan');
 		$this->db->select('date_format(tanggal_peminjaman,"%m") as bulan');
 		$this->db->from('peminjaman');
 		$this->db->group_by('bulan');
