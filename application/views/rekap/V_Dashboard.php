@@ -77,7 +77,19 @@
                 </div>
                 <div class="card-body">
                   <div class="chart-pie pt-4 pb-2"  >
-                  <div class="chart" id="chart_div"></div>
+                  <div class="chart" id="chart_div">
+                    <table>
+                      <tr>
+                        <td>
+                          <?php foreach($peminjamanSetujuPerbulan as $u){
+                            echo $u->jumPeminjamanPerbulan;
+                          }?>
+                          </td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </table>
+                  </div>
                   </div>
                   <div class="mt-4 text-center small">
                     

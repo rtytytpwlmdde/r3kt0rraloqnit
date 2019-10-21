@@ -50,6 +50,10 @@
                 <input required type="text" name="alamat" class="form-control " >
             </div>
             <div class="form-group">
+                <label for="">Email</label>
+                <input required type="text" name="email" class="form-control " >
+            </div>
+            <div class="form-group">
                 <label for="">Instansi</label>
                 <input required type="text" name="instansi" class="form-control " >
             </div>

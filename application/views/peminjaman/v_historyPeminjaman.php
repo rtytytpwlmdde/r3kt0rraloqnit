@@ -75,9 +75,7 @@ if($this->session->userdata('status') == "pengguna"){
                 <th class="text-center" scope="col">Ruangan</th>
                 <th class="text-center" scope="col">Jam Mulai</th>
                 <th class="text-center" scope="col">Validasi</th>
-                <?php if($this->session->userdata('status') == 'staff pelayanan' || $this->session->userdata('status') == 'admin') { ?>
                     <th class="text-center" scope="col">Aksi</th>
-                <?php }?>
                 </tr>
             </thead>
             <tbody>
@@ -115,15 +113,23 @@ if($this->session->userdata('status') == "pengguna"){
                         <?php if( $u->validasi_akademik == 'terkirim'){ ?>
                             <a href="<?php echo site_url('Peminjaman/validasiPeminjaman/'.$u->id_peminjaman); ?>"  class="btn btn-success btn-sm" title="Setuju Peminjaman">Setuju</a>
                             <a data-toggle="modal" data-id="<?php echo $u->id_peminjaman; ?>" title="Tolak Peminjaman" class="modalTolakPeminjaman btn btn-outline-danger btn-sm" href="#modalTolakPeminjaman">Tolak</a>
-                            <a href="https://api.whatsapp.com/send?phone=<?= $u->nomor_telpon?>&text=Hi%20Peminjaman%20Ruangan%20Telah%20Selesai%20Diproses.%20 Terimakasih" 
-                            target="_blank"class="btn btn-outline-success btn-sm" title="Kirim Pesan WA"><i class="fab fa-whatsapp"></i></a>
                            
                         <?php } ?> 
                         <?php if( $u->validasi_akademik == 'setuju'){ ?>
                            <?php if( $u->id_peminjam == $this->session->userdata('username') || $this->session->userdata('username') == 'admin'){ ?>
                                 <a data-toggle="modal" data-id="<?php echo $u->id_peminjaman; ?>" title="Batalkan Peminjaman" class="modalBatalPeminjaman btn btn-outline-secondary btn-sm" href="#modalBatalPeminjaman">Batal</a>
+                                <a href="https://api.whatsapp.com/send?phone=<?= $u->nomor_telpon?>&text=Hi%20Peminjaman%20Ruangan%20<?=$u->nama_ruangan;?>%20Telah%20Disetujui.%20 Terimakasih" 
+                            target="_blank"class="btn btn-outline-success btn-sm" title="Kirim Pesan WA"><i class="fab fa-whatsapp"></i></a>
                             <?php } ?> 
-                        <?php } ?> 
+                        <?php } ?>  
+                           <?php if($u->validasi_akademik == 'tolak'){ ?>
+                            <a href="https://api.whatsapp.com/send?phone=<?= $u->nomor_telpon?>&text=Hi%20Peminjaman%20Ruangan%20<?=$u->nama_ruangan;?>%20Telah%20Ditolak.%20 Dengan alasan penolakan <?= $u->catatan_penolakan?>Terimakasih" 
+                            target="_blank"class="btn btn-outline-success btn-sm" title="Kirim Pesan WA"><i class="fab fa-whatsapp"></i></a>
+                           
+                           <?php } ?>
+                    <?php if( $this->session->userdata('status') == 'pengguna' || $u->validasi_akademik == 'terkirim'){ ?>
+                                <a data-toggle="modal" data-id="<?php echo $u->id_peminjaman; ?>" title="Batalkan Peminjaman" class="modalBatalPeminjaman btn btn-outline-secondary btn-sm" href="#modalBatalPeminjaman">Batal</a>
+                            <?php } ?> 
                         </th>
                     <?php }?>
                 </tr>

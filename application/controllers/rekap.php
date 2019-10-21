@@ -19,21 +19,15 @@ class Rekap extends CI_Controller {
 			}
 			$data['tahun'] = $tahun;
 			$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
-			$data['peminjamanKelasPerBulan'] = $this->M_Rekap->getDataRekapPeminjamanKelasPerBulan();
-			$data['peminjamanKelasPertahun'] = $this->M_Rekap->getDataRekapPeminjamanKelasPerTahun();
-			$data['peminjamanNonKelasPerBulan'] = $this->M_Rekap->getDataRekapPeminjamanNonKelasPerBulan();
-			$data['peminjamanNonKelasPertahun'] = $this->M_Rekap->getDataRekapPeminjamanNonKelasPerTahun();
-			$data['peminjamanBarangPerBulan'] = $this->M_Rekap->getDataRekapPeminjamanBarangPerBulan();
-			$data['peminjamanBarangPertahun'] = $this->M_Rekap->getDataRekapPeminjamanBarangPerTahun();
-			$data['peminjamanPerBulan'] = $this->M_Rekap->getDataRekapPeminjamanPerBulan();
-			$data['peminjamanPertahun'] = $this->M_Rekap->getDataRekapPeminjamanPerTahun();
+			$data['peminjamanSetujuPerbulan'] = $this->M_Rekap->getDataRekapPeminjamanSetujuPerbulan();
+			$data['peminjamanSetujuPertahun'] = $this->M_Rekap->getDataRekapPeminjamanSetujuPertahun();
+			$data['peminjamanTerkirimPerbulan'] = $this->M_Rekap->getDataRekapPeminjamanTerkirimPerbulan();
+			$data['peminjamanTerkirimPertahun'] = $this->M_Rekap->getDataRekapPeminjamanTerkirimPerTahun();
+			$data['peminjamanTolakPerbulan'] = $this->M_Rekap->getDataRekapPeminjamanTolakPerbulan();
+			$data['peminjamanTolakPertahun'] = $this->M_Rekap->getDataRekapPeminjamanTolakPertahun();
+			$data['peminjamanPerbulan'] = $this->M_Rekap->getDataRekapPeminjamanNonKelasPerbulan();
+			$data['peminjamanPertahun'] = $this->M_Rekap->getDataRekapPeminjamanNonKelasPertahun();
 			
-			$data['complaintPerBulan'] = $this->M_Rekap->getDataComplaintPerBulan();
-			$data['complaintPertahun'] = $this->M_Rekap->getDataComplaintPertahun();
-			$data['complaintTinjauPerBulan'] = $this->M_Rekap->getDataComplaintTinjauPerBulan();
-			$data['complaintTinjauPertahun'] = $this->M_Rekap->getDataComplaintTinjauPertahun();
-			$data['complaintTerkirimPerBulan'] = $this->M_Rekap->getDataComplaintTerkirimPerBulan();
-			$data['complaintTerkirimPertahun'] = $this->M_Rekap->getDataComplaintTerkirimPertahun();
 
 			$data['jumlahRuangan'] = $this->M_SaranaPrasarana->getJumlahRuangan();
 			$data['jumlahBarang'] = $this->M_SaranaPrasarana->getJumlahBarang();
@@ -41,9 +35,6 @@ class Rekap extends CI_Controller {
 			$data['jumlahDosen'] = $this->M_User->getJumlahDosen();
 			$data['jumlahOperator'] = $this->M_User->getJumlahOperator();
 			$data['jumlahLembaga'] = $this->M_User->getJumlahLembaga();
-			$data['peminjamanSetujuPertahun'] = $this->M_Rekap->getDataRekapPeminjamanSetujuPertahun();
-			$data['peminjamanGagalPertahun'] = $this->M_Rekap->getDataRekapPeminjamanGagalPertahun();
-			$data['peminjamanPendingPertahun'] = $this->M_Rekap->getDataRekapPeminjamanPendingPertahun();
 			$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 			$data['main_view'] = 'rekap/V_Dashboard';
 			$this->load->view('template/template_operator',$data);

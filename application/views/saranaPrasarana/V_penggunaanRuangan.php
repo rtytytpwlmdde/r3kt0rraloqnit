@@ -57,7 +57,8 @@
                     <?php 
                             foreach ($ruangan as $r){?>
                         <tr>
-                            <th class="text-left headcol" style="font-size:14px;"><?php echo $r->nama_ruangan?></th>
+                            <th class="text-left headcol" style="font-size:14px;"><?php echo $r->nama_ruangan?> <br>
+                            <small>Kapasitas <?= $r->kapasitas;?></small> </th>
                             <?php 
                             foreach ($waktu as $w){
                                 $result = 0;

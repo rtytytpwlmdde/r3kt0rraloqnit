@@ -14,7 +14,7 @@
         $tgl_mulai = null;
         $tgl_selesai = null;
         $jam_mulai = null;
-        $jam_selesai = null;
+        $jam_selesai = null; 
         foreach ($peminjaman as $u){ ?>
         <form class="user" method="post">
             <div class="form-group">
@@ -57,30 +57,30 @@
             <div class="col-md-6 mb-3">
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Jam Mulai</label>
-                    <input disabled type="text"  required name="tanggal_mulai_penggunaan" class="form-control " value="
+                    <input hidden type="text"  required name="tanggal_mulai_penggunaan" class="form-control " value="
                     <?php foreach ($waktu as $a) { 
                         if($a->id_waktu == $u->jam_mulai){
                             $pieces = explode("-", $a->nama_waktu);
                             echo $start = $pieces[0];
-                            $end = $pieces[1];
                         }
                                 ?>
                           <?php } ?>  ">
+                    <input disabled type="text" class="form-control" value="<?= $start;?>">
                 </div>
             </div>
             <div class="col-md-6 mb-3">
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Jam Selesai</label>
-                    <input disabled type="text"  required name="tanggal_mulai_penggunaan" class="form-control " value="
+                    <input hidden type="text"  required name="tanggal_mulai_penggunaan" class="form-control " value="
                          <?php foreach ($waktu as $a) { 
                                  if($a->id_waktu == $u->jam_selesai){
                                     $pieces = explode("-", $a->nama_waktu);
-                                    $start = $pieces[0];
                                     echo $end = $pieces[1];
                                     }
                                 ?>
                           <?php } ?>  
                             ">
+                    <input disabled type="text" class="form-control" value="<?= $end;?>">
                 </div>
             </div>
             </div>
@@ -137,7 +137,7 @@
                 <li class="list-group-item d-flex justify-content-between lh-condensed ">
                 <div>
                     <h6 class="my-0"><?php echo $u->nama_ruangan ?></h6>
-                    <small class="text-muted">Kapasitas 40 orang</small>
+                    <small class="text-muted">Kapasitas <?= $u->kapasitas; ?> orang</small>
                 </div>
                 <span class="text-muted"> <form action="<?php echo site_url('Peminjaman/tambahSaranaPeminjaman'); ?>" method="post">
                         <input type="text" hidden name="jenis" value="nonkelas">

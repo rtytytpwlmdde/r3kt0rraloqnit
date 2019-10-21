@@ -170,6 +170,7 @@ class User extends CI_Controller {
         $nomor_telpon = $this->input->post('nomor_telpon');
         $alamat = $this->input->post('alamat');
         $instansi = $this->input->post('instansi');
+        $email = $this->input->post('email');
         $password = $this->input->post('password');
         $status_mahasiswa = 'belum divalidasi';
         
@@ -182,6 +183,7 @@ class User extends CI_Controller {
                 'nama_mahasiswa' => $nama_mahasiswa,
                 'nomor_telpon' => $nomor_telpon,
                 'alamat' => $alamat,
+                'email' => $email,
                 'instansi' => $instansi,
                 'password' => $password,
                 'status_mahasiswa' => $status_mahasiswa
@@ -214,6 +216,7 @@ class User extends CI_Controller {
         $nama_mahasiswa = $this->input->post('nama_mahasiswa');
         $password = $this->input->post('password');
         $alamat = $this->input->post('alamat');
+        $email = $this->input->post('email');
         $status_mahasiswa = $this->input->post('status_mahasiswa');
         $nomor_telpon = $this->input->post('nomor_telpon');
         $instansi = $this->input->post('instansi');
@@ -222,6 +225,7 @@ class User extends CI_Controller {
             'nama_mahasiswa' => $nama_mahasiswa,
             'password' => $password,
             'alamat' => $alamat,
+            'email' => $email,
             'instansi' => $instansi,
             'status_mahasiswa' => $status_mahasiswa,
             'nomor_telpon' => $nomor_telpon
