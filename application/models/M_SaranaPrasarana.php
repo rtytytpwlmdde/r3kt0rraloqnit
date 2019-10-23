@@ -26,7 +26,7 @@ class M_SaranaPrasarana extends CI_Model{
 		function getDataRuanganNonKelas(){
 			$this->db->select('*');
 			$this->db->from('ruangan');
-			$this->db->where('jenis_ruangan','non kelas');
+			$this->db->where('jenis_ruangan','ruangan');
 			$this->db->order_by("ruangan.nama_ruangan", "asc");
 			$query=$this->db->get();
 			return $query->result();
@@ -55,7 +55,11 @@ class M_SaranaPrasarana extends CI_Model{
     }
     /// barang
     function getDataBarang(){
-        return $this->db->get('barang');
+			$this->db->select('*');
+			$this->db->from('barang');
+			$this->db->order_by("barang.nama_barang", "asc");
+			$query=$this->db->get();
+			return $query->result();
     }
 
     function tambahBarang($data,$tabel){

@@ -22,6 +22,7 @@
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 
+  <link href="<?php echo base_url() ?>/assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -68,9 +69,24 @@
           <span>Penggunaan Ruangan</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('peminjaman/formTambahPeminjaman'); ?>">
+        <a class="nav-link" href="<?php echo base_url('saranaPrasarana/penggunaanBarang'); ?>">
+          <i class="fas fa-laptop"></i>
+          <span>Penggunaan Barang</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo base_url('peminjaman/formTambahPeminjaman/ruangan'); ?>">
         <i class="far fa-plus-square"></i>
-          <span>Tambah Peminjaman</span></a>
+          <span>Tambah Peminjaman Ruangan</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo base_url('peminjaman/formTambahPeminjaman/barang'); ?>">
+        <i class="far fa-plus-square"></i>
+          <span>Tambah Peminjaman Barang</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo base_url('peminjaman/formPengembalianBarang'); ?>">
+        <i class="fas fa-undo"></i>
+          <span>Pengembalian Barang</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -81,6 +97,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<?php echo base_url('user/operator'); ?>">Operator</a>
             <a class="collapse-item" href="<?php echo base_url('saranaPrasarana/ruangan'); ?>">Ruangan</a>
+            <a class="collapse-item" href="<?php echo base_url('saranaPrasarana/barang'); ?>">Barang</a>
             <a class="collapse-item" href="<?php echo base_url('user/user'); ?>">User</a>
           </div>
         </div>
@@ -95,6 +112,7 @@
             <a class="collapse-item" href="<?php echo base_url('peminjaman/historyPeminjaman'); ?>">History Peminjaman</a>
             <a class="collapse-item" href="<?php echo base_url('rekap/rekapPeminjaman'); ?>">Rekap Peminjaman</a>
             <a class="collapse-item" href="<?php echo base_url('rekap/rekapPemakaianRuangan'); ?>">Rekap Penggunaan Ruangan</a>
+            <a class="collapse-item" href="<?php echo base_url('rekap/rekapPemakaianBarang'); ?>">Rekap Penggunaan Barang</a>
           </div>
         </div>
       </li>
@@ -301,11 +319,12 @@
   <script src="<?php echo base_url()?>/assets/js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
-  <script src="<?php echo base_url()?>/assets/vendor/chart.js/Chart.min.js"></script>
+  <script src="<?php echo base_url()?>/assets/vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="<?php echo base_url()?>/assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="<?php echo base_url()?>/assets/js/demo/chart-area-demo.js"></script>
-  <script src="<?php echo base_url()?>/assets/js/demo/chart-pie-demo.js"></script>
+  <script src="<?php echo base_url()?>/assets/js/demo/datatables-demo.js"></script>
+
 
 </body>
 

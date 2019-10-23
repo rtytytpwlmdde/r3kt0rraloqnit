@@ -40,6 +40,9 @@
                 <li class="nav-item active">
                     <a class="nav-link text-white" href="<?php echo base_url('saranaPrasarana/penggunaanRuangan'); ?>">Ruangan <span class="sr-only">(current)</span></a>
                 </li>
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="<?php echo base_url('saranaPrasarana/penggunaanBarang'); ?>">Barang <span class="sr-only">(current)</span></a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" 
                     <?php if($this->session->userdata('logged_in') == FALSE){ ?>

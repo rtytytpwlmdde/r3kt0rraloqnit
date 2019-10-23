@@ -71,6 +71,21 @@ class Rekap extends CI_Controller {
 		$data['main_view'] = 'Rekap/V_RekapPemakaianRuangan';
 		$this->load->view('template/template_operator',$data);
 	}
+
+	function rekapPemakaianBarang(){
+		$tahun = $this->input->get('tahun');
+		if($tahun == NULL){
+			$tahun = date("Y");
+		}
+		$data['tahun'] = $tahun;
+		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
+		$data['barangPerBulan'] = $this->M_Rekap->getDataRekapPemakaianBarangPerBulan();
+		$data['barangPerTahun'] = $this->M_Rekap->getDataRekapPemakaianBarangPerTahun();
+        $data['barang'] = $this->M_SaranaPrasarana->getDataBarang();
+		$data['main_view'] = 'Rekap/V_RekapPemakaianBarang';
+		$this->load->view('template/template_operator',$data);
+	}
   
   public function exportHistoryPeminjaman(){
 			// Load plugin PHPExcel nya

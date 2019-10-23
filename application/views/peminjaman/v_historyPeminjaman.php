@@ -69,13 +69,14 @@ if($this->session->userdata('status') == "pengguna"){
             <thead class="bg-thead text-white">
                 <tr>
                 <th class="text-center" scope="col">No</th>
+                <th class="text-center" scope="col">QR CODE</th>
                 <th class="text-center" scope="col">Kode Booking</th>
                 <th class="text-center" scope="col">Peminjam</th>
                 <th class="text-center" scope="col">Tgl Penggunaan</th>
                 <th class="text-center" scope="col">Ruangan</th>
                 <th class="text-center" scope="col">Jam Mulai</th>
                 <th class="text-center" scope="col">Validasi</th>
-                    <th class="text-center" scope="col">Aksi</th>
+                <th class="text-center" scope="col">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -84,7 +85,21 @@ if($this->session->userdata('status') == "pengguna"){
                 foreach ($peminjaman as $u){ 
             ?>
                 <tr class="text-center">
-                    <td><?php echo $no++; ?></td>
+                    <td><?php echo $no++; ?></td>						
+                    <td>
+                    <?php 
+                        if($u->qr_code == null){ ?>
+                            <a class="btn btn-sm btn-secondary" href="<?php echo site_url('Peminjaman/qrcode/'.$u->id_peminjaman.'/'.$u->jenis_peminjaman); ?>" title="tampilkan QR CODE"> Generate QR CODE</a>
+                        <?php }else{?>
+                           
+                            <a href="#gardenImage" data-id="<?php echo base_url().'assets/images/'.$u->qr_code;?>" class="openImageDialog thumbnail" data-toggle="modal">
+                                <img style="width: 30px;" src="<?php echo base_url().'assets/images/'.$u->qr_code;?>">
+                            </a>
+                            <?php
+                        }
+                    ?>
+                    </td>
+
                     <td><a href="<?php echo site_url('Peminjaman/detailPeminjaman/'.$u->id_peminjaman.'/'.$u->jenis_peminjaman); ?>"><?php echo $u->id_peminjaman; ?></a></td>
                     <?php if($u->nama_mahasiswa == 'dosen'){ ?>
                         <td><?php echo $u->nama_mahasiswa; ?></td>
@@ -92,7 +107,7 @@ if($this->session->userdata('status') == "pengguna"){
                         <td><?php echo $u->nama_mahasiswa; ?></td>
                     <?php } ?>
                     <td><?= date("d-m-Y", strtotime($u->tanggal_mulai_penggunaan)); ?></td>
-                    <td><?php echo $u->nama_ruangan; ?></td>
+                    <td><?php echo $u->nama_ruangan; ?><?php echo $u->nama_barang; ?></td>
                     <td><?php $mulai = explode("-", $u->nama_waktu);
                                 echo $start = $mulai[0]; ?></td>
                     <td
@@ -109,15 +124,15 @@ if($this->session->userdata('status') == "pengguna"){
                     ?>><?= $u->validasi_akademik;?>
                     </td>
                     <?php if($this->session->userdata('status') == 'staff pelayanan' || $this->session->userdata('status') == 'admin' ) { ?>
-                        <th class="text-center">
+                        <td class="text-center">
                         <?php if( $u->validasi_akademik == 'terkirim'){ ?>
                             <a href="<?php echo site_url('Peminjaman/validasiPeminjaman/'.$u->id_peminjaman); ?>"  class="btn btn-success btn-sm" title="Setuju Peminjaman">Setuju</a>
                             <a data-toggle="modal" data-id="<?php echo $u->id_peminjaman; ?>" title="Tolak Peminjaman" class="modalTolakPeminjaman btn btn-outline-danger btn-sm" href="#modalTolakPeminjaman">Tolak</a>
-                           
+                            <a data-toggle="modal" data-id="<?php echo $u->id_peminjaman; ?>" title="Batalkan Peminjaman" class="modalBatalPeminjaman btn btn-outline-secondary btn-sm" href="#modalBatalPeminjaman">Batal</a>
+
                         <?php } ?> 
                         <?php if( $u->validasi_akademik == 'setuju'){ ?>
                            <?php if( $u->id_peminjam == $this->session->userdata('username') || $this->session->userdata('username') == 'admin'){ ?>
-                                <a data-toggle="modal" data-id="<?php echo $u->id_peminjaman; ?>" title="Batalkan Peminjaman" class="modalBatalPeminjaman btn btn-outline-secondary btn-sm" href="#modalBatalPeminjaman">Batal</a>
                                 <a href="https://api.whatsapp.com/send?phone=<?= $u->nomor_telpon?>&text=Hi%20Peminjaman%20Ruangan%20<?=$u->nama_ruangan;?>%20Telah%20Disetujui.%20 Terimakasih" 
                             target="_blank"class="btn btn-outline-success btn-sm" title="Kirim Pesan WA"><i class="fab fa-whatsapp"></i></a>
                             <?php } ?> 
@@ -127,13 +142,14 @@ if($this->session->userdata('status') == "pengguna"){
                             target="_blank"class="btn btn-outline-success btn-sm" title="Kirim Pesan WA"><i class="fab fa-whatsapp"></i></a>
                            
                            <?php } ?>
-                        </th>
+                        </td>
                     <?php } ?>
-                    <?php if($this->session->userdata('status') == 'pengguna' || $u->validasi_akademik == 'terkirim' ) { ?>
-                        <th class="text-center">
+                    
+                    <?php if($this->session->userdata('status') == 'pengguna' && $u->validasi_akademik == 'terkirim' ) { ?>
+                        <td class="text-center">
                         <a data-toggle="modal" data-id="<?php echo $u->id_peminjaman; ?>" title="Batalkan Peminjaman" class="modalBatalPeminjaman btn btn-outline-secondary btn-sm" href="#modalBatalPeminjaman">Batal</a>
 
-                        </th>
+                        </td>
                     <?php } ?>
                     
                 </tr>
@@ -221,3 +237,22 @@ $(document).on("click", ".modalBatalPeminjaman", function () {
 });
 </script>
 
+<div class="modal fade" id="gardenImage" tabindex="-1" role="dialog" aria-labelledby="gardenImageLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img id="myImage" class="img-responsive" src="" alt="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger center-block" data-dismiss="modal">close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).on("click", ".openImageDialog", function () {
+    var myImageId = $(this).data('id');
+    $(".modal-body #myImage").attr("src", myImageId);
+});
+</script>

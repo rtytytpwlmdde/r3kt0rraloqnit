@@ -35,14 +35,14 @@
                         Filter
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <form action="<?php  echo base_url('saranaPrasarana/ruangan'); ?>" method="post"><input hidden name="status" value="bagus">
+                            <form action="<?php  echo base_url('saranaPrasarana/barang'); ?>" method="post"><input hidden name="status" value="bagus">
                                 <button class="dropdown-item text-success" type="submit">Bagus</button>
                             </form>
-                            <form action="<?php  echo base_url('saranaPrasarana/ruangan'); ?>" method="post"><input hidden name="status" value="rusak">
+                            <form action="<?php  echo base_url('saranaPrasarana/barang'); ?>" method="post"><input hidden name="status" value="rusak">
                                 <button class="dropdown-item text-danger" type="submit">Rusak</button>
                             </form>
                         </div>
-                        <a class="btn btn-sm btn-primary mb-2"  href="<?php  echo base_url('SaranaPrasarana/formTambahRuangan'); ?>" role="button">Tambah Ruangan</a>
+                        <a class="btn btn-sm btn-primary mb-2"  href="<?php  echo base_url('SaranaPrasarana/formTambahBarang'); ?>" role="button">Tambah Barang</a>
                     </div>
                 </div>
             </div>
@@ -52,9 +52,8 @@
             <thead class="bg-thead text-white">
                 <tr>
                 <th class="text-center" scope="col">No</th>
-                <th class="text-center" scope="col">Kode Ruangan</th>
-                <th class="text-center" scope="col">Ruangan</th>
-                <th class="text-center" scope="col">Kapasitas</th>
+                <th class="text-center" scope="col">Kode Barang</th>
+                <th class="text-center" scope="col">Barang</th>
                 <th class="text-center" scope="col">Operator</th>
                 <th class="text-center" scope="col">Status</th>
                 <th class="text-center" scope="col">Aksi</th>
@@ -63,20 +62,19 @@
             <tbody>
             <?php 
                 $no = 1;
-                foreach ($ruangan as $u){ 
+                foreach ($barang as $u){ 
             ?>
                 <tr class="text-center">
                     <td><?php echo $no++; ?></td>
-                    <td><?php echo $u->id_ruangan; ?></td>
-                    <td><?php echo $u->nama_ruangan;?></td>
-                    <td><?php echo $u->kapasitas;?></td>
+                    <td><?php echo $u->id_barang; ?></td>
+                    <td><?php echo $u->nama_barang;?></td>
                     <td><?php echo $u->id_operator;?></td>
-                    <td><?php echo $u->status_ruangan;?></td>
+                    <td><?php echo $u->status_barang;?></td>
                     <td >
-                        <a href="<?php echo site_url('SaranaPrasarana/updateRuangan/'.$u->id_ruangan); ?>"  class="btn btn-sm btn-warning text-white" title="Edit">
+                        <a href="<?php echo site_url('SaranaPrasarana/updateBarang/'.$u->id_barang); ?>"  class="btn btn-sm btn-warning text-white" title="Edit">
                         <i class="fas fa-pencil-alt"></i>
                         </a>
-                        <a href="<?php echo site_url('SaranaPrasarana/hapusRuangan/'.$u->id_ruangan); ?>"  class="btn btn-sm btn-danger text-white"  title="Hapus">
+                        <a href="<?php echo site_url('SaranaPrasarana/hapusBarang/'.$u->id_barang); ?>"  class="btn btn-sm btn-danger text-white"  title="Hapus">
                             <i class="fas fa-trash"></i>
                         </a>
                     </td>

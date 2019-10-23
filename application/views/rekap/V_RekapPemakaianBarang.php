@@ -2,12 +2,12 @@
             <div class="mt-2">
                 <div class="row py-2 ">
                     <div class="col-6 col-md-8 ">
-                        <h3 class="text-muted">Rekap Pemakaian Ruangan</h3>
+                        <h3 class="text-muted">Rekap Pemakaian Barang</h3>
                         <h6 class="text-muted">Tahun <?= $tahun; ?></h6 class="text-muted">
                     </div>
                     <div class="col-6 col-md-4">
                         <div class="d-flex flex-row-reverse bd-highlight">
-                            <form class="form-inline" action="<?php  echo base_url('Rekap/rekapPemakaianRuangan'); ?>">
+                            <form class="form-inline" action="<?php  echo base_url('Rekap/rekapPemakaianBarang'); ?>">
                                 <div class="form-group ">
                                     <input type="text" name="tahun" class="form-control-sm" value="<?= $tahun; ?>">
                                     <button type="submit" class="btn btn-sm btn-light"><i class="fas fa-search"></i></button>
@@ -22,7 +22,7 @@
                 <table class="table table-bordered" id="dataTable">
                     <thead class="bg-thead text-white">
                         <tr>
-                        <th class="text-center" scope="col">Ruangan</th>
+                        <th class="text-center" scope="col">Barang</th>
                         <th class="text-center" scope="col">Jan</th>
                         <th class="text-center" scope="col">Feb</th>
                         <th class="text-center" scope="col">Mar</th>
@@ -40,19 +40,19 @@
                     </thead>
                     <tbody>
                         <?php 
-                        foreach($ruangan as $r){ 
+                        foreach($barang as $r){ 
                         ?>
                             <tr class="text-left">
-                                <td><?= $r->nama_ruangan; ?></td>
+                                <td><?= $r->nama_barang; ?></td>
                                 <?php
                                 for($i=1; $i<13; $i++){?>
                                     <td class="text-center">
                                         <?php
                                         $result = 0;
-                                        foreach($ruanganPerBulan as $u){
+                                        foreach($barangPerBulan as $u){
                                             if($i == $u->bulan){ 
-                                                if($r->id_ruangan == $u->id_sarana){
-                                                $result = $u->jumPemakaianRuanganPerbulan;
+                                                if($r->id_barang == $u->id_sarana){
+                                                $result = $u->jumPemakaianBarangPerbulan;
                                                 }
                                             }
                                         } 
@@ -69,9 +69,9 @@
                                 <td class="text-center">
                                 <?php 
                                 $result = 0;
-                                foreach($ruanganPerTahun as $u){
-                                    if($r->id_ruangan == $u->id_sarana){
-                                        $result = $u->jumPemakaianRuanganPertahun;
+                                foreach($barangPerTahun as $u){
+                                    if($r->id_barang == $u->id_sarana){
+                                        $result = $u->jumPemakaianBarangPertahun;
                                     }
                                 }
                                 if($result == 0){
@@ -87,3 +87,7 @@
                 </table>
             </div>
       </div><br>
+
+<script>
+    $('#tbl').DataTable();
+</script>

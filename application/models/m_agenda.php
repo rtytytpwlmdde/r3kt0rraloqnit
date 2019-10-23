@@ -13,6 +13,7 @@ class M_agenda extends CI_Model{
 				$this->db->join('sarana_peminjaman','sarana_peminjaman.id_peminjaman = peminjaman.id_peminjaman');
 				$this->db->join('ruangan','sarana_peminjaman.id_sarana = ruangan.id_ruangan');
 				$this->db->where('peminjaman.validasi_akademik','setuju');
+				$this->db->where('peminjaman.jenis_peminjaman','ruangan');
 				if($search != null){
 					$this->db->like('peminjaman.id_peminjaman',$search);
 					$this->db->or_like('peminjaman.id_peminjam', $search);

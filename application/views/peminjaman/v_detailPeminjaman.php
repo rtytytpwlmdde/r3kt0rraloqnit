@@ -23,6 +23,10 @@
                     <td class="text-white"><?= $u->id_peminjaman; ?></td>
                 </tr>
                 <tr>
+                    <td>Jenis Peminjaman</td>
+                    <td><?= $u->jenis_peminjaman; ?></td>
+                </tr>
+                <tr>
                     <td>Tanggal Peminjaman</td>
                     <td> 
                     <?php $tanggal = $u->tanggal_peminjaman;
@@ -34,9 +38,9 @@
                     echo $hari = "Senin";
                 }else if($day == "Tuesday"){
                     echo $hari = "Selasa";
-                }else if($day == "Wednesday "){
+                }else if($day == "Wednesday"){
                     echo $hari = "Rabu";
-                }else if($day == "Thursday "){
+                }else if($day == "Thursday"){
                     echo $hari = "Kamis";
                 }else if($day == "Friday"){
                     echo $hari = "Jumat";
@@ -67,9 +71,9 @@
                     echo $hari = "Senin";
                 }else if($day == "Tuesday"){
                     echo $hari = "Selasa";
-                }else if($day == "Wednesday "){
+                }else if($day == "Wednesday"){
                     echo $hari = "Rabu";
-                }else if($day == "Thursday "){
+                }else if($day == "Thursday"){
                     echo $hari = "Kamis";
                 }else if($day == "Friday"){
                     echo $hari = "Jumat";
@@ -83,8 +87,14 @@
                 <tr>
                     <td>Ruangan</td>
                     <td> <?php  
-                        foreach ($sarana as $u){ 
-                            echo $u->nama_ruangan."<br>";
+                        if($u->jenis_peminjaman == 'barang'){
+                            foreach ($sarana as $u){ 
+                                echo $u->nama_barang."<br>";
+                            }
+                        }else{
+                            foreach ($sarana as $u){ 
+                                echo $u->nama_ruangan."<br>";
+                            }
                         }
                         ?> 
                     </td>
@@ -131,6 +141,30 @@
                             <td>Catatan Penolakan</td>
                             <td><?= $u->catatan_penolakan; ?></td>
                         </tr>
+                <?php } ?>
+                <?php if($u->jenis_peminjaman == 'barang'){ ?>
+                <tr>
+                    <td>Status Pengembalian</td>
+                    <?php if($u->status_kembali == 'sudah'){?>
+                        <td class="text-success"><?= $u->status_kembali; ?></td>
+                    <?php }else{ ?>
+                        <td class="text-danger"><?= $u->status_kembali; ?>
+                        <a href="<?php echo base_url("peminjaman/formPengembalianBarang/".$u->id_peminjaman);?>" class="btn btn-sm btn-info">Barang Telah Dikembalikan?</a>
+                        </td>
+                    <?php }?>
+                </tr>
+                <tr>
+                    <td>Tanggal Pengembalian</td>
+                    <td><?= date("d-m-Y", strtotime($u->tanggal_pengembalian)); ?></td>
+                </tr>
+                <tr>
+                    <td>Jam Pengembalian</td>
+                    <td><?= $u->jam_pengembalian; ?></td>
+                </tr>
+                <tr>
+                    <td>Catatan Pengembalian</td>
+                    <td><?= $u->catatan_pengembalian; ?></td>
+                </tr>
                 <?php } ?>
              
             <?php } ?>

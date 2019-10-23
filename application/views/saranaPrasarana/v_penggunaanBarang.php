@@ -3,7 +3,7 @@
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-2">
             <div>
-            <h1 class="h3 mb-0 text-gray-800">Penggunaan Ruangan</h1>
+            <h1 class="h3 mb-0 text-gray-800">Penggunaan Barang</h1>
             <h6 class="text-muted">
                 <?php 
                 $day = date("l", strtotime($tanggal));
@@ -28,7 +28,7 @@
         
         </h6>
             </div>
-            <form class="pr-2 form-inline" action="<?php echo site_url('saranaPrasarana/penggunaanRuangan');?>"  method="get">
+            <form class="pr-2 form-inline" action="<?php echo site_url('saranaPrasarana/penggunaanBarang');?>"  method="get">
                 <div class="form-group mb-2">
                     <input type="date" name="tanggal" class="form-control-sm " >
                 </div>
@@ -39,11 +39,11 @@
           <!-- Content Row -->
           <div class="row card  shadow">
             <div class="table-responsive div">
-                <table class="table table-sm  table-penggunaan-ruangan  mx-0 text-center table-hover" id="myTable" >
+                <table class="table table-sm  table-penggunaan-barang  mx-0 text-center table-hover" id="myTable">
                     <thead class="bg-thead text-white" >
                         <tr>
                                 <th style="font-size:14px;" class="text-left text-dark headcol">
-                                <input type="text" id="myInput" onkeyup="myFunction()" class="form-control-sm " placeholder="Cari Ruangan">
+                                    <input type="text"  class="form-control-sm" placeholder="Cari Barang" id="myInput" onkeyup="myFunction()">
                                 </th>
                                 <?php foreach ($waktu as $r){?>
                                 <th style="font-size:10px;">
@@ -57,10 +57,9 @@
                     </thead>
                     <tbody >
                     <?php 
-                            foreach ($ruangan as $r){?>
+                            foreach ($barang as $r){?>
                         <tr>
-                            <td class="text-left headcol" style="font-size:14px;"><?php echo $r->nama_ruangan?> <br>
-                            <small>Kapasitas <?= $r->kapasitas;?></small> </td>
+                            <td class="text-left headcol pt-2" style="font-size:14px;"><?php echo $r->nama_barang?> <br> </td>
                             <?php 
                             foreach ($waktu as $w){
                                 $result = 0;
@@ -71,16 +70,16 @@
                                     $start = $j->jam_mulai;
                                     $end = $j->jam_selesai;
                                     for ($jam = $start; $jam <= $end; $jam++) {
-                                        if($j->id_ruangan == $r->id_ruangan){
+                                        if($j->id_barang == $r->id_barang){
                                             if($w->id_waktu == $jam){
                                                 if($j->validasi_akademik == 'setuju'){
                                                 ?> 
-                                                    <a data-toggle="modal"  style="cursor: pointer;" data-keterangan="<?= $j->keterangan; ?>" data-ruangan="<?= $r->nama_ruangan; ?>" data-jam="<?= $w->nama_waktu; ?>" data-penyelenggara="<?= $j->penyelenggara; ?>"
+                                                    <a data-toggle="modal"  style="cursor: pointer;" data-keterangan="<?= $j->keterangan; ?>" data-barang="<?= $r->nama_barang; ?>" data-jam="<?= $w->nama_waktu; ?>" data-penyelenggara="<?= $j->penyelenggara; ?>"
                                                         class="btn open-modaRuangan text-dark" href="#modaRuangan">
                                                         <i class="fas fa-times-circle fa-lg text-danger"  title="Ruangan Digunakan"></i>
                                                     </a>
                                                 <?php }else{?>
-                                                    <a data-toggle="modal"  style="cursor: pointer;" data-keterangan="<?= $j->keterangan; ?>" data-ruangan="<?= $r->nama_ruangan; ?>" data-jam="<?= $w->nama_waktu; ?>" data-penyelenggara="<?= $j->penyelenggara; ?>"
+                                                    <a data-toggle="modal"  style="cursor: pointer;" data-keterangan="<?= $j->keterangan; ?>" data-barang="<?= $r->nama_barang; ?>" data-jam="<?= $w->nama_waktu; ?>" data-penyelenggara="<?= $j->penyelenggara; ?>"
                                                     class="btn open-modaRuangan text-dark" href="#modaRuangan">
                                                     <i class="fas fa-times-circle fa-lg text-warning"  title="Ruangan Sedang Menungu Proses Validasi Peminjaman"></i>
                                                     </a>

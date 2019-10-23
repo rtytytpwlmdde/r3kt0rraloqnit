@@ -38,7 +38,7 @@ class M_Rekap extends CI_Model{
 		$this->db->select('id_peminjaman ,count(id_peminjaman) as jumPeminjamanNonKelasPerbulan');
 		$this->db->select('date_format(tanggal_peminjaman,"%m") as bulan');
 		$this->db->from('peminjaman');
-		$this->db->where('peminjaman.jenis_peminjaman','non kelas');
+		$this->db->where('peminjaman.jenis_peminjaman','ruangan');
 		$this->db->group_by('bulan');
 		$this->db->where('YEAR(tanggal_peminjaman)',$tahun);
 		$query = $this->db->get();
@@ -52,7 +52,7 @@ class M_Rekap extends CI_Model{
 		}
 		$this->db->select('id_peminjaman ,count(id_peminjaman) as jumPeminjamanNonKelasPertahun');
 		$this->db->from('peminjaman');
-		$this->db->where('peminjaman.jenis_peminjaman','non kelas');
+		$this->db->where('peminjaman.jenis_peminjaman','ruangan');
 		$this->db->where('YEAR(tanggal_peminjaman)',$tahun);
 		$query = $this->db->get();
 		return $query->result();
@@ -136,7 +136,70 @@ class M_Rekap extends CI_Model{
 
 	
 
+	function getDataRekapPemakaianRuanganPerBulan(){
+		$tahun = $this->input->get('tahun');
+		if($tahun == NULL){
+			$tahun = date("Y");
+		}
+		$this->db->select('sarana_peminjaman.id_sarana ,count(sarana_peminjaman.id_sarana) as jumPemakaianRuanganPerbulan');
+		$this->db->select('date_format(peminjaman.tanggal_peminjaman,"%m") as bulan');
+		$this->db->from('sarana_peminjaman');
+		$this->db->join('peminjaman','peminjaman.id_peminjaman = sarana_peminjaman.id_peminjaman');
+		$this->db->where('peminjaman.jenis_peminjaman !=','barang');
+		$this->db->group_by('bulan');
+		$this->db->group_by('sarana_peminjaman.id_sarana');
+		$this->db->where('YEAR(peminjaman.tanggal_peminjaman)',$tahun);
+		
+		$query = $this->db->get();
+		return $query->result();
+	}
 
+	function getDataRekapPemakaianRuanganPerTahun(){
+		$tahun = $this->input->get('tahun');
+		if($tahun == NULL){
+			$tahun = date("Y");
+		}
+		$this->db->select('sarana_peminjaman.id_sarana , count(sarana_peminjaman.id_sarana) as jumPemakaianRuanganPertahun');
+		$this->db->from('sarana_peminjaman');
+		$this->db->join('peminjaman','peminjaman.id_peminjaman = sarana_peminjaman.id_peminjaman');
+		$this->db->where('peminjaman.jenis_peminjaman !=','barang');
+		$this->db->group_by('sarana_peminjaman.id_sarana');
+		$this->db->where('YEAR(peminjaman.tanggal_peminjaman)',$tahun);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function getDataRekapPemakaianBarangPerBulan(){
+		$tahun = $this->input->get('tahun');
+		if($tahun == NULL){
+			$tahun = date("Y");
+		}
+		$this->db->select('sarana_peminjaman.id_sarana ,count(sarana_peminjaman.id_sarana) as jumPemakaianBarangPerbulan');
+		$this->db->select('date_format(peminjaman.tanggal_peminjaman,"%m") as bulan');
+		$this->db->from('sarana_peminjaman');
+		$this->db->join('peminjaman','peminjaman.id_peminjaman = sarana_peminjaman.id_peminjaman');
+		$this->db->where('peminjaman.jenis_peminjaman','barang');
+		$this->db->group_by('bulan');
+		$this->db->group_by('sarana_peminjaman.id_sarana');
+		$this->db->where('YEAR(peminjaman.tanggal_peminjaman)',$tahun);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function getDataRekapPemakaianBarangPerTahun(){
+		$tahun = $this->input->get('tahun');
+		if($tahun == NULL){
+			$tahun = date("Y");
+		}
+		$this->db->select('sarana_peminjaman.id_sarana , count(sarana_peminjaman.id_sarana) as jumPemakaianBarangPertahun');
+		$this->db->from('sarana_peminjaman');
+		$this->db->join('peminjaman','peminjaman.id_peminjaman = sarana_peminjaman.id_peminjaman');
+		$this->db->where('peminjaman.jenis_peminjaman','barang');
+		$this->db->group_by('sarana_peminjaman.id_sarana');
+		$this->db->where('YEAR(peminjaman.tanggal_peminjaman)',$tahun);
+		$query = $this->db->get();
+		return $query->result();
+	}
 	
 
 	

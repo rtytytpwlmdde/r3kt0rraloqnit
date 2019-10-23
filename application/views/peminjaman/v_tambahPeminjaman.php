@@ -33,7 +33,7 @@
     <div class="col-md-4 order-md-2 mb-4">
       <div class="card shadow mb-4">
         <div class="card-header py-3 bg-thead text-white">
-          <h6 class="m-0 font-weight-bold  d-flex justify-content-between">Pilih Ruangan 
+          <h6 class="m-0 font-weight-bold  d-flex justify-content-between">Pilih <?= $jenis_peminjaman?> 
             <a  data-toggle="modal" data-target="#modalPanduan"><span class="" title="panduan"><i class="far fa-question-circle"></i></span></a></h6>
         </div>
         <div class="card-body">
@@ -51,6 +51,7 @@
         </div>
         <div class="card-body">
           <form class="user" action="<?php echo base_url().'peminjaman/tambahPeminjaman'; ?>" method="post">
+          
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Username</label>
                 <?php if($this->session->userdata('status') == 'pengguna'){ ?>
@@ -59,6 +60,7 @@
                 <?php ?>
                 <input type="text"  disabled name="" class="form-control " value="<?= $this->session->userdata('username')?>">
                 <input type="text"  hidden name="id_peminjam" class="form-control " value="<?= $this->session->userdata('username')?>">
+              <input type="text"   hidden name="jenis_peminjaman" class="form-control " value="<?= $jenis_peminjaman?>">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Tanggal Penggunaan</label>
