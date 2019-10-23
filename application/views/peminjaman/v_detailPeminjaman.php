@@ -7,8 +7,37 @@
 <div class="col-md-12">
     <div class="mt-2">
         <div class="row py-2 ">
-            <div class="col-12 col-md-12 ">
+            <div class="col-6 col-md-6 ">
                 <h3 class="text-muted">Detail Peminjaman</h3>
+            </div>
+            <div class="col-6 col-md-6 d-flex flex-row-reverse">
+                <div class="btn-group">
+                <?php foreach ($peminjaman as $a){
+                    $validasi_akademik = $a->validasi_akademik;
+                    $nomor_telpon = $a->nomor_telpon;
+                    $nama_ruangan = $a->nama_ruangan;
+                    $id_peminjam = $a->id_peminjam;
+                    $catatan_penolakan = $a->catatan_penolakan;
+                }?>
+                <?php if( $validasi_akademik == 'terkirim'){ ?>
+                    <a href="<?php echo site_url('Peminjaman/validasiPeminjaman/'.$id_peminjaman); ?>"  class="btn btn-success btn-sm" title="Setuju Peminjaman">Setuju</a>
+                    <a data-toggle="modal" data-id="<?php echo $id_peminjaman; ?>" title="Tolak Peminjaman" class="modalTolakPeminjaman btn btn-outline-danger btn-sm" href="#modalTolakPeminjaman">Tolak</a>
+                    <a data-toggle="modal" data-id="<?php echo $id_peminjaman; ?>" title="Batalkan Peminjaman" class="modalBatalPeminjaman btn btn-outline-secondary btn-sm" href="#modalBatalPeminjaman">Batal</a>
+
+                <?php } ?> 
+                <?php if( $validasi_akademik == 'setuju'){ ?>
+                    <?php if( $id_peminjam == $this->session->userdata('username') || $this->session->userdata('username') == 'admin'){ ?>
+                        <a href="https://api.whatsapp.com/send?phone=<?= $nomor_telpon?>&text=Hi%20Peminjaman%20Ruangan%20<?=$nama_ruangan;?>%20Telah%20Disetujui.%20 Terimakasih" 
+                    target="_blank"class="btn btn-outline-success btn-sm" title="Kirim Pesan WA"><i class="fab fa-whatsapp"></i></a>
+                    <?php } ?> 
+                <?php } ?>  
+                    <?php if($validasi_akademik == 'tolak'){ ?>
+                    <a href="https://api.whatsapp.com/send?phone=<?= $nomor_telpon?>&text=Hi%20Peminjaman%20Ruangan%20<?=$nama_ruangan;?>%20Telah%20Ditolak.%20 Dengan alasan penolakan <?= $catatan_penolakan?>Terimakasih" 
+                    target="_blank"class="btn btn-outline-success btn-sm" title="Kirim Pesan WA"><i class="fab fa-whatsapp"></i></a>
+                    
+                <?php } ?>
+                </div>
+                
             </div>
         </div>
     </div>
@@ -21,6 +50,22 @@
                 <tr class="bg-thead ">
                     <td class="text-white">Kode Boking</td>
                     <td class="text-white"><?= $u->id_peminjaman; ?></td>
+                </tr>
+                <tr>
+                    <td>QR Code</td>
+                    <td>
+                    <?php 
+                        if($u->qr_code == null){ ?>
+                            <a class="btn btn-sm btn-secondary" href="<?php echo site_url('Peminjaman/qrcode/'.$u->id_peminjaman.'/'.$u->jenis_peminjaman); ?>" title="tampilkan QR CODE"> Generate QR CODE</a>
+                        <?php }else{?>
+                           
+                            <a href="#gardenImage" data-id="<?php echo base_url().'assets/images/'.$u->qr_code;?>" data-peminjaman="<?= $u->id_peminjaman; ?>" class="openImageDialog thumbnail" data-toggle="modal">
+                                <img style="width: 30px;" src="<?php echo base_url().'assets/images/'.$u->qr_code;?>">
+                            </a>
+                            <?php
+                        }
+                    ?>
+                    </td>
                 </tr>
                 <tr>
                     <td>Jenis Peminjaman</td>
@@ -203,4 +248,108 @@ $(document).on("click", ".modalPengembalianBarang", function () {
 </script>
 
 
+
+<div class="modal fade" id="modalBatal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        Peminjaman yang sudah di proses oleh kasubag tidak bisa dibatalkan <br>
+        <div class="col-6 col-md-8 ">
+        </div>
+        <div class="col-6 col-md-12">
+            <div class="d-flex flex-row-reverse bd-highlight">
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<div class="modal fade" id="modalTolakPeminjaman" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form action="<?php echo base_url().'Peminjaman/tolakPeminjaman'; ?>" method="post">
+        Alasan Penolakan : <br>
+        <input type="text"  hidden class="form-control" name="id_peminjaman" id="id_peminjaman" value=""/>
+        <input type="text"  hidden class="form-control" name="jenis"  value="non kelas"/>
+        <textarea class="form-control"  name="catatan_penolakan" rows="3"></textarea>
+            <div class="d-flex flex-row-reverse bd-highlight py-2">
+                <div class="px-1"><button type="submit" class="btn btn-primary btn-sm">Tolak Peminjaman</button></div>
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalBatalPeminjaman" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div>
+            <h6>Silahkan Isi Alasan Pembatalan</h6>
+        </div>
+        <form action="<?php echo base_url().'Peminjaman/batalPeminjaman'; ?>" method="post">
+        <input type="text"  hidden class="form-control" name="id_peminjaman" id="id_peminjaman" value=""/>
+        <textarea class="form-control"  name="catatan_penolakan" rows="3"></textarea>
+            <div class="d-flex flex-row-reverse bd-highlight py-2">
+                <div class="px-1"><button type="submit" class="btn btn-primary btn-sm">Batalkan Peminjaman</button></div>
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+$(document).on("click", ".modalTolakPeminjaman", function () {
+     var peminjaman = $(this).data('id');
+     $(".modal-body #id_peminjaman").val( peminjaman );
+     $(".peminjaman").val( peminjaman );
+});
+</script>
+
+<script>
+$(document).on("click", ".modalBatalPeminjaman", function () {
+     var peminjaman = $(this).data('id');
+     $(".modal-body #id_peminjaman").val( peminjaman );
+     $(".peminjaman").val( peminjaman );
+});
+</script>
+
+<div class="modal fade" id="gardenImage" tabindex="-1" role="dialog" aria-labelledby="gardenImageLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img id="myImage" style="width: 300px;" class="img-responsive" src="" alt="">
+                <h6><input type="text" class="form-control text-center" style="border-width:0px; border:none;" id="id_peminjaman" value=""/></h6>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary center-block" data-dismiss="modal"><i class="fas fa-download fa-sm text-white-50"></i> Bukti Peminjaman</button>
+                <button type="button" class="btn btn-sm btn-danger center-block" data-dismiss="modal">close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).on("click", ".openImageDialog", function () {
+    var myImageId = $(this).data('id');
+    $(".modal-body #myImage").attr("src", myImageId);
+});
+</script>
+<script>
+$(document).on("click", ".openImageDialog", function () {
+     var peminjaman = $(this).data('peminjaman');
+     $(".modal-body #id_peminjaman").val( peminjaman );
+});
+</script>
+
+

@@ -92,7 +92,7 @@ if($this->session->userdata('status') == "pengguna"){
                             <a class="btn btn-sm btn-secondary" href="<?php echo site_url('Peminjaman/qrcode/'.$u->id_peminjaman.'/'.$u->jenis_peminjaman); ?>" title="tampilkan QR CODE"> Generate QR CODE</a>
                         <?php }else{?>
                            
-                            <a href="#gardenImage" data-id="<?php echo base_url().'assets/images/'.$u->qr_code;?>" class="openImageDialog thumbnail" data-toggle="modal">
+                            <a href="#gardenImage" data-id="<?php echo base_url().'assets/images/'.$u->qr_code;?>" data-peminjaman="<?= $u->id_peminjaman; ?>" class="openImageDialog thumbnail" data-toggle="modal">
                                 <img style="width: 30px;" src="<?php echo base_url().'assets/images/'.$u->qr_code;?>">
                             </a>
                             <?php
@@ -241,10 +241,13 @@ $(document).on("click", ".modalBatalPeminjaman", function () {
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-body text-center">
-                <img id="myImage" class="img-responsive" src="" alt="">
+                <img id="myImage" style="width: 300px;" class="img-responsive" src="" alt="">
+                <h6><input type="text" class="form-control text-center" style="border-width:0px; border:none;" id="id_peminjaman" value=""/></h6>
+                
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger center-block" data-dismiss="modal">close</button>
+                <button type="button" class="btn btn-sm btn-primary center-block" data-dismiss="modal"><i class="fas fa-download fa-sm text-white-50"></i> Bukti Peminjaman</button>
+                <button type="button" class="btn btn-sm btn-danger center-block" data-dismiss="modal">close</button>
             </div>
         </div>
     </div>
@@ -254,5 +257,11 @@ $(document).on("click", ".modalBatalPeminjaman", function () {
 $(document).on("click", ".openImageDialog", function () {
     var myImageId = $(this).data('id');
     $(".modal-body #myImage").attr("src", myImageId);
+});
+</script>
+<script>
+$(document).on("click", ".openImageDialog", function () {
+     var peminjaman = $(this).data('peminjaman');
+     $(".modal-body #id_peminjaman").val( peminjaman );
 });
 </script>

@@ -34,6 +34,7 @@ class Peminjaman extends CI_Controller {
     function detailPeminjaman($id_peminjaman,$jenis_peminjaman){
         $data['main_view'] = 'peminjaman/v_detailPeminjaman';
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
+        $data['id_peminjaman'] = $id_peminjaman;
 		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
         $data['waktu'] = $this->M_Peminjaman->getDataWaktu()->result();
         $data['peminjaman'] = $this->M_Peminjaman->getDetailPeminjaman($id_peminjaman,$jenis_peminjaman);
@@ -366,7 +367,7 @@ class Peminjaman extends CI_Controller {
     }
 
     function qrcode($id_peminjaman,$jenis_peminjaman){
-        $nama_kode = base_url().'/peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis_peminjaman;
+        $nama_kode = base_url().'peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis_peminjaman;
 		$this->load->library('ciqrcode'); //pemanggilan library QR CODE
 
 		$config['cacheable']	= true; //boolean, the default is true
@@ -396,6 +397,12 @@ class Peminjaman extends CI_Controller {
         $this->M_Peminjaman->updateData($id,$data,'peminjaman');
 		redirect('peminjaman/historyPeminjaman'); //redirect ke mahasiswa usai simpan data
     }
+
+    function printInvoice(){
+		$data['invoice'] = $this->m_export->getDataPrintInvoice();
+		$data['produk'] = $this->m_export->getDatailTransaksiInvoice();
+		$this->load->view('legalisir/v_print_invoice',$data);
+  }
 
 
 

@@ -2,8 +2,9 @@
 Progres 23-10-2019
 ###################
 
-1. QR CODE
-2. Halamat dashboard : menampilkan grafik peminjaman dan tabel peminjaman
-3. Perbaikan eror halaman rekap peminjaman, pemakaian ruangan dan barang
-4. Pencarian nama ruangan pada halaman penggunaan ruangan dan barang 
-5. Penambahan Fitur Peminjaman Barang
+1. Hide Peminjaman Barang (v)
+2. Hide pendaftaran user (v)
+3. Hide lupa password (v)
+4. penambahan tombol validasi pada detail Peminjaman (v)
+5. minimize img barcode (v)
+6. cetak bukti peminjaman berisi data peminjaman dan qrcode (v)

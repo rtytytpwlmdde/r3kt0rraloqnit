@@ -76,17 +76,12 @@
       <li class="nav-item">
         <a class="nav-link" href="<?php echo base_url('peminjaman/formTambahPeminjaman/ruangan'); ?>">
         <i class="far fa-plus-square"></i>
-          <span>Tambah Peminjaman Ruangan</span></a>
+          <span>Tambah Peminjaman</span></a>
       </li>
-      <li class="nav-item">
+      <li hidden class="nav-item">
         <a class="nav-link" href="<?php echo base_url('peminjaman/formTambahPeminjaman/barang'); ?>">
         <i class="far fa-plus-square"></i>
           <span>Tambah Peminjaman Barang</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('peminjaman/formPengembalianBarang'); ?>">
-        <i class="fas fa-undo"></i>
-          <span>Pengembalian Barang</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -97,7 +92,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<?php echo base_url('user/operator'); ?>">Operator</a>
             <a class="collapse-item" href="<?php echo base_url('saranaPrasarana/ruangan'); ?>">Ruangan</a>
-            <a class="collapse-item" href="<?php echo base_url('saranaPrasarana/barang'); ?>">Barang</a>
+            <a hidden class="collapse-item" href="<?php echo base_url('saranaPrasarana/barang'); ?>">Barang</a>
             <a class="collapse-item" href="<?php echo base_url('user/user'); ?>">User</a>
           </div>
         </div>
@@ -112,7 +107,7 @@
             <a class="collapse-item" href="<?php echo base_url('peminjaman/historyPeminjaman'); ?>">History Peminjaman</a>
             <a class="collapse-item" href="<?php echo base_url('rekap/rekapPeminjaman'); ?>">Rekap Peminjaman</a>
             <a class="collapse-item" href="<?php echo base_url('rekap/rekapPemakaianRuangan'); ?>">Rekap Penggunaan Ruangan</a>
-            <a class="collapse-item" href="<?php echo base_url('rekap/rekapPemakaianBarang'); ?>">Rekap Penggunaan Barang</a>
+            <a hidden class="collapse-item" href="<?php echo base_url('rekap/rekapPemakaianBarang'); ?>">Rekap Penggunaan Barang</a>
           </div>
         </div>
       </li>

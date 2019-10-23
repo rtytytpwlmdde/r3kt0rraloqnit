@@ -28,7 +28,7 @@
         }
     ?>
     <div class="row justify-content-center">
-      <div class="col-xl-10 col-lg-12 col-md-9">
+      <div class="col-xl-8 col-lg-12 col-md-9">
         <div class="card o-hidden border-0 shadow-lg my-5">
           <div class="card-body p-0 ">
             <div class="row ">
@@ -41,7 +41,7 @@
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Gazebo UB</h1>
+                    <h1 class="h4 text-gray-900 mb-4">SIBORU UB</h1>
                   </div>
                   <form class="user" action="<?php echo base_url().'auth/cek_login'; ?>" method="post">
                     <div class="form-group">
@@ -55,7 +55,7 @@
                     </button>
                   </form>
                   <hr>
-                  <div class="text-center">
+                  <div class="text-center " hidden>
                     <a class="small" href="forgot-password.html">Lupa Password?</a>
                     <a class="small ml-2" href="<?php echo base_url().'auth/formRegister'; ?>">Daftar</a>
                   </div>
