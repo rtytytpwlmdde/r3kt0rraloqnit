@@ -68,7 +68,7 @@
             <i class="fas fa-building"></i>
           <span>Penggunaan Ruangan</span></a>
       </li>
-      <li class="nav-item">
+      <li hidden class="nav-item">
         <a class="nav-link" href="<?php echo base_url('saranaPrasarana/penggunaanBarang'); ?>">
           <i class="fas fa-laptop"></i>
           <span>Penggunaan Barang</span></a>

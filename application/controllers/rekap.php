@@ -10,7 +10,10 @@ class Rekap extends CI_Controller {
 		$this->load->model('M_SaranaPrasarana');
 		$this->load->model('M_User');
 		$this->load->model('m_peminjaman');
-    }
+		if($this->session->userdata('logged_in') == FALSE || $this->session->userdata('status') != 'admin'){
+				redirect("auth/logout");
+		}
+	}
     
     function dashboard(){
 			$tahun = $this->input->get('tahun');

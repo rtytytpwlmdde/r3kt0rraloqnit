@@ -10,6 +10,9 @@ class SaranaPrasarana extends CI_Controller {
 		$this->load->model('M_JadwalKuliah');
 		$this->load->model('m_peminjaman');
 		$this->load->model('M_User');
+        if($this->session->userdata('logged_in') != 'admin' ){
+            redirect("auth/logout");
+        }
 	}
 
 	public function index()

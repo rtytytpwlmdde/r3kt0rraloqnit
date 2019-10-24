@@ -1,152 +1,172 @@
-
 <!DOCTYPE html>
-<html>
-<head>
-	<title>INVOICE</title>
-    <link href="<?php echo base_url(); ?>/assets/css/print.css" rel="stylesheet"> 
-         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-</head>
-<body >
-<div class="book">
-<?php foreach($invoice as $u){
-    
-    $date=date_create($u->tanggal_transaksi);
-    ?>
-    <div class="page">
-        <div class="subpage">
-            <div id="invoice">
-                <div class="invoice overflow-auto">
-                    <div style="min-width: 600px">
-                        <header>
-                            <div class="row">
-                                <div class="col">
-                                        <img class="logo" src="<?php echo base_url(); ?>/assets/images/ub.png" data-holder-rendered="true" />
-                                </div>
-                                <div class="col company-details">
-                                    <h2 class="name">
-                                        FAKULTAS EKONOMI DAN BISNIS
-                                        UNIVERSITAS BRAWIJAYA
-                                    </h2>
-                                    <div>Jl. MT. Haryono No.165, Ketawanggede, Kec. Lowokwaru</div>
-                                    <div>Kota Malang, Jawa Timur 65300</div>
-                                    <div>(0341) 555000</div>
-                                    <div>feb.ub.ac.id</div>
-                                </div>
-                            </div>
-                        </header>
-                        <main>
-                            <div class="row contacts">
-                                <div class="col invoice-to">
-                                    <div class="text-gray-light">Kepada:</div>
-                                    <h2 class="to"><?= $u->nama; ?></h2>
-                                    <div class="address">Jl. <?= $u->jalan;?>, Kota/Kab. <?= $u->kota;?>, Prov. <?= $u->provinsi;?>  </div>
-                                    <div class="email "><?= $u->nomor_hp; ?></div>
-                                </div>
-                                <div class="col invoice-details">
-                                    <h1 class="invoice-id text-dark"><?= $u->id_transaksi; ?></h1>
-                                    <div class="date">Tgl Pemesanan : <?= date_format($date,"d-m-Y") ; ?></div>
-                                </div>
-                            </div>
-                            <table border="0" cellspacing="0" cellpadding="0">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th class="text-left">Produk</th>
-                                        <th class="unit text-right">Jumlah</th>
-                                        <th class="text-right">Harga @</th>
-                                        <th class="unit text-right">TOTAL</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <?php 
-                                $no = 1;
-                                foreach($produk as $i){ 
-                                    if($u->id_transaksi == $i->id_transaksi){?>
-                                    <tr>
-                                        <td class="no"><?= $no++; ?></td>
-                                        <td class="text-left"><h3><?= $i->nama_produk; ?></h3></td>
-                                        <td class="unit"><?= $i->jumlah_produk; ?></td>
-                                        <td class="qty"><?= $i->harga_produk;?></td>
-                                        <td class="unit">Rp <?= $i->harga_transaksi ?></td>
-                                    </tr>
-                                <?php }  } ?>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="2"></td>
-                                        <td colspan="2">SUBTOTAL</td>
-                                        <td> <strong>Rp <?= $u->total_harga ?></strong> </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2"></td>
-                                        <td colspan="2">Ongkos Kirim</td>
-                                        <td>Rp <?= $u->ongkos_kirim ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2"></td>
-                                        <td colspan="2">GRAND TOTAL</td>
-                                        <td> <strong>Rp <?= $u->total_pembayaran ?></strong> </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                            <div class="thanks">Thank you!</div>
-                        </main>
-                        <footer>
-                            Invoice was created on a computer and is valid without the signature and seal.
-                        </footer>
-                    </div>
-                    <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
-                    <div></div>
-                </div>
-            </div>
-         <!-- -->
-         <div id="invoice">
-                <div class="invoice overflow-auto">
-                    <div style="min-width: 600px">
-                        <div>
-                            <div class="row"  style="
-                                    border-style: solid;
-                                    border-width: 2px 10px 4px 20px;
-                                    padding-top:5px; padding-bottom:5px;">
-                                <div class="col" style="max-width:150px; padding-top:15px;">
-                                        <img style="width:120px;" src="<?php echo base_url(); ?>/assets/images/ub.png" data-holder-rendered="true" />
-                                </div>
-                                <div class="col text-left">
-                                    <div class="text-gray-light">Dari:</div>
-                                    <h5 class="name">
-                                        FAKULTAS EKONOMI DAN BISNIS
-                                    </h5>
-                                    <h6> UNIVERSITAS BRAWIJAYA</h6>
-                                    <div>Jl. MT. Haryono No.165, Ketawanggede, Kec. Lowokwaru</div>
-                                    <div>Kota Malang, Jawa Timur 65300</div>
-                                    <div>(0341) 555000</div>
-                                    <div>feb.ub.ac.id</div>
-                                </div>
-                                <div class="col invoice-to text-right">
-                                    <div class="text-gray-light">Kepada:</div>
-                                    <h2 class="to"><?= $u->nama; ?></h2>
-                                    <div class="address">Jl. <?= $u->jalan;?> </div>
-                                    <div class="address">Kota/Kab. <?= $u->kota;?></div>
-                                    <div class="address">Prov. <?= $u->provinsi;?>  </div>
-                                    <div class="email "><?= $u->nomor_hp; ?></div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
-                    <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
-                    <div></div>
-                </div>
-            </div>
-        </div>    
-    </div>
-<?php } ?>
-</div>
+<html lang="en">
 
-<script> window.print();
-</script>
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>SIBORU - UB</title>
+  <link rel="icon" href="<?php echo base_url() ?>/assets/img/ub.png">
+  <!-- Custom fonts for this template-->
+  <link href="<?php echo base_url() ?>/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="<?php echo base_url() ?>/assets/css/sb-admin-2.min.css" rel="stylesheet" type="text/css">
+  <link href="<?php echo base_url() ?>/assets/css/alumni-style.css" rel="stylesheet" type="text/css">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+  <link href="<?php echo base_url() ?>/assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+<?php foreach($peminjaman as $u){?>
+  <!-- Page Wrapper -->
+  <section class="card">
+	<div id="invoice-template" class="card-body">
+		<!-- Invoice Company Details -->
+		<div id="invoice-company-details" class="row">
+			<div class="col-md-6 col-sm-12 text-center text-md-left">
+				<div class="media mt-4 pt-4">
+					<img src="<?php echo base_url() ?>/assets/img/ub.png" style="width:100px" alt="company logo" class="">
+					<div class="media-body">
+						<ul class="ml-2 px-0 list-unstyled ">
+							<li class="text-bold-800">KEMENTERIAN RISET, TEKNOLOGI, DAN PENDIDIKAN TINGGI</li>
+							<li>UNIVERSITAS BRAWIJAYA MALANG</li>
+							<li>---------------------------------------------------</li>
+							<li>SISTEM INFORMASI BOKING RUANGAN UB</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-12 text-center text-md-right">
+                <h2>BUKTI PEMINJAMAN</h2>
+                <img src="<?php echo base_url() ?>/assets/images/<?= $id_peminjaman;?>.png" style="width:100px" alt="company logo" class="">
+				<p class="pb-3"># <?= $id_peminjaman;?></p>
+				
+			</div>
+		</div>
+		<!--/ Invoice Company Details -->
+
+		<!-- Invoice Customer Details -->
+		<div id="invoice-customer-details" class="row pt-2">
+		
+			<div class="col-md-5 col-sm-12 text-center text-md-left">
+            <table class="table table-borderless table-sm">
+                <tbody>
+                        <tr>
+                            <td>Nama:</td>
+                            <td class="text-left">: <?= $u->nama_mahasiswa; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Username:</td>
+                            <td class="text-left">: <?= $u->id_mahasiswa; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Penyelenggara:</td>
+                            <td class="text-left">: <?= $u->penyelenggara; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal Peminjaman:</td>
+                            <td class="text-left">: <?= date("d-m-Y", strtotime($u->tanggal_peminjaman)); ?></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-3 col-sm-12 text-center text-md-left">
+           
+			</div>
+			<div class="col-md-4 col-sm-12 text-center text-md-right">
+				<p><span class="text-muted">Status :</span> <?= $u->validasi_akademik?></p>
+			</div>
+		</div>
+		<!--/ Invoice Customer Details -->
+
+		<!-- Invoice Items Details -->
+		<div id="invoice-items-details" class="pt-2">
+			<div class="row">
+				<div class="table-responsive col-sm-12">
+					<table class="table">
+					  <thead>
+					    <tr>
+					      <th>#</th>
+					      <th>Sarana</th>
+					      <th>Tanggal Penggunaan</th>
+					      <th>Jam Penggunaan</th>
+					      <th>Agenda</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr>
+					        <th scope="row">1</th>
+					        <td>
+                              <p><?= $u->nama_ruangan?><?= $u->nama_barang?></p>
+                                <?php if ($u->jenis_peminjaman == 'ruangan'){ ?>
+					      	        <small class="text-muted"><?= $u->kapasitas;?></small>
+                                <?php } ?>  
+                            </td>
+                            <td><?= date("d-m-Y", strtotime($u->tanggal_mulai_penggunaan)); ?></td>
+                          
+                            <td><?php 
+                                foreach($waktu as $w){
+                                    if($w->id_waktu == $u->jam_mulai){
+                                        $mulai = explode("-", $w->nama_waktu);
+                                        $start = $mulai[0];
+                                    }
+                                    if($w->id_waktu == $u->jam_selesai){
+                                        $selesai = explode("-", $w->nama_waktu);
+                                        $end = $selesai[1];
+                                    }
+                                }
+                                ?>
+                                
+                                <?= $start?> - <?= $end?>
+                            </td>
+                          <td><?= $u->keterangan ?></td>
+					    </tr>
+					   
+					  </tbody>
+					</table>
+				</div>
+			</div>
+			
+		</div>
+
+		<!-- Invoice Footer -->
+		
+		<!--/ Invoice Footer -->
+
+	</div>
+</section>
+<?php } ?>
+
+<script>window.print()</script>
+
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="<?php echo base_url()?>/assets/vendor/jquery/jquery.min.js"></script>
+  <script src="<?php echo base_url()?>/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="<?php echo base_url()?>/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="<?php echo base_url()?>/assets/js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="<?php echo base_url()?>/assets/vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="<?php echo base_url()?>/assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="<?php echo base_url()?>/assets/js/demo/datatables-demo.js"></script>
+
 
 </body>
+
 </html>

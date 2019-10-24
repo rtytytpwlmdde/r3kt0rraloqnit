@@ -124,10 +124,10 @@
                               $monthName = date("M", mktime(0, 0, 0, $monthNum, 10));
                               echo $monthName; // Output: May
                               ?></td>
-                          <td title="semua peminjaman"><?= $result; ?></td>
-                          <td title="setuju"><?= $setuju; ?></td>
-                          <td title="terkirim"><?= $terkirim; ?></td>
-                          <td title="tolak"><?= $tolak; ?></td>
+                          <td class="text-center" title="semua peminjaman"><?= $result; ?></td>
+                          <td class="text-center" title="setuju"><?= $setuju; ?></td>
+                          <td class="text-center" title="terkirim"><?= $terkirim; ?></td>
+                          <td class="text-center" title="tolak"><?= $tolak; ?></td>
                           </tr>
                           <?php
                         }

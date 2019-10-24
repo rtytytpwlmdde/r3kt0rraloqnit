@@ -18,9 +18,14 @@
                     $nama_ruangan = $a->nama_ruangan;
                     $id_peminjam = $a->id_peminjam;
                     $catatan_penolakan = $a->catatan_penolakan;
+                    $jenis = $a->jenis_peminjaman;
                 }?>
                 <?php if( $validasi_akademik == 'terkirim'){ ?>
-                    <a href="<?php echo site_url('Peminjaman/validasiPeminjaman/'.$id_peminjaman); ?>"  class="btn btn-success btn-sm" title="Setuju Peminjaman">Setuju</a>
+                    <form action="<?php echo base_url("peminjaman/validasiPeminjaman");?>" method="post">
+                        <input hidden type="text" name="id_peminjaman" value="<?= $id_peminjaman;?>">
+                        <input hidden type="text" name="jenis_peminjaman" value="<?= $jenis;?>">
+                        <button type="submit" class="btn btn-success btn-sm" title="Setuju Peminjaman">Setuju</button>
+                    </form>
                     <a data-toggle="modal" data-id="<?php echo $id_peminjaman; ?>" title="Tolak Peminjaman" class="modalTolakPeminjaman btn btn-outline-danger btn-sm" href="#modalTolakPeminjaman">Tolak</a>
                     <a data-toggle="modal" data-id="<?php echo $id_peminjaman; ?>" title="Batalkan Peminjaman" class="modalBatalPeminjaman btn btn-outline-secondary btn-sm" href="#modalBatalPeminjaman">Batal</a>
 
@@ -326,15 +331,17 @@ $(document).on("click", ".modalBatalPeminjaman", function () {
 <div class="modal fade" id="gardenImage" tabindex="-1" role="dialog" aria-labelledby="gardenImageLabel">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-body text-center">
-                <img id="myImage" style="width: 300px;" class="img-responsive" src="" alt="">
-                <h6><input type="text" class="form-control text-center" style="border-width:0px; border:none;" id="id_peminjaman" value=""/></h6>
-                
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-primary center-block" data-dismiss="modal"><i class="fas fa-download fa-sm text-white-50"></i> Bukti Peminjaman</button>
-                <button type="button" class="btn btn-sm btn-danger center-block" data-dismiss="modal">close</button>
-            </div>
+            <form action="<?php echo base_url("peminjaman/buktiPeminjaman")?>" method="post">
+                <div class="modal-body text-center">
+                    <img id="myImage" style="width: 300px;" class="img-responsive" src="" alt="">
+                    <h6><input type="text" name="id_peminjaman" class="form-control text-center" style="border-width:0px; border:none;" id="id_peminjaman" value=""/></h6>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-sm btn-primary center-block" ><i class="fas fa-download fa-sm text-white-50"></i> Bukti Peminjaman</button>
+            </form>
+                    <button type="button" class="btn btn-sm btn-danger center-block" data-dismiss="modal">close</button>
+                </div>
         </div>
     </div>
 </div>
@@ -351,5 +358,7 @@ $(document).on("click", ".openImageDialog", function () {
      $(".modal-body #id_peminjaman").val( peminjaman );
 });
 </script>
+
+
 
 

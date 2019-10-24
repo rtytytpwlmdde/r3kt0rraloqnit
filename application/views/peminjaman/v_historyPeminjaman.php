@@ -81,7 +81,7 @@ if($this->session->userdata('status') == "pengguna"){
             </thead>
             <tbody>
             <?php 
-                $no = 1;
+            $no = (int)$this->uri->segment('3') + 1;
                 foreach ($peminjaman as $u){ 
             ?>
                 <tr class="text-center">
@@ -101,11 +101,8 @@ if($this->session->userdata('status') == "pengguna"){
                     </td>
 
                     <td><a href="<?php echo site_url('Peminjaman/detailPeminjaman/'.$u->id_peminjaman.'/'.$u->jenis_peminjaman); ?>"><?php echo $u->id_peminjaman; ?></a></td>
-                    <?php if($u->nama_mahasiswa == 'dosen'){ ?>
-                        <td><?php echo $u->nama_mahasiswa; ?></td>
-                    <?php }else{ ?>
-                        <td><?php echo $u->nama_mahasiswa; ?></td>
-                    <?php } ?>
+                    
+                    <td><?php echo $u->nama_mahasiswa; ?></td>
                     <td><?= date("d-m-Y", strtotime($u->tanggal_mulai_penggunaan)); ?></td>
                     <td><?php echo $u->nama_ruangan; ?><?php echo $u->nama_barang; ?></td>
                     <td><?php $mulai = explode("-", $u->nama_waktu);
@@ -126,7 +123,11 @@ if($this->session->userdata('status') == "pengguna"){
                     <?php if($this->session->userdata('status') == 'staff pelayanan' || $this->session->userdata('status') == 'admin' ) { ?>
                         <td class="text-center">
                         <?php if( $u->validasi_akademik == 'terkirim'){ ?>
-                            <a href="<?php echo site_url('Peminjaman/validasiPeminjaman/'.$u->id_peminjaman); ?>"  class="btn btn-success btn-sm" title="Setuju Peminjaman">Setuju</a>
+                            <form action="<?php echo base_url("peminjaman/validasiPeminjaman");?>" method="post">
+                                <input hidden type="text" name="id_peminjaman" value="<?= $u->id_peminjaman;?>">
+                                <input hidden type="text" name="jenis_peminjaman" value="<?= $u->jenis_peminjaman;?>">
+                                <button type="submit" class="btn btn-success btn-sm" title="Setuju Peminjaman">Setuju</button>
+                            </form>
                             <a data-toggle="modal" data-id="<?php echo $u->id_peminjaman; ?>" title="Tolak Peminjaman" class="modalTolakPeminjaman btn btn-outline-danger btn-sm" href="#modalTolakPeminjaman">Tolak</a>
                             <a data-toggle="modal" data-id="<?php echo $u->id_peminjaman; ?>" title="Batalkan Peminjaman" class="modalBatalPeminjaman btn btn-outline-secondary btn-sm" href="#modalBatalPeminjaman">Batal</a>
 
@@ -156,6 +157,9 @@ if($this->session->userdata('status') == "pengguna"){
             <?php } ?>
             </tbody>
         </table>
+    </div> 
+    <div class="d-flex flex-row-reverse bd-highlight">
+    <?php echo $this->pagination->create_links(); ?>
     </div>
 </div>
 
@@ -240,15 +244,17 @@ $(document).on("click", ".modalBatalPeminjaman", function () {
 <div class="modal fade" id="gardenImage" tabindex="-1" role="dialog" aria-labelledby="gardenImageLabel">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-body text-center">
-                <img id="myImage" style="width: 300px;" class="img-responsive" src="" alt="">
-                <h6><input type="text" class="form-control text-center" style="border-width:0px; border:none;" id="id_peminjaman" value=""/></h6>
-                
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-primary center-block" data-dismiss="modal"><i class="fas fa-download fa-sm text-white-50"></i> Bukti Peminjaman</button>
-                <button type="button" class="btn btn-sm btn-danger center-block" data-dismiss="modal">close</button>
-            </div>
+            <form action="<?php echo base_url("peminjaman/buktiPeminjaman")?>" method="post">
+                <div class="modal-body text-center">
+                    <img id="myImage" style="width: 300px;" class="img-responsive" src="" alt="">
+                    <h6><input type="text" name="id_peminjaman" class="form-control text-center" style="border-width:0px; border:none;" id="id_peminjaman" value=""/></h6>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-sm btn-primary center-block" ><i class="fas fa-download fa-sm text-white-50"></i> Bukti Peminjaman</button>
+            </form>
+                    <button type="button" class="btn btn-sm btn-danger center-block" data-dismiss="modal">close</button>
+                </div>
         </div>
     </div>
 </div>

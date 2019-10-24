@@ -8,11 +8,18 @@ class User extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->model('M_User');
 		$this->load->model('m_peminjaman');
-		$this->load->model('M_SaranaPrasarana');
+        $this->load->model('M_SaranaPrasarana');
+        
+		if($this->session->userdata('logged_in') == FALSE ){
+            redirect("auth/logout");
+        }
 	}
 
 // operator
 	public function operator(){
+        if($this->session->userdata('logged_in') != 'admin' ){
+            redirect("auth/logout");
+        }
 		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
 		$data['operator'] = $this->M_User->getDataOperator()->result();
         $data['ruangan'] = $this->M_SaranaPrasarana->getDataRuangan()->result();
@@ -22,6 +29,9 @@ class User extends CI_Controller {
 	}
 
 	public function formTambahOperator(){
+        if($this->session->userdata('logged_in') != 'admin' ){
+            redirect("auth/logout");
+        }
 		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['main_view'] = 'User/V_TambahOperator';
@@ -49,6 +59,9 @@ class User extends CI_Controller {
 	}
 
 	function hapusOperator($username){
+        if($this->session->userdata('logged_in') != 'admin' ){
+            redirect("auth/logout");
+        }
 		$where = array('username' => $username);
 		$this->M_User->hapusUser($where,'operator');
 		$this->session->set_flashdata('notifsukses', "Data operator berhasil dihapus");
@@ -56,6 +69,9 @@ class User extends CI_Controller {
 	}
 
 	function updateOperator($username){
+        if($this->session->userdata('logged_in') != 'admin' ){
+            redirect("auth/logout");
+        }
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
 		$data['main_view'] = 'User/V_EditOperator';
@@ -84,6 +100,9 @@ class User extends CI_Controller {
 
 // dosen
     public function dosen(){
+        if($this->session->userdata('logged_in') != 'admin' ){
+            redirect("auth/logout");
+        }
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
         $data['dosen'] = $this->M_User->getDataDosen()->result();
@@ -92,6 +111,9 @@ class User extends CI_Controller {
     }
 
     public function formTambahDosen(){
+        if($this->session->userdata('logged_in') != 'admin' ){
+            redirect("auth/logout");
+        }
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
         $data['main_view'] = 'User/V_TambahDosen';
@@ -117,6 +139,9 @@ class User extends CI_Controller {
     }
 
     function hapusDosen($id_dosen){
+        if($this->session->userdata('logged_in') != 'admin' ){
+            redirect("auth/logout");
+        }
         $where = array('id_dosen' => $id_dosen);
         $this->M_User->hapusUser($where,'dosen');
         $this->session->set_flashdata('notifsukses', "Data dosen berhasil dihapus");
@@ -124,6 +149,9 @@ class User extends CI_Controller {
     }
 
     function updateDosen($id_dosen){
+        if($this->session->userdata('logged_in') != 'admin' ){
+            redirect("auth/logout");
+        }
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
         $data['main_view'] = 'User/V_EditDosen';
@@ -150,6 +178,9 @@ class User extends CI_Controller {
 
 // mahasiswa
     public function user(){
+        if($this->session->userdata('logged_in') != 'admin' ){
+            redirect("auth/logout");
+        }
 		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
         $data['mahasiswa'] = $this->M_User->getDataMahasiswa()->result();
@@ -158,6 +189,9 @@ class User extends CI_Controller {
     }
 
     public function formTambahUser(){
+        if($this->session->userdata('logged_in') != 'admin' ){
+            redirect("auth/logout");
+        }
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
         $data['main_view'] = 'User/V_TambahMahasiswa';
@@ -203,6 +237,9 @@ class User extends CI_Controller {
     }
 
     function updateUser($id){
+        if($this->session->userdata('logged_in') != 'admin' ){
+            redirect("auth/logout");
+        }
 		$data['username'] = $id;
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
@@ -239,6 +276,9 @@ class User extends CI_Controller {
     }
 
     function validasiUser($username){
+        if($this->session->userdata('logged_in') != 'admin' ){
+            redirect("auth/logout");
+        }
         $status = 'valid';
         $data = array(
             'status_mahasiswa' => $status
@@ -252,6 +292,9 @@ class User extends CI_Controller {
     }
 
     function tolakUser($username){
+        if($this->session->userdata('logged_in') != 'admin' ){
+            redirect("auth/logout");
+        }
         $status = 'valid';
         $data = array(
             'status_mahasiswa' => $status
@@ -265,6 +308,9 @@ class User extends CI_Controller {
     }
 
     function detailUser($id){
+        if($this->session->userdata('logged_in') != 'admin' ){
+            redirect("auth/logout");
+        }
 		$data['username'] = $id;
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
