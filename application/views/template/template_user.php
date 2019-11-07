@@ -40,7 +40,7 @@
                 <li class="nav-item active">
                     <a class="nav-link text-white" href="<?php echo base_url('saranaPrasarana/penggunaanRuangan'); ?>">Ruangan <span class="sr-only">(current)</span></a>
                 </li>
-                <li hidden class="nav-item active">
+                <li  class="nav-item active">
                     <a class="nav-link text-white" href="<?php echo base_url('saranaPrasarana/penggunaanBarang'); ?>">Barang <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
@@ -48,10 +48,18 @@
                     <?php if($this->session->userdata('logged_in') == FALSE){ ?>
                       href="<?php echo base_url('auth/login'); ?>"
                       <?php }else{ ?>
-                      href="<?php echo base_url('peminjaman/formTambahPeminjaman'); ?>"
+                      href="<?php echo base_url('peminjaman/formTambahPeminjaman/ruangan'); ?>"
                       <?php }?>
-                    
-                    >Peminjaman Baru</a>
+                    >Peminjaman Ruangan</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" 
+                    <?php if($this->session->userdata('logged_in') == FALSE){ ?>
+                      href="<?php echo base_url('auth/login'); ?>"
+                      <?php }else{ ?>
+                      href="<?php echo base_url('peminjaman/formTambahPeminjaman/barang'); ?>"
+                      <?php }?>
+                    >Peminjaman Barang</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="<?php echo base_url('peminjaman/formCekPeminjaman'); ?>">Cek Peminjaman</a>

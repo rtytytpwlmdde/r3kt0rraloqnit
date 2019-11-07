@@ -10,21 +10,15 @@ class SaranaPrasarana extends CI_Controller {
 		$this->load->model('M_JadwalKuliah');
 		$this->load->model('m_peminjaman');
 		$this->load->model('M_User');
-        if($this->session->userdata('logged_in') != 'admin' ){
-            redirect("auth/logout");
-        }
 	}
 
-	public function index()
-	{
-		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
-		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
-		$data['main_view'] = 'SaranaPrasarana/V_Dashboard';
-		$this->load->view('template/template_operator', $data);
-	}
+
 
 // ruangan
     public function ruangan(){
+        if($this->session->userdata('logged_in') != 'admin' ){
+            redirect("auth/logout");
+        }
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
         $data['ruangan'] = $this->M_SaranaPrasarana->getDataRuangan()->result();
@@ -33,6 +27,9 @@ class SaranaPrasarana extends CI_Controller {
     }
 
     public function formTambahRuangan(){
+        if($this->session->userdata('logged_in') != 'admin' ){
+            redirect("auth/logout");
+        }
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
 		$data['operator'] = $this->M_User->getDataOperator()->result();
@@ -60,6 +57,9 @@ class SaranaPrasarana extends CI_Controller {
     }
 
     function hapusRuangan($id_ruangan){
+        if($this->session->userdata('logged_in') != 'admin' ){
+            redirect("auth/logout");
+        }
         $where = array('id_ruangan' => $id_ruangan);
         $this->M_SaranaPrasarana->hapusRuangan($where,'ruangan');
         $this->session->set_flashdata('notifsukses', "Data ruangan berhasil dihapus");
@@ -67,6 +67,9 @@ class SaranaPrasarana extends CI_Controller {
     }
 
     function updateRuangan($id_ruangan){
+        if($this->session->userdata('logged_in') != 'admin' ){
+            redirect("auth/logout");
+        }
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
         $data['main_view'] = 'SaranaPrasarana/v_EditRuangan';
@@ -100,6 +103,9 @@ class SaranaPrasarana extends CI_Controller {
 //akhir ruangan
 
 public function barang(){
+	if($this->session->userdata('logged_in') != 'admin' ){
+		redirect("auth/logout");
+	}
 	$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 	$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
 	$data['barang'] = $this->M_SaranaPrasarana->getDataBarang();
@@ -108,6 +114,9 @@ public function barang(){
 }
 
 public function formTambahBarang(){
+	if($this->session->userdata('logged_in') != 'admin' ){
+		redirect("auth/logout");
+	}
 	$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 	$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
 	$data['operator'] = $this->M_User->getDataOperator()->result();
@@ -131,6 +140,9 @@ public function tambahBarang(){
 }
 
 function hapusBarang($id_barang){
+	if($this->session->userdata('logged_in') != 'admin' ){
+		redirect("auth/logout");
+	}
 	$where = array('id_barang' => $id_barang);
 	$this->M_SaranaPrasarana->hapusRuangan($where,'barang');
 	$this->session->set_flashdata('notifsukses', "Data barang berhasil dihapus");
@@ -138,6 +150,9 @@ function hapusBarang($id_barang){
 }
 
 function updateBarang($id_barang){
+	if($this->session->userdata('logged_in') != 'admin' ){
+		redirect("auth/logout");
+	}
 	$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 	$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
 	$data['main_view'] = 'SaranaPrasarana/v_EditBarang';

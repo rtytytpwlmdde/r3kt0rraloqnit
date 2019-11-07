@@ -112,7 +112,7 @@
                 </a>
             <?php }else{ ?>
                 <a href="<?php echo site_url('Peminjaman/kirimPeminjaman/'.$u->jenis_peminjaman.'/'.$id.'/'.$operator); ?>"   type="submit" class="btn btn-warning btn-user btn-block" title="Selesaikan Peminjaman Barang">
-                    Kirim Peminjaman
+                    Kirim Peminjaman 
                 </a>
             <?php }?>
         </form> 

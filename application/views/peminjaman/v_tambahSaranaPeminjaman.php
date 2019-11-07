@@ -140,7 +140,7 @@
                     <small class="text-muted">Kapasitas <?= $u->kapasitas; ?> orang</small>
                 </div>
                 <span class="text-muted"> <form action="<?php echo site_url('Peminjaman/tambahSaranaPeminjaman'); ?>" method="post">
-                        <input type="text" hidden name="jenis" value="nonkelas">
+                        <input type="text" hidden name="jenis" value="ruangan">
                         <input type="text" hidden name="id_peminjaman" value="<?= $id?>">
                         <input type="text" hidden name="id_sarana" value="<?= $u->id_ruangan?>">
                         <input type="text" hidden name="tgl_mulai" value="<?= $tgl_mulai?>">

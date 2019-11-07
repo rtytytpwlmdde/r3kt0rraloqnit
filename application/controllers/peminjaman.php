@@ -108,7 +108,7 @@ class Peminjaman extends CI_Controller {
             $id_peminjam = $this->input->post('id_peminjam');
             $id_lembaga = $this->input->post('id_lembaga');
             $penyelenggara = $this->input->post('penyelenggara');
-            $jenis_peminjaman = "ruangan";
+            $jenis_peminjaman = $this->input->post('jenis_peminjaman');
             $validasi_akademik = 'pending';
             $validasi_kemahasiswaan = 'pending';
             $validasi_umum = 'pending';
@@ -142,7 +142,8 @@ class Peminjaman extends CI_Controller {
                         'validasi_umum' => $validasi_umum,
                         'keterangan' => $keterangan
                     );
-                }else{
+                   
+                }else {
                     $data = array(
                         'id_peminjaman' => $id_peminjaman,
                         'jenis_peminjaman' => $jenis_peminjaman,
@@ -160,7 +161,7 @@ class Peminjaman extends CI_Controller {
                     );
                 }
                 $this->M_Peminjaman->tambahData($data,'peminjaman');
-                $this->session->set_flashdata('notifsukses', "peminjaman ruangan berhasil ditambahkan");
+                $this->session->set_flashdata('notifsukses', "peminjaman berhasil ditambahkan");                
                 redirect('peminjaman/formTambahSaranaPeminjaman/'.$jenis_peminjaman.'/'.$tanggal_mulai_penggunaan.'/'.$tanggal_selesai_penggunaan.'/'.$jam_mulai.'/'.$jam_selesai);
             }else{
                 $this->session->set_flashdata('notif', "data user tidak ditemukan");
@@ -241,12 +242,34 @@ class Peminjaman extends CI_Controller {
         if($this->session->userdata('logged_in') == FALSE){
             redirect("auth/logout");
         }
-        if($this->session->userdata('status') == $operator || $this->session->userdata('status') == 'admin'){
+        if($this->session->userdata('status') == 'admin'){
             $status = 'setuju';
+            $nama_kode = base_url().'peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis_peminjaman;
+            $this->load->library('ciqrcode'); //pemanggilan library QR CODE
+
+            $config['cacheable']	= true; //boolean, the default is true
+            $config['cachedir']		= './assets/'; //string, the default is application/cache/
+            $config['errorlog']		= './assets/'; //string, the default is application/logs/
+            $config['imagedir']		= './assets/images/'; //direktori penyimpanan qr code
+            $config['quality']		= true; //boolean, the default is true
+            $config['size']			= '1024'; //interger, the default is 1024
+            $config['black']		= array(224,255,255); // array, default is array(255,255,255)
+            $config['white']		= array(70,130,180); // array, default is array(0,0,0)
+            $this->ciqrcode->initialize($config);
+
+            $image_name=$id_peminjaman.'.png'; //buat name dari qr code sesuai dengan nim
+
+            $params['data'] = $nama_kode; //data yang akan di jadikan QR CODE
+            $params['level'] = 'H'; //H=High
+            $params['size'] = 10;
+            $params['savename'] = FCPATH.$config['imagedir'].$image_name; //simpan image QR CODE ke folder assets/images/
+            $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
         }else{
             $status = 'terkirim';
+            $image_name = null;
         }
         $data = array(
+            'qr_code' => $image_name,
             'validasi_akademik' => $status,
             'validasi_umum' => $status,
             'validasi_kemahasiswaan' => $status
