@@ -53,7 +53,7 @@
           <form class="user" action="<?php echo base_url().'peminjaman/tambahPeminjaman'; ?>" method="post">
           
             <div class="form-group">
-                <label for="exampleFormControlSelect1">Username</label>
+                <label for="exampleFormControlSelect1">Pengguna</label>
                 <?php if($this->session->userdata('status') == 'pengguna'){ ?>
                 <?php }else{ ?>
                 <?php }?>
@@ -105,7 +105,7 @@
                 <input type="text"  required name="penyelenggara" class="form-control " placeholder="masukkan nama lengkap penyelenggara acara">
             </div>
             <div class="form-group">
-                <label for="">Keterangan Kegiatan</label>
+                <label for="">Keterangan Pengguna</label>
                 <textarea class="form-control"  name="keterangan" rows="3"></textarea>
             </div>
             <?php if($this->session->userdata('status_validasi') == 'belum divalidasi' || $this->session->userdata('status_validasi') == 'tidak valid'){?>

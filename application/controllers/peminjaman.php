@@ -14,6 +14,12 @@ class Peminjaman extends CI_Controller {
     
 
     function historyPeminjaman(){
+        $peminjaman = $this->M_Peminjaman->getDataPeminjamanPending();
+        foreach ($peminjaman as $u){
+            $id = $u->id_peminjaman;
+            $where = array('id_peminjaman' => $id);
+            $this->M_User->hapusUser($where,'peminjaman');
+        }
         if($this->session->userdata('logged_in') == FALSE){
             redirect("auth/logout");
         }

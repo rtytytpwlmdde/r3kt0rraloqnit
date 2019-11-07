@@ -94,18 +94,20 @@ class M_Peminjaman extends CI_Model{
 	}
 	
 	function getDataPeminjaman($number,$offset){
-		$status = $this->input->post('status');
 		$operator = $this->session->userdata('username');
-		$search = $this->input->post('search');
+		$search = $this->input->get('search');
+		$status = $this->input->get('status');
+		$pengguna = $this->input->get('pengguna');
+		$penyelenggara = $this->input->get('penyelenggara');
+		$jenis = $this->input->get('jenis');
+		$tgl_mulai = $this->input->get('tgl_mulai');
+		$tgl_selesai = $this->input->get('tgl_selesai');
         $this->db->select('*');
 		$this->db->join('mahasiswa','peminjaman.id_peminjam = mahasiswa.id_mahasiswa');
 		$this->db->join('sarana_peminjaman','peminjaman.id_peminjaman = sarana_peminjaman.id_peminjaman');
 		$this->db->join('ruangan','ruangan.id_ruangan = sarana_peminjaman.id_sarana','left');
 		$this->db->join('barang','barang.id_barang = sarana_peminjaman.id_sarana','left');
 		$this->db->join('waktu','peminjaman.jam_mulai = waktu.id_waktu');
-		if($status != NULL){
-			$this->db->where('peminjaman.validasi_akademik',$status);
-		}
 		if($search != NULL){
 			$this->db->like('peminjaman.id_peminjaman', $search);
 			$this->db->or_like('peminjaman.penyelenggara', $search);
@@ -115,47 +117,102 @@ class M_Peminjaman extends CI_Model{
 			$this->db->or_like('waktu.nama_waktu', $search);
 			$this->db->or_like('peminjaman.id_peminjam', $search);
 			$this->db->or_like('mahasiswa.nama_mahasiswa', $search);
-			if (preg_match("/^(0[1-9]|[1-2][0-9]|3[0-1])-(0[1-9]|1[0-2])-[0-9]{4}$/",$search)) {
-				$mulai = explode("-", $search);
-				$tahun = $mulai[2];
-				$bulan = $mulai[1];
-				$tanggal = $mulai[0];
-				$tgl = $tahun."-".$bulan."-".$tanggal;
-				$this->db->or_like('peminjaman.tanggal_peminjaman', $tgl);
-				$this->db->or_like('peminjaman.tanggal_mulai_penggunaan', $tgl);
-			}
 		}
 		if($this->session->userdata('status') == "staff pelayanan"){
 			$this->db->where('ruangan.id_operator',$operator);
 			$this->db->or_where('barang.id_operator',$operator);
 		}
+		
+		if($this->session->userdata('status') == "pengguna"){
+			$this->db->where('peminjaman.id_peminjam',$this->session->userdata('username'));
+		}
+
+		
+		if($status != NULL){
+			$this->db->where('peminjaman.validasi_akademik',$status);
+		}
+		if($jenis != NULL){
+			$this->db->where('peminjaman.jenis_peminjaman',$jenis);
+		}
+		if($pengguna != NULL){
+			$this->db->or_like('peminjaman.id_peminjam', $search);
+			$this->db->or_like('mahasiswa.nama_mahasiswa', $search);
+		}
+		if($penyelenggara != NULL){
+			$this->db->or_like('peminjaman.penyelenggara',$penyelenggara);
+		}
+		if($status != NULL){
+			$this->db->where('peminjaman.validasi_akademik',$status);
+		}
+		if($tgl_mulai != null && $tgl_selesai != null ){
+			$this->db->where('peminjaman.tanggal_mulai_penggunaan >= ', $tgl_mulai);
+			$this->db->where('peminjaman.tanggal_mulai_penggunaan <= ', $tgl_selesai);
+		}
+		if($tgl_mulai != null && $tgl_selesai == null){
+			$this->db->where('peminjaman.tanggal_mulai_penggunaan', $tgl_mulai);
+		}
+		$this->db->order_by('peminjaman.tanggal_peminjaman','desc');
 		$query = $this->db->get('peminjaman',$number,$offset);
 		return 	$query->result();	
 	}
 
 	function jumlahDataPeminjaman(){
-		$status = $this->input->post('status');
 		$operator = $this->session->userdata('username');
-		$search = $this->input->post('search');
-        $this->db->select('peminjaman.id_peminjaman');
+		$search = $this->input->get('search');
+		$status = $this->input->get('status');
+		$pengguna = $this->input->get('pengguna');
+		$penyelenggara = $this->input->get('penyelenggara');
+		$jenis = $this->input->get('jenis');
+		$tgl_mulai = $this->input->get('tgl_mulai');
+		$tgl_selesai = $this->input->get('tgl_selesai');
+        $this->db->select('*');
 		$this->db->join('mahasiswa','peminjaman.id_peminjam = mahasiswa.id_mahasiswa');
 		$this->db->join('sarana_peminjaman','peminjaman.id_peminjaman = sarana_peminjaman.id_peminjaman');
 		$this->db->join('ruangan','ruangan.id_ruangan = sarana_peminjaman.id_sarana','left');
 		$this->db->join('barang','barang.id_barang = sarana_peminjaman.id_sarana','left');
 		$this->db->join('waktu','peminjaman.jam_mulai = waktu.id_waktu');
-		if($status != NULL){
-			$this->db->where('peminjaman.validasi_akademik',$status);
-		}
 		if($search != NULL){
 			$this->db->like('peminjaman.id_peminjaman', $search);
-			$this->db->or_like('peminjaman.tanggal_peminjaman', $search);
-			$this->db->or_like('peminjaman.tanggal_mulai_penggunaan', $search);
 			$this->db->or_like('peminjaman.penyelenggara', $search);
 			$this->db->or_like('peminjaman.keterangan', $search);
+			$this->db->or_like('ruangan.nama_ruangan', $search);
+			$this->db->or_like('barang.nama_barang', $search);
+			$this->db->or_like('waktu.nama_waktu', $search);
+			$this->db->or_like('peminjaman.id_peminjam', $search);
+			$this->db->or_like('mahasiswa.nama_mahasiswa', $search);
 		}
 		if($this->session->userdata('status') == "staff pelayanan"){
 			$this->db->where('ruangan.id_operator',$operator);
 			$this->db->or_where('barang.id_operator',$operator);
+		}
+		
+		if($this->session->userdata('status') == "pengguna"){
+			$this->db->where('peminjaman.id_peminjam',$this->session->userdata('username'));
+		}
+
+		
+		if($status != NULL){
+			$this->db->where('peminjaman.validasi_akademik',$status);
+		}
+		if($jenis != NULL){
+			$this->db->where('peminjaman.jenis_peminjaman',$jenis);
+		}
+		if($pengguna != NULL){
+			$this->db->or_like('peminjaman.id_peminjam', $search);
+			$this->db->or_like('mahasiswa.nama_mahasiswa', $search);
+		}
+		if($penyelenggara != NULL){
+			$this->db->or_like('peminjaman.penyelenggara',$penyelenggara);
+		}
+		if($status != NULL){
+			$this->db->where('peminjaman.validasi_akademik',$status);
+		}
+		if($tgl_mulai != null && $tgl_selesai != null ){
+			$this->db->where('peminjaman.tanggal_mulai_penggunaan >= ', $tgl_mulai);
+			$this->db->where('peminjaman.tanggal_mulai_penggunaan <= ', $tgl_selesai);
+		}
+		if($tgl_mulai != null && $tgl_selesai == null){
+			$this->db->where('peminjaman.tanggal_mulai_penggunaan', $tgl_mulai);
 		}
 		
 		$query = $this->db->get('peminjaman');

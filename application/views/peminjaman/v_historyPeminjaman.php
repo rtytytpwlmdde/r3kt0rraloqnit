@@ -40,28 +40,69 @@ if($this->session->userdata('status') == "pengguna"){
                         <?php if($this->session->userdata('status') != "pengguna"){?>
                         <a class="btn btn-sm btn-success text-white mb-2 ml-1" href="<?php echo base_url("rekap/exportHistoryPeminjaman");?>"><i class="fas fa-file-excel"></i>  </a>
                         <?php } ?>
-                        <button class="btn btn-sm btn-secondary dropdown-toggle mb-2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-sm btn-secondary mb-2" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                         <i class="fas fa-filter"></i>
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <form action="<?php  echo base_url('peminjaman/historyPeminjaman'); ?>" method="post"><input hidden name="status" value="setuju">
-                                <button class="dropdown-item text-success" type="submit">Setuju</button>
-                            </form>
-                            <form action="<?php  echo base_url('peminjaman/historyPeminjaman'); ?>" method="post"><input hidden name="status" value="tolak">
-                                <button class="dropdown-item text-danger" type="submit">Tolak</button>
-                            </form>
-                            <form action="<?php  echo base_url('peminjaman/historyPeminjaman'); ?>" method="post"><input hidden name="status" value="terkirim">
-                                <button class="dropdown-item text-warning" type="submit">Terkirim</button>
-                            </form>
-                        </div>
-                        <form class="pr-2 form-inline" action="<?php echo base_url("peminjaman/historyPeminjaman")?>" method="post">
+                        <form class="pr-2 form-inline" action="<?php echo base_url("peminjaman/historyPeminjaman")?>" method="get">
                             <div class="form-group mb-2">
-                                <input type="text" name="search" class="form-control-sm " placeholder="search">
+                                <input type="text" name="search" class="form-control-sm " placeholder="quick search">
                             </div>
                             <button type="submit" class="btn btn-sm btn-primary mb-2">Search</button>
                         </form>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="collapse my-2" id="collapseExample">
+            <div class="p-2 bg-white shadow">
+                <div class="">
+                    <h6>FILTER DATA PEMINJAMAN</h6>
+                </div>
+            <form action="<?php echo base_url("peminjaman/historyPeminjaman");?>" method="get">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Pengguna</label>
+                    <input type="text" class="form-control" name="pengguna" placeholder="username / nama pengguna">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Penyelenggara</label>
+                    <input type="text" class="form-control" name="penyelenggara">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Jenis Peminjaman</label>
+                    <select name="jenis"  class="form-control">
+                            <option value="">Pilih</option>
+                            <option value="ruangan">Ruangan</option>
+                            <option value="barang">Barang</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Status</label>
+                    <select name="status"  class="form-control">
+                            <option value="">Pilih</option>
+                            <option value="setuju">Setuju</option>
+                            <option value="terkirim">Terkirim</option>
+                            <option value="tolak">Tolak</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                    <label for="exampleInputEmail1">Tanggal Mulai</label>
+                    <input type="date" name="tgl_mulai" class="form-control" placeholder="First name">
+                    </div>
+                    <div class="form-group col-md-6">
+                    <label for="exampleInputEmail1">Tanggal Selesai</label>
+                    <input type="date" name="tgl_selesai" class="form-control" placeholder="Last name">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-3">
+                        <button type="hide" style="width:100%;" class="btn btn-outline-secondary">Cancel</button>
+                    </div>
+                    <div class="col-md-9">
+                        <button type="submit" style="width:100%;" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
             </div>
         </div>
     <div class="bg-white  shadow" >
@@ -71,7 +112,7 @@ if($this->session->userdata('status') == "pengguna"){
                 <th class="text-center" scope="col">No</th>
                 <th class="text-center" scope="col">QR CODE</th>
                 <th class="text-center" scope="col">Kode Booking</th>
-                <th class="text-center" scope="col">Peminjam</th>
+                <th class="text-center" scope="col">Pengguna</th>
                 <th class="text-center" scope="col">Tgl Penggunaan</th>
                 <th class="text-center" scope="col">Ruangan</th>
                 <th class="text-center" scope="col">Jam Mulai</th>

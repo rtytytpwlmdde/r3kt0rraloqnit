@@ -116,7 +116,7 @@
                 <h4 class="fs-0 mb-0"><a href="" ><input id="keterangan"  style="border:none" ></a> </h4>
                 <small class="mb-1">Penyelenggara <a class="text-700" ><input id="penyelenggara"  style="border:none" ></a></small>
                 <small class="">Jam :<a class="text-700" ><input id="jam"  style="border:none" ></a></small>
-                <small class="mb-0 text-muted">Ruangan: <input id="ruangan"   style="border:none" ></small>
+                <small class="mb-0 text-muted">Barang: <input id="barang"   style="border:none" ></small>
             </div>
         </div>
         <div class="modal-footer">
@@ -130,8 +130,8 @@
 $(document).on("click", ".open-modaRuangan", function () {
      var keterangan = $(this).data('keterangan');
      $(".modal-content #keterangan").val( keterangan );
-     var ruangan = $(this).data('ruangan');
-     $(".modal-content #ruangan").val( ruangan );
+     var barang = $(this).data('barang');
+     $(".modal-content #barang").val( barang );
      var penyelenggara = $(this).data('penyelenggara');
      $(".modal-content #penyelenggara").val( penyelenggara );
      var jam = $(this).data('jam');

@@ -18,7 +18,7 @@
         foreach ($peminjaman as $u){ ?>
         <form class="user" method="post">
             <div class="form-group">
-                <label for="exampleFormControlSelect1">Username</label>
+                <label for="exampleFormControlSelect1">Pengguna</label>
                 <input disabled type="text"  required name="id_peminjam" class="form-control " value="<?= $id = $u->id_peminjaman; ?>">
             </div>
             <div class="form-group">
@@ -89,7 +89,7 @@
                 <input disabled type="text"  required name="penyelenggara" class="form-control " value="<?= $u->penyelenggara; ?>">
             </div>
             <div class="form-group">
-                <label for="">Keterangan</label>
+                <label for="">Keterangan Pengguna</label>
                 <textarea disabled class="form-control"  name="keterangan" rows="3" value=""><?= $u->keterangan; ?></textarea>
             </div>
             <hr class="mb-4">
