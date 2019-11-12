@@ -103,14 +103,30 @@ class Peminjaman extends CI_Controller {
 
     function tambahPeminjaman(){
         $jenis_peminjaman = $this->input->post('jenis_peminjaman');
+        $tanggal_mulai_penggunaan = $this->input->post('tanggal_mulai_penggunaan');
+        $tanggal_selesai_penggunaan = $this->input->post('tanggal_selesai_penggunaan');
         $jam_mulai = $this->input->post('jam_mulai');
         $jam_selesai = $this->input->post('jam_selesai');
-        if($jam_mulai >= $jam_selesai){
-            $this->session->set_flashdata('notifsukses', "Pastikan Jam Peminjaman Telah Sesuai");
+        $file_peminjaman = $this->input->post('file_peminjaman');
+        if($jam_mulai >= $jam_selesai || $tanggal_mulai_penggunaan >= $tanggal_selesai_penggunaan){
+            $this->session->set_flashdata('notifsukses', "Pastikan Jam / Tanggal Peminjaman Telah Sesuai");
             redirect('peminjaman/formTambahPeminjaman/'.$jenis_peminjaman);
         }else{
-            $tanggal_mulai_penggunaan = $this->input->post('tanggal_mulai_penggunaan');
-            $tanggal_selesai_penggunaan = $this->input->post('tanggal_mulai_penggunaan');
+            $config['upload_path']          = './assets/peminjaman/';
+            $config['allowed_types']        = 'pdf';
+            $config['max_size']             = 1000;
+            $config['max_width']            = 2024;
+            $config['max_height']           = 1768;
+
+            $this->load->library('upload', $config);
+
+            if ( ! $this->upload->do_upload('file_peminjaman')){
+                $this->session->set_flashdata('gagal', "File tidak sesuai persayaratan, periksa kembali file anda, max 1 mb, pdf");
+                redirect('peminjaman/formTambahPeminjaman/'.$jenis_peminjaman);
+            }else{                    	            	
+                $file = $this->upload->data();
+                $pdf = $file['file_name']; 
+            }
             $id_peminjam = $this->input->post('id_peminjam');
             $id_lembaga = $this->input->post('id_lembaga');
             $penyelenggara = $this->input->post('penyelenggara');
@@ -143,6 +159,7 @@ class Peminjaman extends CI_Controller {
                         'id_lembaga' => $id_lembaga,
                         'jam_selesai' => $jam_selesai,
                         'penyelenggara' => $penyelenggara,
+                        'file_peminjaman' => $pdf,
                         'validasi_akademik' => $validasi_akademik,
                         'validasi_kemahasiswaan' => $validasi_kemahasiswaan,
                         'validasi_umum' => $validasi_umum,
@@ -159,6 +176,7 @@ class Peminjaman extends CI_Controller {
                         'jam_mulai' => $jam_mulai,
                         'id_lembaga' => $id_lembaga,
                         'jam_selesai' => $jam_selesai,
+                        'file_peminjaman' => $pdf,
                         'penyelenggara' => $penyelenggara,
                         'validasi_akademik' => $validasi_akademik,
                         'validasi_kemahasiswaan' => $validasi_kemahasiswaan,
@@ -272,7 +290,26 @@ class Peminjaman extends CI_Controller {
             $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
         }else{
             $status = 'terkirim';
-            $image_name = null;
+            $nama_kode = base_url().'peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis_peminjaman;
+            $this->load->library('ciqrcode'); //pemanggilan library QR CODE
+
+            $config['cacheable']	= true; //boolean, the default is true
+            $config['cachedir']		= './assets/'; //string, the default is application/cache/
+            $config['errorlog']		= './assets/'; //string, the default is application/logs/
+            $config['imagedir']		= './assets/images/'; //direktori penyimpanan qr code
+            $config['quality']		= true; //boolean, the default is true
+            $config['size']			= '1024'; //interger, the default is 1024
+            $config['black']		= array(224,255,255); // array, default is array(255,255,255)
+            $config['white']		= array(70,130,180); // array, default is array(0,0,0)
+            $this->ciqrcode->initialize($config);
+
+            $image_name=$id_peminjaman.'.png'; //buat name dari qr code sesuai dengan nim
+
+            $params['data'] = $nama_kode; //data yang akan di jadikan QR CODE
+            $params['level'] = 'H'; //H=High
+            $params['size'] = 10;
+            $params['savename'] = FCPATH.$config['imagedir'].$image_name; //simpan image QR CODE ke folder assets/images/
+            $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
         }
         $data = array(
             'qr_code' => $image_name,
@@ -284,7 +321,7 @@ class Peminjaman extends CI_Controller {
         $id = array('id_peminjaman' => $id_peminjaman);
 
         $this->M_Peminjaman->updateData($id,$data,'peminjaman');
-        $this->session->set_flashdata('notifsukses', "Peminjaman ruangan berhasil di ditambahkan");
+        $this->session->set_flashdata('sukses', "Peminjaman telah dikirim, silahkan menunggu validasi dari validator");
         redirect('peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis_peminjaman);
     }
 

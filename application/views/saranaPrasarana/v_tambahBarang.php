@@ -1,49 +1,26 @@
 
 <div class="col-md-12">
-<?php
-        $notif = $this->session->flashdata('notif');
-        if($notif != NULL){
-            echo '
-            <div class="alert alert-danger alert-dismissible fade show bg-danger text-white" role="alert">
-              <strong>Gagal! </strong> '.$notif.'
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            ';
-        }
-        $notifsukses = $this->session->flashdata('notifsukses');
-        if($notifsukses != NULL){
-            echo '
-            <div class="alert alert-success alert-dismissible fade show bg-success text-white" role="alert">
-              <strong>Sukses! </strong> '.$notifsukses.'
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            ';
-        }
-    ?>
+
     
 <div class="">
 <div class="col-md-12">
 <?php
-        $notif = $this->session->flashdata('notif');
-        if($notif != NULL){
+        $gagal = $this->session->flashdata('gagal');
+        if($gagal != NULL){
             echo '
             <div class="alert alert-danger alert-dismissible fade show bg-danger text-white" role="alert">
-              <strong>Gagal! </strong> '.$notif.'
+              <strong>Gagal! </strong> '.$gagal.'
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             ';
         }
-        $notifsukses = $this->session->flashdata('notifsukses');
-        if($notifsukses != NULL){
+        $sukses = $this->session->flashdata('sukses');
+        if($sukses != NULL){
             echo '
             <div class="alert alert-success alert-dismissible fade show bg-success text-white" role="alert">
-              <strong>Sukses! </strong> '.$notifsukses.'
+              <strong>Sukses! </strong> '.$sukses.'
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -56,10 +33,36 @@
             <h6 class="m-0 font-weight-bold text-white">Tambah Data Barang</h6>
         </div>
         <div class="card-body">
-            <form class="user" action="<?php echo base_url().'SaranaPrasarana/tambahBarang'; ?>" method="post">
+            <form class="user" action="<?php echo base_url().'SaranaPrasarana/tambahBarang'; ?>" method="post"  enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="">Nama Barang</label>
                     <input required type="text" name="nama_barang" class="form-control" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="">Deskripsi Barang</label>
+                    <textarea required type="text" rows="3" name="deskripsi_barang" class="form-control" placeholder=""></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                      <label for="inputEmail4">Foto 1</label>
+                      <input type="file"  required class="form-control" id="inputEmail4" name="foto1">
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputPassword4">Foto 2</label>
+                      <input type="file"  required class="form-control" id="inputPassword4" name="foto2">
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputPassword4">Foto 3</label>
+                      <input type="file"  required class="form-control" id="inputPassword4" name="foto3">
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputPassword4">Foto 4</label>
+                      <input type="file"  required class="form-control" id="inputPassword4" name="foto4">
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputPassword4">Foto 5</label>
+                      <input type="file" required  class="form-control" id="inputPassword4" name="foto5">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Operator</label>

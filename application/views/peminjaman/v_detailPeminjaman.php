@@ -6,6 +6,30 @@
 <?php }?>
 <div class="col-md-12">
     <div class="mt-2">
+    <?php
+        $gagal = $this->session->flashdata('gagal');
+        if($gagal != NULL){
+            echo '
+            <div class="alert alert-danger alert-dismissible fade show bg-danger text-white" role="alert">
+              <strong></strong> '.$gagal.'
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            ';
+        }
+        $sukses = $this->session->flashdata('sukses');
+        if($sukses != NULL){
+            echo '
+            <div class="alert alert-success alert-dismissible fade show bg-success text-white" role="alert">
+              <strong></strong> '.$sukses.'
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            ';
+        }
+    ?>
         <div class="row py-2 ">
             <div class="col-6 col-md-6 ">
                 <h3 class="text-muted">Detail Peminjaman</h3>
@@ -20,7 +44,8 @@
                     $catatan_penolakan = $a->catatan_penolakan;
                     $jenis = $a->jenis_peminjaman;
                 }?>
-                <?php if( $validasi_akademik == 'terkirim'){ ?>
+                <?php if( $validasi_akademik == 'terkirim' && $this->session->userdata('status') != 'pengguna'){ ?>
+                <?php if( $this->session->userdata('status') == 'admin' || $a->id_operator == $this->session->userdata('username')){ ?>
                     <form action="<?php echo base_url("peminjaman/validasiPeminjaman");?>" method="post">
                         <input hidden type="text" name="id_peminjaman" value="<?= $id_peminjaman;?>">
                         <input hidden type="text" name="jenis_peminjaman" value="<?= $jenis;?>">
@@ -29,6 +54,7 @@
                     <a data-toggle="modal" data-id="<?php echo $id_peminjaman; ?>" title="Tolak Peminjaman" class="modalTolakPeminjaman btn btn-outline-danger btn-sm" href="#modalTolakPeminjaman">Tolak</a>
                     <a data-toggle="modal" data-id="<?php echo $id_peminjaman; ?>" title="Batalkan Peminjaman" class="modalBatalPeminjaman btn btn-outline-secondary btn-sm" href="#modalBatalPeminjaman">Batal</a>
 
+                    <?php } ?> 
                 <?php } ?> 
                 <?php if( $validasi_akademik == 'setuju'){ ?>
                     <?php if( $id_peminjam == $this->session->userdata('username') || $this->session->userdata('username') == 'admin'){ ?>
@@ -110,7 +136,7 @@
                     <td><?= $u->id_peminjam; ?></td>
                 </tr>
                 <tr>
-                    <td>Tanggal Penggunaan</td>
+                    <td>Tanggal Selesai Penggunaan</td>
                     <td>
                     <?php
                 $day = date("l", strtotime($u->tanggal_mulai_penggunaan));
@@ -132,6 +158,30 @@
                 }
                 ?><?= ", "?>
             <?= date("d-m-Y", strtotime($u->tanggal_mulai_penggunaan)); ?>
+                    </td>
+                </tr><tr>
+                    <td>Tanggal Selesai Penggunaan</td>
+                    <td>
+                    <?php
+                $day = date("l", strtotime($u->tanggal_selesai_penggunaan));
+                $hari = null;
+                if($day == "Sunday"){
+                    echo $hari = "Minggu";
+                }else if($day == "Monday"){
+                    echo $hari = "Senin";
+                }else if($day == "Tuesday"){
+                    echo $hari = "Selasa";
+                }else if($day == "Wednesday"){
+                    echo $hari = "Rabu";
+                }else if($day == "Thursday"){
+                    echo $hari = "Kamis";
+                }else if($day == "Friday"){
+                    echo $hari = "Jumat";
+                }else if($day == "Saturday"){
+                    echo $hari = "Sabtu";
+                }
+                ?><?= ", "?>
+            <?= date("d-m-Y", strtotime($u->tanggal_selesai_penggunaan)); ?>
                     </td>
                 </tr>
                 <tr>
@@ -174,6 +224,10 @@
                 <tr>
                     <td>Keterangan</td>
                     <td><?= $u->keterangan; ?></td>
+                </tr>
+                <tr>
+                    <td>Lampiran</td>
+                    <td><a href="<?php echo base_url("assets/peminjaman/".$u->file_peminjaman);?>">File</a></td>
                 </tr>
                 <tr>
                     <td>Status Validasi</td>

@@ -287,6 +287,30 @@ class M_Peminjaman extends CI_Model{
 		return $query->result();
 	}
 
+	function getPenggunaanRuanganByRuangan($jenis_peminjaman,$id_ruangan){
+		$tanggal = $this->input->get('tanggal');
+		if($tanggal == NULL){
+			$tanggal = date("Y-m-d");
+		}else{
+			$tanggal = $tanggal;
+		}
+        $this->db->select('*');
+        $this->db->from('peminjaman');
+		$this->db->join('sarana_peminjaman','peminjaman.id_peminjaman = sarana_peminjaman.id_peminjaman');
+
+		if($jenis_peminjaman == 'ruangan'){
+			$this->db->join('ruangan','sarana_peminjaman.id_sarana = ruangan.id_ruangan');
+		}else{
+			$this->db->join('barang','sarana_peminjaman.id_sarana = barang.id_barang');
+
+		}
+		$this->db->where('peminjaman.tanggal_mulai_penggunaan <=',$tanggal);
+		$this->db->where('peminjaman.tanggal_selesai_penggunaan >=',$tanggal);
+		$this->db->where('peminjaman.validasi_akademik !=','tolak');
+		$query=$this->db->get();
+		return $query->result();
+	}
+
 	function getSaranaPeminjamanById($id_peminjaman, $jenis_peminjaman){
         $this->db->select('*');
         $this->db->from('peminjaman');

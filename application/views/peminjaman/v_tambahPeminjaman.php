@@ -50,7 +50,7 @@
           <h6 class="m-0 font-weight-bold ">Form Data Peminjaman</h6>
         </div>
         <div class="card-body">
-          <form class="user" action="<?php echo base_url().'peminjaman/tambahPeminjaman'; ?>" method="post">
+          <form class="user" action="<?php echo base_url().'peminjaman/tambahPeminjaman'; ?>" method="post" enctype="multipart/form-data">
           
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Pengguna</label>
@@ -62,9 +62,19 @@
                 <input type="text"  hidden name="id_peminjam" class="form-control " value="<?= $this->session->userdata('username')?>">
               <input type="text"   hidden name="jenis_peminjaman" class="form-control " value="<?= $jenis_peminjaman?>">
             </div>
-            <div class="form-group">
-                <label for="exampleFormControlSelect1">Tanggal Penggunaan</label>
-                <input type="date"  required name="tanggal_mulai_penggunaan" class="form-control " placeholder="masukkan nim/nik sebagai identitas peminjam">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                  <div class="form-group">
+                      <label for="exampleFormControlSelect1">Tanggal Mulai</label>
+                      <input type="date" class="form-control" name="tanggal_mulai_penggunaan">
+                  </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                  <div class="form-group">
+                      <label for="exampleFormControlSelect1">Tanggal Selesai</label>
+                      <input type="date" class="form-control" name="tanggal_selesai_penggunaan">
+                  </div>
+              </div>
             </div>
             <div class="row">
               <div class="col-md-6 mb-3">
@@ -105,8 +115,12 @@
                 <input type="text"  required name="penyelenggara" class="form-control " placeholder="masukkan nama lengkap penyelenggara acara">
             </div>
             <div class="form-group">
-                <label for="">Keterangan Pengguna</label>
-                <textarea class="form-control"  name="keterangan" rows="3"></textarea>
+                <label for="exampleFormControlSelect1">Keterangan</label>
+                <input type="text"  required name="keterangan" class="form-control ">
+            </div>
+            <div class="form-group">
+                <label for="">Lampiran</label>
+                <input type="file"  required name="file_peminjaman" class="form-control " >
             </div>
             <?php if($this->session->userdata('status_validasi') == 'belum divalidasi' || $this->session->userdata('status_validasi') == 'tidak valid'){?>
               <a href="#" class="btn btn-secondary btn-user btn-block">

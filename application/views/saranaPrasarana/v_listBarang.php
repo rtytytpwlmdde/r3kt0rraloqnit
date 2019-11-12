@@ -67,7 +67,9 @@
                 <tr class="text-center">
                     <td><?php echo $no++; ?></td>
                     <td><?php echo $u->id_barang; ?></td>
-                    <td><?php echo $u->nama_barang;?></td>
+                    <td><a href="<?php echo site_url('SaranaPrasarana/detailBarang/'.$u->id_barang); ?>" >
+                        <?php echo $u->nama_barang;?>  
+                        </a></td>
                     <td><?php echo $u->id_operator;?></td>
                     <td><?php echo $u->status_barang;?></td>
                     <td >

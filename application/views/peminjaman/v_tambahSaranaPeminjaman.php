@@ -25,7 +25,8 @@
                 <label for="exampleFormControlSelect1">Nama</label>
                 <input disabled type="text"  required name="id_peminjam" class="form-control " value="<?= $u->nama_mahasiswa; ?>">
             </div>
-            <div class="form-group">
+            <div class="row">
+            <div class="col-md-6 mb-3">
                 <label for="exampleFormControlSelect1">Tanggal Penggunaan</label>
                 <input disabled type="text"  required name="tanggal_mulai_penggunaan" class="form-control " 
                 value="<?php 
@@ -48,6 +49,31 @@
                 }
                 ?><?= ","?>
             <?= date("d-m-Y", strtotime($u->tanggal_mulai_penggunaan)); ?>">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="exampleFormControlSelect1">Tanggal Selesai Penggunaan</label>
+                <input disabled type="text"  required name="tanggal_mulai_penggunaan" class="form-control " 
+                value="<?php 
+                $day = date("l", strtotime($u->tanggal_selesai_penggunaan));
+                $hari = null;
+                if($day == "Sunday"){
+                    echo $hari = "Minggu";
+                }else if($day == "Monday"){
+                    echo $hari = "Senin";
+                }else if($day == "Tuesday"){
+                    echo $hari = "Selasa";
+                }else if($day == "Wednesday"){
+                    echo $hari = "Rabu";
+                }else if($day == "Thursday"){
+                    echo $hari = "Kamis";
+                }else if($day == "Friday"){
+                    echo $hari = "Jumat";
+                }else if($day == "Saturday"){
+                    echo $hari = "Sabtu";
+                }
+                ?><?= ","?>
+            <?= date("d-m-Y", strtotime($u->tanggal_selesai_penggunaan)); ?>">
+            </div>
             </div>
             <?php   $tgl_mulai = $u->tanggal_mulai_penggunaan;
                                         $tgl_selesai = $u->tanggal_selesai_penggunaan; 
@@ -136,7 +162,7 @@
             <ul class="list-group mb-1 anyClass" >
                 <li class="list-group-item d-flex justify-content-between lh-condensed ">
                 <div>
-                    <h6 class="my-0"><?php echo $u->nama_ruangan ?></h6>
+                    <h6 class="my-0"><a href="<?php echo base_url("saranaPrasarana/detailRuangan/".$u->id_ruangan)?>"><?php echo $u->nama_ruangan ?></a></h6>
                     <small class="text-muted">Kapasitas <?= $u->kapasitas; ?> orang</small>
                 </div>
                 <span class="text-muted"> <form action="<?php echo site_url('Peminjaman/tambahSaranaPeminjaman'); ?>" method="post">

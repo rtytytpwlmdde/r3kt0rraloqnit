@@ -14,6 +14,7 @@
   <!-- Custom fonts for this template-->
   <link href="<?php echo base_url() ?>/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link href="<?php echo base_url() ?>/assets/css/image-css.scss" rel="stylesheet" type="text/css">
 
   <!-- Custom styles for this template-->
   <link href="<?php echo base_url() ?>/assets/css/sb-admin-2.min.css" rel="stylesheet" type="text/css">
@@ -24,6 +25,15 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
    
+
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/css/swiper.min.css">  
+  <script scr="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
+<link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+
+<script src="https://unpkg.com/swiper/js/swiper.js"></script>
+<script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
 </head>
 
 <body>
@@ -48,18 +58,9 @@
                     <?php if($this->session->userdata('logged_in') == FALSE){ ?>
                       href="<?php echo base_url('auth/login'); ?>"
                       <?php }else{ ?>
-                      href="<?php echo base_url('peminjaman/formTambahPeminjaman/ruangan'); ?>"
+                      data-toggle="modal" data-target="#modalPeminjaman"
                       <?php }?>
-                    >Peminjaman Ruangan</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" 
-                    <?php if($this->session->userdata('logged_in') == FALSE){ ?>
-                      href="<?php echo base_url('auth/login'); ?>"
-                      <?php }else{ ?>
-                      href="<?php echo base_url('peminjaman/formTambahPeminjaman/barang'); ?>"
-                      <?php }?>
-                    >Peminjaman Barang</a>
+                    >Peminjaman </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="<?php echo base_url('peminjaman/formCekPeminjaman'); ?>">Cek Peminjaman</a>
@@ -117,6 +118,32 @@
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
           <a class="btn btn-primary" href="<?php echo base_url('auth/logout'); ?>">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalPeminjaman" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Pilih Jenis Peminjaman?</h5>
+          
+         
+        </div>
+        <div class="modal-body">
+        <div class="row text-center">
+            <div class="col-md-6 text-right">
+              <a class="btn btn-outline-secondary" href="<?php echo base_url("peminjaman/formTambahPeminjaman/ruangan")?>"><i class="fas fa-home"></i> <br>Ruangan</a>
+            </div>
+            <div class="col-md-6 text-left">
+              <a class="btn btn-outline-secondary" href="<?php echo base_url("peminjaman/formTambahPeminjaman/barang")?>"><i class="fas fa-car"></i> <br>Barang</a>
+
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
         </div>
       </div>
     </div>

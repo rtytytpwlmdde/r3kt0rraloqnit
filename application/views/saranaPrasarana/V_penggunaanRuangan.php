@@ -59,13 +59,13 @@
                     <?php 
                             foreach ($ruangan as $r){?>
                         <tr>
-                            <td class="text-left headcol" style="font-size:14px;"><?php echo $r->nama_ruangan?> <br>
+                            <td class="text-left headcol" style="font-size:14px;"><a href="<?php echo base_url("saranaPrasarana/detailRuangan/".$r->id_ruangan)?>"><?= $r->nama_ruangan?></a> <br>
                             <small>Kapasitas <?= $r->kapasitas;?></small> </td>
                             <?php 
                             foreach ($waktu as $w){
                                 $result = 0;
                             ?>
-                            <td  class="text-center table-bordered">
+                            <td  class="text-center table-bordered" style="heigh:60px;">
                                 <?php 
                                 foreach ($peminjaman as $j){
                                     $start = $j->jam_mulai;
@@ -77,7 +77,7 @@
                                                 ?> 
                                                     <a data-toggle="modal"  style="cursor: pointer;" data-keterangan="<?= $j->keterangan; ?>" data-ruangan="<?= $r->nama_ruangan; ?>" data-jam="<?= $w->nama_waktu; ?>" data-penyelenggara="<?= $j->penyelenggara; ?>"
                                                         class="btn open-modaRuangan text-dark" href="#modaRuangan">
-                                                        <i class="fas fa-times-circle fa-lg text-danger"  title="Ruangan Digunakan"></i>
+                                                        <i class=" fa-lg text-danger"  title="Ruangan Digunakan"></i>
                                                     </a>
                                                 <?php }else{?>
                                                     <a data-toggle="modal"  style="cursor: pointer;" data-keterangan="<?= $j->keterangan; ?>" data-ruangan="<?= $r->nama_ruangan; ?>" data-jam="<?= $w->nama_waktu; ?>" data-penyelenggara="<?= $j->penyelenggara; ?>"
@@ -91,8 +91,8 @@
                                     }
                                 }
                                 if($result == 0){ ?>
-                                    <a class="btn">
-                                    <i class="fas fa-check-circle fa-lg text-primary"  title="Ruangan Tidak Digunakan"></i>
+                                    <a class="btn m-2 py-2" >
+                                    <i  title="Ruangan Tidak Digunakan"></i>
                                     </a> <?php 
                                 }
                                 ?> 

@@ -59,7 +59,7 @@
                     <?php 
                             foreach ($barang as $r){?>
                         <tr>
-                            <td class="text-left headcol pt-2" style="font-size:14px;"><?php echo $r->nama_barang?> <br> </td>
+                        <td class="text-left headcol" style="font-size:14px;"><a href="<?php echo base_url("saranaPrasarana/detailBarang/".$r->id_barang)?>"><?= $r->nama_barang?></a> <br>
                             <?php 
                             foreach ($waktu as $w){
                                 $result = 0;
@@ -90,8 +90,8 @@
                                     }
                                 }
                                 if($result == 0){ ?>
-                                    <a class="btn">
-                                    <i class="fas fa-check-circle fa-lg text-primary"  title="Ruangan Tidak Digunakan"></i>
+                                    <a class="my-2 pt-2">
+                                    <i  class="m-2 pt-2"  title="Ruangan Tidak Digunakan"></i>
                                     </a> <?php 
                                 }
                                 ?> 
