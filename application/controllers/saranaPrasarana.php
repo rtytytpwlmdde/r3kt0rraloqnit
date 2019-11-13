@@ -461,6 +461,26 @@ function detailBarang($id_barang){
 	}
 }
 
-
+function saranaPrasarana(){
+	$jenis = $this->input->get('jenis');
+	$data['jenis'] = $jenis;
+	$data['jumlahUser'] = $this->M_User->getCountUserBaru();
+	$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+	if($jenis == 'ruangan' || $jenis == null){
+		$data['sarana'] = $this->M_SaranaPrasarana->getDataRuangan()->result();
+		$data['main_view'] = 'SaranaPrasarana/v_saranaPrasarana';
+	}else{
+		$data['sarana'] = $this->M_SaranaPrasarana->getDataBarang();
+		$data['main_view'] = 'SaranaPrasarana/v_saranaBarang';
+	}
+	$level = $this->session->userdata('status');
+	if($level == 'admin'){
+		$this->load->view('template/template_operator',$data);
+	}else if($level == 'staff pelayanan'){
+		$this->load->view('template/template_operator',$data);
+	}else{
+		$this->load->view('template/template_user',$data);
+	}
+}
 //akhir barang
 }

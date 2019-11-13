@@ -92,6 +92,20 @@ class M_Peminjaman extends CI_Model{
 		$query=$this->db->get();
 		return $query->result();
 	}
+
+	function getDataPeminjamanByIdTagihan($id){
+        $this->db->select('*');
+        $this->db->from('peminjaman');
+		$this->db->join('mahasiswa','peminjaman.id_peminjam = mahasiswa.id_mahasiswa');
+		$this->db->join('sarana_peminjaman','peminjaman.id_peminjaman = sarana_peminjaman.id_peminjaman');
+		$this->db->join('ruangan','ruangan.id_ruangan = sarana_peminjaman.id_sarana','left');
+		$this->db->join('barang','barang.id_barang = sarana_peminjaman.id_sarana','left');
+		$this->db->join('waktu','peminjaman.jam_mulai = waktu.id_waktu');
+		$this->db->where('peminjaman.id_peminjaman', $id);
+		$this->db->where('peminjaman.validasi_akademik', 'pending');
+		$query=$this->db->get();
+		return $query->result();
+	}
 	
 	function getDataPeminjaman($number,$offset){
 		$operator = $this->session->userdata('username');
@@ -459,6 +473,14 @@ class M_Peminjaman extends CI_Model{
 		}
 		$query=$this->db->get();
 		return $query;
+	}
+
+	function getDataTagihanByIdPeminjaman($id){
+        $this->db->select('*');
+        $this->db->from('tagihan');
+		$this->db->where('id_peminjaman', $id);
+		$query=$this->db->get();
+		return $query->result();
 	}
 	
 	function cekJadwalKuliah($hari, $id_ruangan, $id_jam_kuliah){

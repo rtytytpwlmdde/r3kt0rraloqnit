@@ -70,6 +70,7 @@ class Peminjaman extends CI_Controller {
 		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
         $data['waktu'] = $this->M_Peminjaman->getDataWaktu()->result();
         $data['peminjaman'] = $this->M_Peminjaman->getDetailPeminjaman($id_peminjaman);
+        $data['tagihan'] = $this->M_Peminjaman->getDataTagihanByIdPeminjaman($id_peminjaman);
         $data['sarana'] = $this->M_Peminjaman->getSaranaPeminjamanById($id_peminjaman,$jenis_peminjaman);
         if($this->session->userdata('status') == "pengguna" || $this->session->userdata('logged_in') == FALSE){ 
             $this->load->view('template/template_user',$data);
@@ -219,6 +220,24 @@ class Peminjaman extends CI_Controller {
         }
     }
 
+    function formTambahTagihanPeminjaman($id_peminjaman){
+        if($this->session->userdata('logged_in') == FALSE){
+            redirect("auth/logout");
+        }
+        $data['peminjaman'] = $this->M_Peminjaman->getDataPeminjamanByIdTagihan($id_peminjaman);
+		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
+		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
+        $data['tagihan'] = $this->M_Peminjaman->getDataTagihanByIdPeminjaman($id_peminjaman);
+      
+        $data['waktu'] = $this->M_Peminjaman->getDataWaktu()->result();
+        $data['main_view'] = 'peminjaman/v_tambahTagihan'; 
+        if($this->session->userdata('status') == "pengguna" ){ 
+            $this->load->view('template/template_user',$data);
+        }else{
+            $this->load->view('template/template_operator',$data);
+        }
+    }
+
     function tambahSaranaPeminjaman(){
 		$jenis = $this->input->post('jenis');
 		$id_peminjaman = $this->input->post('id_peminjaman');
@@ -262,33 +281,32 @@ class Peminjaman extends CI_Controller {
         redirect('peminjaman/historyPeminjaman/');
     }
 
-    function kirimPeminjaman($jenis_peminjaman,$id_peminjaman,$operator){
+    function tambahTagihan(){
+        $id_peminjaman = $this->input->post('id_peminjaman');
+        $nama_tagihan = $this->input->post('nama_tagihan');
+        $jumlah = $this->input->post('jumlah');
+        $harga_satuan = $this->input->post('harga_satuan');
+        $total_tagihan = $jumlah*$harga_satuan;
+        $data = array(
+            'id_peminjaman' => $id_peminjaman,
+            'nama_tagihan' => $nama_tagihan,
+            'jumlah' => $jumlah,
+            'harga_satuan' => $harga_satuan,
+            'total_tagihan' => $total_tagihan
+        );
+        $this->M_Peminjaman->tambahData($data,'tagihan');
+        redirect('peminjaman/formTambahTagihanPeminjaman/'.$id_peminjaman);
+    }
+
+    function kirimPeminjaman(){
+        $id_peminjaman = $this->input->post('id_peminjaman');
+        $jenis_peminjaman = $this->input->post('jenis');
+        $total_pembayaran = $this->input->post('total_pembayaran');
+        $status_pembayaran = 'belum dibayar';
         if($this->session->userdata('logged_in') == FALSE){
             redirect("auth/logout");
         }
-        if($this->session->userdata('status') == 'admin'){
-            $status = 'setuju';
-            $nama_kode = base_url().'peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis_peminjaman;
-            $this->load->library('ciqrcode'); //pemanggilan library QR CODE
-
-            $config['cacheable']	= true; //boolean, the default is true
-            $config['cachedir']		= './assets/'; //string, the default is application/cache/
-            $config['errorlog']		= './assets/'; //string, the default is application/logs/
-            $config['imagedir']		= './assets/images/'; //direktori penyimpanan qr code
-            $config['quality']		= true; //boolean, the default is true
-            $config['size']			= '1024'; //interger, the default is 1024
-            $config['black']		= array(224,255,255); // array, default is array(255,255,255)
-            $config['white']		= array(70,130,180); // array, default is array(0,0,0)
-            $this->ciqrcode->initialize($config);
-
-            $image_name=$id_peminjaman.'.png'; //buat name dari qr code sesuai dengan nim
-
-            $params['data'] = $nama_kode; //data yang akan di jadikan QR CODE
-            $params['level'] = 'H'; //H=High
-            $params['size'] = 10;
-            $params['savename'] = FCPATH.$config['imagedir'].$image_name; //simpan image QR CODE ke folder assets/images/
-            $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
-        }else{
+        
             $status = 'terkirim';
             $nama_kode = base_url().'peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis_peminjaman;
             $this->load->library('ciqrcode'); //pemanggilan library QR CODE
@@ -310,9 +328,11 @@ class Peminjaman extends CI_Controller {
             $params['size'] = 10;
             $params['savename'] = FCPATH.$config['imagedir'].$image_name; //simpan image QR CODE ke folder assets/images/
             $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
-        }
+        
         $data = array(
             'qr_code' => $image_name,
+            'total_pembayaran' => $total_pembayaran,
+            'status_pembayaran' => $status_pembayaran,
             'validasi_akademik' => $status,
             'validasi_umum' => $status,
             'validasi_kemahasiswaan' => $status
@@ -329,6 +349,7 @@ class Peminjaman extends CI_Controller {
     function validasiPeminjaman(){
         $id_peminjaman = $this->input->post("id_peminjaman");
         $jenis_peminjaman = $this->input->post("jenis_peminjaman");
+        $status_pembayaran = 'lunas';
         $nama_kode = base_url().'peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis_peminjaman;
 		$this->load->library('ciqrcode'); //pemanggilan library QR CODE
 
@@ -357,6 +378,7 @@ class Peminjaman extends CI_Controller {
             $data = array(
                 'qr_code' => $image_name,
                 'validasi_akademik' => $status,
+                'status_pembayaran' => $status_pembayaran,
                 'validasi_kemahasiswaan' => $status,
                 'validasi_umum' => $status
             );
@@ -525,6 +547,7 @@ class Peminjaman extends CI_Controller {
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
         $data['peminjaman'] = $this->M_Peminjaman->getDetailPeminjaman($id_peminjaman);
+        $data['tagihan'] = $this->M_Peminjaman->getDataTagihanByIdPeminjaman($id_peminjaman);
         $data['id_peminjaman'] = $id_peminjaman;
 
         $this->load->view('peminjaman/v_buktiPeminjaman',$data);

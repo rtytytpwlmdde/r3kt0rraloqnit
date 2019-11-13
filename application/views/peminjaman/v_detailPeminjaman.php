@@ -50,9 +50,9 @@
                         <input hidden type="text" name="id_peminjaman" value="<?= $id_peminjaman;?>">
                         <input hidden type="text" name="jenis_peminjaman" value="<?= $jenis;?>">
                         <button type="submit" class="btn btn-success btn-sm" title="Setuju Peminjaman">Setuju</button>
-                    </form>
                     <a data-toggle="modal" data-id="<?php echo $id_peminjaman; ?>" title="Tolak Peminjaman" class="modalTolakPeminjaman btn btn-outline-danger btn-sm" href="#modalTolakPeminjaman">Tolak</a>
                     <a data-toggle="modal" data-id="<?php echo $id_peminjaman; ?>" title="Batalkan Peminjaman" class="modalBatalPeminjaman btn btn-outline-secondary btn-sm" href="#modalBatalPeminjaman">Batal</a>
+                    </form>
 
                     <?php } ?> 
                 <?php } ?> 
@@ -80,11 +80,13 @@
              ?>
                 <tr class="bg-thead ">
                     <td class="text-white">Kode Boking</td>
-                    <td class="text-white"><?= $u->id_peminjaman; ?></td>
+                    <td class="text-white"><?= $u->id_peminjaman; ?> </td>
                 </tr>
                 <tr>
                     <td>QR Code</td>
                     <td>
+                    <div class="btn-group">
+
                     <?php 
                         if($u->qr_code == null){ ?>
                             <a class="btn btn-sm btn-secondary" href="<?php echo site_url('Peminjaman/qrcode/'.$u->id_peminjaman.'/'.$u->jenis_peminjaman); ?>" title="tampilkan QR CODE"> Generate QR CODE</a>
@@ -96,6 +98,11 @@
                             <?php
                         }
                     ?>
+                    <form action="<?php echo base_url("peminjaman/buktiPeminjaman")?>" method="post">
+                        <input type="hidden" name="id_peminjaman" class="form-control text-center"  id="id_peminjaman" value="<?= $u->id_peminjaman; ?>"/>
+                        <button type="submit" target="_blank" class="ml-2 btn btn-sm btn-primary " ><i class="fas fa-download fa-sm text-white-50"></i> Bukti Peminjaman</button>
+                    </form>
+                    </div>
                     </td>
                 </tr>
                 <tr>
@@ -136,7 +143,7 @@
                     <td><?= $u->id_peminjam; ?></td>
                 </tr>
                 <tr>
-                    <td>Tanggal Selesai Penggunaan</td>
+                    <td>Tanggal Mulai Penggunaan</td>
                     <td>
                     <?php
                 $day = date("l", strtotime($u->tanggal_mulai_penggunaan));
@@ -227,7 +234,7 @@
                 </tr>
                 <tr>
                     <td>Lampiran</td>
-                    <td><a href="<?php echo base_url("assets/peminjaman/".$u->file_peminjaman);?>">File</a></td>
+                    <td><a target="_blank" href="<?php echo base_url("assets/pdfjs/web/viewer.html?file=../../peminjaman/".$u->file_peminjaman);?>"> <i class="fas fa-file-pdf"></i> File</a></td>
                 </tr>
                 <tr>
                     <td>Status Validasi</td>
@@ -237,6 +244,49 @@
                         <td class="text-success"><?= $u->validasi_akademik; ?></td>
                     <?php }else{ ?>
                         <td class="text-danger"><?= $u->validasi_akademik; ?></td>
+                    <?php }?>
+                </tr>
+                <tr>
+                    <td>Total Pembayaran</td>
+                    <td>
+                        <table class="table table-sm table-striped">
+                            <thead>
+                            <tr>
+                                <td>No</td>
+                                <td>Tagihan</td>
+                                <td>Jumlah</td>
+                                <td>Harga @</td>
+                                <td>Total</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php $no=1; $total=0;
+                            foreach($tagihan as $t){?>
+                            <tr>
+                                <td><?= $no ?></td>
+                                <td><?= $t->nama_tagihan;?></td>
+                                <td><?= $t->jumlah;?></td>
+                                <td><?= $t->harga_satuan;?></td>
+                                <td>Rp <?= $t->total_tagihan;?></td>
+                            </tr>
+                            <?php $no++; 
+                                $total = $total + $t->total_tagihan;
+                            } ?>
+                            <tr class="bg-info">
+                                <td>#</td>
+                                <td class=" text-white" colspan="3">Total Biaya Peminjaman</td>
+                                <td class=" text-white" >Rp <?= $total;?></td>
+                            </tr>
+                            </tbody>
+                        </table>    
+                    </td>
+                </tr>
+                <tr>
+                    <td>Status Pembayaran</td>
+                    <?php if($u->status_pembayaran == 'belum dibayar'){?>
+                        <td class="text-warning"><?= $u->status_pembayaran; ?></td>
+                    <?php }else{ ?>
+                        <td class="text-"><?= $u->status_pembayaran; ?></td>
                     <?php }?>
                 </tr>
                 <?php 
@@ -259,11 +309,24 @@
                 </tr>
                 <tr>
                     <td>Tanggal Pengembalian</td>
-                    <td><?= date("d-m-Y", strtotime($u->tanggal_pengembalian)); ?></td>
+                    <td>
+                    <?php if($u->status_kembali == 'sudah'){
+                            echo date("d-m-Y", strtotime($u->tanggal_pengembalian)); 
+                        }else{ 
+                            echo "belum dikembalikan";
+                        } ?>
+                    
+                    </td>
                 </tr>
                 <tr>
                     <td>Jam Pengembalian</td>
-                    <td><?= $u->jam_pengembalian; ?></td>
+                    <td><?php if($u->status_kembali == 'sudah'){
+                            echo $u->jam_pengembalian; 
+                        }else{ 
+                            echo "belum dikembalikan";
+                        } ?>
+                    </td>
+
                 </tr>
                 <tr>
                     <td>Catatan Pengembalian</td>

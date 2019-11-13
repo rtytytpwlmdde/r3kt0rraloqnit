@@ -163,15 +163,14 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                 <div class="card p-2 mb-2">
                     <div class="row" style="heigh:146px">
                         <div class="col-md-4 text-center">
-                            <?php if($u->foto_ruangan1 == null){ ?>
+                            <?php if($u->foto_barang1 == null){ ?>
                             <img src="<?php echo base_url("assets/img/ruangan-default.jpg");?>" alt="" style="max-width:206px; heigh:143px" >
                             <?php }else{ ?>
-                            <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan1);?>" alt="" style="max-width:206px; heigh:143px" >
+                            <img src="<?php echo base_url("assets/barang/".$u->foto_barang1);?>" alt="" style="max-width:206px; heigh:143px" >
                             <?php }?>
                         </div>
                         <div class="col-md-8">
-                            <a href="<?php echo base_url("saranaPrasarana/detailRuangan/".$u->id_ruangan);?>"><h4 class="font-weight-bold text-dark m-0" style="font-size: 20px !important; font-family: 'Roboto', sans-serif;" ><?= $u->nama_ruangan;?></h4></a>
-                            <span>Kapasitas : <?= $u->kapasitas ?> orang</span>
+                            <h4 class="font-weight-bold text-dark m-0"><?= $u->nama_barang;?></h4>
                             <span><?php substr("Hello world",0,10) ?></span>
                         </div>
                     </div>

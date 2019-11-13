@@ -76,12 +76,12 @@
                                                 ?> 
                                                     <a data-toggle="modal"  style="cursor: pointer;" data-keterangan="<?= $j->keterangan; ?>" data-barang="<?= $r->nama_barang; ?>" data-jam="<?= $w->nama_waktu; ?>" data-penyelenggara="<?= $j->penyelenggara; ?>"
                                                         class="btn open-modaRuangan text-dark" href="#modaRuangan">
-                                                        <i class="fas fa-times-circle fa-lg text-danger"  title="Ruangan Digunakan"></i>
+                                                        <i class="fas fa-square text-danger"  title="Barang Digunakan" style="font-size:22px"></i>
                                                     </a>
                                                 <?php }else{?>
                                                     <a data-toggle="modal"  style="cursor: pointer;" data-keterangan="<?= $j->keterangan; ?>" data-barang="<?= $r->nama_barang; ?>" data-jam="<?= $w->nama_waktu; ?>" data-penyelenggara="<?= $j->penyelenggara; ?>"
                                                     class="btn open-modaRuangan text-dark" href="#modaRuangan">
-                                                    <i class="fas fa-times-circle fa-lg text-warning"  title="Ruangan Sedang Menungu Proses Validasi Peminjaman"></i>
+                                                    <i class="fas fa-times-circle fa-lg text-warning"  title="Barang Sedang Menungu Proses Validasi Peminjaman"></i>
                                                     </a>
                                                 <?php } 
                                                 $result=1;
@@ -91,7 +91,7 @@
                                 }
                                 if($result == 0){ ?>
                                     <a class="my-2 pt-2">
-                                    <i  class="m-2 pt-2"  title="Ruangan Tidak Digunakan"></i>
+                                    <i  class="m-2 pt-2"  title="Barang Tidak Digunakan"></i>
                                     </a> <?php 
                                 }
                                 ?> 

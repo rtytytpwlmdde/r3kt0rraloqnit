@@ -229,6 +229,7 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                     <table class="table table-sm table-striped">
                       <thead>
                         <tr>
+                          <td>Tgl</td>
                           <td>Jam</td>
                           <td>Penyelenggara</td>
                           <td>Acara</td>
@@ -237,6 +238,7 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                       <tbody>
                         <?php foreach($penggunaanRuangan as $p){ ?>
                         <tr>
+                          <td><?= $p->tanggal_mulai_penggunaan?></td>
                           <td>
                           <?php foreach ($waktu as $r){?>
                             <?php if($r->id_waktu == $p->jam_mulai){?>

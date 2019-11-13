@@ -14,9 +14,9 @@
         $tgl_mulai = null;
         $tgl_selesai = null;
         $jam_mulai = null;
+        $jenis = null;
         $jam_selesai = null; 
         foreach ($peminjaman as $u){ ?>
-        <form class="user" method="post">
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Pengguna</label>
                 <input disabled type="text"  required name="id_peminjam" class="form-control " value="<?= $id = $u->id_peminjaman; ?>">
@@ -77,6 +77,7 @@
             </div>
             <?php   $tgl_mulai = $u->tanggal_mulai_penggunaan;
                                         $tgl_selesai = $u->tanggal_selesai_penggunaan; 
+                                        $jenis = $u->jenis_peminjaman; 
                                         $jam_mulai = $u->jam_mulai;
                                         $jam_selesai = $u->jam_selesai;?>
             <div class="row">
@@ -118,30 +119,59 @@
                 <label for="">Keterangan Pengguna</label>
                 <textarea disabled class="form-control"  name="keterangan" rows="3" value=""><?= $u->keterangan; ?></textarea>
             </div>
-            <hr class="mb-4">
-            <h5 class="mb-3">Ruangan yang akan dipinjam</h5>
-            <div class="d-block my-3"><?php $jumRuangan = 0; $operator=null;
-                foreach ($sarana as $a){ ?>
-                <div class="custom-control custom-radio py-1">
-                    <label class="" for="credit"><?= $a->nama_ruangan ?><?php $operator = $a->id_operator;?>
-                    <a href="<?php echo site_url('Peminjaman/hapusSaranaPeminjaman/'.$jenis_peminjaman.'/'.$id.'/'.$a->id_sarana.'/'.$tgl_mulai.'/'.$tgl_selesai.'/'.$jam_mulai.'/'.$jam_selesai); ?>"  class="btn btn-danger btn-sm text-white" title="Hapus Ruangan">
-                        <i class="fas fa-trash"></i>
-                    </a>
-                    </label>
-                </div>
-                <?php $jumRuangan++;} ?>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Ruangan</label>
+                <input disabled type="text"  required name="penyelenggara" class="form-control " value="<?= $u->nama_ruangan;?><?= $u->nama_barang;?>">
             </div>
-
-            <?php if($jumRuangan == 0){ ?>
-                <a href="<?php echo site_url('Peminjaman/hapusPeminjaman/'.$id); ?>"   type="submit" class="btn btn-warning btn-user btn-block" title="Selesaikan Peminjaman Ruangan">
-                    Batalkan Peminjaman
-                </a>
-            <?php }else{ ?>
-                <a href="<?php echo site_url('Peminjaman/formTambahTagihanPeminjaman/'.$id); ?>"   type="submit" class="btn btn-primary btn-user btn-block" >
-                    Lanjut Proses Selanjutnya (2/3)
-                </a>
-            <?php }?>
-        </form> 
+            <hr class="mb-4">
+            <h5 class="mb-3">Biaya Yang Harus Dibayarkan</h5>
+            <div class="d-block my-3">
+               <table class="table table-sm table-striped">
+                    <thead>
+                    <tr>
+                        <td>No</td>
+                        <td>Tagihan</td>
+                        <td>Jumlah</td>
+                        <td>Harga @</td>
+                        <td>Total</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php $no=1; $total=0;
+                    foreach($tagihan as $t){?>
+                    <tr>
+                        <td><?= $no ?></td>
+                        <td><?= $t->nama_tagihan;?></td>
+                        <td><?= $t->jumlah;?></td>
+                        <td><?= $t->harga_satuan;?></td>
+                        <td>Rp <?= $t->total_tagihan;?></td>
+                    </tr>
+                    <?php $no++; 
+                        $total = $total + $t->total_tagihan;
+                     } ?>
+                     <tr class="bg-info">
+                        <td>#</td>
+                        <td class=" text-white" colspan="3">Total Biaya Peminjaman</td>
+                        <td class=" text-white" >Rp <?= $total;?></td>
+                     </tr>
+                    </tbody>
+               </table>                     
+            </div>
+            <form action="<?php echo base_url("peminjaman/kirimPeminjaman")?>" method="post">
+                <input type="hidden" name="id_peminjaman" value="<?= $id?>">
+                <input type="hidden" name="total_pembayaran" value="<?= $total?>">
+                <input type="hidden" name="jenis" value="<?= $jenis?>">
+                <div class="row">
+                    <div class="col-md-3"> <a href="<?php echo site_url('Peminjaman/hapusPeminjaman/'.$id); ?>"   type="submit" class="btn btn-user btn-block btn-outline-secondary " title="Batalkan peminjaman">
+                        Batalkan Peminjaman
+                        </a>
+                    </div>
+                    <div class="col-md-9"> 
+                        <button type="submit" class="btn btn-warning btn-user btn-block">Kirim Peminjaman (3/3)</button>
+                    </div>
+                </div>
+            </form>
+                
         <?php } ?>
         </div>
       </div>
@@ -150,43 +180,30 @@
     <div class="col-md-4 order-md-2 mb-4">
       <div class="card shadow mb-4">
         <div class="card-header py-3 bg-thead text-white">
-          <h6 class="m-0 font-weight-bold  d-flex justify-content-between">Pilih Ruangan 
+          <h6 class="m-0 font-weight-bold  d-flex justify-content-between">Tambahkan Biaya Peminjaman 
             <a  data-toggle="modal" data-target="#modalPanduan"><span class="" title="panduan"><i class="far fa-question-circle"></i></span></a></h6>
         </div>
-        <div class="card-body" style="height:500px; overflow-y: scroll;">
-            <?php if($jumRuangan == 0){ ?>
-                <?php 
-                $no = 1;
-                foreach ($sarana_tersedia as $u){ 
-            ?>
-            <ul class="list-group mb-1 anyClass" >
-                <li class="list-group-item d-flex justify-content-between lh-condensed ">
-                <div>
-                    <h6 class="my-0"><a href="<?php echo base_url("saranaPrasarana/detailRuangan/".$u->id_ruangan)?>"><?php echo $u->nama_ruangan ?></a></h6>
-                    <small class="text-muted">Kapasitas <?= $u->kapasitas; ?> orang</small>
+        <div class="card-body" >
+            <form class="user" action="<?php echo base_url().'peminjaman/tambahTagihan'; ?>" method="post" >
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Nama Biaya</label>                    
+                    <input type="hidden" name="id_peminjaman"  value="<?= $id?>">
+                    <input type="text" name="nama_tagihan" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="ex, sewa ruangan">
                 </div>
-                <span class="text-muted"> <form action="<?php echo site_url('Peminjaman/tambahSaranaPeminjaman'); ?>" method="post">
-                        <input type="text" hidden name="jenis" value="ruangan">
-                        <input type="text" hidden name="id_peminjaman" value="<?= $id?>">
-                        <input type="text" hidden name="id_sarana" value="<?= $u->id_ruangan?>">
-                        <input type="text" hidden name="tgl_mulai" value="<?= $tgl_mulai?>">
-                        <input type="text" hidden name="tgl_selesai" value="<?= $tgl_selesai?>">
-                        <input type="text" hidden name="jam_mulai" value="<?= $jam_mulai?>">
-                        <input type="text" hidden name="jam_selesai" value="<?= $jam_selesai?>">
-                        <button class="btn btn-secondary text-white" title="Tambahkan" type="submit"><i class="fas fa-plus-square"></i> </button>
-                    </form></span>
-                </li>
-            </ul>
-            <?php } ?>
-            <?php }else{ ?>
-                <ul class="list-group mb-3">
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <small class="text-muted">Ruangan Sudah Ditambahkan</small>
-                    </div>
-                    </li>
-                </ul>
-            <?php }?>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Jumlah</label>
+                    <input type="text" name="jumlah" class="form-control" id="exampleInputPassword1" placeholder="ex, 2">
+                </div>
+                <div class="form-group ">
+                    <label for="exampleInputPassword1">Harga Satuan @</label>
+                    <input type="text" name="harga_satuan" class="form-control" id="exampleInputPassword1" placeholder="Ex, 100000">
+                </div>
+                <div class="btn-group" style="width:100%">
+                
+                    <button type="submit" class="btn btn-primary">Tambahkan Biaya</button>     
+                           
+                </div>     
+            </form>
         </div>
       </div>
     </div>

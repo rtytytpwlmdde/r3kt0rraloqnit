@@ -53,29 +53,29 @@
             <div class="form-row">
                     <div class="form-group col-md-4">
                       <label for="inputEmail4">Luas Ruangan</label>
-                      <input type="text"  required class="form-control" id="inputEmail4" name="luas_ruangan">
+                      <input type="text"  required class="form-control" id="inputEmail4" name="luas_ruangan" value="<?= $u->luas_ruangan?>">
                     </div>
                     <div class="form-group col-md-4">
                       <label for="inputPassword4">Ruang Kelas</label>
-                      <input type="text"  required class="form-control" id="inputEmail4" name="ruang_kelas">
+                      <input type="text"  required class="form-control" id="inputEmail4" name="ruang_kelas" value="<?= $u->ruang_kelas?>">
                     </div>
                     <div class="form-group col-md-4">
                       <label for="inputPassword4">Ruang Rapat</label>
-                      <input type="text"  required class="form-control" id="inputEmail4" name="ruang_rapat">
+                      <input type="text"  required class="form-control" id="inputEmail4" name="ruang_rapat" value="<?= $u->ruang_rapat?>">
                     </div>
                 </div>
             <div class="form-row">
                     <div class="form-group col-md-4">
                       <label for="inputPassword4">Perjamuan</label>
-                      <input type="text"  required class="form-control" id="inputEmail4" name="perjamuan">
+                      <input type="text"  required class="form-control" id="inputEmail4" name="perjamuan" value="<?= $u->perjamuan?>">
                     </div>
                     <div class="form-group col-md-4">
                       <label for="inputPassword4">Teater</label>
-                      <input type="text"  required class="form-control" id="inputEmail4" name="teater">
+                      <input type="text"  required class="form-control" id="inputEmail4" name="teater"value="<?= $u->teater?>">
                     </div>
                     <div class="form-group col-md-4">
                       <label for="inputPassword4">Berbentuk U</label>
-                      <input type="text"  required class="form-control" id="inputEmail4" name="ushape">
+                      <input type="text"  required class="form-control" id="inputEmail4" name="ushape" value="<?= $u->ushape?>">
                     </div>
                 </div>
             

@@ -77,7 +77,7 @@
                                                 ?> 
                                                     <a data-toggle="modal"  style="cursor: pointer;" data-keterangan="<?= $j->keterangan; ?>" data-ruangan="<?= $r->nama_ruangan; ?>" data-jam="<?= $w->nama_waktu; ?>" data-penyelenggara="<?= $j->penyelenggara; ?>"
                                                         class="btn open-modaRuangan text-dark" href="#modaRuangan">
-                                                        <i class=" fa-lg text-danger"  title="Ruangan Digunakan"></i>
+                                                        <i class="fas fa-square text-danger"  title="Ruangan Digunakan" style="font-size:22px"></i>
                                                     </a>
                                                 <?php }else{?>
                                                     <a data-toggle="modal"  style="cursor: pointer;" data-keterangan="<?= $j->keterangan; ?>" data-ruangan="<?= $r->nama_ruangan; ?>" data-jam="<?= $w->nama_waktu; ?>" data-penyelenggara="<?= $j->penyelenggara; ?>"

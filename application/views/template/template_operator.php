@@ -14,7 +14,7 @@
   <!-- Custom fonts for this template-->
   <link href="<?php echo base_url() ?>/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"> 
   <!-- Custom styles for this template-->
   <link href="<?php echo base_url() ?>/assets/css/sb-admin-2.min.css" rel="stylesheet" type="text/css">
   <link href="<?php echo base_url() ?>/assets/css/alumni-style.css" rel="stylesheet" type="text/css">  
@@ -44,7 +44,7 @@
     <ul class="navbar-nav bg-gradient-lighst sidebar sidebar-light accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand  d-flex align-items-center justify-content-center bg-biru" href="<?php echo base_url('agenda')?>">
+      <a class="sidebar-brand  d-flex align-items-center justify-content-center bg-biru" href="<?php echo base_url('saranaPrasarana/saranaPrasarana')?>">
         <div class="sidebar-brand-icon ">
           <img src="<?php echo base_url(); ?>/assets/img/ub.png" width="35" height="35" alt="">
         </div>
@@ -72,6 +72,11 @@
         <a class="nav-link" href="<?php echo base_url('peminjaman/historyPeminjaman'); ?>">
             <i class="fas fa-circle-notch"></i>
           <span>History Peminjaman</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo base_url('saranaPrasarana/saranaPrasarana'); ?>">
+            <i class="fas fa-building"></i>
+          <span>Sarana Prasarana</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="<?php echo base_url('saranaPrasarana/penggunaanRuangan'); ?>">
