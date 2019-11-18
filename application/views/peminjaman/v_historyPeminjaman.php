@@ -76,12 +76,20 @@ if($this->session->userdata('status') == "pengguna"){
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Status</label>
+                    <label for="exampleInputEmail1">Status Peminjaman</label>
                     <select name="status"  class="form-control">
                             <option value="">Pilih</option>
                             <option value="setuju">Setuju</option>
                             <option value="terkirim">Terkirim</option>
                             <option value="tolak">Tolak</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Status Pembayaran</label>
+                    <select name="status_pembayaran"  class="form-control">
+                            <option value="">Pilih</option>
+                            <option value="lunas">Lunas</option>
+                            <option value="belum dibayar">Belum Bayar</option>
                     </select>
                 </div>
                 <div class="form-row">

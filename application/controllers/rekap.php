@@ -51,10 +51,12 @@ class Rekap extends CI_Controller {
 		}
 		$data['tahun'] = $tahun;
 		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
-		$data['peminjamanNonKelasPerBulan'] = $this->M_Rekap->getDataRekapPeminjamanNonKelasPerbulan();
-		$data['peminjamanNonKelasPertahun'] = $this->M_Rekap->getDataRekapPeminjamanNonKelasPertahun();
 		$data['peminjamanPerBulan'] = $this->M_Rekap->getDataRekapPeminjamanPerbulan();
 		$data['peminjamanPertahun'] = $this->M_Rekap->getDataRekapPeminjamanPertahun();
+		$data['peminjamanLunasPerBulan'] = $this->M_Rekap->getDataRekapPeminjamanLunasPerbulan();
+		$data['peminjamanLunasPertahun'] = $this->M_Rekap->getDataRekapPeminjamanLunasPertahun();
+		$data['peminjamanBelumBayarPerBulan'] = $this->M_Rekap->getDataRekapPeminjamanBelumBayarPerbulan();
+		$data['peminjamanBelumBayarPertahun'] = $this->M_Rekap->getDataRekapPeminjamanBelumBayarPertahun();
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['main_view'] = 'Rekap/V_RekapPeminjaman';
 		$this->load->view('template/template_operator',$data);

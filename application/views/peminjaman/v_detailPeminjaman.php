@@ -283,8 +283,10 @@
                 </tr>
                 <tr>
                     <td>Status Pembayaran</td>
-                    <?php if($u->status_pembayaran == 'belum dibayar'){?>
-                        <td class="text-warning"><?= $u->status_pembayaran; ?></td>
+                    <?php if($u->status_pembayaran == 'belum bayar'){?>
+                        <td class="text-warning"><?= $u->status_pembayaran; ?>
+                        <a data-toggle="modal" data-id="<?php echo $id_peminjaman; ?>"  class="modalPembayaran btn btn-outline-info btn-sm" href="#modalPembayaran">Sudah Bayar?</a>
+                        </td>
                     <?php }else{ ?>
                         <td class="text-"><?= $u->status_pembayaran; ?></td>
                     <?php }?>
@@ -478,4 +480,31 @@ $(document).on("click", ".openImageDialog", function () {
 
 
 
+<div class="modal fade" id="modalPembayaran" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form action="<?php echo base_url().'peminjaman/bayarPeminjaman'; ?>" method="post" enctype="multipart/form-data">
+        <input type="hidden"   class="form-control" name="id_peminjaman" id="id_peminjaman" value=""/> 
+        <input type="hidden"   class="form-control" name="jenis"  value="<?= $jenis?>"/> 
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Bukti Pembayaran</label>
+            <input type="file"   name="buktiPembayaran" class="form-control ">
+        </div>
+        <div class="d-flex flex-row-reverse bd-highlight py-2">
+            <div class="px-1"><button type="submit" class="btn btn-primary btn-sm">Simpan</button></div>
+            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
+<script>
+$(document).on("click", ".modalPembayaran", function () {
+     var peminjaman = $(this).data('id');
+     $(".modal-body #id_peminjaman").val( peminjaman );
+     $(".peminjaman").val( peminjaman );
+});
+</script>

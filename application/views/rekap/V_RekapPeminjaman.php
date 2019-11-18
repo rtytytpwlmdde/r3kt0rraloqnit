@@ -22,6 +22,7 @@
                 <table class="table table-bordered">
                     <thead class="bg-thead text-white">
                         <tr>
+                        <th class="text-center" scope="col">#</th>
                         <th class="text-center" scope="col">Jan</th>
                         <th class="text-center" scope="col">Feb</th>
                         <th class="text-center" scope="col">Mar</th>
@@ -39,6 +40,7 @@
                     </thead>
                     <tbody>
                         <tr class="text-center">
+                        <td class="bg-primary text-white">Total</td>
                             <?php
                             for($i=1; $i<13; $i++){?>
                                 <td>
@@ -62,6 +64,66 @@
                             <td>
                             <?php 
                             foreach($peminjamanPertahun as $u){
+                                echo $u->jumPeminjamanPertahun;
+                            }
+                            ?>
+                            </td>
+                        </tr>
+                        <tr class="text-center">
+                        <td class="bg-warning text-white">Lunas</td>
+                            <?php
+                            for($i=1; $i<13; $i++){?>
+                                <td>
+                                    <?php
+                                    $result = 0;
+                                    foreach($peminjamanLunasPerBulan as $u){
+                                        if($i == $u->bulan){ 
+                                            $result = $u->jumPeminjamanPerbulan;
+                                        }
+                                    } 
+                                    if($result == 0){
+                                        echo "0";
+                                    }else{
+                                        echo $result;
+                                    }
+                                ?>
+                                </td>
+                            <?php
+                            }
+                            ?>
+                            <td>
+                            <?php 
+                            foreach($peminjamanLunasPertahun as $u){
+                                echo $u->jumPeminjamanPertahun;
+                            }
+                            ?>
+                            </td>
+                        </tr>
+                        <tr class="text-center">
+                        <td class="bg-danger text-white">Belum Bayar</td>
+                            <?php
+                            for($i=1; $i<13; $i++){?>
+                                <td>
+                                    <?php
+                                    $result = 0;
+                                    foreach($peminjamanBelumBayarPerBulan as $u){
+                                        if($i == $u->bulan){ 
+                                            $result = $u->jumPeminjamanPerbulan;
+                                        }
+                                    } 
+                                    if($result == 0){
+                                        echo "0";
+                                    }else{
+                                        echo $result;
+                                    }
+                                ?>
+                                </td>
+                            <?php
+                            }
+                            ?>
+                            <td>
+                            <?php 
+                            foreach($peminjamanBelumBayarPertahun as $u){
                                 echo $u->jumPeminjamanPertahun;
                             }
                             ?>
@@ -100,24 +162,38 @@
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Bulan', 'Total Peminjaman'],
+          ['Bulan', 'Total Peminjaman','belum bayar','lunas'],
           <?php
                             for($i=1; $i<13; $i++){
                                     $result = 0;
+                                    $lunas = 0;
+                                    $belumBayar = 0;
                                     foreach($peminjamanPerBulan as $u){
                                         if($i == $u->bulan){ 
                                             $result = $u->jumPeminjamanPerbulan;
                                         }
+                                    }
+                                     
+                                    foreach($peminjamanLunasPerBulan as $u){
+                                      if($i == $u->bulan){ 
+                                          $lunas = $u->jumPeminjamanPerbulan;
+                                      }
+                                    } 
+                                    foreach($peminjamanBelumBayarPerBulan as $u){
+                                      if($i == $u->bulan){ 
+                                          $belumBayar = $u->jumPeminjamanPerbulan;
+                                      }
                                     } 
                                     if($result == 0){ ?>
-                                      [<?= $i;?>,<?= '0';?>], 
+                                      [<?= $i;?>,<?= '0';?>,<?= '0';?>,<?= '0';?>], 
                                       <?php
                                     }else{?>
-                                      [<?= $i;?>,<?= $result;?>],
+                                      [<?= $i;?>,<?= $result;?>,<?= $belumBayar;?>,<?= $lunas;?>],
                                         <?php 
                                     }
                                
                             }
+                            
                             ?>
           
         ]);

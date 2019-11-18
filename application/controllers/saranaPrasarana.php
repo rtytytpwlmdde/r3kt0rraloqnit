@@ -485,6 +485,10 @@ function detailBarang($id_barang){
 
 function saranaPrasarana(){
 	$jenis = $this->input->get('jenis');
+	$data['tglMulai'] = $this->input->get('tglMulai');
+	$data['tglSelesai'] = $this->input->get('tglSelesai');
+	$data['jamMulai'] = $this->input->get('jamMulai');
+	$data['jamSelesai'] = $this->input->get('jamSelesai');
 	$data['jenis'] = $jenis;
 	$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 	$data['waktu'] = $this->m_peminjaman->getDataWaktu()->result();

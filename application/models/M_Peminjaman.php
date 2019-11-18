@@ -116,6 +116,7 @@ class M_Peminjaman extends CI_Model{
 		$jenis = $this->input->get('jenis');
 		$tgl_mulai = $this->input->get('tgl_mulai');
 		$tgl_selesai = $this->input->get('tgl_selesai');
+		$status_pembayaran = $this->input->get('status_pembayaran');
         $this->db->select('*');
 		$this->db->join('mahasiswa','peminjaman.id_peminjam = mahasiswa.id_mahasiswa');
 		$this->db->join('sarana_peminjaman','peminjaman.id_peminjaman = sarana_peminjaman.id_peminjaman');
@@ -144,6 +145,9 @@ class M_Peminjaman extends CI_Model{
 		
 		if($status != NULL){
 			$this->db->where('peminjaman.validasi_akademik',$status);
+		}
+		if($status_pembayaran != NULL){
+			$this->db->where('peminjaman.status_pembayaran',$status_pembayaran);
 		}
 		if($jenis != NULL){
 			$this->db->where('peminjaman.jenis_peminjaman',$jenis);
@@ -179,6 +183,7 @@ class M_Peminjaman extends CI_Model{
 		$jenis = $this->input->get('jenis');
 		$tgl_mulai = $this->input->get('tgl_mulai');
 		$tgl_selesai = $this->input->get('tgl_selesai');
+		$status_pembayaran = $this->input->get('status_pembayaran');
         $this->db->select('*');
 		$this->db->join('mahasiswa','peminjaman.id_peminjam = mahasiswa.id_mahasiswa');
 		$this->db->join('sarana_peminjaman','peminjaman.id_peminjaman = sarana_peminjaman.id_peminjaman');
@@ -205,6 +210,9 @@ class M_Peminjaman extends CI_Model{
 		}
 
 		
+		if($status_pembayaran != NULL){
+			$this->db->where('peminjaman.status_pembayaran',$status_pembayaran);
+		}
 		if($status != NULL){
 			$this->db->where('peminjaman.validasi_akademik',$status);
 		}

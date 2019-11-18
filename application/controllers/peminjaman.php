@@ -79,6 +79,17 @@ class Peminjaman extends CI_Controller {
         }
     }
 
+    function pilihPeminjaman(){
+		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
+		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
+        $data['main_view'] = 'peminjaman/v_pilihJenisPeminjaman';
+        if($this->session->userdata('status') == "pengguna"){ 
+            $this->load->view('template/template_user',$data);
+        }else{
+            $this->load->view('template/template_operator',$data);
+        }
+    }
+
     function formTambahPeminjaman($jenis_peminjaman){
         $id = null;
         $peminjaman = $this->M_Peminjaman->getDataPeminjamanPending();
@@ -302,7 +313,7 @@ class Peminjaman extends CI_Controller {
         $id_peminjaman = $this->input->post('id_peminjaman');
         $jenis_peminjaman = $this->input->post('jenis');
         $total_pembayaran = $this->input->post('total_pembayaran');
-        $status_pembayaran = 'belum dibayar';
+        $status_pembayaran = 'belum bayar';
         if($this->session->userdata('logged_in') == FALSE){
             redirect("auth/logout");
         }
@@ -507,6 +518,39 @@ class Peminjaman extends CI_Controller {
         $this->M_Peminjaman->updateData($id,$data,'peminjaman');
         $this->session->set_flashdata('notifsukses', "Pengembalian barang telah disimpan");
         redirect('peminjaman/detailPeminjaman/'.$id_peminjaman.'/barang');
+    }
+
+    function bayarPeminjaman(){
+        $id_peminjaman = $this->input->post('id_peminjaman');
+        $buktiPembayaran = $this->input->post('buktiPembayaran');
+        $jenis = $this->input->post('jenis');
+        $status_pembayaran = 'lunas';
+        $config['upload_path']          = './assets/buktiPembayaran/';
+        $config['allowed_types']        = 'jpg|png';
+        $config['max_size']             = 1500;
+        $config['max_width']            = 2024;
+        $config['max_height']           = 1768;
+
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload('buktiPembayaran')){
+            $this->session->set_flashdata('gagal', "File tidak sesuai persayaratan, periksa kembali file anda, max 1 mb, png, jpg");
+            redirect('peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis);
+        }else{                    	            	
+            $file = $this->upload->data();
+            $image = $file['file_name']; 
+        }
+        $data = array(
+            'id_peminjaman' => $id_peminjaman,
+            'bukti_pembayaran' => $image,
+            'status_pembayaran' => $status_pembayaran
+        );
+
+        $id = array('id_peminjaman' => $id_peminjaman);
+
+        $this->M_Peminjaman->updateData($id,$data,'peminjaman');
+        $this->session->set_flashdata('sukses', "status peminjaman telah diubah menjadi lunas");
+        redirect('peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis);
     }
 
     function qrcode($id_peminjaman,$jenis_peminjaman){

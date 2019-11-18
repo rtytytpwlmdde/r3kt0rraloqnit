@@ -201,12 +201,12 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                             <div class="row">
                                 <div class="col-md-6 px-1 m-0">
                                     <small>Tgl Mulai</small>
-                                    <input type="date" class="form-control" name="tglMulai">
+                                    <input type="date" class="form-control" name="tglMulai" value="<?= $tglMulai;?>">
                     <input type="hidden" name="jenis" value="<?= $jenis?>">
                                 </div>
                                 <div class="col-md-6 px-1 m-0">
                                     <small>Tgl Selesai</small>
-                                    <input type="date" class="form-control" name="tglSelesai">
+                                    <input type="date" class="form-control" name="tglSelesai" value="<?= $tglSelesai;?>">
                                 </div>
                             </div>
                         </div>
@@ -215,29 +215,37 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                                 <div class="col-md-6 px-1 m-0">
                                     <small>Jam Mulai</small>
                                     <select name="jamMulai" required class="form-control" id="exampleFormControlSelect1">
-                                        <?php foreach ($waktu as $u) { 
-                                                $pieces = explode("-", $u->nama_waktu);
-                                                $start = $pieces[0];
-                                                $end = $pieces[1];
-                                                ?>
-                                            <option value="<?= $u->id_waktu ?>">
-                                            <?= $start?>
-                                            </option>
-                                        <?php } ?>        
+                                    <?php foreach ($waktu as $u) : ?>
+                                        <option value="<?= $u->id_waktu; ?>"
+                                            <?php if ($jamMulai == $u->id_waktu) {
+                                                echo "selected=selected";
+                                            } ?>>
+                                            <?php 
+                                            $pieces = explode("-", $u->nama_waktu);
+                                            $start = $pieces[0];
+                                            $end = $pieces[1];
+                                            ?>
+                                            <?= $start; ?>
+                                        </option>
+                                    <?php endforeach; ?>       
                                     </select>
                                 </div>
                                 <div class="col-md-6 px-1 m-0">
                                     <small>Jam Selesai</small>
                                     <select name="jamSelesai" required class="form-control" id="exampleFormControlSelect1">
-                                        <?php foreach ($waktu as $u) { 
-                                                $pieces = explode("-", $u->nama_waktu);
-                                                $start = $pieces[0];
-                                                $end = $pieces[1];
-                                                ?>
-                                            <option value="<?= $u->id_waktu ?>">
-                                            <?= $end?>
-                                            </option>
-                                        <?php } ?>        
+                                    <?php foreach ($waktu as $u) : ?>
+                                        <option value="<?= $u->id_waktu; ?>"
+                                            <?php if ($jamSelesai == $u->id_waktu) {
+                                                echo "selected=selected";
+                                            } ?>>
+                                            <?php 
+                                            $pieces = explode("-", $u->nama_waktu);
+                                            $start = $pieces[0];
+                                            $end = $pieces[1];
+                                            ?>
+                                            <?= $end; ?>
+                                        </option>
+                                    <?php endforeach; ?>       
                                     </select>
                                 </div>
                             </div>

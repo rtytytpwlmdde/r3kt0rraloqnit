@@ -59,7 +59,70 @@ class M_Rekap extends CI_Model{
 	}
 
 
+	function getDataRekapPeminjamanLunasPerbulan(){
+		$tahun = $this->input->get('tahun');
+		if($tahun == NULL){
+			$tahun = date("Y");
+		}
+		$this->db->select('id_peminjaman ,count(id_peminjaman) as jumPeminjamanPerbulan');
+		$this->db->select('date_format(tanggal_peminjaman,"%m") as bulan');
+		$this->db->select('tanggal_peminjaman');
+		$this->db->from('peminjaman');
+		$this->db->group_by('bulan');
+		$this->db->where('YEAR(tanggal_peminjaman)',$tahun);
+		$this->db->where('status_pembayaran','lunas');
+		$query = $this->db->get();
+		return $query->result();
+	}
 
+	function getDataRekapPeminjamanLunasPertahun(){
+		$tahun = $this->input->get('tahun');
+		if($tahun == NULL){
+			$tahun = date("Y");
+		}
+		$this->db->select('id_peminjaman ,count(id_peminjaman) as jumPeminjamanPertahun');
+		$this->db->select('date_format(tanggal_peminjaman,"%m") as bulan');
+		$this->db->select('tanggal_peminjaman');
+		$this->db->from('peminjaman');
+		$this->db->where('YEAR(tanggal_peminjaman)',$tahun);
+		$this->db->where('status_pembayaran','lunas');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	//
+	function getDataRekapPeminjamanBelumBayarPerbulan(){
+		$tahun = $this->input->get('tahun');
+		if($tahun == NULL){
+			$tahun = date("Y");
+		}
+		$this->db->select('id_peminjaman ,count(id_peminjaman) as jumPeminjamanPerbulan');
+		$this->db->select('date_format(tanggal_peminjaman,"%m") as bulan');
+		$this->db->select('tanggal_peminjaman');
+		$this->db->from('peminjaman');
+		$this->db->group_by('bulan');
+		$this->db->where('YEAR(tanggal_peminjaman)',$tahun);
+		$this->db->where('status_pembayaran != ','lunas');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function getDataRekapPeminjamanBelumBayarPertahun(){
+		$tahun = $this->input->get('tahun');
+		if($tahun == NULL){
+			$tahun = date("Y");
+		}
+		$this->db->select('id_peminjaman ,count(id_peminjaman) as jumPeminjamanPertahun');
+		$this->db->select('date_format(tanggal_peminjaman,"%m") as bulan');
+		$this->db->select('tanggal_peminjaman');
+		$this->db->from('peminjaman');
+		$this->db->where('YEAR(tanggal_peminjaman)',$tahun);
+		$this->db->where('status_pembayaran != ','lunas');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	//
 
 
 	function getDataRekapPeminjamanPerbulan(){

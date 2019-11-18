@@ -89,15 +89,10 @@
           <i class="fas fa-laptop"></i>
           <span>Penggunaan Barang</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('peminjaman/formTambahPeminjaman/ruangan'); ?>">
-        <i class="far fa-plus-square"></i>
-          <span>Tambah Peminjaman Ruangan</span></a>
-      </li>
       <li  class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('peminjaman/formTambahPeminjaman/barang'); ?>">
+        <a class="nav-link" href="<?php echo base_url('peminjaman/pilihPeminjaman'); ?>">
         <i class="far fa-plus-square"></i>
-          <span>Tambah Peminjaman Barang</span></a>
+          <span>Tambah Peminjaman</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
