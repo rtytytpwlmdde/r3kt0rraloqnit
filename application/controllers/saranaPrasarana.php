@@ -46,6 +46,12 @@ class SaranaPrasarana extends CI_Controller {
         $alamat_ruangan = $this->input->post('alamat_ruangan');
         $deskripsi_ruangan = $this->input->post('deskripsi_ruangan');
         $link_maps = $this->input->post('link_maps');
+        $wifi = $this->input->post('wifi');
+        $lcd = $this->input->post('lcd');
+        $sound_system = $this->input->post('sound_system');
+        $toilet = $this->input->post('toilet');
+		$ac = $this->input->post('ac');
+		
         $foto1 = $this->input->post('foto1');
         $foto2 = $this->input->post('foto2');
         $foto3 = $this->input->post('foto3');
@@ -108,8 +114,13 @@ class SaranaPrasarana extends CI_Controller {
 			'foto_ruangan1' => $gambar1,
 			'foto_ruangan2' => $gambar2,
 			'foto_ruangan3' => $gambar3,
-			'foto_ruangan4' => $foto4,
-			'foto_ruangan5' => $foto5,
+			'foto_ruangan4' => $gambar4,
+			'foto_ruangan5' => $gambar5,
+			'ac' => $ac,
+			'wifi' => $wifi,
+			'lcd' => $lcd,
+			'sound_system' => $sound_system,
+			'toilet' => $toilet,
 			'id_operator' => $id_operator
 		);
 		$this->M_SaranaPrasarana->tambahRuangan($data,'ruangan');
@@ -154,6 +165,12 @@ class SaranaPrasarana extends CI_Controller {
         $perjamuan = $this->input->post('perjamuan');
         $teater = $this->input->post('teater');
         $ushape = $this->input->post('ushape');
+        $wifi = $this->input->post('wifi');
+        $ac = $this->input->post('ac');
+        $toilet = $this->input->post('toilet');
+        $lcd = $this->input->post('lcd');
+		$sound_system = $this->input->post('sound_system');
+		
         $foto1 = $this->input->post('foto1');
         $foto2 = $this->input->post('foto2');
         $foto3 = $this->input->post('foto3');
@@ -234,6 +251,11 @@ class SaranaPrasarana extends CI_Controller {
             'foto_ruangan3' => $gambar3,
             'foto_ruangan4' => $gambar4,
             'foto_ruangan5' => $gambar5,
+			'ac' => $ac,
+			'wifi' => $wifi,
+			'lcd' => $lcd,
+			'sound_system' => $sound_system,
+			'toilet' => $toilet,
 			'id_operator' => $id_operator
         );
 
@@ -465,6 +487,7 @@ function saranaPrasarana(){
 	$jenis = $this->input->get('jenis');
 	$data['jenis'] = $jenis;
 	$data['jumlahUser'] = $this->M_User->getCountUserBaru();
+	$data['waktu'] = $this->m_peminjaman->getDataWaktu()->result();
 	$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
 	if($jenis == 'ruangan' || $jenis == null){
 		$data['sarana'] = $this->M_SaranaPrasarana->getDataRuangan()->result();

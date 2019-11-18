@@ -65,6 +65,47 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                 </div>
                     <form method="get" action="<?php echo base_url("saranaPrasarana/saranaPrasarana")?>">
                 <div class="card p-2 mb-2">
+                    <div class="row">
+                        <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="text" name="search" class="form-control" placeholder="search..">
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-2 mb-2">
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="1" name="ac" >
+                            <label class="form-check-label" for="inlineCheckbox1">AC</label>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="1" name="wifi" >
+                            <label class="form-check-label" for="inlineCheckbox1">Wifi</label>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="1" name="lcd" >
+                            <label class="form-check-label" for="inlineCheckbox1">Lcd</label>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="1" name="sound_system" >
+                            <label class="form-check-label" for="inlineCheckbox1">Sound System</label>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="1" name="toilet" >
+                            <label class="form-check-label" for="inlineCheckbox1">Toilet</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-2 mb-2">
                     <div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" data-toggle="collapse" data-target="#collapseExample" >
@@ -152,13 +193,63 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
 
                 </div>
 
-                <div class="card p-2 mb-2">
-                    <input type="hidden" name="jenis" value="<?= $jenis?>">
-                    <button class="btn btn-primary">FILTER</button>
-                    </form>
-                </div>
             </div>
             <div class="col-md-9">
+                <div class="card p-2 mb-2">
+                    <div class="row mx-1">
+                        <div class="col-md-6 ">
+                            <div class="row">
+                                <div class="col-md-6 px-1 m-0">
+                                    <small>Tgl Mulai</small>
+                                    <input type="date" class="form-control" name="tglMulai">
+                    <input type="hidden" name="jenis" value="<?= $jenis?>">
+                                </div>
+                                <div class="col-md-6 px-1 m-0">
+                                    <small>Tgl Selesai</small>
+                                    <input type="date" class="form-control" name="tglSelesai">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-6 px-1 m-0">
+                                    <small>Jam Mulai</small>
+                                    <select name="jamMulai" required class="form-control" id="exampleFormControlSelect1">
+                                        <?php foreach ($waktu as $u) { 
+                                                $pieces = explode("-", $u->nama_waktu);
+                                                $start = $pieces[0];
+                                                $end = $pieces[1];
+                                                ?>
+                                            <option value="<?= $u->id_waktu ?>">
+                                            <?= $start?>
+                                            </option>
+                                        <?php } ?>        
+                                    </select>
+                                </div>
+                                <div class="col-md-6 px-1 m-0">
+                                    <small>Jam Selesai</small>
+                                    <select name="jamSelesai" required class="form-control" id="exampleFormControlSelect1">
+                                        <?php foreach ($waktu as $u) { 
+                                                $pieces = explode("-", $u->nama_waktu);
+                                                $start = $pieces[0];
+                                                $end = $pieces[1];
+                                                ?>
+                                            <option value="<?= $u->id_waktu ?>">
+                                            <?= $end?>
+                                            </option>
+                                        <?php } ?>        
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-2 ">
+                            <div class="row">
+                                <button type="submit" class="btn btn-warning mt-4" style="width:100%">FILTER</button>
+                            </div></form>
+                        </div>
+                    </div>
+                </div>
                 <?php foreach($sarana as $u){?>
                 <div class="card p-2 mb-2">
                     <div class="row" style="heigh:146px">
@@ -171,8 +262,12 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                         </div>
                         <div class="col-md-8">
                             <a href="<?php echo base_url("saranaPrasarana/detailRuangan/".$u->id_ruangan);?>"><h4 class="font-weight-bold text-dark m-0" style="font-size: 20px !important; font-family: 'Roboto', sans-serif;" ><?= $u->nama_ruangan;?></h4></a>
-                            <span>Kapasitas : <?= $u->kapasitas ?> orang</span>
-                            <span><?php substr("Hello world",0,10) ?></span>
+                            <span>Kapasitas : <?= $u->kapasitas ?> orang</span> <br>
+                            <span>Luas : <?= $u->luas_ruangan ?> </span><br>
+                            <span>Ruang Kelas : <?= $u->ruang_kelas ?> </span> <br>
+                            <span>pertemuan  : <?= $u->perjamuan ?> </span> <br>
+                            <span>ushape  : <?= $u->ushape ?> </span> <br>
+                            <span>teater  : <?= $u->teater ?> </span> <br>
                         </div>
                     </div>
                 </div>

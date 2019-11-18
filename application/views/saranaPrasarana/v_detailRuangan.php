@@ -63,7 +63,7 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                           <div class="swiper-wrapper">
                             <div class="swiper-slide">
                               <figure class="slide-bgimg" style="background-image:url(<?php echo base_url("assets/ruangan/".$u->foto_ruangan1);?>)">
-                                <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan1);?>" class="entity-img" />
+                                <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan1);?>" style="width:100%; heigh:100%;" class="entity-img" />
                               </figure>
                               <div class="content">
                                 <p class="title"></p>
@@ -72,7 +72,7 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                             </div>
                             <div class="swiper-slide">
                               <figure class="slide-bgimg" style="background-image:url(<?php echo base_url("assets/ruangan/".$u->foto_ruangan2);?>)">
-                                <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan2);?>" class="entity-img" />
+                                <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan2);?>" style="width:100%; heigh:100%;" class="entity-img" />
                               </figure>
                               <div class="content">
                                 <p class="title"></p>
@@ -81,7 +81,7 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                             </div>
                             <div class="swiper-slide">
                               <figure class="slide-bgimg" style="background-image:url(<?php echo base_url("assets/ruangan/".$u->foto_ruangan3);?>)">
-                                <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan3);?>" class="entity-img" />
+                                <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan3);?>" style="width:100%; heigh:100%;" class="entity-img" />
                               </figure>
                               <div class="content">
                                 <p class="title"></p>
@@ -90,7 +90,7 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                             </div>
                             <div class="swiper-slide">
                               <figure class="slide-bgimg" style="background-image:url(<?php echo base_url("assets/ruangan/".$u->foto_ruangan4);?>)">
-                                <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan4);?>" class="entity-img" />
+                                <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan4);?>" style="width:100%; heigh:100%;" class="entity-img" />
                               </figure>
                               <div class="content">
                                 <p class="title"></p>
@@ -99,7 +99,7 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                             </div>
                             <div class="swiper-slide">
                               <figure class="slide-bgimg" style="background-image:url(<?php echo base_url("assets/ruangan/".$u->foto_ruangan5);?>)">
-                                <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan5);?>" class="entity-img" />
+                                <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan5);?>" style="width:100%; heigh:100%;" class="entity-img" />
                               </figure>
                               <div class="content">
                                 <p class="title"></p>
@@ -118,44 +118,29 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                         <div class="swiper-container nav-slider loading">
                           <div class="swiper-wrapper" role="navigation">
                             <div class="swiper-slide">
-                              <figure class="slide-bgimg" style="background-image:url(<?php echo base_url("assets/ruangan/".$u->foto_ruangan1);?>)">
+                              <figure class="slide-bgimg" style="heigh:5px; width:20px; background-image:url(<?php echo base_url("assets/ruangan/".$u->foto_ruangan1);?>)">
                                 <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan1);?>" class="entity-img" />
                               </figure>
-                              <div class="content">
-                                <p class="title"></p>
-                              </div>
                             </div>
                             <div class="swiper-slide">
-                              <figure class="slide-bgimg" style="background-image:url(<?php echo base_url("assets/ruangan/".$u->foto_ruangan2);?>)">
+                              <figure class="slide-bgimg" style="heigh:5px; width:20px; background-image:url(<?php echo base_url("assets/ruangan/".$u->foto_ruangan2);?>)">
                                 <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan2);?>" class="entity-img" />
                               </figure>
-                              <div class="content">
-                                <p class="title"></p>
-                              </div>
                             </div>
                             <div class="swiper-slide">
-                              <figure class="slide-bgimg" style="background-image:url(<?php echo base_url("assets/ruangan/".$u->foto_ruangan3);?>)">
+                              <figure class="slide-bgimg" style="heigh:5px; width:20px; background-image:url(<?php echo base_url("assets/ruangan/".$u->foto_ruangan3);?>)">
                                 <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan3);?>" class="entity-img" />
                               </figure>
-                              <div class="content">
-                                <p class="title"></p>
-                              </div>
                             </div>
                             <div class="swiper-slide">
-                              <figure class="slide-bgimg" style="background-image:url(<?php echo base_url("assets/ruangan/".$u->foto_ruangan4);?>)">
+                              <figure class="slide-bgimg" style="heigh:5px; width:20px; background-image:url(<?php echo base_url("assets/ruangan/".$u->foto_ruangan4);?>)">
                                 <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan4);?>" class="entity-img" />
                               </figure>
-                              <div class="content">
-                                <p class="title"></p>
-                              </div>
                             </div>
                             <div class="swiper-slide">
-                              <figure class="slide-bgimg" style="background-image:url(<?php echo base_url("assets/ruangan/".$u->foto_ruangan5);?>)">
+                              <figure class="slide-bgimg" style="heigh:5px; width:20px; background-image:url(<?php echo base_url("assets/ruangan/".$u->foto_ruangan5);?>)">
                                 <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan5);?>" class="entity-img" />
                               </figure>
-                              <div class="content">
-                                <p class="title"></p>
-                              </div>
                             </div>
                           </div>
                         </div>
@@ -165,6 +150,30 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                 
                 </div>
             </div>
+        </div>
+        <div class="border  text-center">
+          <div class="row py-2">
+            <div class="col">
+                <h5><i style="font-size:45px" class="text-primary fas fa-wind"></i></h5>
+                <h6>AC</h6>
+              </div>
+              <div class="col">
+                <h5><i style="font-size:45px" class="text-primary fas fa-wifi"></i></h5>
+                <h6>Wifi</h6>
+              </div>
+              <div class="col">
+                <h5><i style="font-size:45px" class="text-primary fas fa-microphone-alt"></i></h5>
+                <h6>Sound System</h6>
+              </div>
+              <div class="col">
+                <h5><i style="font-size:45px" class="text-primary fas fa-projector"></i></h5>
+                <h6>Projector</h6>
+              </div>
+              <div class="col">
+                <h5><i style="font-size:45px" class="text-primary fas fa-toilet"></i></h5>
+                <h6>Toiled</h6>
+              </div>
+          </div>
         </div>
         <div class="row py-2 ">
             <div class="col-md-6 ">

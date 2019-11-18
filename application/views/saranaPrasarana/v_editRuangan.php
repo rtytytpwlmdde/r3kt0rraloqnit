@@ -52,6 +52,43 @@
             </div>
             <div class="form-row">
                     <div class="form-group col-md-4">
+                      <label for="inputEmail4">AC</label>
+                      <select class="form-control" id="exampleFormControlSelect1" name="ac">
+                        <option value="ya" <?php echo ($u->ac=='ya')?'selected="selected"':''; ?>>ya</option>
+                        <option value="tidak" <?php echo ($u->ac=='tidak')?'selected="selected"':''; ?>>tidak</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputPassword4">Wifi</label>
+                      <select class="form-control" id="exampleFormControlSelect1" name="wifi">
+                        <option value="ya" <?php echo ($u->wifi=='ya')?'selected="selected"':''; ?>>ya</option>
+                        <option value="tidak" <?php echo ($u->wifi=='tidak')?'selected="selected"':''; ?>>tidak</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputPassword4">lcd</label>
+                      <select class="form-control" id="exampleFormControlSelect1" name="lcd">
+                        <option value="ya" <?php echo ($u->lcd=='ya')?'selected="selected"':''; ?>>ya</option>
+                        <option value="tidak" <?php echo ($u->lcd=='tidak')?'selected="selected"':''; ?>>tidak</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputPassword4">Sound System</label>
+                      <select class="form-control" id="exampleFormControlSelect1" name="speaker">
+                        <option value="ya" <?php echo ($u->sound_system=='ya')?'selected="selected"':''; ?>>ya</option>
+                        <option value="tidak" <?php echo ($u->sound_system=='tidak')?'selected="selected"':''; ?>>tidak</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputPassword4">Toiled</label>
+                      <select class="form-control" id="exampleFormControlSelect1" name="toilet">
+                        <option value="ya" <?php echo ($u->toilet=='ya')?'selected="selected"':''; ?>>ya</option>
+                        <option value="tidak" <?php echo ($u->toilet=='tidak')?'selected="selected"':''; ?>>tidak</option>
+                      </select>
+                    </div>
+                </div>
+            <div class="form-row">
+                    <div class="form-group col-md-4">
                       <label for="inputEmail4">Luas Ruangan</label>
                       <input type="text"  required class="form-control" id="inputEmail4" name="luas_ruangan" value="<?= $u->luas_ruangan?>">
                     </div>

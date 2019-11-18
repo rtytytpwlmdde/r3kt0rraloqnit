@@ -49,6 +49,48 @@
                 
                 <div class="form-row">
                     <div class="form-group col-md-4">
+                      <label for="inputEmail4">AC</label>
+                      <select class="form-control" id="exampleFormControlSelect1" name="ac">
+                        <option value="null">Pilih</option>
+                        <option>ya</option>
+                        <option>tidak</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputPassword4">Wifi</label>
+                      <select class="form-control" id="exampleFormControlSelect1" name="wifi">
+                        <option value="null">Pilih</option>
+                        <option>ya</option>
+                        <option>tidak</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputPassword4">lcd</label>
+                      <select class="form-control" id="exampleFormControlSelect1" name="lcd">
+                        <option value="null">Pilih</option>
+                        <option>ya</option>
+                        <option>tidak</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputPassword4">Sound System</label>
+                      <select class="form-control" id="exampleFormControlSelect1" name="speaker">
+                        <option value="null">Pilih</option>
+                        <option>ya</option>
+                        <option>tidak</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputPassword4">Toiled</label>
+                      <select class="form-control" id="exampleFormControlSelect1" name="toilet">
+                        <option value="null">Pilih</option>
+                        <option>ya</option>
+                        <option>tidak</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
                       <label for="inputEmail4">Luas Ruangan</label>
                       <input type="text"  required class="form-control" id="inputEmail4" name="luas_ruangan">
                     </div>
@@ -84,7 +126,7 @@
                     <input  type="text" name="link_maps" class="form-control " >
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-md-4">
                       <label for="inputEmail4">Foto 1</label>
                       <input type="file"  required class="form-control" id="inputEmail4" name="foto1">
                     </div>
