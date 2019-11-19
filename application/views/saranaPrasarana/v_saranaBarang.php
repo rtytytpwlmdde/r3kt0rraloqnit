@@ -194,7 +194,7 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                         <div class="col-md-8">
                             <h4 class="font-weight-bold text-dark m-0"><?= $u->nama_barang;?></h4>                            
                             <span class="text-info m-0 p-0" style="font-size:12px;"><?= $u->nama_fakultas ?> </span><br> 
-                            <span class="text-warning">Rp : <?= $u->harga_sewa ?> ,-</span> <br>
+                            <span class="text-warning">Rp : <?= $u->harga_barang ?> ,-</span> <br>
 
 
                         </div>

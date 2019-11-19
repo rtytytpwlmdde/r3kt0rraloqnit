@@ -52,7 +52,14 @@ class User extends CI_Controller {
 				'status_operator' => $status_operator,
 				'password' => $password
 			);
+			$datas = array(
+				'id_mahasiswa' => $username,
+				'nama_mahasiswa' => $username,
+				'status_mahasiswa' => $status_operator,
+				'password' => $password
+			);
 			$this->M_User->tambahUser($data,'operator');
+			$this->M_User->tambahUser($datas,'mahasiswa');
 			$this->session->set_flashdata('notifsukses', "Data operator berhasil ditambahkan");
 			redirect('User/operator');
 		}
