@@ -43,6 +43,27 @@
                 <input required type="text" name="nama_barang" class="form-control " value="<?= $u->nama_barang; ?>">
             </div>
             <div class="form-group" >
+                <label for="feInputAddress">Jenis Barang</label>
+                <select required  name="jenis_barang" id="feInputState" class="form-control">
+                <option value="bus" <?php echo ($u->jenis_barang=='bus')?'selected="selected"':''; ?>>Bus</option>
+                <option value="minibus" <?php echo ($u->jenis_barang=='minibus')?'selected="selected"':''; ?>>Minibus</option>
+                <option value="lain-lain" <?php echo ($u->jenis_barang=='minibus')?'selected="selected"':''; ?>>Minibus</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                    <label for="">Kapasitas</label>
+                    <input required type="text" name="kapasitas_barang" class="form-control" value="<?= $u->kapsitas_barang;?>" placeholder="">
+                </div> 
+                <div class="form-group">
+                    <label for="">Usia Barang</label>
+                    <input required type="text" name="usia_barang" class="form-control" value="<?= $u->usia_barang;?>" placeholder="">
+                </div> 
+                <div class="form-group">
+                    <label for="">Harga Sewa</label>
+                    <input required type="text" name="harga_sewa" class="form-control" value="<?= $u->harga_sewa;?>" placeholder="">
+                </div> 
+            <div class="form-group" >
                 <label for="feInputAddress">Status Barang</label>
                 <select required  name="status_barang" id="feInputState" class="form-control">
                 <option value="bagus" <?php echo ($u->status_barang=='bagus')?'selected="selected"':''; ?>>Bagus</option>

@@ -43,6 +43,10 @@
                     <input required type="text" name="kapasitas" class="form-control" placeholder="">
                 </div>
                 <div class="form-group">
+                    <label for="">Harga Sewa</label>
+                    <input required type="text" name="harga_ruangan" class="form-control" placeholder="">
+                </div>
+                <div class="form-group">
                     <label for="">Deskripsi </label>
                     <textarea name="deskripsi_ruangan" id="deskripsi_ruangan" class="form-control" rows="10" cols="80"></textarea>
                 </div>
@@ -51,7 +55,7 @@
                     <div class="form-group col-md-4">
                       <label for="inputEmail4">AC</label>
                       <select class="form-control" id="exampleFormControlSelect1" name="ac">
-                        <option value="null">Pilih</option>
+                        <option value="">Pilih</option>
                         <option>ya</option>
                         <option>tidak</option>
                       </select>
@@ -59,7 +63,7 @@
                     <div class="form-group col-md-2">
                       <label for="inputPassword4">Wifi</label>
                       <select class="form-control" id="exampleFormControlSelect1" name="wifi">
-                        <option value="null">Pilih</option>
+                        <option value="">Pilih</option>
                         <option>ya</option>
                         <option>tidak</option>
                       </select>
@@ -67,15 +71,15 @@
                     <div class="form-group col-md-2">
                       <label for="inputPassword4">lcd</label>
                       <select class="form-control" id="exampleFormControlSelect1" name="lcd">
-                        <option value="null">Pilih</option>
+                        <option value="">Pilih</option>
                         <option>ya</option>
                         <option>tidak</option>
                       </select>
                     </div>
                     <div class="form-group col-md-2">
                       <label for="inputPassword4">Sound System</label>
-                      <select class="form-control" id="exampleFormControlSelect1" name="speaker">
-                        <option value="null">Pilih</option>
+                      <select class="form-control" id="exampleFormControlSelect1" name="sound_system">
+                        <option value="">Pilih</option>
                         <option>ya</option>
                         <option>tidak</option>
                       </select>
@@ -83,7 +87,7 @@
                     <div class="form-group col-md-2">
                       <label for="inputPassword4">Toiled</label>
                       <select class="form-control" id="exampleFormControlSelect1" name="toilet">
-                        <option value="null">Pilih</option>
+                        <option value="">Pilih</option>
                         <option>ya</option>
                         <option>tidak</option>
                       </select>

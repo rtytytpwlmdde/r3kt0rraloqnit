@@ -185,24 +185,44 @@
         </div>
         <div class="card-body" >
             <form class="user" action="<?php echo base_url().'peminjaman/tambahTagihan'; ?>" method="post" >
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Nama Biaya</label>                    
-                    <input type="hidden" name="id_peminjaman"  value="<?= $id?>">
-                    <input type="text" name="nama_tagihan" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="ex, sewa ruangan">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Jumlah</label>
-                    <input type="text" name="jumlah" class="form-control" id="exampleInputPassword1" placeholder="ex, 2">
-                </div>
-                <div class="form-group ">
-                    <label for="exampleInputPassword1">Harga Satuan @</label>
-                    <input type="text" name="harga_satuan" class="form-control" id="exampleInputPassword1" placeholder="Ex, 100000">
-                </div>
-                <div class="btn-group" style="width:100%">
-                
-                    <button type="submit" class="btn btn-primary">Tambahkan Biaya</button>     
-                           
-                </div>     
+                  
+                <input type="hidden" name="id_peminjaman"  value="<?= $id?>">
+                <?php if ($total == 0){?>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Nama Biaya</label>              
+                        <input type="text" name="nama_tagihan" class="form-control" value="harga sewa sarana prasarana">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Jumlah</label>
+                        <input type="text" name="jumlah" class="form-control" value="1">
+                        <small>*Jumlah 1 hari peminjaman</small>
+                    </div>
+                    <?php $sewa_barang = null; $sewa_ruangan = null;
+                        foreach($harga_sewa as $h){ 
+                            $sewa_ruangan = $h->harga_ruangan; $sewa_barang = $h->harga_barang;
+                        } ?>
+                    <div class="form-group ">
+                        <label for="exampleInputPassword1">Harga Satuan @</label>
+                        <input type="text" name="harga_satuan" class="form-control"  value="<?= $sewa_ruangan;?><?= $sewa_barang;?>">
+                        <small>*Harga tarif peminjaman 1 hari sesuai Per Rektor UB</small>
+                    </div>
+                <?php }else{?>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Nama Biaya</label>            
+                        <input type="text" name="nama_tagihan" class="form-control"  aria-describedby="emailHelp" placeholder="ex, sewa ruangan">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Jumlah</label>
+                        <input type="text" name="jumlah" class="form-control"  placeholder="ex, 2">
+                    </div>
+                    <div class="form-group ">
+                        <label for="exampleInputPassword1">Harga Satuan @</label>
+                        <input type="text" name="harga_satuan" class="form-control"  placeholder="Ex, 100000">
+                    </div>
+                <?php } ?>
+                    <div class="btn-group" style="width:100%">
+                        <button type="submit" class="btn btn-primary">Tambahkan Biaya</button>    
+                    </div>     
             </form>
         </div>
       </div>

@@ -51,6 +51,15 @@ class SaranaPrasarana extends CI_Controller {
         $sound_system = $this->input->post('sound_system');
         $toilet = $this->input->post('toilet');
 		$ac = $this->input->post('ac');
+		$harga_ruangan = $this->input->post('harga_ruangan');
+
+		
+		$luas_ruangan = $this->input->post('luas_ruangan');
+		$ruang_kelas = $this->input->post('ruang_kelas');
+		$ruang_rapat = $this->input->post('ruang_rapat');
+		$perjamuan = $this->input->post('perjamuan');
+		$teater = $this->input->post('teater');
+		$ushape = $this->input->post('ushape');
 		
         $foto1 = $this->input->post('foto1');
         $foto2 = $this->input->post('foto2');
@@ -111,6 +120,13 @@ class SaranaPrasarana extends CI_Controller {
 			'alamat_ruangan' => $alamat_ruangan,
 			'link_maps' => $link_maps,
 			'deskripsi_ruangan' => $deskripsi_ruangan,
+			'luas_ruangan' => $luas_ruangan,
+			'ruang_kelas' => $ruang_kelas,
+			'ruang_rapat' => $ruang_rapat,
+			'harga_ruangan' => $harga_ruangan,
+			'perjamuan' => $perjamuan,
+			'teater' => $teater,
+			'ushape' => $ushape,
 			'foto_ruangan1' => $gambar1,
 			'foto_ruangan2' => $gambar2,
 			'foto_ruangan3' => $gambar3,
@@ -296,6 +312,12 @@ public function tambahBarang(){
 	$nama_barang = $this->input->post('nama_barang');
 	$id_operator = $this->input->post('id_operator');
 	$deskripsi_barang = $this->input->post('deskripsi_barang');
+
+	
+	$kapasitas_barang = $this->input->post('kapasitas_barang');
+	$jenis_barang = $this->input->post('jenis_barang');
+	$usia_barang = $this->input->post('usia_barang');
+	$harga_barang = $this->input->post('harga_barang');
 	$status_barang = 'bagus';
 	$foto1 = $this->input->post('foto1');
 	$foto2 = $this->input->post('foto2');
@@ -354,6 +376,10 @@ public function tambahBarang(){
 		'foto_barang3' => $foto_barang3,
 		'foto_barang4' => $foto_barang4,
 		'foto_barang5' => $foto_barang5,
+		'kapasitas_barang' => $kapasitas_barang,
+		'usia_barang' => $usia_barang,
+		'harga_barang' => $harga_barang,
+		'jenis_barang' => $jenis_barang,
 		'id_operator' => $id_operator
 	);
 	$this->M_SaranaPrasarana->tambahRuangan($data,'barang');
@@ -469,8 +495,10 @@ function detailRuangan($id_ruangan){
 
 
 function detailBarang($id_barang){
+	$jenis = 'barang';
 	$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 	$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+	$data['penggunaanBarang'] = $this->m_peminjaman->getPenggunaanBarangByBarang($jenis,$id_barang);
 	$data['barang'] = $this->M_SaranaPrasarana->getDataBarangById($id_barang);
 	$level = $this->session->userdata('status');
 	$data['main_view'] = 'SaranaPrasarana/v_detailBarang';
@@ -491,13 +519,70 @@ function saranaPrasarana(){
 	$data['jamSelesai'] = $this->input->get('jamSelesai');
 	$data['jenis'] = $jenis;
 	$data['jumlahUser'] = $this->M_User->getCountUserBaru();
+	$data['operator'] = $this->M_User->getDataOperator()->result();
 	$data['waktu'] = $this->m_peminjaman->getDataWaktu()->result();
 	$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
 	if($jenis == 'ruangan' || $jenis == null){
-		$data['sarana'] = $this->M_SaranaPrasarana->getDataRuangan()->result();
+		//
+		$this->load->database();
+		$jumlahRuangan = $this->M_SaranaPrasarana->jumlahDataSaranaRuangan();
+		$this->load->library('pagination');
+		$config['base_url'] = base_url().'/saranaPrasarana/saranaPrasarana/';
+		$config['total_rows'] = $jumlahRuangan;
+		$config['per_page'] = 10;
+		$config['first_link']       = 'First';
+		$config['last_link']        = 'Last';
+		$config['next_link']        = 'Next';
+		$config['prev_link']        = 'Prev';
+		$config['full_tag_open']    = '<div class="pagging text-left"><nav><ul class="pagination justify-content-right">';
+		$config['full_tag_close']   = '</ul></nav></div>';
+		$config['num_tag_open']     = '<li class="page-item"><span class="page-link">';
+		$config['num_tag_close']    = '</span></li>';
+		$config['cur_tag_open']     = '<li class="page-item active"><span class="page-link">';
+		$config['cur_tag_close']    = '<span class="sr-only">(current)</span></span></li>';
+		$config['next_tag_open']    = '<li class="page-item"><span class="page-link">';
+		$config['next_tagl_close']  = '<span aria-hidden="true">&raquo;</span></span></li>';
+		$config['prev_tag_open']    = '<li class="page-item"><span class="page-link">';
+		$config['prev_tagl_close']  = '</span>Next</li>';
+		$config['first_tag_open']   = '<li class="page-item"><span class="page-link">';
+		$config['first_tagl_close'] = '</span></li>';
+		$config['last_tag_open']    = '<li class="page-item"><span class="page-link">';
+		$config['last_tagl_close']  = '</span></li>';
+		$from = $this->uri->segment(3);
+		$this->pagination->initialize($config);	
+		//
+        $data['sarana'] = $this->M_SaranaPrasarana->getDataSaranaRuangan($config['per_page'],$from);
 		$data['main_view'] = 'SaranaPrasarana/v_saranaPrasarana';
 	}else{
-		$data['sarana'] = $this->M_SaranaPrasarana->getDataBarang();
+		//
+		$this->load->database();
+		$jumlahBarang = $this->M_SaranaPrasarana->jumlahDataSaranaBarang();
+		$this->load->library('pagination');
+		$config['base_url'] = base_url().'/saranaPrasarana/saranaPrasarana/';
+		$config['total_rows'] = $jumlahBarang;
+		$config['per_page'] = 10;
+		$config['first_link']       = 'First';
+		$config['last_link']        = 'Last';
+		$config['next_link']        = 'Next';
+		$config['prev_link']        = 'Prev';
+		$config['full_tag_open']    = '<div class="pagging text-left"><nav><ul class="pagination justify-content-right">';
+		$config['full_tag_close']   = '</ul></nav></div>';
+		$config['num_tag_open']     = '<li class="page-item"><span class="page-link">';
+		$config['num_tag_close']    = '</span></li>';
+		$config['cur_tag_open']     = '<li class="page-item active"><span class="page-link">';
+		$config['cur_tag_close']    = '<span class="sr-only">(current)</span></span></li>';
+		$config['next_tag_open']    = '<li class="page-item"><span class="page-link">';
+		$config['next_tagl_close']  = '<span aria-hidden="true">&raquo;</span></span></li>';
+		$config['prev_tag_open']    = '<li class="page-item"><span class="page-link">';
+		$config['prev_tagl_close']  = '</span>Next</li>';
+		$config['first_tag_open']   = '<li class="page-item"><span class="page-link">';
+		$config['first_tagl_close'] = '</span></li>';
+		$config['last_tag_open']    = '<li class="page-item"><span class="page-link">';
+		$config['last_tagl_close']  = '</span></li>';
+		$from = $this->uri->segment(3);
+		$this->pagination->initialize($config);	
+		//
+        $data['sarana'] = $this->M_SaranaPrasarana->getDataSaranaBarang($config['per_page'],$from);
 		$data['main_view'] = 'SaranaPrasarana/v_saranaBarang';
 	}
 	$level = $this->session->userdata('status');

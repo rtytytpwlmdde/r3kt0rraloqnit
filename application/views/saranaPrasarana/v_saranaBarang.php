@@ -63,103 +63,125 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                         </div>
                     </div>
                 </div>
-                    <form method="get" action="<?php echo base_url("saranaPrasarana/saranaPrasarana")?>">
-                <div class="card p-2 mb-2">
+                <form method="get" action="<?php echo base_url("saranaPrasarana/saranaPrasarana")?>">
+                <div class="card px-2 pt-2 mb-2">
                     <div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" data-toggle="collapse" data-target="#collapseExample" >
-                            <label class="form-check-label" for="inlineCheckbox1">Kapasitas</label>
-                        </div>
-                        <div class="row collapse" id="collapseExample">
-                            <div class="col-md-6">
-                                <input type="text" name="minKapasitas" class="form-control form-control-sm" placeholder="Min"> 
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" name="maxKapasitas" class="form-control form-control-sm" placeholder="Max">
-                            </div>
+                        <div class="form-group">
+                                <input class="form-control m-0" type="text" placeholder="search" name="search" >
                         </div>
                     </div>
-                    <div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" data-toggle="collapse" data-target="#colLuas" >
-                            <label class="form-check-label" for="inlineCheckbox1">Luas</label>
-                        </div>
-                        <div class="row collapse" id="colLuas">
-                            <div class="col-md-6">
-                                <input type="text" name="minLuasRuangan" class="form-control form-control-sm" placeholder="Min"> 
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" name="maxLuasRuangan" class="form-control form-control-sm" placeholder="Max">
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" data-toggle="collapse" data-target="#colRuangKelas" >
-                            <label class="form-check-label" for="inlineCheckbox1">Ruang Kelas</label>
-                        </div>
-                        <div class="row collapse" id="colRuangKelas">
-                            <div class="col-md-6">
-                                <input type="text" name="minRuangKelas" class="form-control form-control-sm" placeholder="Min"> 
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" name="maxRuangKelas" class="form-control form-control-sm" placeholder="Max">
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" data-toggle="collapse" data-target="#colRuangPertemuan" >
-                            <label class="form-check-label" for="inlineCheckbox1">Ruang Pertemuan</label>
-                        </div>
-                        <div class="row collapse" id="colRuangPertemuan">
-                            <div class="col-md-6">
-                                <input type="text" name="minPertemuan" class="form-control form-control-sm" placeholder="Min"> 
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" name="maxPertemuan" class="form-control form-control-sm" placeholder="Max">
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" data-toggle="collapse" data-target="#collapseTeater" >
-                            <label class="form-check-label" for="inlineCheckbox1">Teater</label>
-                        </div>
-                        <div class="row collapse" id="collapseTeater">
-                            <div class="col-md-6">
-                                <input type="text" name="minTeater" class="form-control form-control-sm" placeholder="Min"> 
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" name="maxTeater" class="form-control form-control-sm" placeholder="Max">
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" data-toggle="collapse" data-target="#colapseUshape" >
-                            <label class="form-check-label" for="inlineCheckbox1">Berbentuk U</label>
-                        </div>
-                        <div class="row collapse" id="colapseUshape">
-                            <div class="col-md-6">
-                                <input type="text" name="minUshape" class="form-control form-control-sm" placeholder="Min"> 
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" name="maxUshape" class="form-control form-control-sm" placeholder="Max">
-                            </div>
-                        </div>
-                    </div>
+                </div>
 
+                <div class="card px-2 pt-2 mb-2">
+                    <div>
+                        <div class="form-group">
+                            <label for="">Kapasitas</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input class="form-control m-0" type="text" placeholder="min" name="minKapasitas" >
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control m-0" type="text" placeholder="max" name="maxKapasitas" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="card p-2 mb-2">
-                    <input type="hidden" name="jenis" value="<?= $jenis?>">
-                    <button class="btn btn-primary">FILTER</button>
-                    </form>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="minibus" name="minibus" >
+                            <label class="form-check-label" for="inlineCheckbox1">Minibus</label>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="bus" name="bus" >
+                            <label class="form-check-label" for="inlineCheckbox1">Bus</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-2 mb-2">
+                    <?php $i = 0; 
+                    foreach ($operator as $a){ ?>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="<?= $a->username ?>" name="fakultas<?= $i?>" >
+                            <label class="form-check-label" for="inlineCheckbox1"><?= $a->nama_fakultas ?></label>
+                        </div>
+                    </div>
+                    <?php $i++;} ?>
+                    <input type="hidden" name="jumlahFakultas" class="form-control" value=<?= $i?>>
                 </div>
             </div>
             <div class="col-md-9">
-                <?php foreach($sarana as $u){?>
+            <div class="card p-2 mb-2">
+                    <div class="row mx-1">
+                        <div class="col-md-6 ">
+                            <div class="row">
+                                <div class="col-md-6 px-1 m-0">
+                                    <small>Tgl Mulai</small>
+                                    <input type="date" class="form-control" name="tglMulai" value="<?= $tglMulai;?>">
+                    <input type="hidden" name="jenis" value="<?= $jenis?>">
+                                </div>
+                                <div class="col-md-6 px-1 m-0">
+                                    <small>Tgl Selesai</small>
+                                    <input type="date" class="form-control" name="tglSelesai" value="<?= $tglSelesai;?>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-6 px-1 m-0">
+                                    <small>Jam Mulai</small>
+                                    <select name="jamMulai" required class="form-control" id="exampleFormControlSelect1">
+                                    <?php foreach ($waktu as $u) : ?>
+                                        <option value="<?= $u->id_waktu; ?>"
+                                            <?php if ($jamMulai == $u->id_waktu) {
+                                                echo "selected=selected";
+                                            } ?>>
+                                            <?php 
+                                            $pieces = explode("-", $u->nama_waktu);
+                                            $start = $pieces[0];
+                                            $end = $pieces[1];
+                                            ?>
+                                            <?= $start; ?>
+                                        </option>
+                                    <?php endforeach; ?>       
+                                    </select>
+                                </div>
+                                <div class="col-md-6 px-1 m-0">
+                                    <small>Jam Selesai</small>
+                                    <select name="jamSelesai" required class="form-control" id="exampleFormControlSelect1">
+                                    <?php foreach ($waktu as $u) : ?>
+                                        <option value="<?= $u->id_waktu; ?>"
+                                            <?php if ($jamSelesai == $u->id_waktu) {
+                                                echo "selected=selected";
+                                            } ?>>
+                                            <?php 
+                                            $pieces = explode("-", $u->nama_waktu);
+                                            $start = $pieces[0];
+                                            $end = $pieces[1];
+                                            ?>
+                                            <?= $end; ?>
+                                        </option>
+                                    <?php endforeach; ?>       
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-2 ">
+                            <div class="row">
+                                <button type="submit" class="btn btn-warning mt-4" style="width:100%">FILTER</button>
+                            </div></form>
+                        </div>
+                    </div>
+                </div>
+                <?php 
+            $no = (int)$this->uri->segment('3') + 1;
+            foreach($sarana as $u){?>
                 <div class="card p-2 mb-2">
                     <div class="row" style="heigh:146px">
                         <div class="col-md-4 text-center">
@@ -170,12 +192,18 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                             <?php }?>
                         </div>
                         <div class="col-md-8">
-                            <h4 class="font-weight-bold text-dark m-0"><?= $u->nama_barang;?></h4>
-                            <span><?php substr("Hello world",0,10) ?></span>
+                            <h4 class="font-weight-bold text-dark m-0"><?= $u->nama_barang;?></h4>                            
+                            <span class="text-info m-0 p-0" style="font-size:12px;"><?= $u->nama_fakultas ?> </span><br> 
+                            <span class="text-warning">Rp : <?= $u->harga_sewa ?> ,-</span> <br>
+
+
                         </div>
                     </div>
                 </div>
                 <?php } ?>
+                <div class="d-flex flex-row-reverse bd-highlight">
+                    <?php echo $this->pagination->create_links(); ?>
+                </div>
             </div>
         </div>
     </div>

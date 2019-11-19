@@ -43,9 +43,10 @@
                 <th class="text-center" scope="col">No</th>
                 <th class="text-center" scope="col">Username</th>
                 <th class="text-center" scope="col">Password</th>
+                <th class="text-center" scope="col">Fakultas</th>
                 <th class="text-center" scope="col">Status</th>
                 <th class="text-center" scope="col">Ruangan</th>
-                <th class="text-center" scope="col">Aksi</th>
+                <th class="text-left" scope="col">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,12 +58,14 @@
                     <td><?php echo $no++; ?></td>
                     <td><?php echo $u->username; ?></td>
                     <td><?php echo $u->password;?></td>
+                    <td><?php echo $u->nama_fakultas;?></td>
                     <td><?php echo $u->status_operator;?></td>
-                    <td>
+                    <td class="text-left">
                     <?php 
+                    $i= 1;
                     foreach($ruangan as $r){
                         if($r->id_operator == $u->username){
-                            echo $r->nama_ruangan."<br>";
+                            echo $i++.")".$r->nama_ruangan."<br>";
                         }
                     }
                     ?>

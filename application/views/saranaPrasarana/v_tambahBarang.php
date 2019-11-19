@@ -37,10 +37,31 @@
                 <div class="form-group">
                     <label for="">Nama Barang</label>
                     <input required type="text" name="nama_barang" class="form-control" placeholder="">
+                </div> 
+                <div class="form-group">
+                    <label for="">Jenis Barang</label>
+                    <select name="jenis_barang" required class="form-control" id="exampleFormControlSelect1">
+                        <option value="">Pilih</option>
+                        <option value="minibus">Minibus</option>
+                        <option value="bus">Bus</option>
+                        <option value="lain-lain">Lain lain</option>
+                    </select>
                 </div>
                 <div class="form-group">
+                    <label for="">Kapasitas</label>
+                    <input required type="text" name="kapasitas_barang" class="form-control" placeholder="">
+                </div> 
+                <div class="form-group">
+                    <label for="">Usia Barang</label>
+                    <input required type="text" name="usia_barang" class="form-control" placeholder="">
+                </div> 
+                <div class="form-group">
+                    <label for="">Harga Sewa</label>
+                    <input required type="text" name="harga_barang" class="form-control" placeholder="">
+                </div> 
+                <div class="form-group">
                     <label for="">Deskripsi Barang</label>
-                    <textarea required type="text" rows="3" name="deskripsi_barang" class="form-control" placeholder=""></textarea>
+                    <textarea name="deskripsi_barang" id="deskripsi_barang" class="form-control" rows="10" cols="80"></textarea>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-2">
@@ -79,6 +100,12 @@
             </form> 
         </div>
     </div>
+    
    
 </div>
 </div>
+<script>
+                // Replace the <textarea id="editor1"> with a CKEditor
+                // instance, using default configuration.
+                CKEDITOR.replace( 'deskripsi_barang' );
+            </script>

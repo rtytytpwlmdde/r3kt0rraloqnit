@@ -57,7 +57,6 @@
 
      
 
-    <?php if($this->session->userdata('status') == "admin"){ ?>
       <!-- Nav Item - Tables -->
       <li class="nav-item">
         <a class="nav-link" href="<?php echo base_url('rekap/dashboard'); ?>">
@@ -94,6 +93,7 @@
         <i class="far fa-plus-square"></i>
           <span>Tambah Peminjaman</span></a>
       </li>
+    <?php if($this->session->userdata('status') == "admin"){ ?>
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
         <i class="fas fa-database"></i>
@@ -108,6 +108,7 @@
           </div>
         </div>
       </li>
+    <?php }?>
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwos" aria-expanded="true" aria-controls="collapseTwo">
             <i class="far fa-chart-bar"></i>
@@ -128,24 +129,6 @@
         <i class="fas fa-search"></i>
           <span>Kode Boking</span></a>
       </li>
-    <?php }else{ ?>
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('peminjaman/historyPeminjaman'); ?>">
-            <i class="fas fa-circle-notch"></i>
-          <span>History Peminjaman</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('saranaPrasarana/penggunaanRuangan'); ?>">
-            <i class="fas fa-building"></i>
-          <span>Penggunaan Ruangan</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('peminjaman/formTambahPeminjaman'); ?>">
-        <i class="far fa-plus-square"></i>
-          <span>Tambah Peminjaman</span></a>
-      </li>
-    <?php } ?>
 
 
       <!-- Divider -->

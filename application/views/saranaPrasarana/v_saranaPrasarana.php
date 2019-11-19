@@ -64,7 +64,7 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                     </div>
                 </div>
                     <form method="get" action="<?php echo base_url("saranaPrasarana/saranaPrasarana")?>">
-                <div class="card p-2 mb-2">
+                <div class="card px-2 pt-2 mb-2">
                     <div class="row">
                         <div class="col-md-12">
                                 <div class="form-group">
@@ -192,7 +192,18 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                     </div>
 
                 </div>
-
+                <div class="card p-2 mb-2">
+                    <?php $i = 0; 
+                    foreach ($operator as $a){ ?>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="<?= $a->username ?>" name="fakultas<?= $i?>" >
+                            <label class="form-check-label" for="inlineCheckbox1"><?= $a->nama_fakultas ?></label>
+                        </div>
+                    </div>
+                    <?php $i++;} ?>
+                    <input type="hidden" name="jumlahFakultas" class="form-control" value=<?= $i?>>
+                </div>
             </div>
             <div class="col-md-9">
                 <div class="card p-2 mb-2">
@@ -214,7 +225,8 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                             <div class="row">
                                 <div class="col-md-6 px-1 m-0">
                                     <small>Jam Mulai</small>
-                                    <select name="jamMulai" required class="form-control" id="exampleFormControlSelect1">
+                                    <select name="jamMulai"  class="form-control" id="exampleFormControlSelect1">
+                                    <option value="">Pilih</option>
                                     <?php foreach ($waktu as $u) : ?>
                                         <option value="<?= $u->id_waktu; ?>"
                                             <?php if ($jamMulai == $u->id_waktu) {
@@ -232,7 +244,8 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                                 </div>
                                 <div class="col-md-6 px-1 m-0">
                                     <small>Jam Selesai</small>
-                                    <select name="jamSelesai" required class="form-control" id="exampleFormControlSelect1">
+                                    <select name="jamSelesai"  class="form-control" id="exampleFormControlSelect1">
+                                    <option value="">Pilih</option>
                                     <?php foreach ($waktu as $u) : ?>
                                         <option value="<?= $u->id_waktu; ?>"
                                             <?php if ($jamSelesai == $u->id_waktu) {
@@ -258,8 +271,10 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                         </div>
                     </div>
                 </div>
-                <?php foreach($sarana as $u){?>
-                <div class="card p-2 mb-2">
+                <?php 
+            $no = (int)$this->uri->segment('3') + 1;
+            foreach($sarana as $u){?>
+                <div id="demo" class="card p-2 mb-2">
                     <div class="row" style="heigh:146px">
                         <div class="col-md-4 text-center">
                             <?php if($u->foto_ruangan1 == null){ ?>
@@ -270,18 +285,36 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                         </div>
                         <div class="col-md-8">
                             <a href="<?php echo base_url("saranaPrasarana/detailRuangan/".$u->id_ruangan);?>"><h4 class="font-weight-bold text-dark m-0" style="font-size: 20px !important; font-family: 'Roboto', sans-serif;" ><?= $u->nama_ruangan;?></h4></a>
-                            <span>Kapasitas : <?= $u->kapasitas ?> orang</span> <br>
-                            <span>Luas : <?= $u->luas_ruangan ?> </span><br>
-                            <span>Ruang Kelas : <?= $u->ruang_kelas ?> </span> <br>
-                            <span>pertemuan  : <?= $u->perjamuan ?> </span> <br>
-                            <span>ushape  : <?= $u->ushape ?> </span> <br>
-                            <span>teater  : <?= $u->teater ?> </span> <br>
+                            <span class="text-info m-0 p-0" style="font-size:12px;"><?= $u->nama_fakultas ?> </span><br> 
+                            <span style="font-size:14px;">Kapasitas : <?= $u->kapasitas ?> orang</span> <br>
+                            <span style="font-size:14px;">Luas : <?= $u->luas_ruangan ?> </span><br>
+                            <span class="text-warning">Rp : <?= $u->harga_sewa ?> ,-</span> <br>
                         </div>
                     </div>
                 </div>
                 <?php } ?>
+                <div class="d-flex flex-row-reverse bd-highlight">
+                    <?php echo $this->pagination->create_links(); ?>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+<script>
+
+
+$('#demo').pagination({
+        dataSource: [1, 2, 3, 4, 5, 6, 7, ... , 100],
+        pageSize: 5,
+        showPrevious: false,
+        showNext: false,
+        callback: function(data, pagination) {
+            // template method of yourself
+            var html = template(data);
+            dataContainer.html(html);
+        }
+    })
+
+
+</script>

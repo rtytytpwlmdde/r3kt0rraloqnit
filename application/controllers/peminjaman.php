@@ -239,6 +239,7 @@ class Peminjaman extends CI_Controller {
 		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
         $data['tagihan'] = $this->M_Peminjaman->getDataTagihanByIdPeminjaman($id_peminjaman);
+        $data['harga_sewa'] = $this->M_Peminjaman->getDataHargaSewaPeminjaman($id_peminjaman);
       
         $data['waktu'] = $this->M_Peminjaman->getDataWaktu()->result();
         $data['main_view'] = 'peminjaman/v_tambahTagihan'; 

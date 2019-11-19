@@ -47,10 +47,17 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
     </div>
     <div class="bg-white   p-2" >
         <div class="row py-2 ">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <div class="px-2">
                     <h5 class="font-weight-bold m-0 text-dark"><?= $u->nama_ruangan;?></h5>
                     <h6 ><i class="fa fa-map-marker" aria-hidden="true"></i> Universitas Brawijaya Malang</h6>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="px-2 ">
+                  <div class="d-flex flex-row-reverse bd-highlight">
+                      <h5 class="btn btn-warning">Rp <?= $u->harga_ruangan;?>,-</h5>
+                  </div>
                 </div>
             </div>
         </div>
