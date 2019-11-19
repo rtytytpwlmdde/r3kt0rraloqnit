@@ -64,24 +64,24 @@
                     <textarea name="deskripsi_barang" id="deskripsi_barang" class="form-control" rows="10" cols="80"></textarea>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-2">
-                      <label for="inputEmail4">Foto 1</label>
+                    <div class="form-group col">
+                      <label for="">Foto 1</label>
                       <input type="file"  required class="form-control" id="inputEmail4" name="foto1">
                     </div>
-                    <div class="form-group col-md-2">
-                      <label for="inputPassword4">Foto 2</label>
+                    <div class="form-group col">
+                      <label for="rd4">Foto 2</label>
                       <input type="file"  required class="form-control" id="inputPassword4" name="foto2">
                     </div>
-                    <div class="form-group col-md-2">
-                      <label for="inputPassword4">Foto 3</label>
+                    <div class="form-group col">
+                      <label for="rd4">Foto 3</label>
                       <input type="file"  required class="form-control" id="inputPassword4" name="foto3">
                     </div>
-                    <div class="form-group col-md-2">
-                      <label for="inputPassword4">Foto 4</label>
+                    <div class="form-group col">
+                      <label for="rd4">Foto 4</label>
                       <input type="file"  required class="form-control" id="inputPassword4" name="foto4">
                     </div>
-                    <div class="form-group col-md-2">
-                      <label for="inputPassword4">Foto 5</label>
+                    <div class="form-group col">
+                      <label for="rd4">Foto 5</label>
                       <input type="file" required  class="form-control" id="inputPassword4" name="foto5">
                     </div>
                 </div>

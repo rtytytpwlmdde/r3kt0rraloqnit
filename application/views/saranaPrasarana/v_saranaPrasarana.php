@@ -288,7 +288,7 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                             <span class="text-info m-0 p-0" style="font-size:12px;"><?= $u->nama_fakultas ?> </span><br> 
                             <span style="font-size:14px;">Kapasitas : <?= $u->kapasitas ?> orang</span> <br>
                             <span style="font-size:14px;">Luas : <?= $u->luas_ruangan ?> </span><br>
-                            <span class="text-warning">Rp : <?= $u->harga_sewa ?> ,-</span> <br>
+                            <span class="text-warning">Rp : <?= $u->harga_ruangan ?> ,-</span> <br>
                         </div>
                     </div>
                 </div>
