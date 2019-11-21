@@ -166,7 +166,6 @@
             <ul class="list-group mb-1 anyClass" >
                 <li class="list-group-item d-flex justify-content-between lh-condensed ">
                 <div>
-                        <input type="text"  name="id_operator" value="<?= $u->id_operator?>">
                     <h6 class="my-0"><a href="<?php echo base_url("saranaPrasarana/detailRuangan/".$u->id_ruangan)?>"><?php echo $u->nama_ruangan ?></a></h6>
                     <small class="text-muted">Kapasitas <?= $u->kapasitas; ?> orang</small>
                 </div>
@@ -174,6 +173,7 @@
                         <input type="text" hidden name="jenis" value="ruangan">
                         <input type="text" hidden name="id_peminjaman" value="<?= $id?>">
                         <input type="text" hidden name="id_sarana" value="<?= $u->id_ruangan?>">
+                        <input type="text" hidden name="id_operator" value="<?= $u->id_operator?>">
                         <input type="text" hidden name="tgl_mulai" value="<?= $tgl_mulai?>">
                         <input type="text" hidden name="tgl_selesai" value="<?= $tgl_selesai?>">
                         <input type="text" hidden name="jam_mulai" value="<?= $jam_mulai?>">

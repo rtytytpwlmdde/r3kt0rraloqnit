@@ -52,9 +52,20 @@
                                         }
                                     } 
                                     if($result == 0){
-                                    echo "Rp 0";
+                                        ?>
+                                        <form  method="get">
+                                            <button type="submit" class="btn btn-link text-dark"><?php  echo "Rp 0"?></button>
+                                        </form>
+                                        <?php
                                     }else{
-                                    echo "Rp " . number_format($result,0,',','.');
+                                        ?>
+
+                                        <form action="<?php echo base_url("peminjaman/historyPeminjaman");?>" method="get">
+                                            <input type="hidden" name="tahun" value="<?= $tahun?>">
+                                            <input type="hidden" name="bulan" value="<?= $bulan?>">
+                                            <button type="submit" class="btn btn-link text-dark"><?php  echo "Rp " . number_format($result,0,',','.');?></button>
+                                        </form>
+                                        <?php
                                     }
                                 ?>
                             </td>
@@ -67,9 +78,20 @@
                                         }
                                     } 
                                     if($lunas == 0){
-                                        echo "Rp 0";
-                                    }else{
-                                        echo "Rp " . number_format($lunas,0,',','.');
+                                        ?>
+                                        <form  method="get">
+                                            <button type="submit" class="btn btn-link text-dark"><?php  echo "Rp 0"?></button>
+                                        </form>
+                                        <?php
+                                    }else{?>
+                                    
+                                    <form action="<?php echo base_url("peminjaman/historyPeminjaman");?>" method="get">
+                                            <input type="hidden" name="tahun" value="<?= $tahun?>">
+                                            <input type="hidden" name="bulan" value="<?= $bulan?>">
+                                            <input type="hidden" name="status_pembayaran" value="lunas">
+                                            <button type="submit" class="btn btn-link text-dark"><?php  echo "Rp " . number_format($lunas,0,',','.');?></button>
+                                        </form>
+                                    <?php
                                     }
                                 ?>
                             </td>
@@ -83,7 +105,11 @@
                                         }
                                     } 
                                     if($belumBayar == 0){
-                                        echo "Rp 0";
+                                        ?>
+                                        <form  method="get">
+                                            <button type="submit" class="btn btn-link text-dark"><?php  echo "Rp 0"?></button>
+                                        </form>
+                                        <?php
                                     }else{ ?>
                                         <form action="<?php echo base_url("peminjaman/historyPeminjaman");?>" method="get">
                                             <input type="hidden" name="tahun" value="<?= $tahun?>">
@@ -102,7 +128,12 @@
                             <th class="text-center" scope="col">Total</th>
                             <td> <?php 
                             foreach($keuanganPertahun as $u){
-                                echo "Rp " . number_format($u->jumPeminjamanPertahun,0,',','.');
+                                ?>
+                                <form action="<?php echo base_url("peminjaman/historyPeminjaman");?>" method="get">
+                                    <input type="hidden" name="tahun" value="<?= $tahun?>">
+                                    <button type="submit" class="btn btn-link text-dark"><?php  echo "Rp " . number_format($u->jumPeminjamanPertahun,0,',','.');?></button>
+                                </form>
+                                <?php
                             }
                             ?>
                             </td>
@@ -110,9 +141,19 @@
                              <?php 
                             foreach($keuanganLunasPertahun as $u){
                                 if($u->jumPeminjamanPertahun == 0){
-                                    echo "Rp 0";
+                                    ?>
+                                    <form  method="get">
+                                        <button type="submit" class="btn btn-link text-dark"><?php  echo "Rp 0"?></button>
+                                    </form>
+                                    <?php
                                 }else{
-                                    echo "Rp " . number_format($u->jumPeminjamanPertahun,0,',','.');
+                                    ?>
+                                    <form action="<?php echo base_url("peminjaman/historyPeminjaman");?>" method="get">
+                                        <input type="hidden" name="tahun" value="<?= $tahun?>">                        
+                                         <input type="hidden" name="status_pembayaran" value="lunas">
+                                        <button type="submit" class="btn btn-link text-dark"><?php  echo "Rp " . number_format($u->jumPeminjamanPertahun,0,',','.');?></button>
+                                    </form>
+                                    <?php
                                 }
                             } ?>
                             </td>
@@ -121,9 +162,20 @@
                             foreach($keuanganBelumBayarPertahun as $u){
                                 
                                 if($u->jumPeminjamanPertahun == 0){
-                                    echo "Rp 0";
+                                    ?>
+                                    <form  method="get">
+                                        <button type="submit" class="btn btn-link text-dark"><?php  echo "Rp 0"?></button>
+                                    </form>
+                                    <?php
                                 }else{
-                                    echo "Rp " . number_format($u->jumPeminjamanPertahun,0,',','.');
+                                    ?>
+                                    <form action="<?php echo base_url("peminjaman/historyPeminjaman");?>" method="get">
+                                        <input type="hidden" name="tahun" value="<?= $tahun?>">                                       
+                                         <input type="hidden" name="status_pembayaran" value="belum bayar">
+
+                                        <button type="submit" class="btn btn-link text-dark"><?php  echo "Rp " . number_format($u->jumPeminjamanPertahun,0,',','.');?></button>
+                                    </form>
+                                    <?php
                                 }
                             }
                             ?>
