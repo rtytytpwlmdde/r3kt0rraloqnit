@@ -82,13 +82,12 @@ class M_Peminjaman extends CI_Model{
 		$this->db->select('peminjaman.id_peminjaman ,count(peminjaman.id_peminjaman) as jumPeminjamanTerkirim');
         $this->db->from('peminjaman');
 		$this->db->join('sarana_peminjaman','peminjaman.id_peminjaman = sarana_peminjaman.id_peminjaman');
-		$this->db->join('ruangan','ruangan.id_ruangan = sarana_peminjaman.id_sarana');
-		if($operator == "admin"){
-		}else{
+		$this->db->join('ruangan','ruangan.id_ruangan = sarana_peminjaman.id_sarana','left');
+		$this->db->join('barang','barang.id_barang = sarana_peminjaman.id_sarana','left');
 			//$this->db->where('ruangan.id_operator',$operator);
-			$this->db->where('ruangan.id_operator', $id_operator);
-		}
 		$this->db->where('validasi_akademik ','terkirim');
+		$this->db->where('ruangan.id_operator', $id_operator);
+		$this->db->or_where('barang.id_operator', $id_operator);
 		$query=$this->db->get();
 		return $query->result();
 	}

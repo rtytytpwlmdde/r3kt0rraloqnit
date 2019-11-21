@@ -54,10 +54,6 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="">Nomor Telpon</label>
-                    <input  type="text" name="nomor_telpon" class="form-control " value="<?= $u->nomor_telpon; ?>">
-                </div>
-                <div class="form-group">
                     <label for="">Email</label>
                     <input required type="text" name="email" class="form-control " value="<?= $u->email; ?>">
                 </div>

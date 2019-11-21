@@ -73,10 +73,6 @@
                     <td><?php echo $u->status_mahasiswa;?></td>
                 </tr>
                 <tr>
-                    <td>Nomor Telpon</td>
-                    <td><?php echo $u->nomor_telpon;?></td>
-                </tr>
-                <tr>
                     <td>Email</td>
                     <td><?php echo $u->email;?></td>
                 </tr>

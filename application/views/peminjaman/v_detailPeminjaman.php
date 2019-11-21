@@ -45,7 +45,7 @@
                     $jenis = $a->jenis_peminjaman;
                 }?>
                 <?php if( $validasi_akademik == 'terkirim' && $this->session->userdata('status') != 'pengguna'){ ?>
-                <?php if( $this->session->userdata('status') == 'admin' || $a->id_operator == $this->session->userdata('username')){ ?>
+                <?php if( $a->id_operator == $this->session->userdata('username')){ ?>
                     <form action="<?php echo base_url("peminjaman/validasiPeminjaman");?>" method="post">
                         <input hidden type="text" name="id_peminjaman" value="<?= $id_peminjaman;?>">
                         <input hidden type="text" name="jenis_peminjaman" value="<?= $jenis;?>">
@@ -229,6 +229,10 @@
                     <td><?= $u->penyelenggara; ?></td>
                 </tr>
                 <tr>
+                    <td>No Hp / WA</td>
+                    <td><?= $u->nomor_telpon; ?></td>
+                </tr>
+                <tr>
                     <td>Keterangan</td>
                     <td><?= $u->keterangan; ?></td>
                 </tr>
@@ -285,7 +289,9 @@
                     <td>Status Pembayaran</td>
                     <?php if($u->status_pembayaran == 'belum bayar'){?>
                         <td class="text-warning"><?= $u->status_pembayaran; ?>
+                        <?php if($this->session->userdata('username') == $u->id_operator){?>
                         <a data-toggle="modal" data-id="<?php echo $id_peminjaman; ?>"  class="modalPembayaran btn btn-outline-info btn-sm" href="#modalPembayaran">Sudah Bayar?</a>
+                         <?php }?>
                         </td>
                     <?php }else{ ?>
                         <td class="text-"><?= $u->status_pembayaran; ?></td>
@@ -305,7 +311,9 @@
                         <td class="text-success"><?= $u->status_kembali; ?></td>
                     <?php }else{ ?>
                         <td class="text-danger"><?= $u->status_kembali; ?>
+                        <?php if($this->session->userdata('username') == $u->id_operator){?>
                         <a href="<?php echo base_url("peminjaman/formPengembalianBarang/".$u->id_peminjaman);?>" class="btn btn-sm btn-info">Barang Telah Dikembalikan?</a>
+                        <?php }?>
                         </td>
                     <?php }?>
                 </tr>

@@ -118,6 +118,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<?php echo base_url('peminjaman/historyPeminjaman'); ?>">History Peminjaman</a>
             <a class="collapse-item" href="<?php echo base_url('rekap/rekapPeminjaman'); ?>">Rekap Peminjaman</a>
+            <a class="collapse-item" href="<?php echo base_url('rekap/rekapKeuangan'); ?>">Rekap Keuangan</a>
             <a class="collapse-item" href="<?php echo base_url('rekap/rekapPemakaianRuangan'); ?>">Rekap Penggunaan Ruangan</a>
             <a class="collapse-item" href="<?php echo base_url('rekap/rekapPemakaianBarang'); ?>">Rekap Penggunaan Barang</a>
           </div>

@@ -208,7 +208,6 @@ class User extends CI_Controller {
     public function tambahUser(){
         $id_mahasiswa = $this->input->post('id_mahasiswa');
         $nama_mahasiswa = $this->input->post('nama_mahasiswa');
-        $nomor_telpon = $this->input->post('nomor_telpon');
         $alamat = $this->input->post('alamat');
         $instansi = $this->input->post('instansi');
         $email = $this->input->post('email');
@@ -222,7 +221,7 @@ class User extends CI_Controller {
             $data = array(
                 'id_mahasiswa' => $id_mahasiswa,
                 'nama_mahasiswa' => $nama_mahasiswa,
-                'nomor_telpon' => $nomor_telpon,
+
                 'alamat' => $alamat,
                 'email' => $email,
                 'instansi' => $instansi,
@@ -262,7 +261,6 @@ class User extends CI_Controller {
         $alamat = $this->input->post('alamat');
         $email = $this->input->post('email');
         $status_mahasiswa = $this->input->post('status_mahasiswa');
-        $nomor_telpon = $this->input->post('nomor_telpon');
         $instansi = $this->input->post('instansi');
         $data = array(
             'id_mahasiswa' => $id_mahasiswa,
@@ -271,8 +269,7 @@ class User extends CI_Controller {
             'alamat' => $alamat,
             'email' => $email,
             'instansi' => $instansi,
-            'status_mahasiswa' => $status_mahasiswa,
-            'nomor_telpon' => $nomor_telpon
+            'status_mahasiswa' => $status_mahasiswa
         );
 
         $where = array('id_mahasiswa' => $id_mahasiswa);

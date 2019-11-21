@@ -21,7 +21,6 @@ class Rekap extends CI_Controller {
 				$tahun = date("Y");
 			}
 			$data['tahun'] = $tahun;
-			$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
 			$data['peminjamanSetujuPerbulan'] = $this->M_Rekap->getDataRekapPeminjamanSetujuPerbulan();
 			$data['peminjamanSetujuPertahun'] = $this->M_Rekap->getDataRekapPeminjamanSetujuPertahun();
 			$data['peminjamanTerkirimPerbulan'] = $this->M_Rekap->getDataRekapPeminjamanTerkirimPerbulan();
@@ -39,6 +38,7 @@ class Rekap extends CI_Controller {
 			$data['jumlahDosen'] = $this->M_User->getJumlahDosen();
 			$data['jumlahOperator'] = $this->M_User->getJumlahOperator();
 			$data['jumlahLembaga'] = $this->M_User->getJumlahLembaga();
+			$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
 			$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 			$data['main_view'] = 'rekap/V_Dashboard';
 			$this->load->view('template/template_operator',$data);
@@ -89,6 +89,25 @@ class Rekap extends CI_Controller {
 		$data['barangPerTahun'] = $this->M_Rekap->getDataRekapPemakaianBarangPerTahun();
         $data['barang'] = $this->M_SaranaPrasarana->getDataBarang();
 		$data['main_view'] = 'Rekap/V_RekapPemakaianBarang';
+		$this->load->view('template/template_operator',$data);
+	}
+
+	
+	function rekapKeuangan(){
+		$tahun = $this->input->get('tahun');
+		if($tahun == NULL){
+			$tahun = date("Y");
+		}
+		$data['tahun'] = $tahun;
+		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+		$data['keuanganPerBulan'] = $this->M_Rekap->getDataRekapKeuanganPerbulan();
+		$data['keuanganPertahun'] = $this->M_Rekap->getDataRekapKeuanganPertahun();
+		$data['keuanganLunasPerBulan'] = $this->M_Rekap->getDataRekapKeuanganLunasPerbulan();
+		$data['keuanganLunasPertahun'] = $this->M_Rekap->getDataRekapKeuanganLunasPertahun();
+		$data['keuanganBelumBayarPerBulan'] = $this->M_Rekap->getDataRekapKeuanganBelumBayarPerbulan();
+		$data['keuanganBelumBayarPertahun'] = $this->M_Rekap->getDataRekapKeuanganBelumBayarPertahun();
+		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
+		$data['main_view'] = 'Rekap/v_rekapKeuangan';
 		$this->load->view('template/template_operator',$data);
 	}
   

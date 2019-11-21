@@ -115,6 +115,10 @@
                 <input type="text"  required name="penyelenggara" class="form-control " placeholder="masukkan nama lengkap penyelenggara acara">
             </div>
             <div class="form-group">
+                <label for="exampleFormControlSelect1">No Hp / WA</label>
+                <input type="text"  required name="nomor_telpon" class="form-control " placeholder="ex: 081358xxxx">
+            </div>
+            <div class="form-group">
                 <label for="exampleFormControlSelect1">Keterangan</label>
                 <input type="text"  required name="keterangan" class="form-control ">
             </div>

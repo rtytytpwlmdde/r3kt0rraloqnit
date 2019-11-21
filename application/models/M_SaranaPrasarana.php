@@ -322,6 +322,7 @@ class M_SaranaPrasarana extends CI_Model{
     function getDataBarang(){
 			$this->db->select('*');
 			$this->db->from('barang');
+			$this->db->where('barang.id_operator',$this->session->userdata('username'));
 			$this->db->order_by("barang.nama_barang", "asc");
 			$query=$this->db->get();
 			return $query->result();
@@ -488,6 +489,8 @@ class M_SaranaPrasarana extends CI_Model{
     function getDataRuangan(){
 			$this->db->select('*');
 			$this->db->from('ruangan');
+			$this->db->where('ruangan.id_operator',$this->session->userdata('username'));
+			$this->db->order_by("ruangan.nama_ruangan", "asc");
 			$query=$this->db->get();
 			return $query;
 			}

@@ -115,6 +115,10 @@
                 <input disabled type="text"  required name="penyelenggara" class="form-control " value="<?= $u->penyelenggara; ?>">
             </div>
             <div class="form-group">
+                <label for="exampleFormControlSelect1">No HP / WA</label>
+                <input disabled type="text"  required name="penyelenggara" class="form-control " value="<?= $u->nomor_telpon; ?>">
+            </div>
+            <div class="form-group">
                 <label for="">Keterangan Pengguna</label>
                 <textarea disabled class="form-control"  name="keterangan" rows="3" value=""><?= $u->keterangan; ?></textarea>
             </div>
@@ -192,14 +196,6 @@
     </div>
   </div>
 
-  <footer class="my-5 pt-5 text-muted text-center text-small">
-    <p class="mb-1">© 2017-2019 Company Name</p>
-    <ul class="list-inline">
-      <li class="list-inline-item"><a href="#">Privacy</a></li>
-      <li class="list-inline-item"><a href="#">Terms</a></li>
-      <li class="list-inline-item"><a href="#">Support</a></li>
-    </ul>
-  </footer>
 </div>
 
 

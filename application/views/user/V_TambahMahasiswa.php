@@ -42,10 +42,6 @@
             </div>
             
             <div class="form-group">
-                <label for="">Nomor Telpon</label>
-                <input required type="text" name="nomor_telpon" class="form-control " >
-            </div>
-            <div class="form-group">
                 <label for="">Alamat</label>
                 <input required type="text" name="alamat" class="form-control " >
             </div>

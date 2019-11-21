@@ -120,6 +120,8 @@ class Peminjaman extends CI_Controller {
         $jam_mulai = $this->input->post('jam_mulai');
         $jam_selesai = $this->input->post('jam_selesai');
         $file_peminjaman = $this->input->post('file_peminjaman');
+        $nomor_telpon = $this->input->post('nomor_telpon');
+        $wa = "62".substr($nomor_telpon,1);
         if($jam_mulai >= $jam_selesai || $tanggal_mulai_penggunaan >= $tanggal_selesai_penggunaan){
             $this->session->set_flashdata('notifsukses', "Pastikan Jam / Tanggal Peminjaman Telah Sesuai");
             redirect('peminjaman/formTambahPeminjaman/'.$jenis_peminjaman);
@@ -169,6 +171,7 @@ class Peminjaman extends CI_Controller {
                         'tanggal_selesai_penggunaan' => $tanggal_selesai_penggunaan,
                         'jam_mulai' => $jam_mulai,
                         'id_lembaga' => $id_lembaga,
+                        'nomor_telpon' => $wa,
                         'jam_selesai' => $jam_selesai,
                         'penyelenggara' => $penyelenggara,
                         'file_peminjaman' => $pdf,
@@ -189,6 +192,7 @@ class Peminjaman extends CI_Controller {
                         'id_lembaga' => $id_lembaga,
                         'jam_selesai' => $jam_selesai,
                         'file_peminjaman' => $pdf,
+                        'nomor_telpon' => $wa,
                         'penyelenggara' => $penyelenggara,
                         'validasi_akademik' => $validasi_akademik,
                         'validasi_kemahasiswaan' => $validasi_kemahasiswaan,
@@ -361,7 +365,6 @@ class Peminjaman extends CI_Controller {
     function validasiPeminjaman(){
         $id_peminjaman = $this->input->post("id_peminjaman");
         $jenis_peminjaman = $this->input->post("jenis_peminjaman");
-        $status_pembayaran = 'lunas';
         $nama_kode = base_url().'peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis_peminjaman;
 		$this->load->library('ciqrcode'); //pemanggilan library QR CODE
 
@@ -390,7 +393,6 @@ class Peminjaman extends CI_Controller {
             $data = array(
                 'qr_code' => $image_name,
                 'validasi_akademik' => $status,
-                'status_pembayaran' => $status_pembayaran,
                 'validasi_kemahasiswaan' => $status,
                 'validasi_umum' => $status
             );
