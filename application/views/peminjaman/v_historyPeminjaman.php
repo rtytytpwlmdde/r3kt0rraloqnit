@@ -89,7 +89,7 @@ if($this->session->userdata('status') == "pengguna"){
                     <select name="status_pembayaran"  class="form-control">
                             <option value="">Pilih</option>
                             <option value="lunas">Lunas</option>
-                            <option value="belum dibayar">Belum Bayar</option>
+                            <option value="belum bayar">Belum Bayar</option>
                     </select>
                 </div>
                 <div class="form-row">

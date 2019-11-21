@@ -111,6 +111,8 @@ class M_Peminjaman extends CI_Model{
 		$search = $this->input->get('search');
 		$status = $this->input->get('status');
 		$pengguna = $this->input->get('pengguna');
+		$bulan = $this->input->get('bulan');
+		$tahun = $this->input->get('tahun');
 		$penyelenggara = $this->input->get('penyelenggara');
 		$jenis = $this->input->get('jenis');
 		$tgl_mulai = $this->input->get('tgl_mulai');
@@ -133,8 +135,7 @@ class M_Peminjaman extends CI_Model{
 			$this->db->or_like('mahasiswa.nama_mahasiswa', $search);
 		}
 		if($this->session->userdata('status') == "staff pelayanan" || $this->session->userdata('status') == "admin"){
-			$this->db->where('ruangan.id_operator',$operator);
-			$this->db->or_where('barang.id_operator',$operator);
+			$this->db->where('peminjaman.operator',$operator);
 		}
 		
 		if($this->session->userdata('status') == "pengguna"){
@@ -152,11 +153,11 @@ class M_Peminjaman extends CI_Model{
 			$this->db->where('peminjaman.jenis_peminjaman',$jenis);
 		}
 		if($pengguna != NULL){
-			$this->db->or_like('peminjaman.id_peminjam', $search);
-			$this->db->or_like('mahasiswa.nama_mahasiswa', $search);
+			$this->db->where('peminjaman.id_peminjam', $search);
+			$this->db->or_where('mahasiswa.nama_mahasiswa', $search);
 		}
 		if($penyelenggara != NULL){
-			$this->db->or_like('peminjaman.penyelenggara',$penyelenggara);
+			$this->db->where('peminjaman.penyelenggara',$penyelenggara);
 		}
 		if($status != NULL){
 			$this->db->where('peminjaman.validasi_akademik',$status);
@@ -168,12 +169,23 @@ class M_Peminjaman extends CI_Model{
 		if($tgl_mulai != null && $tgl_selesai == null){
 			$this->db->where('peminjaman.tanggal_mulai_penggunaan', $tgl_mulai);
 		}
+
+		
+		if($bulan != null ){
+			$this->db->where('date_format(peminjaman.tanggal_peminjaman,"%m")', $bulan);
+		}
+		if($tahun != null){
+			$this->db->where('YEAR(peminjaman.tanggal_peminjaman)',$tahun);
+		}
+
 		$this->db->order_by('peminjaman.tanggal_peminjaman','desc');
 		$query = $this->db->get('peminjaman',$number,$offset);
 		return 	$query->result();	
 	}
 
 	function jumlahDataPeminjaman(){
+		$bulan = $this->input->get('bulan');
+		$tahun = $this->input->get('tahun');
 		$operator = $this->session->userdata('username');
 		$search = $this->input->get('search');
 		$status = $this->input->get('status');

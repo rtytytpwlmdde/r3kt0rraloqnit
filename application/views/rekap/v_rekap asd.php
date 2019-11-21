@@ -19,32 +19,32 @@
                     </div>
                 </div>
             <div class="card shadow" >
-                <table class="table table-bordered table-striped">
-                    <tbody >
-                        <tr >
-                        <th class="bg-thead text-white" scope="col">Bulan</th>
-                        <td class="bg-primary text-white">Semua Peminjaman</td>
-                        <td class="bg-warning text-white">Lunas</td>
-                        <td class="bg-danger text-white">Belum Bayar</td>
-                        </tr>
-                            <?php $bulan = null;
-                            for($i=1; $i<13; $i++){
-                                
-                                if($i <10){
-                                    $bulan = "0".$i;
-                                }else{
-                                    $bulan = $i;
-                                }
-                                ?>
+                <table class="table table-bordered">
+                    <thead class="bg-thead text-white">
                         <tr>
-                            <th class="text-center" scope="col">
+                        <th class="text-center" scope="col">#</th>
+                        <th class="text-center" scope="col">Jan</th>
+                        <th class="text-center" scope="col">Feb</th>
+                        <th class="text-center" scope="col">Mar</th>
+                        <th class="text-center" scope="col">Apr</th>
+                        <th class="text-center" scope="col">Mei</th>
+                        <th class="text-center" scope="col">Jun</th>
+                        <th class="text-center" scope="col">Jul</th>
+                        <th class="text-center" scope="col">Agu</th>
+                        <th class="text-center" scope="col">Sep</th>
+                        <th class="text-center" scope="col">Okt</th>
+                        <th class="text-center" scope="col">Nov</th>
+                        <th class="text-center" scope="col">Des</th>
+                        <th class="text-center" scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-center">
+                        <td class="bg-primary text-white">Total</td>
                             <?php
-                            $dateObj = DateTime::createFromFormat('!m', $i); 
-                            echo $monthName = $dateObj->format('F'); 
-                            ?>
-                            </th>
-                            <td>
-                                <?php
+                            for($i=1; $i<13; $i++){?>
+                                <td>
+                                    <?php
                                     $result = 0;
                                     foreach($keuanganPerBulan as $u){
                                         if($i == $u->bulan){ 
@@ -57,9 +57,24 @@
                                     echo "Rp " . number_format($result,0,',','.');
                                     }
                                 ?>
-                            </td>
+                                </td>
+                            <?php
+                            }
+                            ?>
                             <td>
-                             <?php
+                            <?php 
+                            foreach($keuanganPertahun as $u){
+                                echo "Rp " . number_format($u->jumPeminjamanPertahun,0,',','.');
+                            }
+                            ?>
+                            </td>
+                        </tr>
+                        <tr class="text-center">
+                        <td class="bg-warning text-white">Lunas</td>
+                            <?php
+                            for($i=1; $i<13; $i++){?>
+                                <td>
+                                    <?php
                                     $lunas = 0;
                                     foreach($keuanganLunasPerBulan as $u){
                                         if($i == $u->bulan){ 
@@ -72,10 +87,28 @@
                                         echo "Rp " . number_format($lunas,0,',','.');
                                     }
                                 ?>
-                            </td>
-                            <td>
-
+                                </td>
                             <?php
+                            }
+                            ?>
+                            <td>
+                            <?php 
+                            foreach($keuanganLunasPertahun as $u){
+                                if($u->jumPeminjamanPertahun == 0){
+                                    echo "Rp 0";
+                                }else{
+                                    echo "Rp " . number_format($u->jumPeminjamanPertahun,0,',','.');
+                                }
+                            }
+                            ?>
+                            </td>
+                        </tr>
+                        <tr class="text-center">
+                        <td class="bg-danger text-white">Belum Bayar</td>
+                            <?php
+                            for($i=1; $i<13; $i++){?>
+                                <td>
+                                    <?php
                                     $belumBayar = 0;
                                     foreach($keuanganBelumBayarPerBulan as $u){
                                         if($i == $u->bulan){ 
@@ -84,38 +117,14 @@
                                     } 
                                     if($belumBayar == 0){
                                         echo "Rp 0";
-                                    }else{ ?>
-                                        <form action="<?php echo base_url("peminjaman/historyPeminjaman");?>" method="get">
-                                            <input type="hidden" name="tahun" value="<?= $tahun?>">
-                                            <input type="hidden" name="bulan" value="<?= $bulan?>">
-                                            <input type="hidden" name="status_pembayaran" value="belum bayar">
-                                            <button type="submit" class="btn btn-link text-dark"><?php  echo "Rp " . number_format($belumBayar,0,',','.');?></button>
-                                        </form>
-                                        
-                                    <?php }
+                                    }else{
+                                        echo "Rp " . number_format($belumBayar,0,',','.');
+                                    }
                                 ?>
-                            </td>
-                        </tr>
-                            <?php }
-                            ?>
-                        <tr class="bg-info text-white">
-                            <th class="text-center" scope="col">Total</th>
-                            <td> <?php 
-                            foreach($keuanganPertahun as $u){
-                                echo "Rp " . number_format($u->jumPeminjamanPertahun,0,',','.');
+                                </td>
+                            <?php
                             }
                             ?>
-                            </td>
-                            <td>
-                             <?php 
-                            foreach($keuanganLunasPertahun as $u){
-                                if($u->jumPeminjamanPertahun == 0){
-                                    echo "Rp 0";
-                                }else{
-                                    echo "Rp " . number_format($u->jumPeminjamanPertahun,0,',','.');
-                                }
-                            } ?>
-                            </td>
                             <td>
                             <?php 
                             foreach($keuanganBelumBayarPertahun as $u){
@@ -129,8 +138,9 @@
                             ?>
                             </td>
                         </tr>
+                      
+                      
                     </tbody>
-                   
                 </table>
             </div>
             <div class="row mt-4">

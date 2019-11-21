@@ -147,6 +147,7 @@
                         <input type="text" hidden name="id_peminjaman" value="<?= $id?>">
                         <input type="text" hidden name="id_sarana" value="<?= $u->id_barang?>">
                         <input type="text" hidden name="tgl_mulai" value="<?= $tgl_mulai?>">
+                        <input type="text" hidden name="id_operator" value="<?= $u->id_operator?>">
                         <input type="text" hidden name="tgl_selesai" value="<?= $tgl_selesai?>">
                         <input type="text" hidden name="jam_mulai" value="<?= $jam_mulai?>">
                         <input type="text" hidden name="jam_selesai" value="<?= $jam_selesai?>">

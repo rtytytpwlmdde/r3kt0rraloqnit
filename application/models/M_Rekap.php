@@ -492,7 +492,7 @@ class M_Rekap extends CI_Model{
 		if($tahun == NULL){
 			$tahun = date("Y");
 		}
-		$this->db->select('peminjaman.id_peminjaman ,count(peminjaman.total_pembayaran) as jumPeminjamanPerbulan');
+		$this->db->select('peminjaman.id_peminjaman ,sum(peminjaman.total_pembayaran) as jumPeminjamanPerbulan');
 		$this->db->select('date_format(tanggal_peminjaman,"%m") as bulan');
 		$this->db->select('tanggal_peminjaman');
 		$this->db->from('peminjaman');

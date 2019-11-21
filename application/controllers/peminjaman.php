@@ -257,6 +257,7 @@ class Peminjaman extends CI_Controller {
     function tambahSaranaPeminjaman(){
 		$jenis = $this->input->post('jenis');
 		$id_peminjaman = $this->input->post('id_peminjaman');
+		$id_operator = $this->input->post('id_operator');
 		$tgl_mulai = $this->input->post('tgl_mulai');
 		$tgl_selesai = $this->input->post('tgl_selesai');
 		$id_sarana = $this->input->post('id_sarana');
@@ -266,8 +267,14 @@ class Peminjaman extends CI_Controller {
             'id_peminjaman' => $id_peminjaman,
             'id_sarana' => $id_sarana
         );
+        $data_peminjaman = array(
+            'id_peminjaman' => $id_peminjaman,
+            'operator' => $id_operator
+        );
+        $id = array('id_peminjaman' => $id_peminjaman);
         $peminjaman = 'sarana_peminjaman';
         $this->M_Peminjaman->tambahData($data,$peminjaman);
+        $this->M_Peminjaman->updateData($id,$data_peminjaman,'peminjaman');
         $this->session->set_flashdata('notifsukses', "Data sarana peminjaman berhasil ditambahkan");
         redirect('peminjaman/formTambahSaranaPeminjaman/'.$jenis.'/'.$tgl_mulai.'/'.$tgl_selesai.'/'.$jam_mulai.'/'.$jam_selesai);
     }

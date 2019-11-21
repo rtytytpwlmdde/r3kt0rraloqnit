@@ -166,6 +166,7 @@
             <ul class="list-group mb-1 anyClass" >
                 <li class="list-group-item d-flex justify-content-between lh-condensed ">
                 <div>
+                        <input type="text"  name="id_operator" value="<?= $u->id_operator?>">
                     <h6 class="my-0"><a href="<?php echo base_url("saranaPrasarana/detailRuangan/".$u->id_ruangan)?>"><?php echo $u->nama_ruangan ?></a></h6>
                     <small class="text-muted">Kapasitas <?= $u->kapasitas; ?> orang</small>
                 </div>
