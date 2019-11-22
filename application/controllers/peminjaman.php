@@ -122,7 +122,7 @@ class Peminjaman extends CI_Controller {
         $file_peminjaman = $this->input->post('file_peminjaman');
         $nomor_telpon = $this->input->post('nomor_telpon');
         $wa = "62".substr($nomor_telpon,1);
-        if($jam_mulai >= $jam_selesai || $tanggal_mulai_penggunaan >= $tanggal_selesai_penggunaan){
+        if($jam_mulai > $jam_selesai || $tanggal_mulai_penggunaan > $tanggal_selesai_penggunaan){
             $this->session->set_flashdata('notifsukses', "Pastikan Jam / Tanggal Peminjaman Telah Sesuai");
             redirect('peminjaman/formTambahPeminjaman/'.$jenis_peminjaman);
         }else{
