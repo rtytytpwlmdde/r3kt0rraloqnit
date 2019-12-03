@@ -52,7 +52,7 @@
                 </div>
                 
                 <div class="form-row">
-                    <div class="form-group col-md-4">
+                    <div class="form-group col">
                       <label for="inputEmail4">AC</label>
                       <select class="form-control" id="exampleFormControlSelect1" name="ac">
                         <option value="">Pilih</option>
@@ -60,7 +60,7 @@
                         <option>tidak</option>
                       </select>
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group col">
                       <label for="inputPassword4">Wifi</label>
                       <select class="form-control" id="exampleFormControlSelect1" name="wifi">
                         <option value="">Pilih</option>
@@ -68,7 +68,7 @@
                         <option>tidak</option>
                       </select>
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group col">
                       <label for="inputPassword4">lcd</label>
                       <select class="form-control" id="exampleFormControlSelect1" name="lcd">
                         <option value="">Pilih</option>
@@ -76,7 +76,7 @@
                         <option>tidak</option>
                       </select>
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group col">
                       <label for="inputPassword4">Sound System</label>
                       <select class="form-control" id="exampleFormControlSelect1" name="sound_system">
                         <option value="">Pilih</option>
@@ -84,9 +84,59 @@
                         <option>tidak</option>
                       </select>
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group col">
                       <label for="inputPassword4">Toiled</label>
                       <select class="form-control" id="exampleFormControlSelect1" name="toilet">
+                        <option value="">Pilih</option>
+                        <option>ya</option>
+                        <option>tidak</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                      <label for="inputEmail4">Ruang Rapat</label>
+                      <select class="form-control" id="exampleFormControlSelect1" name="rapat">
+                        <option value="">Pilih</option>
+                        <option>ya</option>
+                        <option>tidak</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputPassword4">Hall</label>
+                      <select class="form-control" id="exampleFormControlSelect1" name="hall">
+                        <option value="">Pilih</option>
+                        <option>ya</option>
+                        <option>tidak</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputPassword4">Terbuka</label>
+                      <select class="form-control" id="exampleFormControlSelect1" name="terbuka">
+                        <option value="">Pilih</option>
+                        <option>ya</option>
+                        <option>tidak</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputPassword4">Auditorium</label>
+                      <select class="form-control" id="exampleFormControlSelect1" name="auditorium">
+                        <option value="">Pilih</option>
+                        <option>ya</option>
+                        <option>tidak</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputPassword4">Olahraga</label>
+                      <select class="form-control" id="exampleFormControlSelect1" name="olahraga_tertutup">
+                        <option value="">Pilih</option>
+                        <option>ya</option>
+                        <option>tidak</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputPassword4">Ruang Kuliah</label>
+                      <select class="form-control" id="exampleFormControlSelect1" name="ruang_kuliah">
                         <option value="">Pilih</option>
                         <option>ya</option>
                         <option>tidak</option>
@@ -123,32 +173,37 @@
                 </div>
                 <div class="form-group">
                     <label for="">Alamat Ruangan</label>
-                    <input  type="text" name="alamat_ruangan" class="form-control ">
+                    <input  type="text" name="alamat_ruangan" class="form-control " placeholder="">
                 </div>
                 <div class="form-group">
                     <label for="">Link </label>
-                    <input  type="text" name="link_maps" class="form-control " >
+                    <input  type="text" name="link_maps" class="form-control " placeholder="link alamat dari google maps dapat di pastekan disini">
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-4">
-                      <label for="inputEmail4">Foto 1</label>
-                      <input type="file"  required class="form-control" id="inputEmail4" name="foto1">
+                    <div class="form-group col">
+                      <img class="image-preview" id="image-preview1"/>   
+                      <label for="inputEmail4">Foto 1</label>                   
+                      <input type="file"  required class="form-control" id="image-source1" onchange="previewImage1();" name="foto1">
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group col">
+                      <img class="image-preview" id="image-preview2"/>   
                       <label for="inputPassword4">Foto 2</label>
-                      <input type="file"  required class="form-control" id="inputPassword4" name="foto2">
+                      <input type="file"  required class="form-control" id="image-source2" onchange="previewImage2();" name="foto2">
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group col">
+                      <img class="image-preview" id="image-preview3"/>   
                       <label for="inputPassword4">Foto 3</label>
-                      <input type="file"  required class="form-control" id="inputPassword4" name="foto3">
+                      <input type="file"  required class="form-control" id="image-source3" onchange="previewImage3();" name="foto3">
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group col">
+                      <img class="image-preview" id="image-preview4"/>   
                       <label for="inputPassword4">Foto 4</label>
-                      <input type="file"  required class="form-control" id="inputPassword4" name="foto4">
+                      <input type="file"  required class="form-control" id="image-source4" onchange="previewImage4();" name="foto4">
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group col">
+                      <img class="image-preview" id="image-preview5"/>   
                       <label for="inputPassword4">Foto 5</label>
-                      <input type="file" required  class="form-control" id="inputPassword4" name="foto5">
+                      <input type="file" required  class="form-control" id="image-source5" onchange="previewImage5();" name="foto5">
                     </div>
                 </div>
                 <div class="form-group">
@@ -171,7 +226,66 @@
 </div>
 
 <script>
-                // Replace the <textarea id="editor1"> with a CKEditor
-                // instance, using default configuration.
-                CKEDITOR.replace( 'deskripsi_ruangan' );
-            </script>
+        CKEDITOR.replace( 'deskripsi_ruangan' );
+</script>
+
+
+<script>
+  function previewImage1() {
+      document.getElementById("image-preview1").style.display = "block";
+      var oFReader = new FileReader();
+      oFReader.readAsDataURL(document.getElementById("image-source1").files[0]);
+  
+      oFReader.onload = function(oFREvent) {
+        document.getElementById("image-preview1").src = oFREvent.target.result;
+      };
+    };
+</script>
+
+<script>
+  function previewImage2() {
+      document.getElementById("image-preview2").style.display = "block";
+      var oFReader = new FileReader();
+      oFReader.readAsDataURL(document.getElementById("image-source2").files[0]);
+  
+      oFReader.onload = function(oFREvent) {
+        document.getElementById("image-preview2").src = oFREvent.target.result;
+      };
+    };
+</script>
+
+<script>
+  function previewImage3() {
+      document.getElementById("image-preview3").style.display = "block";
+      var oFReader = new FileReader();
+      oFReader.readAsDataURL(document.getElementById("image-source3").files[0]);
+  
+      oFReader.onload = function(oFREvent) {
+        document.getElementById("image-preview3").src = oFREvent.target.result;
+      };
+    };
+</script>
+
+<script>
+  function previewImage4() {
+      document.getElementById("image-preview4").style.display = "block";
+      var oFReader = new FileReader();
+      oFReader.readAsDataURL(document.getElementById("image-source4").files[0]);
+  
+      oFReader.onload = function(oFREvent) {
+        document.getElementById("image-preview4").src = oFREvent.target.result;
+      };
+    };
+</script>
+
+<script>
+  function previewImage5() {
+      document.getElementById("image-preview5").style.display = "block";
+      var oFReader = new FileReader();
+      oFReader.readAsDataURL(document.getElementById("image-source5").files[0]);
+  
+      oFReader.onload = function(oFREvent) {
+        document.getElementById("image-preview5").src = oFREvent.target.result;
+      };
+    };
+</script>

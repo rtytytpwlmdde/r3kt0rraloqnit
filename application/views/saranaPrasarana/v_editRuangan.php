@@ -87,6 +87,50 @@
                       </select>
                     </div>
                 </div>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                      <label for="inputEmail4">Ruang Rapat</label>
+                      <select class="form-control" id="exampleFormControlSelect1" name="rapat">
+                        <option value="ya" <?php echo ($u->toilet=='ya')?'selected="selected"':''; ?>>ya</option>
+                        <option value="tidak" <?php echo ($u->toilet=='tidak')?'selected="selected"':''; ?>>tidak</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputPassword4">Tall</label>
+                      <select class="form-control" id="exampleFormControlSelect1" name="hall">
+                        <option value="ya" <?php echo ($u->toilet=='ya')?'selected="selected"':''; ?>>ya</option>
+                        <option value="tidak" <?php echo ($u->toilet=='tidak')?'selected="selected"':''; ?>>tidak</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputPassword4">Terbuka</label>
+                      <select class="form-control" id="exampleFormControlSelect1" name="terbuka">
+                        <option value="ya" <?php echo ($u->toilet=='ya')?'selected="selected"':''; ?>>ya</option>
+                        <option value="tidak" <?php echo ($u->toilet=='tidak')?'selected="selected"':''; ?>>tidak</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputPassword4">Audatorium</label>
+                      <select class="form-control" id="exampleFormControlSelect1" name="audatorium">
+                        <option value="ya" <?php echo ($u->toilet=='ya')?'selected="selected"':''; ?>>ya</option>
+                        <option value="tidak" <?php echo ($u->toilet=='tidak')?'selected="selected"':''; ?>>tidak</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputPassword4">Olahraga</label>
+                      <select class="form-control" id="exampleFormControlSelect1" name="olahraga_tertutup">
+                        <option value="ya" <?php echo ($u->toilet=='ya')?'selected="selected"':''; ?>>ya</option>
+                        <option value="tidak" <?php echo ($u->toilet=='tidak')?'selected="selected"':''; ?>>tidak</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputPassword4">Ruang Kuliah</label>
+                      <select class="form-control" id="exampleFormControlSelect1" name="ruang_kuliah">
+                        <option value="ya" <?php echo ($u->toilet=='ya')?'selected="selected"':''; ?>>ya</option>
+                        <option value="tidak" <?php echo ($u->toilet=='tidak')?'selected="selected"':''; ?>>tidak</option>
+                      </select>
+                    </div>
+                </div>
             <div class="form-row">
                     <div class="form-group col-md-4">
                       <label for="inputEmail4">Luas Ruangan</label>

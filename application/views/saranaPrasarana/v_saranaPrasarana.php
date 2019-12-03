@@ -108,6 +108,44 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                 <div class="card p-2 mb-2">
                     <div>
                         <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="1" name="rapat" >
+                            <label class="form-check-label" for="inlineCheckbox1">Ruang Rapat</label>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="1" name="terbuka" >
+                            <label class="form-check-label" for="inlineCheckbox1">Terbuka</label>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="1" name="hall" >
+                            <label class="form-check-label" for="inlineCheckbox1">Hall</label>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="1" name="auditorium" >
+                            <label class="form-check-label" for="inlineCheckbox1">Auditorium</label>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="1" name="olahraga_tertutup" >
+                            <label class="form-check-label" for="inlineCheckbox1">Olahraga</label>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="1" name="ruang_kuliah" >
+                            <label class="form-check-label" for="inlineCheckbox1">Ruang Kuliah</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-2 mb-2">
+                    <div>
+                        <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" data-toggle="collapse" data-target="#collapseExample" >
                             <label class="form-check-label" for="inlineCheckbox1">Kapasitas</label>
                         </div>
@@ -288,7 +326,7 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                             <span class="text-info m-0 p-0" style="font-size:12px;"><?= $u->nama_fakultas ?> </span><br> 
                             <span style="font-size:14px;">Kapasitas : <?= $u->kapasitas ?> orang</span> <br>
                             <span style="font-size:14px;">Luas : <?= $u->luas_ruangan ?> </span><br>
-                            <span class="text-warning">Rp : <?= $u->harga_ruangan ?> ,-</span> <br>
+                            <span class="text-warning"><?php  echo "Rp " . number_format($u->harga_ruangan,0,',','.');?></span> <br>
                         </div>
                     </div>
                 </div>

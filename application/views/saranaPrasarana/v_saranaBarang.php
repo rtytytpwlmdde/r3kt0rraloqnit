@@ -192,9 +192,9 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                             <?php }?>
                         </div>
                         <div class="col-md-8">
-                            <h4 class="font-weight-bold text-dark m-0"><?= $u->nama_barang;?></h4>                            
+                        <a href="<?php echo base_url("saranaPrasarana/detailBarang/".$u->id_barang);?>"><h4 class="font-weight-bold text-dark m-0" style="font-size: 20px !important; font-family: 'Roboto', sans-serif;" ><?= $u->nama_barang;?></h4></a>
                             <span class="text-info m-0 p-0" style="font-size:12px;"><?= $u->nama_fakultas ?> </span><br> 
-                            <span class="text-warning">Rp : <?= $u->harga_barang ?> ,-</span> <br>
+                            <span class="text-warning"><?php  echo "Rp " . number_format($u->harga_barang,0,',','.');?></span> <br>
 
 
                         </div>

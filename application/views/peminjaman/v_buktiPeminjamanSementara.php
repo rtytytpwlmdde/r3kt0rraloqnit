@@ -157,7 +157,6 @@
 	</div>
 </section>
 <?php break; } ?>
-<script>window.print();</script>
 
 
   <!-- Bootstrap core JavaScript-->

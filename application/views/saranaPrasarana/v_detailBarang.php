@@ -56,7 +56,7 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
             <div class="col-md-4">
                 <div class="px-2 ">
                   <div class="d-flex flex-row-reverse bd-highlight">
-                      <h5 class="btn btn-warning">Rp <?= $u->harga_barang;?>,-</h5>
+                      <h5 class="btn btn-warning"><?php  echo "Rp " . number_format($u->harga_barang,0,',','.');?></h5>
                   </div>
                 </div>
             </div>
@@ -177,7 +177,7 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                   </div>
                   <div class="col-md-6">
                     <div class="bg-primary text-white p-2 mb-1">
-                        <span>Usia</span><br>
+                        <span>Usia Barang</span><br>
                         <span><?= $u->usia_barang?></span>
                     </div>
                   </div>

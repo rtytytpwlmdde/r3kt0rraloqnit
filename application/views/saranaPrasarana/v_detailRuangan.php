@@ -56,7 +56,7 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
             <div class="col-md-4">
                 <div class="px-2 ">
                   <div class="d-flex flex-row-reverse bd-highlight">
-                      <h5 class="btn btn-warning">Rp <?= $u->harga_ruangan;?>,-</h5>
+                      <h5 class="btn btn-warning"><?php  echo "Rp " . number_format($u->harga_ruangan,0,',','.');?></h5>
                   </div>
                 </div>
             </div>
@@ -160,32 +160,60 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
         </div>
         <div class="border  text-center">
           <div class="row py-2">
-            <div class="col">
+            <?php if($u->ac == 'ya'){?>
+              <div class="col">
                 <h5><i style="font-size:45px" class="text-primary fas fa-wind"></i></h5>
                 <h6>AC</h6>
               </div>
+            <?php } ?>
+            <?php if($u->wifi == 'ya'){?>
               <div class="col">
                 <h5><i style="font-size:45px" class="text-primary fas fa-wifi"></i></h5>
                 <h6>Wifi</h6>
               </div>
+            <?php } ?>
+            <?php if($u->sound_system == 'ya'){?>
               <div class="col">
                 <h5><i style="font-size:45px" class="text-primary fas fa-microphone-alt"></i></h5>
                 <h6>Sound System</h6>
               </div>
+            <?php } ?>
+            <?php if($u->lcd == 'ya'){?>
               <div class="col">
                 <h5><i style="font-size:45px" class="text-primary fas fa-projector"></i></h5>
                 <h6>Projector</h6>
               </div>
+            <?php } ?>
+            <?php if($u->toilet == 'ya'){?>
               <div class="col">
                 <h5><i style="font-size:45px" class="text-primary fas fa-toilet"></i></h5>
-                <h6>Toiled</h6>
+                <h6>Toilet</h6>
               </div>
+            <?php } ?>
           </div>
         </div>
         <div class="row py-2 ">
             <div class="col-md-6 ">
                 <div class=" border px-2">
                     <h5 class="font-weight-bold m-0 text-dark">Deskripsi Ruangan</h5>
+                      <?php if($u->rapat == 'ya'){?>
+                        <span class="badge badge-info">Ruangan Rapat</span>
+                      <?php } ?>
+                      <?php if($u->hall == 'ya'){?>
+                        <span class="badge badge-info">Hall</span>
+                      <?php } ?>
+                      <?php if($u->terbuka == 'ya'){?>
+                        <span class="badge badge-info">Ruangan Terbuka</span>
+                      <?php } ?>
+                      <?php if($u->auditorium == 'ya'){?>
+                        <span class="badge badge-info">Auditorium</span>
+                      <?php } ?>
+                      <?php if($u->olahraga_tertutup == 'ya'){?>
+                        <span class="badge badge-info">Olahraga</span>
+                      <?php } ?>
+                      <?php if($u->ruang_kuliah == 'ya'){?>
+                        <span class="badge badge-info">Ruang Kuliah</span>
+                      <?php } ?>
                     <span><?= $u->deskripsi_ruangan;?></span>
                 </div>
             </div>

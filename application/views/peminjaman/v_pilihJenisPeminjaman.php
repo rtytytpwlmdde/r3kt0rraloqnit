@@ -1,4 +1,10 @@
+<?php
+if($this->session->userdata('logged_in') == FALSE){  ?>
+
+<div class="container">
+<?php }else{ ?>
 <div class="">
+<?php } ?>
 <?php
         $gagal = $this->session->flashdata('gagal');
         if($gagal != NULL){

@@ -151,9 +151,12 @@ if($this->session->userdata('status') == "pengguna"){
 
                     <td><a href="<?php echo site_url('Peminjaman/detailPeminjaman/'.$u->id_peminjaman.'/'.$u->jenis_peminjaman); ?>"><?php echo $u->id_peminjaman; ?></a></td>
                     
-                    <td><?php echo $u->nama_mahasiswa; ?></td>
-                    <td><?= date("d-m-Y", strtotime($u->tanggal_mulai_penggunaan)); ?></td>
-                    <td><?php echo $u->nama_ruangan; ?><?php echo $u->nama_barang; ?></td>
+                    <td><?php echo $u->nama_mahasiswa; ?><?php echo $u->nama_peminjam; ?></td>
+                    <td><?= date("d-m-Y", strtotime($u->tanggal_mulai_penggunaan)); ?>s/d<?= date("d-m-Y", strtotime($u->tanggal_selesai_penggunaan)); ?></td>
+                    <td>
+                    
+                    <?php echo $u->nama_ruangan; ?><?php echo $u->nama_barang; ?></td>
+                    
                     <td><?php $mulai = explode("-", $u->nama_waktu);
                                 echo $start = $mulai[0]; ?></td>
                     <td
@@ -177,8 +180,8 @@ if($this->session->userdata('status') == "pengguna"){
                                 <input hidden type="text" name="jenis_peminjaman" value="<?= $u->jenis_peminjaman;?>">
                                 <button type="submit" class="btn btn-success btn-sm" title="Setuju Peminjaman">Setuju</button>
                             </form>
-                            <a data-toggle="modal" data-id="<?php echo $u->id_peminjaman; ?>" title="Tolak Peminjaman" class="modalTolakPeminjaman btn btn-outline-danger btn-sm" href="#modalTolakPeminjaman">Tolak</a>
-                            <a data-toggle="modal" data-id="<?php echo $u->id_peminjaman; ?>" title="Batalkan Peminjaman" class="modalBatalPeminjaman btn btn-outline-secondary btn-sm" href="#modalBatalPeminjaman">Batal</a>
+                            <a data-toggle="modal" data-id="<?php echo $u->id_peminjaman; ?>" data-jenis="<?php echo $u->jenis_peminjaman; ?>" title="Tolak Peminjaman" class="modalTolakPeminjaman btn btn-outline-danger btn-sm" href="#modalTolakPeminjaman">Tolak</a>
+                            <a data-toggle="modal" data-id="<?php echo $u->id_peminjaman; ?>" data-jenis="<?php echo $u->jenis_peminjaman; ?>" title="Batalkan Peminjaman" class="modalBatalPeminjaman btn btn-outline-secondary btn-sm" href="#modalBatalPeminjaman">Batal</a>
 
                         <?php } ?> 
                         <?php if( $u->validasi_akademik == 'setuju'){ ?>
@@ -240,7 +243,7 @@ if($this->session->userdata('status') == "pengguna"){
         <form action="<?php echo base_url().'Peminjaman/tolakPeminjaman'; ?>" method="post">
         Alasan Penolakan : <br>
         <input type="text"  hidden class="form-control" name="id_peminjaman" id="id_peminjaman" value=""/>
-        <input type="text"  hidden class="form-control" name="jenis"  value="non kelas"/>
+        <input type="text"  hidden class="form-control" name="jenis" id="jenis"  value=""/>
         <textarea class="form-control"  name="catatan_penolakan" rows="3"></textarea>
             <div class="d-flex flex-row-reverse bd-highlight py-2">
                 <div class="px-1"><button type="submit" class="btn btn-primary btn-sm">Tolak Peminjaman</button></div>
@@ -279,6 +282,9 @@ $(document).on("click", ".modalTolakPeminjaman", function () {
      var peminjaman = $(this).data('id');
      $(".modal-body #id_peminjaman").val( peminjaman );
      $(".peminjaman").val( peminjaman );
+     var jenis = $(this).data('jenis');
+     $(".modal-body #jenis").val( jenis );
+     $(".jenis").val( jenis );
 });
 </script>
 

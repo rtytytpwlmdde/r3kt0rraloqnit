@@ -62,27 +62,32 @@
                         <td class="text-left headcol" style="font-size:14px;"><a href="<?php echo base_url("saranaPrasarana/detailBarang/".$r->id_barang)?>"><?= $r->nama_barang?></a> <br>
                             <?php 
                             foreach ($waktu as $w){
-                                $result = 0;
+                                $result = 0; $terkirim = 0; $setuju = 0; 
+                                $nama_keterangan=null; $nama_waktu=null; $nama_barang=null; $nama_penyelenggara = null;
                             ?>
                             <td  class="text-center table-bordered">
                                 <?php 
                                 foreach ($peminjaman as $j){
+
                                     $start = $j->jam_mulai;
                                     $end = $j->jam_selesai;
                                     for ($jam = $start; $jam <= $end; $jam++) {
                                         if($j->id_barang == $r->id_barang){
                                             if($w->id_waktu == $jam){
                                                 if($j->validasi_akademik == 'setuju'){
+                                                    $setuju = 1;
+                                                    $nama_keterangan =$j->keterangan;
+                                                    $nama_waktu = $w->nama_waktu;
+                                                    $nama_barang = $j->nama_barang;
+                                                    $nama_penyelenggara = $j->penyelenggara;
                                                 ?> 
-                                                    <a data-toggle="modal"  style="cursor: pointer;" data-keterangan="<?= $j->keterangan; ?>" data-barang="<?= $r->nama_barang; ?>" data-jam="<?= $w->nama_waktu; ?>" data-penyelenggara="<?= $j->penyelenggara; ?>"
-                                                        class="btn open-modaRuangan text-dark" href="#modaRuangan">
-                                                        <i class="fas fa-square text-danger"  title="Barang Digunakan" style="font-size:22px"></i>
-                                                    </a>
-                                                <?php }else{?>
-                                                    <a data-toggle="modal"  style="cursor: pointer;" data-keterangan="<?= $j->keterangan; ?>" data-barang="<?= $r->nama_barang; ?>" data-jam="<?= $w->nama_waktu; ?>" data-penyelenggara="<?= $j->penyelenggara; ?>"
-                                                    class="btn open-modaRuangan text-dark" href="#modaRuangan">
-                                                    <i class="fas fa-times-circle fa-lg text-warning"  title="Barang Sedang Menungu Proses Validasi Peminjaman"></i>
-                                                    </a>
+                                                <?php }else{
+                                                    $terkirim = 1;
+                                                    $nama_keterangan =$j->keterangan;
+                                                    $nama_waktu = $w->nama_waktu;
+                                                    $nama_barang = $j->nama_barang;
+                                                    $nama_penyelenggara = $j->penyelenggara;
+                                                    ?>
                                                 <?php } 
                                                 $result=1;
                                             }
@@ -93,7 +98,20 @@
                                     <a class="my-2 pt-2">
                                     <i  class="m-2 pt-2"  title="Barang Tidak Digunakan"></i>
                                     </a> <?php 
-                                }
+                                }else{?>
+                                    <?php if($setuju == 1){ ?>
+                                            <a data-toggle="modal"  style="cursor: pointer;" data-keterangan="<?= $nama_keterangan; ?>" data-barang="<?= $nama_barang; ?>" data-jam="<?= $nama_waktu; ?>" data-penyelenggara="<?= $nama_penyelenggara; ?>"
+                                                class="btn open-modaRuangan text-dark" href="#modaRuangan">
+                                                <i class="fas fa-square text-danger"  title="Barang Digunakan" style="font-size:22px"></i>
+                                            </a>
+                                        <?php }?>
+                                    <?php if($terkirim == 1){ ?>
+                                            <a data-toggle="modal"  style="cursor: pointer;" data-keterangan="<?= $nama_keterangan; ?>" data-barang="<?= $nama_barang; ?>" data-jam="<?= $nama_waktu; ?>" data-penyelenggara="<?= $nama_penyelenggara; ?>"
+                                            class="btn open-modaRuangan text-dark" href="#modaRuangan">
+                                            <i class="fas fa-times-circle fa-lg text-warning"  title="Barang Sedang Menungu Proses Validasi Peminjaman"></i>
+                                            </a>
+                                        <?php }?>
+                                <?php }
                                 ?> 
                             </td>
                             <?php } ?>

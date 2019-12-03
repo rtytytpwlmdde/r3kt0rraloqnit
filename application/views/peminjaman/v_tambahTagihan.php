@@ -1,7 +1,10 @@
-<?php if($this->session->userdata('status') == "pengguna"){ ?>
+    <?php
+    if($this->session->userdata('logged_in') == FALSE || $this->session->userdata('status') == 'FALSE'){  ?>
+
     <div class="container">
-<?php }else{?><div class="">
-<?php }?>
+    <?php }else{ ?>
+
+    <?php } ?>
   <div class="row mt-4 ">
     <div class="col-md-8 order-md-1 mb-2 pb-2">
       <div class="card shadow mb-4">
@@ -23,7 +26,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Nama</label>
-                <input disabled type="text"  required name="id_peminjam" class="form-control " value="<?= $u->nama_mahasiswa; ?>">
+                <input disabled type="text"  required name="id_peminjam" class="form-control " value="<?= $u->nama_mahasiswa; ?><?= $u->nama_peminjam; ?>">
             </div>
             <div class="row">
             <div class="col-md-6 mb-3">
@@ -120,12 +123,14 @@
                 <input disabled type="text"  required name="penyelenggara" class="form-control " value="<?= $u->nomor_telpon; ?>">
             </div>
             <div class="form-group">
-                <label for="">Keterangan Pengguna</label>
+                <label for="">Nama Kegiatan</label>
                 <textarea disabled class="form-control"  name="keterangan" rows="3" value=""><?= $u->keterangan; ?></textarea>
             </div>
             <div class="form-group">
-                <label for="exampleFormControlSelect1">Ruangan</label>
-                <input disabled type="text"  required name="penyelenggara" class="form-control " value="<?= $u->nama_ruangan;?><?= $u->nama_barang;?>">
+                <label for="exampleFormControlSelect1">Sarana</label>
+                <?php foreach($sarana_peminjaman as $a){ ?>
+                    <div class="badge badge-danger"><?= $a->nama_ruangan?><?= $a->nama_barang?></div>
+                <?php } ?>
             </div>
             <hr class="mb-4">
             <h5 class="mb-3">Biaya Yang Harus Dibayarkan</h5>
@@ -134,10 +139,10 @@
                     <thead>
                     <tr>
                         <td>No</td>
-                        <td>Tagihan</td>
-                        <td>Jumlah</td>
-                        <td>Harga @</td>
-                        <td>Total</td>
+                        <td class="text-center">Tagihan</td>
+                        <td class="text-center">Jumlah</td>
+                        <td class="text-center">Harga @</td>
+                        <td class="text-center">Total</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -145,10 +150,10 @@
                     foreach($tagihan as $t){?>
                     <tr>
                         <td><?= $no ?></td>
-                        <td><?= $t->nama_tagihan;?></td>
-                        <td><?= $t->jumlah;?></td>
-                        <td><?= $t->harga_satuan;?></td>
-                        <td>Rp <?= $t->total_tagihan;?></td>
+                        <td style="width:250px;"><?= $t->nama_tagihan;?></td>
+                        <td class="text-center"><?= $t->jumlah;?></td>
+                        <td class="text-right"><?php  echo "Rp " . number_format($t->harga_satuan,0,',','.');?></td>
+                        <td class="text-right"><?php  echo "Rp " . number_format($t->total_tagihan,0,',','.');?></td>
                     </tr>
                     <?php $no++; 
                         $total = $total + $t->total_tagihan;
@@ -156,7 +161,7 @@
                      <tr class="bg-info">
                         <td>#</td>
                         <td class=" text-white" colspan="3">Total Biaya Peminjaman</td>
-                        <td class=" text-white" >Rp <?= $total;?></td>
+                        <td class="text-right text-white" ><?php  echo "Rp " . number_format($total,0,',','.');?></td>
                      </tr>
                     </tbody>
                </table>                     
@@ -181,7 +186,12 @@
       </div>
     </div>
     
-    <div class="col-md-4 order-md-2 mb-4">
+    <?php
+    if($this->session->userdata('logged_in') == FALSE || $this->session->userdata('status') == 'FALSE'){  ?>
+
+    <div class="container">
+    <?php }else{ ?>
+        <div class="col-md-4 order-md-2 mb-4">
       <div class="card shadow mb-4">
         <div class="card-header py-3 bg-thead text-white">
           <h6 class="m-0 font-weight-bold  d-flex justify-content-between">Tambahkan Biaya Peminjaman 
@@ -231,10 +241,11 @@
         </div>
       </div>
     </div>
+    <?php } ?>
+   
   </div>
 
 
-</div>
 
 
 

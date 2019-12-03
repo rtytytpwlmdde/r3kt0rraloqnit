@@ -92,20 +92,66 @@ class M_Peminjaman extends CI_Model{
 		return $query->result();
 	}
 
+	function getSaranaPeminjamanByIdStatus($id){
+        $this->db->select('*');
+        $this->db->from('sarana_peminjaman');
+		$this->db->where('sarana_peminjaman.id_peminjaman', $id);
+		$this->db->where('sarana_peminjaman.status_peminjaman !=', 'setuju');
+		$query=$this->db->get();
+		if($this->db->affected_rows() > 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 	function getDataPeminjamanByIdTagihan($id){
         $this->db->select('*');
         $this->db->from('peminjaman');
-		$this->db->join('mahasiswa','peminjaman.id_peminjam = mahasiswa.id_mahasiswa');
+		$this->db->join('mahasiswa','peminjaman.id_peminjam = mahasiswa.id_mahasiswa','left');
 		$this->db->join('sarana_peminjaman','peminjaman.id_peminjaman = sarana_peminjaman.id_peminjaman');
 		$this->db->join('ruangan','ruangan.id_ruangan = sarana_peminjaman.id_sarana','left');
 		$this->db->join('barang','barang.id_barang = sarana_peminjaman.id_sarana','left');
 		$this->db->join('waktu','peminjaman.jam_mulai = waktu.id_waktu');
 		$this->db->where('peminjaman.id_peminjaman', $id);
 		$this->db->where('peminjaman.validasi_akademik', 'pending');
+		$this->db->group_by('sarana_peminjaman.id_peminjaman');
+		$query=$this->db->get();
+		return $query->result();
+	}
+
+	function getDataPeminjamanUntukControllerTagihan($id){
+        $this->db->select('*');
+        $this->db->from('peminjaman');
+		$this->db->join('sarana_peminjaman','peminjaman.id_peminjaman = sarana_peminjaman.id_peminjaman');
+		$this->db->join('ruangan','ruangan.id_ruangan = sarana_peminjaman.id_sarana','left');
+		$this->db->join('barang','barang.id_barang = sarana_peminjaman.id_sarana','left');
+		$this->db->where('sarana_peminjaman.id_peminjaman', $id);
+		$query=$this->db->get();
+		return $query->result();
+	}
+
+	function getDataSaranaPeminjamanByIdPeminjaman($id,$jenis){
+        $this->db->select('*');
+        $this->db->from('peminjaman');
+		$this->db->join('sarana_peminjaman','peminjaman.id_peminjaman = sarana_peminjaman.id_peminjaman');
+		$this->db->join('ruangan','ruangan.id_ruangan = sarana_peminjaman.id_sarana','left');
+		$this->db->join('barang','barang.id_barang = sarana_peminjaman.id_sarana','left');
+		$this->db->where('sarana_peminjaman.id_peminjaman', $id);
+		$this->db->where('peminjaman.jenis_peminjaman', $jenis);
 		$query=$this->db->get();
 		return $query->result();
 	}
 	
+	function getDataTagihanByIdPeminjaman($id){
+        $this->db->select('*');
+        $this->db->from('tagihan');
+		$this->db->join('peminjaman','peminjaman.id_peminjaman = tagihan.id_peminjaman');
+		$this->db->where('tagihan.id_peminjaman', $id);
+		$query=$this->db->get();
+		return $query->result();
+	}
+
 	function getDataPeminjaman($number,$offset){
 		$operator = $this->session->userdata('username');
 		$search = $this->input->get('search');
@@ -119,8 +165,8 @@ class M_Peminjaman extends CI_Model{
 		$tgl_selesai = $this->input->get('tgl_selesai');
 		$status_pembayaran = $this->input->get('status_pembayaran');
         $this->db->select('*');
-		$this->db->join('mahasiswa','peminjaman.id_peminjam = mahasiswa.id_mahasiswa');
-		$this->db->join('sarana_peminjaman','peminjaman.id_peminjaman = sarana_peminjaman.id_peminjaman');
+		$this->db->join('mahasiswa','peminjaman.id_peminjam = mahasiswa.id_mahasiswa','left');
+		$this->db->join('sarana_peminjaman','peminjaman.id_peminjaman = sarana_peminjaman.id_peminjaman','left');
 		$this->db->join('ruangan','ruangan.id_ruangan = sarana_peminjaman.id_sarana','left');
 		$this->db->join('barang','barang.id_barang = sarana_peminjaman.id_sarana','left');
 		$this->db->join('waktu','peminjaman.jam_mulai = waktu.id_waktu');
@@ -135,7 +181,9 @@ class M_Peminjaman extends CI_Model{
 			$this->db->or_like('mahasiswa.nama_mahasiswa', $search);
 		}
 		if($this->session->userdata('status') == "staff pelayanan" || $this->session->userdata('status') == "admin"){
-			$this->db->where('peminjaman.operator',$operator);
+			$this->db->where('ruangan.id_operator',$operator);
+			$this->db->or_where('barang.id_operator',$operator);
+
 		}
 		
 		if($this->session->userdata('status') == "pengguna"){
@@ -178,9 +226,45 @@ class M_Peminjaman extends CI_Model{
 			$this->db->where('YEAR(peminjaman.tanggal_peminjaman)',$tahun);
 		}
 
+		$this->db->group_by('peminjaman.id_peminjaman');
 		$this->db->order_by('peminjaman.tanggal_peminjaman','desc');
 		$query = $this->db->get('peminjaman',$number,$offset);
 		return 	$query->result();	
+	}
+
+	function getDataDetailPeminjaman($id_peminjaman){
+		$operator = $this->session->userdata('username');
+        $this->db->select('*');
+		$this->db->join('sarana_peminjaman','peminjaman.id_peminjaman = sarana_peminjaman.id_peminjaman','left');
+		$this->db->join('ruangan','ruangan.id_ruangan = sarana_peminjaman.id_sarana','left');
+		$this->db->join('barang','barang.id_barang = sarana_peminjaman.id_sarana','left');
+
+		$this->db->where('peminjaman.id_peminjaman',$id_peminjaman);
+		if($this->session->userdata('status') == "staff pelayanan" || $this->session->userdata('status') == "admin"){
+			$this->db->where('ruangan.id_operator',$operator);
+			$this->db->or_where('barang.id_operator',$operator);
+
+		}
+
+
+		$query = $this->db->get('peminjaman');
+		return 	$query->result();	
+	}
+
+	function getSaranaPeminjamanByOperator($id,$jenis){
+		$operator = $this->session->userdata('username');
+        $this->db->select('*');
+        $this->db->from('sarana_peminjaman');
+		$this->db->join('ruangan','ruangan.id_ruangan = sarana_peminjaman.id_sarana','left');
+		$this->db->join('barang','barang.id_barang = sarana_peminjaman.id_sarana','left');
+		if($jenis == 'ruangan'){
+			$this->db->where('ruangan.id_operator', $operator);
+		}else{
+			$this->db->where('barang.id_operator', $operator);
+		}
+        $this->db->where('sarana_peminjaman.id_peminjaman', $id);
+		$query=$this->db->get();
+		return $query->result();
 	}
 
 	function jumlahDataPeminjaman(){
@@ -285,7 +369,7 @@ class M_Peminjaman extends CI_Model{
 	function getDetailPeminjaman($id_peminjaman){
         $this->db->select('*');
         $this->db->from('peminjaman');
-		$this->db->join('mahasiswa','peminjaman.id_peminjam = mahasiswa.id_mahasiswa');
+		$this->db->join('mahasiswa','peminjaman.id_peminjam = mahasiswa.id_mahasiswa','left');
 		$this->db->join('waktu','peminjaman.jam_mulai = waktu.id_waktu');
 		$this->db->join('sarana_peminjaman','peminjaman.id_peminjaman = sarana_peminjaman.id_peminjaman');
 		$this->db->join('ruangan','ruangan.id_ruangan = sarana_peminjaman.id_sarana','left');
@@ -363,13 +447,6 @@ class M_Peminjaman extends CI_Model{
         $this->db->from('peminjaman');
 		$this->db->join('sarana_peminjaman','peminjaman.id_peminjaman = sarana_peminjaman.id_peminjaman');
 		if($jenis_peminjaman == "kelas"){
-			$this->db->join('ruangan','sarana_peminjaman.id_sarana = ruangan.id_ruangan');
-			$this->db->join('jam_kuliah','peminjaman.id_jam_kuliah = jam_kuliah.id_jam_kuliah');
-			$this->db->join('semester','peminjaman.id_semester = semester.id_semester');
-			$this->db->join('mahasiswa','peminjaman.id_peminjam = mahasiswa.id_mahasiswa');
-			$this->db->join('program_studi','peminjaman.id_program_studi = program_studi.id_program_studi');
-			$this->db->join('dosen','peminjaman.id_dosen = dosen.id_dosen');
-			$this->db->join('matakuliah','peminjaman.id_matakuliah = matakuliah.id_matakuliah');
         }else if($jenis_peminjaman == "barang"){
 			$this->db->join('barang','sarana_peminjaman.id_sarana = barang.id_barang');
         }else{
@@ -381,7 +458,7 @@ class M_Peminjaman extends CI_Model{
 	}
 
 	function getJenisPeminjaman($id_peminjaman){
-        $this->db->select('jenis_peminjaman');
+        $this->db->select('*');
         $this->db->from('peminjaman');
 		$this->db->where('id_peminjaman',$id_peminjaman);
 		$query=$this->db->get();
@@ -392,7 +469,7 @@ class M_Peminjaman extends CI_Model{
 		}
 	}
 	
-	function getRuanganTersedia($tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai){
+	function getRuanganTersedia($id_peminjam, $tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai){
 		$this->db->select('*');
 		$this->db->from('ruangan');
 		$this->db->where("id_ruangan NOT IN 
@@ -410,21 +487,17 @@ class M_Peminjaman extends CI_Model{
 		OR (('$jam_mulai' <= jam_mulai) and (jam_mulai <= '$jam_selesai')) 
 			OR (('$jam_mulai' <= jam_selesai) and (jam_selesai <= '$jam_selesai')))
 		AND
-		((peminjaman.validasi_akademik != 'batal') || (peminjaman.validasi_akademik != 'tolak'))
+		((peminjaman.validasi_akademik = 'setuju'))
+		OR
+		((peminjaman.id_peminjam = '$id_peminjam'))
 		)"
-		, NULL, FALSE);
-		$this->db->where('jenis_ruangan','ruangan');
-		$operator = $this->session->userdata('status');
-		$id_operator = $this->session->userdata('username');
-		if($operator == 'staff pelayanan'){
-			$this->db->where('id_operator',$id_operator);
-		}
+		, NULL, FALSE);	
 		$this->db->order_by('ruangan.nama_ruangan');
 		$query = $this->db->get();
 		return $query->result();
 	}
 
-	function getBarangTersedia($tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai){
+	function getBarangTersedia($id_peminjam, $tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai){
 		$this->db->select('*');
 		$this->db->from('barang');
 		$this->db->where("id_barang NOT IN 
@@ -441,8 +514,13 @@ class M_Peminjaman extends CI_Model{
 			OR ((jam_mulai <= '$jam_selesai') and ('$jam_selesai' <= jam_selesai))
 		OR (('$jam_mulai' <= jam_mulai) and (jam_mulai <= '$jam_selesai')) 
 			OR (('$jam_mulai' <= jam_selesai) and (jam_selesai <= '$jam_selesai')))
+		AND
+		((peminjaman.validasi_akademik = 'setuju'))
+		OR
+		((peminjaman.id_peminjam = '$id_peminjam'))
 		)"
-		, NULL, FALSE);
+		, NULL, FALSE);		
+
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -450,7 +528,7 @@ class M_Peminjaman extends CI_Model{
 	function getDataPeminjamanNonKelasByDate($tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai){
 		$this->db->select('*');
         $this->db->from('peminjaman');
-		$this->db->join('mahasiswa','peminjaman.id_peminjam = mahasiswa.id_mahasiswa');
+		$this->db->join('mahasiswa','peminjaman.id_peminjam = mahasiswa.id_mahasiswa','left');
 		$this->db->where('peminjaman.tanggal_mulai_penggunaan',$tanggal_mulai_penggunaan);
 		$this->db->where('peminjaman.tanggal_selesai_penggunaan',$tanggal_selesai_penggunaan);
 		$this->db->where('peminjaman.jam_mulai',$jam_mulai);
@@ -508,13 +586,7 @@ class M_Peminjaman extends CI_Model{
 		return $query;
 	}
 
-	function getDataTagihanByIdPeminjaman($id){
-        $this->db->select('*');
-        $this->db->from('tagihan');
-		$this->db->where('id_peminjaman', $id);
-		$query=$this->db->get();
-		return $query->result();
-	}
+
 
 	function getDataHargaSewaPeminjaman($id_peminjaman){
         $this->db->select('*');

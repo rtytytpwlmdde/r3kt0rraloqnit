@@ -1,4 +1,4 @@
-<?php if($this->session->userdata('status') == "pengguna"){ ?>
+<?php if($this->session->userdata('status') == "pengguna" || $this->session->userdata('logged_in') == FALSE){ ?>
     <div class="container">
 <?php }else{?><div class="">
 <?php }?>
@@ -52,16 +52,25 @@
         <div class="card-body">
           <form class="user" action="<?php echo base_url().'peminjaman/tambahPeminjaman'; ?>" method="post" enctype="multipart/form-data">
           
-            <div class="form-group">
-                <label for="exampleFormControlSelect1">Pengguna</label>
-                <?php if($this->session->userdata('status') == 'pengguna'){ ?>
+                <?php if($this->session->userdata('logged_in') == FALSE){ ?>
+                  <div class="form-group">
+                  <label for="exampleFormControlSelect1">Pengguna</label>
+                  <input type="text"   name="nama_peminjam" class="form-control " value="">
+                  </div>
                 <?php }else{ ?>
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Pengguna</label>                    
+                    <input type="text"  hidden name="nama_peminjam" class="form-control " value="<?= $this->session->userdata('username')?>">
+
+                    <input type="text"  disabled name="" class="form-control " value="<?= $this->session->userdata('username')?>">
+                    <input type="text"  hidden name="id_peminjam" class="form-control " value="<?= $this->session->userdata('username')?>">
+                  </div>
                 <?php }?>
-                <?php ?>
-                <input type="text"  disabled name="" class="form-control " value="<?= $this->session->userdata('username')?>">
-                <input type="text"  hidden name="id_peminjam" class="form-control " value="<?= $this->session->userdata('username')?>">
               <input type="text"   hidden name="jenis_peminjaman" class="form-control " value="<?= $jenis_peminjaman?>">
-            </div>
+              <div class="form-group">
+                  <label for="exampleFormControlSelect1">NIM/NIK/NIP</label>
+                  <input type="text"   name="id_peminjam" class="form-control " value="">
+                  </div>
             <div class="row">
               <div class="col-md-6 mb-3">
                   <div class="form-group">
@@ -119,7 +128,7 @@
                 <input type="text"  required name="nomor_telpon" class="form-control " placeholder="ex: 081358xxxx">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlSelect1">Keterangan</label>
+                <label for="exampleFormControlSelect1">Nama Kegiatan</label>
                 <input type="text"  required name="keterangan" class="form-control ">
             </div>
             <div class="form-group">

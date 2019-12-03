@@ -12,7 +12,6 @@ class Peminjaman extends CI_Controller {
 		$this->load->model('M_User');
     }
     
-
     function historyPeminjaman(){
         $peminjaman = $this->M_Peminjaman->getDataPeminjamanPending();
         foreach ($peminjaman as $u){
@@ -61,15 +60,13 @@ class Peminjaman extends CI_Controller {
     }
 
     function detailPeminjaman($id_peminjaman,$jenis_peminjaman){
-        if($this->session->userdata('logged_in') == FALSE){
-            redirect("auth/logout");
-        }
         $data['main_view'] = 'peminjaman/v_detailPeminjaman';
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
         $data['id_peminjaman'] = $id_peminjaman;
 		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
         $data['waktu'] = $this->M_Peminjaman->getDataWaktu()->result();
         $data['peminjaman'] = $this->M_Peminjaman->getDetailPeminjaman($id_peminjaman);
+        $data['header'] = $this->M_Peminjaman->getDataDetailPeminjaman($id_peminjaman);
         $data['tagihan'] = $this->M_Peminjaman->getDataTagihanByIdPeminjaman($id_peminjaman);
         $data['sarana'] = $this->M_Peminjaman->getSaranaPeminjamanById($id_peminjaman,$jenis_peminjaman);
         if($this->session->userdata('status') == "pengguna" || $this->session->userdata('logged_in') == FALSE){ 
@@ -83,7 +80,9 @@ class Peminjaman extends CI_Controller {
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
         $data['main_view'] = 'peminjaman/v_pilihJenisPeminjaman';
-        if($this->session->userdata('status') == "pengguna"){ 
+        if($this->session->userdata('logged_in') == FALSE){ 
+            $this->load->view('template/template_user',$data);
+        }else if($this->session->userdata('status') == "pengguna"){ 
             $this->load->view('template/template_user',$data);
         }else{
             $this->load->view('template/template_operator',$data);
@@ -106,7 +105,7 @@ class Peminjaman extends CI_Controller {
         $data['waktu'] = $this->M_Peminjaman->getDataWaktu()->result();
 		$data['mahasiswa'] = $this->M_User->getDataDosen()->result();
         $data['lembaga'] = $this->M_User->getDataLembaga()->result();
-        if($this->session->userdata('status') == "pengguna"){ 
+        if($this->session->userdata('status') == "pengguna" || $this->session->userdata('logged_in') == FALSE){ 
             $this->load->view('template/template_user',$data);
         }else{
             $this->load->view('template/template_operator',$data);
@@ -114,6 +113,7 @@ class Peminjaman extends CI_Controller {
     }
 
     function tambahPeminjaman(){
+        $nama_peminjam = $this->input->post('nama_peminjam');
         $jenis_peminjaman = $this->input->post('jenis_peminjaman');
         $tanggal_mulai_penggunaan = $this->input->post('tanggal_mulai_penggunaan');
         $tanggal_selesai_penggunaan = $this->input->post('tanggal_selesai_penggunaan');
@@ -128,9 +128,7 @@ class Peminjaman extends CI_Controller {
         }else{
             $config['upload_path']          = './assets/peminjaman/';
             $config['allowed_types']        = 'pdf';
-            $config['max_size']             = 1000;
-            $config['max_width']            = 2024;
-            $config['max_height']           = 1768;
+            $config['max_size']             = 6000;
 
             $this->load->library('upload', $config);
 
@@ -151,68 +149,68 @@ class Peminjaman extends CI_Controller {
             $status_kembali = 'belum';
             $keterangan = $this->input->post('keterangan');
             
-            if($this->M_User->cekMahasiswa() == TRUE){
-                $peminjaman = $this->M_Peminjaman->getIdMaxPeminjaman();
-                $id = null;
-                foreach ($peminjaman as $u){ echo $id=$u->id_peminjaman;}
-                if($id != null){
-                    $id_peminjaman = $id+1;
-                }else{
-                    $kode_tgl = str_replace("-","",$tanggal_mulai_penggunaan);
-                    $id_peminjaman = "2".$kode_tgl."0001";
-                }
-                if($jenis_peminjaman == 'barang'){
-                    $data = array(
-                        'id_peminjaman' => $id_peminjaman,
-                        'jenis_peminjaman' => $jenis_peminjaman,
-                        'id_peminjam' => $id_peminjam,
-                        'status_kembali' => $status_kembali,
-                        'tanggal_mulai_penggunaan' => $tanggal_mulai_penggunaan,
-                        'tanggal_selesai_penggunaan' => $tanggal_selesai_penggunaan,
-                        'jam_mulai' => $jam_mulai,
-                        'id_lembaga' => $id_lembaga,
-                        'nomor_telpon' => $wa,
-                        'jam_selesai' => $jam_selesai,
-                        'penyelenggara' => $penyelenggara,
-                        'file_peminjaman' => $pdf,
-                        'validasi_akademik' => $validasi_akademik,
-                        'validasi_kemahasiswaan' => $validasi_kemahasiswaan,
-                        'validasi_umum' => $validasi_umum,
-                        'keterangan' => $keterangan
-                    );
-                   
-                }else {
-                    $data = array(
-                        'id_peminjaman' => $id_peminjaman,
-                        'jenis_peminjaman' => $jenis_peminjaman,
-                        'id_peminjam' => $id_peminjam,
-                        'tanggal_mulai_penggunaan' => $tanggal_mulai_penggunaan,
-                        'tanggal_selesai_penggunaan' => $tanggal_selesai_penggunaan,
-                        'jam_mulai' => $jam_mulai,
-                        'id_lembaga' => $id_lembaga,
-                        'jam_selesai' => $jam_selesai,
-                        'file_peminjaman' => $pdf,
-                        'nomor_telpon' => $wa,
-                        'penyelenggara' => $penyelenggara,
-                        'validasi_akademik' => $validasi_akademik,
-                        'validasi_kemahasiswaan' => $validasi_kemahasiswaan,
-                        'validasi_umum' => $validasi_umum,
-                        'keterangan' => $keterangan
-                    );
-                }
-                $this->M_Peminjaman->tambahData($data,'peminjaman');
-                $this->session->set_flashdata('notifsukses', "peminjaman berhasil ditambahkan");                
-                redirect('peminjaman/formTambahSaranaPeminjaman/'.$jenis_peminjaman.'/'.$tanggal_mulai_penggunaan.'/'.$tanggal_selesai_penggunaan.'/'.$jam_mulai.'/'.$jam_selesai);
+            $peminjaman = $this->M_Peminjaman->getIdMaxPeminjaman();
+            $id = null;
+            foreach ($peminjaman as $u){ echo $id=$u->id_peminjaman;}
+            if($id != null){
+                $id_peminjaman = $id+1;
             }else{
-                $this->session->set_flashdata('notif', "data user tidak ditemukan");
-                redirect('peminjaman/formTambahPeminjaman/'.$jenis_peminjaman);
+                $kode_tgl = str_replace("-","",$tanggal_mulai_penggunaan);
+                $id_peminjaman = "2".$kode_tgl."0001";
             }
+            if($jenis_peminjaman == 'barang'){
+                $data = array(
+                    'nama_peminjam' => $nama_peminjam,
+                    'id_peminjaman' => $id_peminjaman,
+                    'jenis_peminjaman' => $jenis_peminjaman,
+                    'id_peminjam' => $id_peminjam,
+                    'status_kembali' => $status_kembali,
+                    'tanggal_mulai_penggunaan' => $tanggal_mulai_penggunaan,
+                    'tanggal_selesai_penggunaan' => $tanggal_selesai_penggunaan,
+                    'jam_mulai' => $jam_mulai,
+                    'id_lembaga' => $id_lembaga,
+                    'nomor_telpon' => $wa,
+                    'jam_selesai' => $jam_selesai,
+                    'penyelenggara' => $penyelenggara,
+                    'file_peminjaman' => $pdf,
+                    'validasi_akademik' => $validasi_akademik,
+                    'validasi_kemahasiswaan' => $validasi_kemahasiswaan,
+                    'validasi_umum' => $validasi_umum,
+                    'keterangan' => $keterangan
+                );
+                
+            }else {
+                $data = array(
+                    'nama_peminjam' => $nama_peminjam,
+                    'id_peminjaman' => $id_peminjaman,
+                    'jenis_peminjaman' => $jenis_peminjaman,
+                    'id_peminjam' => $id_peminjam,
+                    'tanggal_mulai_penggunaan' => $tanggal_mulai_penggunaan,
+                    'tanggal_selesai_penggunaan' => $tanggal_selesai_penggunaan,
+                    'jam_mulai' => $jam_mulai,
+                    'id_lembaga' => $id_lembaga,
+                    'jam_selesai' => $jam_selesai,
+                    'file_peminjaman' => $pdf,
+                    'nomor_telpon' => $wa,
+                    'penyelenggara' => $penyelenggara,
+                    'validasi_akademik' => $validasi_akademik,
+                    'validasi_kemahasiswaan' => $validasi_kemahasiswaan,
+                    'validasi_umum' => $validasi_umum,
+                    'keterangan' => $keterangan
+                );
+            }
+            $this->M_Peminjaman->tambahData($data,'peminjaman');
+            $this->session->set_flashdata('notifsukses', "peminjaman berhasil ditambahkan");                
+            redirect('peminjaman/formTambahSaranaPeminjaman/'.$jenis_peminjaman.'/'.$tanggal_mulai_penggunaan.'/'.$tanggal_selesai_penggunaan.'/'.$jam_mulai.'/'.$jam_selesai);
+           
         }
     }
 
     function formTambahSaranaPeminjaman($jenis, $tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai){
-        if($this->session->userdata('logged_in') == FALSE){
-            redirect("auth/logout");
+        $peminjaman = $this->M_Peminjaman->getDataPeminjamanNonKelasByDate($tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai);
+        $id_peminjam = null;
+        foreach($peminjaman as $u){
+            $id_peminjam = $u->id_peminjam;
         }
         $data['peminjaman'] = $this->M_Peminjaman->getDataPeminjamanNonKelasByDate($tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai);
 		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
@@ -222,13 +220,13 @@ class Peminjaman extends CI_Controller {
         if($jenis == "ruangan" ){ 
             $data['main_view'] = 'peminjaman/v_tambahSaranaPeminjaman'; 
             $data['sarana'] = $this->M_Peminjaman->getRuanganPeminjamanNonKelasByDate($tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai);
-            $data['sarana_tersedia'] = $this->M_Peminjaman->getRuanganTersedia($tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai);
+            $data['sarana_tersedia'] = $this->M_Peminjaman->getRuanganTersedia($id_peminjam, $tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai);
         }else{
             $data['main_view'] = 'peminjaman/v_tambahSaranaPeminjamanBarang'; 
             $data['sarana'] = $this->M_Peminjaman->getBarangPeminjamanBarangByDate($tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai);
-            $data['sarana_tersedia'] = $this->M_Peminjaman->getBarangTersedia($tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai);
+            $data['sarana_tersedia'] = $this->M_Peminjaman->getBarangTersedia($id_peminjam, $tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai);
         }
-        if($this->session->userdata('status') == "pengguna" ){ 
+        if($this->session->userdata('status') == "pengguna" || $this->session->userdata('logged_in') == FALSE ){ 
             $this->load->view('template/template_user',$data);
         }else{
             $this->load->view('template/template_operator',$data);
@@ -236,19 +234,52 @@ class Peminjaman extends CI_Controller {
     }
 
     function formTambahTagihanPeminjaman($id_peminjaman){
-        if($this->session->userdata('logged_in') == FALSE){
-            redirect("auth/logout");
+        
+        $jenis = null; 
+        $jenisPeminjaman = $this->M_Peminjaman->getJenisPeminjaman($id_peminjaman);
+        foreach($jenisPeminjaman as $j){  $jenis = $j->jenis_peminjaman;}
+        
+        $status_pembayaran = "belum bayar";
+        $total_tagihan = null; $i=0;  $f =0;
+        $harga_satuan = null; $jumlah = 1; 
+        $hapus_data = array('id_peminjaman' => $id_peminjaman);
+        $this->M_Peminjaman->hapusData($hapus_data,'tagihan');
+        
+        $peminjaman = $this->M_Peminjaman->getDataPeminjamanUntukControllerTagihan($id_peminjaman);
+        
+        foreach($peminjaman as $u){
+            $i++;
+            if($jenis == 'ruangan'){
+                $harga_satuan = $u->harga_ruangan;
+            }else{
+                $harga_satuan = $u->harga_barang;
+            }
+            $total_tagihan += $harga_satuan;
+            $nama_tagihan = "Harga sewa sarana prasarana ".$u->nama_ruangan."".$u->nama_barang;
+            $data = array(
+                'id_peminjaman' => $id_peminjaman,
+                'nama_tagihan' => $nama_tagihan,
+                'jumlah' => $jumlah,
+                'harga_satuan' => $harga_satuan,
+                'total_tagihan' => $harga_satuan
+            );
+            
+            $this->M_Peminjaman->tambahData($data,'tagihan');
+
+            
         }
+        
         $data['peminjaman'] = $this->M_Peminjaman->getDataPeminjamanByIdTagihan($id_peminjaman);
-		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
-		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
+        $data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
+        $data['sarana_peminjaman'] = $this->M_Peminjaman->getDataSaranaPeminjamanByIdPeminjaman($id_peminjaman,$jenis);
+        $data['jumlahUser'] = $this->M_User->getCountUserBaru();
         $data['tagihan'] = $this->M_Peminjaman->getDataTagihanByIdPeminjaman($id_peminjaman);
         $data['harga_sewa'] = $this->M_Peminjaman->getDataHargaSewaPeminjaman($id_peminjaman);
       
         $data['waktu'] = $this->M_Peminjaman->getDataWaktu()->result();
         $data['main_view'] = 'peminjaman/v_tambahTagihan'; 
-        if($this->session->userdata('status') == "pengguna" ){ 
-            $this->load->view('template/template_user',$data);
+        if($this->session->userdata('logged_in') == FALSE){
+             $this->load->view('template/template_user',$data);
         }else{
             $this->load->view('template/template_operator',$data);
         }
@@ -263,8 +294,10 @@ class Peminjaman extends CI_Controller {
 		$id_sarana = $this->input->post('id_sarana');
 		$jam_mulai = $this->input->post('jam_mulai');
 		$jam_selesai = $this->input->post('jam_selesai');
+		$status_peminjaman = 'terkirim';
         $data = array(
             'id_peminjaman' => $id_peminjaman,
+            'status_peminjaman' => $status_peminjaman,
             'id_sarana' => $id_sarana
         );
         $data_peminjaman = array(
@@ -280,14 +313,24 @@ class Peminjaman extends CI_Controller {
     }
 
     function hapusSaranaPeminjaman($jenis, $id_peminjaman, $id_sarana, $tgl_mulai, $tgl_selesai, $jam_mulai, $jam_selesai){
-        if($this->session->userdata('logged_in') == FALSE){
-            redirect("auth/logout");
-        }
+       
         $where = array('id_peminjaman' => $id_peminjaman,
                         'id_sarana' => $id_sarana);
         $this->M_Peminjaman->hapusData($where,'sarana_peminjaman');
-        $this->session->set_flashdata('notifsukses', "Data sarana peminjaman berhasil dihapus");
+        $this->session->set_flashdata('sukses', "Data sarana peminjaman berhasil dihapus");
         redirect('peminjaman/formTambahSaranaPeminjaman/'.$jenis.'/'.$tgl_mulai.'/'.$tgl_selesai.'/'.$jam_mulai.'/'.$jam_selesai);
+    }
+
+    function hapusPeminjaman($id){
+       
+        $where_peminjaman = array('id_peminjaman' => $id_peminjaman,
+                        'validasi_akademik' => 'pending');
+        $this->M_Peminjaman->hapusData($where_peminjaman,'peminjaman');
+        
+        $sarana = array('id_peminjaman' => $id_peminjaman);
+        $this->M_Peminjaman->hapusData($sarana,'sarana_peminjaman');
+        $this->session->set_flashdata('sukses', "Peminjaman Telah Dibatalkan");
+        redirect('peminjaman/formTambahPeminjaman/ruangan');
     }
 
     function batalPeminjaman(){
@@ -326,9 +369,7 @@ class Peminjaman extends CI_Controller {
         $jenis_peminjaman = $this->input->post('jenis');
         $total_pembayaran = $this->input->post('total_pembayaran');
         $status_pembayaran = 'belum bayar';
-        if($this->session->userdata('logged_in') == FALSE){
-            redirect("auth/logout");
-        }
+        
         
             $status = 'terkirim';
             $nama_kode = base_url().'peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis_peminjaman;
@@ -364,85 +405,95 @@ class Peminjaman extends CI_Controller {
         $id = array('id_peminjaman' => $id_peminjaman);
 
         $this->M_Peminjaman->updateData($id,$data,'peminjaman');
-        $this->session->set_flashdata('sukses', "Peminjaman telah dikirim, silahkan menunggu validasi dari validator");
+        $this->session->set_flashdata('sukses', "PEMINJAMAN BERHASIL DIKIRIM");
+        
         redirect('peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis_peminjaman);
     }
 
 
     function validasiPeminjaman(){
+
         $id_peminjaman = $this->input->post("id_peminjaman");
         $jenis_peminjaman = $this->input->post("jenis_peminjaman");
-        $nama_kode = base_url().'peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis_peminjaman;
-		$this->load->library('ciqrcode'); //pemanggilan library QR CODE
-
-		$config['cacheable']	= true; //boolean, the default is true
-		$config['cachedir']		= './assets/'; //string, the default is application/cache/
-		$config['errorlog']		= './assets/'; //string, the default is application/logs/
-		$config['imagedir']		= './assets/images/'; //direktori penyimpanan qr code
-		$config['quality']		= true; //boolean, the default is true
-		$config['size']			= '1024'; //interger, the default is 1024
-		$config['black']		= array(224,255,255); // array, default is array(255,255,255)
-		$config['white']		= array(70,130,180); // array, default is array(0,0,0)
-		$this->ciqrcode->initialize($config);
-
-		$image_name=$id_peminjaman.'.png'; //buat name dari qr code sesuai dengan nim
-
-		$params['data'] = $nama_kode; //data yang akan di jadikan QR CODE
-		$params['level'] = 'H'; //H=High
-		$params['size'] = 10;
-		$params['savename'] = FCPATH.$config['imagedir'].$image_name; //simpan image QR CODE ke folder assets/images/
-		$this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
-        
-        //
+        $jenis_validasi = $this->input->post("jenis_validasi");
         $status = "setuju";
         $operator = $this->session->userdata('status');
-        if($operator == 'admin' || $operator == 'staff pelayanan'){
-            $data = array(
-                'qr_code' => $image_name,
+        $username = $this->session->userdata('username');
+        if($jenis_validasi == null){
+            $peminjaman = $this->M_Peminjaman->getSaranaPeminjamanByOperator($id_peminjaman,$jenis_peminjaman);
+            foreach($peminjaman as $u){
+                $id_sarana = $u->id_sarana_peminjaman;       
+                $where_sarana = array('id_sarana_peminjaman' => $id_sarana);
+
+                $sarana=array(
+                    'status_peminjaman' => $status,
+                    'validator' => $username
+                );
+                $this->M_Peminjaman->updateData($where_sarana,$sarana,'sarana_peminjaman');
+
+            }
+            $sarana_peminjaman = $this->M_Peminjaman->getSaranaPeminjamanByIdStatus($id_peminjaman);
+            
+            if($sarana_peminjaman == false){
+                $where = array('id_peminjaman' => $id_peminjaman);
+
+                $data=array(
+                    'validasi_akademik' => $status,
+                    'validasi_kemahasiswaan' => $status,
+                    'validasi_umum' => $status
+                );
+                $this->M_Peminjaman->updateData($where,$data,'peminjaman');
+            }
+        }else{
+            $where = array('id_peminjaman' => $id_peminjaman);
+            $data=array(
                 'validasi_akademik' => $status,
                 'validasi_kemahasiswaan' => $status,
                 'validasi_umum' => $status
             );
+            $this->M_Peminjaman->updateData($where,$data,'peminjaman');
+            $where_sarana = array('id_peminjaman' => $id_peminjaman);
+
+            $sarana=array(
+                'status_peminjaman' => $status,
+                'validator' => $username
+            );
+            $this->M_Peminjaman->updateData($where_sarana,$sarana,'sarana_peminjaman');
         }
-        $where = array('id_peminjaman' => $id_peminjaman);
-        $this->M_Peminjaman->updateData($where,$data,'peminjaman');
-        $this->session->set_flashdata('notifsukses', "Data peminjaman telah berhasil disetujui");
-        redirect('peminjaman/historyPeminjaman');
+        $this->session->set_flashdata('sukses', "Data peminjaman telah berhasil disetujui");
+       redirect('peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis_peminjaman);
     }
 
-    function tolakPeminjaman(){
+    function tolakPeminjaman(){        
+        $username = $this->session->userdata('username');
+
 		$id_peminjaman = $this->input->post('id_peminjaman');
 		$jenis = $this->input->post('jenis');
         $catatan_penolakan = $this->input->post('catatan_penolakan');
         $status = "tolak";
-        $operator = $this->session->userdata('status');
-        if($operator == 'admin' || $operator == 'staff pelayanan'){
-            $data = array(
-                'validasi_akademik' => $status,
-                'validasi_kemahasiswaan' => $status,
-                'validasi_umum' => $status,
-                'catatan_penolakan' => $catatan_penolakan
+        
+        $peminjaman = $this->M_Peminjaman->getSaranaPeminjamanByOperator($id_peminjaman,$jenis);
+        foreach($peminjaman as $u){
+            echo $id_sarana = $u->id_sarana_peminjaman;       
+            $where_sarana = array('id_sarana_peminjaman' => $id_sarana);
+
+            $sarana=array(
+                'status_peminjaman' => $status,
+                'alasan_penolakan' => $catatan_penolakan,
+                'validator' => $username
             );
-        }else if($operator == 'kasubag akademik'){
-            $data = array(
-                'validasi_akademik' => $status,
-                'catatan_penolakan' => $catatan_penolakan
-            );
-        }else if($operator == 'kasubag kemahasiswaan'){
-            $data = array(
-                'validasi_kemahasiswaan' => $status,
-                'catatan_penolakan' => $catatan_penolakan
-            );
-        }else{
-            $data = array(
-                'validasi_umum' => $status,
-                'catatan_penolakan' => $catatan_penolakan
-            );
+            $this->M_Peminjaman->updateData($where_sarana,$sarana,'sarana_peminjaman');
         }
         $where = array('id_peminjaman' => $id_peminjaman);
+
+        $data=array(
+            'validasi_akademik' => 'tolak',
+            'validasi_kemahasiswaan' => 'tolak',
+            'validasi_umum' => 'tolak'
+        );
         $this->M_Peminjaman->updateData($where,$data,'peminjaman');
-        $this->session->set_flashdata('notifsukses', "Data peminjaman telah berhasil ditolak");
-        redirect('peminjaman/historyPeminjaman');
+        $this->session->set_flashdata('sukses', "Data peminjaman telah berhasil ditolak");
+        redirect('peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis);
     }
 
     function formCekPeminjaman(){
@@ -534,7 +585,7 @@ class Peminjaman extends CI_Controller {
         $id_peminjaman = $this->input->post('id_peminjaman');
         $buktiPembayaran = $this->input->post('buktiPembayaran');
         $jenis = $this->input->post('jenis');
-        $status_pembayaran = 'lunas';
+        $status_pembayaran = 'menunggu validasi';
         $config['upload_path']          = './assets/buktiPembayaran/';
         $config['allowed_types']        = 'jpg|png';
         $config['max_size']             = 1500;
@@ -559,7 +610,23 @@ class Peminjaman extends CI_Controller {
         $id = array('id_peminjaman' => $id_peminjaman);
 
         $this->M_Peminjaman->updateData($id,$data,'peminjaman');
-        $this->session->set_flashdata('sukses', "status peminjaman telah diubah menjadi lunas");
+        $this->session->set_flashdata('sukses', "Upload bukti pembayaran telah berhasil");
+        redirect('peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis);
+    }
+
+    function validasiPembayaran(){
+        $id_peminjaman = $this->input->post('id_peminjaman');
+        $jenis = $this->input->post('jenis');
+        $status_pembayaran = 'lunas';
+        $data = array(
+            'id_peminjaman' => $id_peminjaman,
+            'status_pembayaran' => $status_pembayaran
+        );
+
+        $id = array('id_peminjaman' => $id_peminjaman);
+
+        $this->M_Peminjaman->updateData($id,$data,'peminjaman');
+        $this->session->set_flashdata('sukses', "Validasi pembayaran untuk peminjaman $id_peminjaman telah berhasil dilakukan");
         redirect('peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis);
     }
 

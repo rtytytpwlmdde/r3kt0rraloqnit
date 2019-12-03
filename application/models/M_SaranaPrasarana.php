@@ -165,6 +165,16 @@ class M_SaranaPrasarana extends CI_Model{
 			$jam_mulai = $this->input->get('jamMulai');
 			$jam_selesai = $this->input->get('jamSelesai');
 			$jumlahFakultas = $this->input->get('jumlahFakultas');
+
+			
+			$rapat = $this->input->get('rapat');
+			$terbuka = $this->input->get('terbuka');
+			$hall = $this->input->get('hall');
+			$auditorium = $this->input->get('auditorium');
+			$olahraga_tertutup = $this->input->get('olahraga_tertutup');
+			$ruang_kuliah = $this->input->get('ruang_kuliah');
+
+
 			$this->db->select('ruangan.*');
 			$this->db->select('operator.nama_fakultas');
 			$this->db->join('operator','operator.username = ruangan.id_operator');
@@ -187,6 +197,29 @@ class M_SaranaPrasarana extends CI_Model{
 			if($sound_system != NULL){
 				$this->db->where('sound_system', 'ya');
 			}
+
+			//
+
+			
+			if($rapat != NULL){
+				$this->db->where('rapat', 'ya');
+			}
+			if($terbuka != NULL){
+				$this->db->where('terbuka', 'ya');
+			}
+			if($hall != NULL){
+				$this->db->where('hall', 'ya');
+			}
+			if($auditorium != NULL){
+				$this->db->where('auditorium', 'ya');
+			}
+			if($olahraga_tertutup != NULL){
+				$this->db->where('olahraga_tertutup', 'ya');
+			}
+			if($ruang_kuliah != NULL){
+				$this->db->where('ruang_kuliah', 'ya');
+			}
+
 			if($minKapasitas != NULL || $maxKapasitas != NULL){
 				if($minKapasitas != NULL && $maxKapasitas != NULL){
 					$this->db->where('kapasitas >=', $minKapasitas);
@@ -323,6 +356,14 @@ class M_SaranaPrasarana extends CI_Model{
 			$this->db->select('*');
 			$this->db->from('barang');
 			$this->db->where('barang.id_operator',$this->session->userdata('username'));
+			$this->db->order_by("barang.nama_barang", "asc");
+			$query=$this->db->get();
+			return $query->result();
+		}
+
+		function getDataSemuaBarang(){
+			$this->db->select('*');
+			$this->db->from('barang');
 			$this->db->order_by("barang.nama_barang", "asc");
 			$query=$this->db->get();
 			return $query->result();

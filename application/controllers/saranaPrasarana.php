@@ -54,6 +54,14 @@ class SaranaPrasarana extends CI_Controller {
 		$harga_ruangan = $this->input->post('harga_ruangan');
 
 		
+		$rapat = $this->input->post('rapat');
+		$terbuka = $this->input->post('terbuka');
+		$hall = $this->input->post('hall');
+		$auditorium = $this->input->post('auditorium');
+		$olahraga_tertutup = $this->input->post('olahraga_tertutup');
+		$ruang_kuliah = $this->input->post('ruang_kuliah');
+
+		
 		$luas_ruangan = $this->input->post('luas_ruangan');
 		$ruang_kelas = $this->input->post('ruang_kelas');
 		$ruang_rapat = $this->input->post('ruang_rapat');
@@ -132,6 +140,12 @@ class SaranaPrasarana extends CI_Controller {
 			'foto_ruangan3' => $gambar3,
 			'foto_ruangan4' => $gambar4,
 			'foto_ruangan5' => $gambar5,
+			'rapat' => $rapat,
+			'terbuka' => $terbuka,
+			'hall' => $hall,
+			'auditorium' => $auditorium,
+			'olahraga_tertutup' => $olahraga_tertutup,
+			'ruang_kuliah' => $ruang_kuliah,
 			'ac' => $ac,
 			'wifi' => $wifi,
 			'lcd' => $lcd,
@@ -186,6 +200,13 @@ class SaranaPrasarana extends CI_Controller {
         $toilet = $this->input->post('toilet');
         $lcd = $this->input->post('lcd');
 		$sound_system = $this->input->post('sound_system');
+		
+		$rapat = $this->input->post('rapat');
+		$terbuka = $this->input->post('terbuka');
+		$hall = $this->input->post('hall');
+		$auditorium = $this->input->post('auditorium');
+		$olahraga_tertutup = $this->input->post('olahraga_tertutup');
+		$ruang_kuliah = $this->input->post('ruang_kuliah');
 		
         $foto1 = $this->input->post('foto1');
         $foto2 = $this->input->post('foto2');
@@ -267,6 +288,12 @@ class SaranaPrasarana extends CI_Controller {
             'foto_ruangan3' => $gambar3,
             'foto_ruangan4' => $gambar4,
             'foto_ruangan5' => $gambar5,
+			'rapat' => $rapat,
+			'terbuka' => $terbuka,
+			'hall' => $hall,
+			'auditorium' => $auditorium,
+			'olahraga_tertutup' => $olahraga_tertutup,
+			'ruang_kuliah' => $ruang_kuliah,
 			'ac' => $ac,
 			'wifi' => $wifi,
 			'lcd' => $lcd,
@@ -462,7 +489,7 @@ function penggunaanBarang(){
 	$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
 	$data['peminjaman'] = $this->m_peminjaman->getSaranaPeminjaman('barang');
 	$data['waktu'] = $this->m_peminjaman->getDataWaktu()->result();
-	$data['barang'] = $this->M_SaranaPrasarana->getDataBarang();
+	$data['barang'] = $this->M_SaranaPrasarana->getDataSemuaBarang();
 	$data['tanggal'] = $tanggal;
 	$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 	$data['main_view'] = 'SaranaPrasarana/v_penggunaanBarang';

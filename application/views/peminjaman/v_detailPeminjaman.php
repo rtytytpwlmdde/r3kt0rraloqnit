@@ -1,6 +1,6 @@
 
 
-<?php if($this->session->userdata('status') == "pengguna"){ ?>
+<?php if($this->session->userdata('status') == "pengguna" || $this->session->userdata('logged_in') == false){ ?>
     <div class="container">
 <?php }else{?><div class="">
 <?php }?>
@@ -19,7 +19,16 @@
             ';
         }
         $sukses = $this->session->flashdata('sukses');
-        if($sukses != NULL){
+        if($sukses != NULL && $sukses =="PEMINJAMAN BERHASIL DIKIRIM"){
+            echo '
+            <div class="alert alert-success alert-dismissible fade show bg-success text-white" role="alert">
+              <strong></strong> Peminjaman Berhasil Dikirim, <span class="badge badge-danger">Pastikan untuk MENCETAK BUKTI PEMINJAMAN sebagai bukti peminjaman dan untuk pengecekan !!! </span>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            ';
+        }elseif($sukses != NULL ){
             echo '
             <div class="alert alert-success alert-dismissible fade show bg-success text-white" role="alert">
               <strong></strong> '.$sukses.'
@@ -30,28 +39,38 @@
             ';
         }
     ?>
+        <input  hidden type="text" id="sukses" value="<?php echo $sukses = $this->session->flashdata('sukses');?>">
+
         <div class="row py-2 ">
             <div class="col-6 col-md-6 ">
                 <h3 class="text-muted">Detail Peminjaman</h3>
             </div>
             <div class="col-6 col-md-6 d-flex flex-row-reverse">
                 <div class="btn-group">
-                <?php foreach ($peminjaman as $a){
+                <?php foreach ($header as $a){
                     $validasi_akademik = $a->validasi_akademik;
                     $nomor_telpon = $a->nomor_telpon;
                     $nama_ruangan = $a->nama_ruangan;
                     $id_peminjam = $a->id_peminjam;
                     $catatan_penolakan = $a->catatan_penolakan;
+                    $jenis_peminjaman = $a->jenis_peminjaman;
                     $jenis = $a->jenis_peminjaman;
                 }?>
-                <?php if( $validasi_akademik == 'terkirim' && $this->session->userdata('status') != 'pengguna'){ ?>
-                <?php if( $a->id_operator == $this->session->userdata('username')){ ?>
+                <?php if( $validasi_akademik == 'terkirim' && $this->session->userdata('status') != 'pengguna' && $this->session->userdata('logged_in') == true){ ?>
                     <form action="<?php echo base_url("peminjaman/validasiPeminjaman");?>" method="post">
                         <input hidden type="text" name="id_peminjaman" value="<?= $id_peminjaman;?>">
                         <input hidden type="text" name="jenis_peminjaman" value="<?= $jenis;?>">
                         <button type="submit" class="btn btn-success btn-sm" title="Setuju Peminjaman">Setuju</button>
-                    <a data-toggle="modal" data-id="<?php echo $id_peminjaman; ?>" title="Tolak Peminjaman" class="modalTolakPeminjaman btn btn-outline-danger btn-sm" href="#modalTolakPeminjaman">Tolak</a>
-                    <a data-toggle="modal" data-id="<?php echo $id_peminjaman; ?>" title="Batalkan Peminjaman" class="modalBatalPeminjaman btn btn-outline-secondary btn-sm" href="#modalBatalPeminjaman">Batal</a>
+                    <a data-toggle="modal" data-id="<?php echo $id_peminjaman; ?>" data-jenis_peminjaman="<?php echo $jenis_peminjaman; ?>" title="Tolak Peminjaman" class="modalTolakPeminjaman btn btn-outline-danger btn-sm" href="#modalTolakPeminjaman">Tolak</a>
+                    <a data-toggle="modal" data-id="<?php echo $id_peminjaman; ?>" data-jenis_peminjaman="<?php echo $jenis_peminjaman; ?>" title="Batalkan Peminjaman" class="modalBatalPeminjaman btn btn-outline-secondary btn-sm" href="#modalBatalPeminjaman">Batal</a>
+                    </form>
+
+                    <?php if( 'admin' == $this->session->userdata('username')){ ?>
+                    <form action="<?php echo base_url("peminjaman/validasiPeminjaman");?>" method="post">
+                        <input hidden type="text" name="id_peminjaman" value="<?= $id_peminjaman;?>">
+                        <input hidden type="text" name="jenis_peminjaman" value="<?= $jenis;?>">
+                        <input hidden type="text" name="jenis_validasi" value="admin">
+                        <button type="submit" class="ml-2 btn btn-dark btn-sm" title="Validasi dengan menekan tombol ini dapat langsung menyetujui semua ruangan yang dipinjam tanpa meminta persetujuan operator ruangan terkait">v</button>
                     </form>
 
                     <?php } ?> 
@@ -75,7 +94,7 @@
     <div class="card shadow" >
         <table id="tblmatakuliah" class="table table-bordered">
             <tbody>
-             <?php 
+             <?php $count = 0;
                 foreach ($peminjaman as $u){ 
              ?>
                 <tr class="bg-thead ">
@@ -136,7 +155,7 @@
                 </tr>
                 <tr>
                     <td>Nama Peminjam</td>
-                    <td><?= $u->nama_mahasiswa; ?></td>
+                    <td><?= $u->nama_mahasiswa; ?><?= $u->nama_peminjam; ?></td>
                 </tr>
                 <tr>
                     <td>Username</td>
@@ -192,16 +211,27 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Ruangan</td>
+                    <td>Sarana</td>
                     <td> <?php  
                         if($u->jenis_peminjaman == 'barang'){
                             foreach ($sarana as $u){ 
-                                echo $u->nama_barang."<br>";
+                                if($u->status_peminjaman == 'terkirim'){
+                                    echo $u->nama_barang."<span class='badge badge-warning'>".$u->status_peminjaman."</span><br>";
+                                }else if($u->status_peminjaman == 'setuju'){
+                                    echo $u->nama_barang."<span class='badge badge-success'>".$u->status_peminjaman."</span><br>";
+                                }else{
+                                    echo $u->nama_barang."<span class='badge badge-danger'>".$u->status_peminjaman."</span><br>";
+                                }
                             }
                         }else{
                             foreach ($sarana as $u){ 
-                                echo $u->nama_ruangan."<br>";
-                            }
+                                if($u->status_peminjaman == 'terkirim'){
+                                    echo $u->nama_ruangan."<span class='badge badge-warning'>".$u->status_peminjaman."</span><br>";
+                                }else if($u->status_peminjaman == 'setuju'){
+                                    echo $u->nama_ruangan."<span class='badge badge-success'>".$u->status_peminjaman."</span><br>";
+                                }else{
+                                    echo $u->nama_ruangan."<span class='badge badge-danger'>".$u->status_peminjaman."</span><br>";
+                                }                            }
                         }
                         ?> 
                     </td>
@@ -270,8 +300,8 @@
                                 <td><?= $no ?></td>
                                 <td><?= $t->nama_tagihan;?></td>
                                 <td><?= $t->jumlah;?></td>
-                                <td><?= $t->harga_satuan;?></td>
-                                <td>Rp <?= $t->total_tagihan;?></td>
+                                <td class="text-lrighteft"><?php  echo "Rp " . number_format($t->harga_satuan,0,',','.');?></td>
+                                <td class="text-right"><?php  echo "Rp " . number_format($t->total_tagihan,0,',','.');?></td>
                             </tr>
                             <?php $no++; 
                                 $total = $total + $t->total_tagihan;
@@ -279,7 +309,7 @@
                             <tr class="bg-info">
                                 <td>#</td>
                                 <td class=" text-white" colspan="3">Total Biaya Peminjaman</td>
-                                <td class=" text-white" >Rp <?= $total;?></td>
+                                <td class="text-right text-white" class=" text-white" ><?php  echo "Rp " . number_format($total,0,',','.');?></td>
                             </tr>
                             </tbody>
                         </table>    
@@ -289,12 +319,22 @@
                     <td>Status Pembayaran</td>
                     <?php if($u->status_pembayaran == 'belum bayar'){?>
                         <td class="text-warning"><?= $u->status_pembayaran; ?>
-                        <?php if($this->session->userdata('username') == $u->id_operator){?>
-                        <a data-toggle="modal" data-id="<?php echo $id_peminjaman; ?>"  class="modalPembayaran btn btn-outline-info btn-sm" href="#modalPembayaran">Sudah Bayar?</a>
-                         <?php }?>
+                            <a data-toggle="modal" data-id="<?php echo $id_peminjaman; ?>"  class="modalPembayaran btn btn-outline-info btn-sm" href="#modalPembayaran">Sudah Bayar?</a>
+                        </td>
+                    <?php }elseif($u->status_pembayaran == 'menunggu validasi'){?>
+                        <td class="text-warning">Menunggu proses validasi pembayaran
+                            <a class="ml-2" target="_blank" href="<?php echo base_url("assets/buktiPembayaran/".$u->bukti_pembayaran);?>">download</a>
+                            <?php if($this->session->userdata('status') == 'admin'){?>
+                                <form action="<?php echo base_url("peminjaman/validasiPembayaran/");?>" method="post">        
+                                    <input type="hidden" name="id_peminjaman" value="<?= $u->id_peminjaman?>">                             
+                                    <input type="hidden" name="jenis" value="<?= $u->jenis_peminjaman?>">                       
+                                     <button type="submit" class="ml-2 btn btn-sm btn-outline-info">validasi pembayaran?</button>
+                                </form>    
+                            <?php }?>
                         </td>
                     <?php }else{ ?>
-                        <td class="text-"><?= $u->status_pembayaran; ?></td>
+                        <td class="text-"><?= $u->status_pembayaran; ?>
+                            <a class="ml-2" target="_blank" href="<?php echo base_url("assets/buktiPembayaran/".$u->bukti_pembayaran);?>">download</a></td>
                     <?php }?>
                 </tr>
                 <?php 
@@ -344,7 +384,7 @@
                 </tr>
                 <?php } ?>
              
-            <?php } ?>
+            <?php break; } ?>
             </tbody>
         </table>
     </div><br>
@@ -405,7 +445,7 @@ $(document).on("click", ".modalPengembalianBarang", function () {
         <form action="<?php echo base_url().'Peminjaman/tolakPeminjaman'; ?>" method="post">
         Alasan Penolakan : <br>
         <input type="text"  hidden class="form-control" name="id_peminjaman" id="id_peminjaman" value=""/>
-        <input type="text"  hidden class="form-control" name="jenis"  value="non kelas"/>
+        <input type="text"  hidden class="form-control" name="jenis_peminjaman" id="jenis_peminjaman" value=""/>
         <textarea class="form-control"  name="catatan_penolakan" rows="3"></textarea>
             <div class="d-flex flex-row-reverse bd-highlight py-2">
                 <div class="px-1"><button type="submit" class="btn btn-primary btn-sm">Tolak Peminjaman</button></div>
@@ -426,6 +466,8 @@ $(document).on("click", ".modalPengembalianBarang", function () {
         </div>
         <form action="<?php echo base_url().'Peminjaman/batalPeminjaman'; ?>" method="post">
         <input type="text"  hidden class="form-control" name="id_peminjaman" id="id_peminjaman" value=""/>
+        <input type="text"  hidden class="form-control" name="jenis_peminjaman" id="jenis_peminjaman" value=""/>
+
         <textarea class="form-control"  name="catatan_penolakan" rows="3"></textarea>
             <div class="d-flex flex-row-reverse bd-highlight py-2">
                 <div class="px-1"><button type="submit" class="btn btn-primary btn-sm">Batalkan Peminjaman</button></div>
@@ -444,6 +486,9 @@ $(document).on("click", ".modalTolakPeminjaman", function () {
      var peminjaman = $(this).data('id');
      $(".modal-body #id_peminjaman").val( peminjaman );
      $(".peminjaman").val( peminjaman );
+     var jenis_peminjaman = $(this).data('jenis_peminjaman');
+     $(".modal-body #jenis_peminjaman").val( jenis_peminjaman );
+     $(".jenis_peminjaman").val( jenis_peminjaman );
 });
 </script>
 
@@ -452,6 +497,9 @@ $(document).on("click", ".modalBatalPeminjaman", function () {
      var peminjaman = $(this).data('id');
      $(".modal-body #id_peminjaman").val( peminjaman );
      $(".peminjaman").val( peminjaman );
+     var jenis_peminjaman = $(this).data('jenis_peminjaman');
+     $(".modal-body #jenis_peminjaman").val( jenis_peminjaman );
+     $(".jenis_peminjaman").val( jenis_peminjaman );
 });
 </script>
 
@@ -516,3 +564,56 @@ $(document).on("click", ".modalPembayaran", function () {
      $(".peminjaman").val( peminjaman );
 });
 </script>
+
+
+
+
+
+<script>
+    var notifa = document.getElementById("sukses").value;
+    if( notifa == "PEMINJAMAN BERHASIL DIKIRIM" ) {
+        window.onpageshow = function() {
+        if (typeof window.performance != "undefined"
+            && window.performance.navigation.type === 0) {
+            $('#myModal').modal('show');
+        }
+        }
+    }
+</script>
+<div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+      <div class="row text-center">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <h1 class=""><i class="fas fa-check-circle text-success"></i></h1>
+                        <h5 class="" role="alert">
+                        <strong>PEMINJAMAN TELAH DIKIRIM</strong> 
+                        </h5>
+                        <span class="text-dark" >Silahkan tunggu hingga peminjaman divalidasi oleh operator</span><br> <hr> 
+                        <span class="text-dark" >Proses validasi paling lama dilakukan 3 hari atau peminjaman akan otomatis ditolak!</span>
+                        <br> 
+            
+                    </div>
+                </div>
+            </div>  
+            <div class="row text-center">
+                <div class="col-md-12">
+                <form action="<?php echo base_url("peminjaman/buktiPeminjaman")?>" method="post">
+                <input type="hidden" name="id_peminjaman" value="<?= $id_peminjaman;?>">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <button  data-dismiss="modal" style="width:100%" class="btn btn-outline-secondary">Close</button>
+                        </div> 
+                        <div class="col-sm-9">
+                            <button type="submit" style="width:100%" formtarget="_blank" class="btn btn-primary">Cetak Invoice</button>
+                        </div> 
+                    </div> 
+                    </form>
+                </div>
+            </div>  
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

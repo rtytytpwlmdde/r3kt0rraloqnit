@@ -1,5 +1,5 @@
 ###################
 Progres 
 ###################
-
-1. penambahan operator tiap fakultas
+yang kurang 
+- pergesaran

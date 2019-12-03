@@ -1,7 +1,32 @@
-<?php if($this->session->userdata('status') == "pengguna"){ ?>
+<?php if($this->session->userdata('status') == "pengguna" || $this->session->userdata('logged_in') == FALSE ){ ?>
     <div class="container">
+
 <?php }else{?><div class="">
 <?php }?>
+<?php
+        $notif = $this->session->flashdata('gagal');
+        if($notif != NULL){
+            echo '
+            <div class="alert alert-danger alert-dismissible fade show bg-danger text-white" role="alert">
+              <strong></strong> '.$notif.'
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            ';
+        }
+        $notifsukses = $this->session->flashdata('sukses');
+        if($notifsukses != NULL){
+            echo '
+            <div class="alert alert-success alert-dismissible fade show bg-success text-white" role="alert">
+              <strong></strong> '.$notifsukses.'
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            ';
+        }
+    ?>
   <div class="row mt-4 ">
     <div class="col-md-8 order-md-1 mb-2 pb-2">
       <div class="card shadow mb-4">
@@ -23,7 +48,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Nama</label>
-                <input disabled type="text"  required name="id_peminjam" class="form-control " value="<?= $u->nama_mahasiswa; ?>">
+                <input disabled type="text"  required name="id_peminjam" class="form-control " value="<?= $u->nama_mahasiswa; ?> <?= $u->nama_peminjam; ?>">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Tanggal Penggunaan</label>
@@ -93,7 +118,7 @@
                 <input disabled type="text"  required name="penyelenggara" class="form-control " value="<?= $u->nomor_telpon; ?>">
             </div>
             <div class="form-group">
-                <label for="">Keterangan Pengguna</label>
+                <label for="">Nama Kegiatan</label>
                 <textarea disabled class="form-control"  name="keterangan" rows="3" value=""><?= $u->keterangan; ?></textarea>
             </div>
             <hr class="mb-4">
@@ -132,7 +157,6 @@
             <a  data-toggle="modal" data-target="#modalPanduan"><span class="" title="panduan"><i class="far fa-question-circle"></i></span></a></h6>
         </div>
         <div class="card-body" style="height:500px; overflow-y: scroll;">
-            <?php if($jumRuangan == 0){ ?>
                 <?php 
                 $no = 1;
                 foreach ($sarana_tersedia as $u){ 
@@ -156,15 +180,6 @@
                 </li>
             </ul>
             <?php } ?>
-            <?php }else{ ?>
-                <ul class="list-group mb-3">
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <small class="text-muted">Barang Sudah Ditambahkan</small>
-                    </div>
-                    </li>
-                </ul>
-            <?php }?>
         </div>
       </div>
     </div>
