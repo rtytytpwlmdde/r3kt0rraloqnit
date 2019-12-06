@@ -70,7 +70,11 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                           <div class="swiper-wrapper">
                             <div class="swiper-slide">
                               <figure class="slide-bgimg" style="background-image:url(<?php echo base_url("assets/ruangan/".$u->foto_ruangan1);?>)">
-                                <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan1);?>" style="width:100%; heigh:100%;" class="entity-img" />
+                                <?php if($u->foto_ruangan1 == null){?>                               
+                                  <img src="<?php echo base_url("assets/img/ub.png");?>" style="width:450px; heigh:60%; padding-left:200px;"   class=" pt-4 ml-4 pl-4 entity-img" />
+                                <?php }else{ ?>
+                                  <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan1);?>" style="width:100%; heigh:100%;" class="entity-img" />
+                                  <?php } ?>
                               </figure>
                               <div class="content">
                                 <p class="title"></p>
@@ -79,8 +83,12 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                             </div>
                             <div class="swiper-slide">
                               <figure class="slide-bgimg" style="background-image:url(<?php echo base_url("assets/ruangan/".$u->foto_ruangan2);?>)">
-                                <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan2);?>" style="width:100%; heigh:100%;" class="entity-img" />
-                              </figure>
+                              <?php if($u->foto_ruangan2 == null){?>                               
+                                  <img src="<?php echo base_url("assets/img/ub.png");?>" style="width:450px; heigh:60%; padding-left:200px;"   class=" pt-4 ml-4 pl-4 entity-img" />
+                                <?php }else{ ?>
+                                  <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan2);?>" style="width:100%; heigh:100%;" class="entity-img" />
+                                  <?php } ?>                              
+                                </figure>
                               <div class="content">
                                 <p class="title"></p>
                                 <span class="caption"></span>
@@ -88,7 +96,11 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                             </div>
                             <div class="swiper-slide">
                               <figure class="slide-bgimg" style="background-image:url(<?php echo base_url("assets/ruangan/".$u->foto_ruangan3);?>)">
-                                <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan3);?>" style="width:100%; heigh:100%;" class="entity-img" />
+                              <?php if($u->foto_ruangan3 == null){?>                               
+                                  <img src="<?php echo base_url("assets/img/ub.png");?>" style="width:450px; heigh:60%; padding-left:200px;"   class=" pt-4 ml-4 pl-4 entity-img" />
+                                <?php }else{ ?>
+                                  <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan3);?>" style="width:100%; heigh:100%;" class="entity-img" />
+                                  <?php } ?>
                               </figure>
                               <div class="content">
                                 <p class="title"></p>
@@ -97,7 +109,11 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                             </div>
                             <div class="swiper-slide">
                               <figure class="slide-bgimg" style="background-image:url(<?php echo base_url("assets/ruangan/".$u->foto_ruangan4);?>)">
-                                <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan4);?>" style="width:100%; heigh:100%;" class="entity-img" />
+                              <?php if($u->foto_ruangan4 == null){?>                               
+                                  <img src="<?php echo base_url("assets/img/ub.png");?>" style="width:450px; heigh:60%; padding-left:200px;"   class=" pt-4 ml-4 pl-4 entity-img" />
+                                <?php }else{ ?>
+                                  <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan4);?>" style="width:100%; heigh:100%;" class="entity-img" />
+                                  <?php } ?>
                               </figure>
                               <div class="content">
                                 <p class="title"></p>
@@ -106,7 +122,11 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                             </div>
                             <div class="swiper-slide">
                               <figure class="slide-bgimg" style="background-image:url(<?php echo base_url("assets/ruangan/".$u->foto_ruangan5);?>)">
-                                <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan5);?>" style="width:100%; heigh:100%;" class="entity-img" />
+                              <?php if($u->foto_ruangan5 == null){?>                               
+                                  <img src="<?php echo base_url("assets/img/ub.png");?>" style="width:450px; heigh:60%; padding-left:200px;"   class=" pt-4 ml-4 pl-4 entity-img" />
+                                <?php }else{ ?>
+                                  <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan5);?>" style="width:100%; heigh:100%;" class="entity-img" />
+                                  <?php } ?>
                               </figure>
                               <div class="content">
                                 <p class="title"></p>
@@ -126,27 +146,47 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                           <div class="swiper-wrapper" role="navigation">
                             <div class="swiper-slide">
                               <figure class="slide-bgimg" style="heigh:5px; width:20px; background-image:url(<?php echo base_url("assets/ruangan/".$u->foto_ruangan1);?>)">
-                                <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan1);?>" class="entity-img" />
+                                <?php if($u->foto_ruangan1 == null){?>                               
+                                  <img style="width:70px;" src="<?php echo base_url("assets/img/ub.png");?>" class="entity-img" />
+                                <?php }else{ ?>
+                                  <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan1);?>" class="entity-img" />
+                                  <?php } ?>
                               </figure>
                             </div>
                             <div class="swiper-slide">
                               <figure class="slide-bgimg" style="heigh:5px; width:20px; background-image:url(<?php echo base_url("assets/ruangan/".$u->foto_ruangan2);?>)">
-                                <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan2);?>" class="entity-img" />
+                              <?php if($u->foto_ruangan2 == null){?>                               
+                                  <img style="width:70px;" src="<?php echo base_url("assets/img/ub.png");?>" class="entity-img" />
+                                <?php }else{ ?>
+                                  <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan2);?>" class="entity-img" />
+                                  <?php } ?>
                               </figure>
                             </div>
                             <div class="swiper-slide">
                               <figure class="slide-bgimg" style="heigh:5px; width:20px; background-image:url(<?php echo base_url("assets/ruangan/".$u->foto_ruangan3);?>)">
-                                <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan3);?>" class="entity-img" />
+                              <?php if($u->foto_ruangan3 == null){?>                               
+                                  <img style="width:70px;" src="<?php echo base_url("assets/img/ub.png");?>" class="entity-img" />
+                                <?php }else{ ?>
+                                  <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan3);?>" class="entity-img" />
+                                  <?php } ?>
                               </figure>
                             </div>
                             <div class="swiper-slide">
                               <figure class="slide-bgimg" style="heigh:5px; width:20px; background-image:url(<?php echo base_url("assets/ruangan/".$u->foto_ruangan4);?>)">
-                                <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan4);?>" class="entity-img" />
+                              <?php if($u->foto_ruangan4 == null){?>                               
+                                  <img style="width:70px;" src="<?php echo base_url("assets/img/ub.png");?>" class="entity-img" />
+                                <?php }else{ ?>
+                                  <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan4);?>" class="entity-img" />
+                                  <?php } ?>
                               </figure>
                             </div>
                             <div class="swiper-slide">
                               <figure class="slide-bgimg" style="heigh:5px; width:20px; background-image:url(<?php echo base_url("assets/ruangan/".$u->foto_ruangan5);?>)">
-                                <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan5);?>" class="entity-img" />
+                              <?php if($u->foto_ruangan5 == null){?>                               
+                                  <img style="width:70px;" src="<?php echo base_url("assets/img/ub.png");?>" class="entity-img" />
+                                <?php }else{ ?>
+                                  <img src="<?php echo base_url("assets/ruangan/".$u->foto_ruangan5);?>" class="entity-img" />
+                                  <?php } ?>
                               </figure>
                             </div>
                           </div>

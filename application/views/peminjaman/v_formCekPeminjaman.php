@@ -34,7 +34,7 @@
                     <div class="row">
                       <div class="col-md-12 mb-3">
                         <label for="">Kode Boking</label>
-                        <input type="text" required name="id_peminjaman" class="form-control">
+                        <input type="text" required name="id_peminjaman" class="form-control" placeholder="Kode Boking/NIP/NIK/NIM">
                       </div>
                     </div>
                     <button class="btn btn-primary btn-lg btn-block text-white" type="submit" >Cek Peminjaman</button>

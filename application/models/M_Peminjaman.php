@@ -152,6 +152,30 @@ class M_Peminjaman extends CI_Model{
 		return $query->result();
 	}
 
+	function getDataCekPeminjaman(){
+		$search = $this->input->get('id_peminjaman');
+		$this->db->select('*');       
+		 $this->db->from('peminjaman');
+
+		$this->db->join('mahasiswa','peminjaman.id_peminjam = mahasiswa.id_mahasiswa','left');
+		$this->db->join('sarana_peminjaman','peminjaman.id_peminjaman = sarana_peminjaman.id_peminjaman','left');
+		$this->db->join('ruangan','ruangan.id_ruangan = sarana_peminjaman.id_sarana','left');
+		$this->db->join('barang','barang.id_barang = sarana_peminjaman.id_sarana','left');
+		$this->db->join('waktu','peminjaman.jam_mulai = waktu.id_waktu');
+		if($search != NULL){
+			$this->db->where('peminjaman.id_peminjaman', $search);
+			$this->db->or_where('peminjaman.id_peminjam', $search);
+			$this->db->or_where('peminjaman.penyelenggara', $search);
+		}		$this->db->group_by('peminjaman.id_peminjaman');
+
+		$query=$this->db->get();
+		if($this->db->affected_rows() > 0){
+			return $query->result();
+		}else{
+			return false;
+		}
+	}
+
 	function getDataPeminjaman($number,$offset){
 		$operator = $this->session->userdata('username');
 		$search = $this->input->get('search');
@@ -492,6 +516,10 @@ class M_Peminjaman extends CI_Model{
 		((peminjaman.id_peminjam = '$id_peminjam'))
 		)"
 		, NULL, FALSE);	
+		if($this->session->userdata("logged_in") == false){
+			$this->db->where('ruangan.jenis_ruangan','umum');
+
+		}
 		$this->db->order_by('ruangan.nama_ruangan');
 		$query = $this->db->get();
 		return $query->result();

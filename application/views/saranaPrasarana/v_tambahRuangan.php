@@ -38,9 +38,19 @@
                     <label for="">Nama Ruangan</label>
                     <input required type="text" name="nama_ruangan" class="form-control" placeholder="">
                 </div>
-                <div class="form-group">
-                    <label for="">Kapasitas Ruangan</label>
-                    <input required type="text" name="kapasitas" class="form-control" placeholder="">
+                <div class="form-row">
+                  <div class="form-group col">
+                      <label for="">Kapasitas Ruangan</label>
+                      <input required type="text" name="kapasitas" class="form-control" placeholder="">
+                  </div>
+                  <div class="form-group col">
+                      <label for="inputPassword4">Jenis Ruangan</label>
+                      <select required class="form-control" id="exampleFormControlSelect1" name="jenis_ruangan">
+                        <option value="">Pilih</option>
+                        <option value="eksklusif">eksklusif</option>
+                        <option value="umum">umum</option>
+                      </select>
+                  </div>
                 </div>
                 <div class="form-group">
                     <label for="">Harga Sewa</label>
@@ -172,10 +182,15 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="">Alamat Ruangan</label>
-                    <input  type="text" name="alamat_ruangan" class="form-control " placeholder="">
+                    <label for="exampleFormControlSelect1">Alamat Ruangan</label>
+                    <select name="alamat_ruangan" required class="form-control" id="exampleFormControlSelect1">
+                        <option value="">Pilih</option>
+                        <?php foreach($operator as $u): ?>
+                            <option value="<?= $u->nama_fakultas ?>"><?= $u->nama_fakultas ?></option>
+                        <?php endforeach;?>         
+                    </select>
                 </div>
-                <div class="form-group">
+                <div class="form-group" hidden>
                     <label for="">Link </label>
                     <input  type="text" name="link_maps" class="form-control " placeholder="link alamat dari google maps dapat di pastekan disini">
                 </div>
@@ -183,27 +198,27 @@
                     <div class="form-group col">
                       <img class="image-preview" id="image-preview1"/>   
                       <label for="inputEmail4">Foto 1</label>                   
-                      <input type="file"  required class="form-control" id="image-source1" onchange="previewImage1();" name="foto1">
+                      <input type="file"  class="form-control" id="image-source1" onchange="previewImage1();" name="foto1">
                     </div>
                     <div class="form-group col">
                       <img class="image-preview" id="image-preview2"/>   
                       <label for="inputPassword4">Foto 2</label>
-                      <input type="file"  required class="form-control" id="image-source2" onchange="previewImage2();" name="foto2">
+                      <input type="file"  class="form-control" id="image-source2" onchange="previewImage2();" name="foto2">
                     </div>
                     <div class="form-group col">
                       <img class="image-preview" id="image-preview3"/>   
                       <label for="inputPassword4">Foto 3</label>
-                      <input type="file"  required class="form-control" id="image-source3" onchange="previewImage3();" name="foto3">
+                      <input type="file"  class="form-control" id="image-source3" onchange="previewImage3();" name="foto3">
                     </div>
                     <div class="form-group col">
                       <img class="image-preview" id="image-preview4"/>   
                       <label for="inputPassword4">Foto 4</label>
-                      <input type="file"  required class="form-control" id="image-source4" onchange="previewImage4();" name="foto4">
+                      <input type="file"  class="form-control" id="image-source4" onchange="previewImage4();" name="foto4">
                     </div>
                     <div class="form-group col">
                       <img class="image-preview" id="image-preview5"/>   
                       <label for="inputPassword4">Foto 5</label>
-                      <input type="file" required  class="form-control" id="image-source5" onchange="previewImage5();" name="foto5">
+                      <input type="file"  class="form-control" id="image-source5" onchange="previewImage5();" name="foto5">
                     </div>
                 </div>
                 <div class="form-group">

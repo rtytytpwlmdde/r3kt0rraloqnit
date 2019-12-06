@@ -528,17 +528,20 @@ class Peminjaman extends CI_Controller {
     // }
 
     function cekPeminjaman(){
-        $id_peminjaman = $this->input->get('id_peminjaman');
-        $peminjaman = $this->M_Peminjaman->cekIdPeminjaman($id_peminjaman);
-        $jenis_peminjaman = null;
-        if($this->M_Peminjaman->cekIdPeminjaman($id_peminjaman) != false){
-            foreach ($peminjaman as $u){ $jenis_peminjaman = $u->jenis_peminjaman; }
-            
-        redirect('peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$u->jenis_peminjaman);
-        }else{
-            $this->session->set_flashdata('notif', "ID peminjaman tidak ditemukan");
+        if($this->M_Peminjaman->getDataCekPeminjaman() == false){            
+            $this->session->set_flashdata('gagal', "Data peminjaman tidak ditemukan");
             redirect('peminjaman/formCekPeminjaman');
+        }else{
+            
+        $data['main_view'] = 'peminjaman/v_hasilCekPeminjaman';
+            $data['peminjaman'] = $this->M_Peminjaman->getDataCekPeminjaman();
+            if($this->session->userdata('status') == "pengguna" || $this->session->userdata('logged_in') == FALSE){ 
+                $this->load->view('template/template_user',$data);
+            }else{
+                $this->load->view('template/template_operator',$data);
+            }
         }
+        
     }
 
     function formPengembalianBarang($id_peminjaman){

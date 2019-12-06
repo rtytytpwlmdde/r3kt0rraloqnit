@@ -41,6 +41,7 @@ class User extends CI_Controller {
 	public function tambahOperator(){
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
+		$nama_fakultas = $this->input->post('nama_fakultas');
 		$status_operator = $this->input->post('status_operator');
 		
 		if($this->M_User->cek_id_operator() == TRUE){
@@ -50,6 +51,7 @@ class User extends CI_Controller {
 			$data = array(
 				'username' => $username,
 				'status_operator' => $status_operator,
+				'nama_fakultas' => $nama_fakultas,
 				'password' => $password
 			);
 			$datas = array(

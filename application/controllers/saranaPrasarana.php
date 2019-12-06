@@ -21,7 +21,7 @@ class SaranaPrasarana extends CI_Controller {
         }
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
-        $data['ruangan'] = $this->M_SaranaPrasarana->getDataRuangan()->result();
+        $data['ruangan'] = $this->M_SaranaPrasarana->getDataSemuaRuangan();
         $data['main_view'] = 'SaranaPrasarana/V_ListRuangan';
         $this->load->view('template/template_operator', $data);
     }
@@ -40,7 +40,8 @@ class SaranaPrasarana extends CI_Controller {
     public function tambahRuangan(){
 		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
         $nama_ruangan = $this->input->post('nama_ruangan');
-        $jenis_ruangan = 'ruangan';
+        $jenis_ruangan = $this->input->post('jenis_ruangan');
+
         $id_operator = $this->input->post('id_operator');
         $kapasitas = $this->input->post('kapasitas');
         $alamat_ruangan = $this->input->post('alamat_ruangan');
@@ -191,7 +192,9 @@ class SaranaPrasarana extends CI_Controller {
         $link_maps = $this->input->post('link_maps');
         $luas_ruangan = $this->input->post('luas_ruangan');
         $ruang_kelas = $this->input->post('ruang_kelas');
-        $ruang_rapat = $this->input->post('ruang_rapat');
+		$ruang_rapat = $this->input->post('ruang_rapat');        
+		$jenis_ruangan = $this->input->post('jenis_ruangan');
+
         $perjamuan = $this->input->post('perjamuan');
         $teater = $this->input->post('teater');
         $ushape = $this->input->post('ushape');
@@ -276,6 +279,7 @@ class SaranaPrasarana extends CI_Controller {
             'status_ruangan' => $status_ruangan,
             'nama_ruangan' => $nama_ruangan,
             'kapasitas' => $kapasitas,
+            'jenis_ruangan' => $jenis_ruangan,
             'deskripsi_ruangan' => $deskripsi_ruangan,
             'luas_ruangan' => $luas_ruangan,
             'ruang_kelas' => $ruang_kelas,

@@ -342,7 +342,14 @@ class M_SaranaPrasarana extends CI_Model{
 	function updateRuangan($id,$data,$tabel){
 		$this->db->where($id);
 		$this->db->update($tabel,$data);
-    }
+		}
+		
+		function getDataSemuaRuangan(){
+			$this->db->select('*');
+			$this->db->from('ruangan');
+			$query=$this->db->get();
+			return $query->result();
+		}
 
     function getDataRuanganById($id_ruangan){
 		$this->db->select('*');

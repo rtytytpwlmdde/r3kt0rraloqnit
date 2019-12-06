@@ -42,10 +42,20 @@
                 <label for="">Nama Ruangan</label>
                 <input required type="text" name="nama_ruangan" class="form-control " value="<?= $u->nama_ruangan; ?>">
             </div>
-            <div class="form-group">
-                <label for="">Kapasitas Ruangan</label>
-                <input required type="text" name="kapasitas" class="form-control " value="<?= $u->kapasitas; ?>">
+            <div class="form-row">
+              <div class="form-group col">
+                  <label for="">Kapasitas Ruangan</label>
+                  <input required type="text" name="kapasitas" class="form-control " value="<?= $u->kapasitas; ?>">
+              </div> 
+              <div class="form-group col">
+                <label for="inputEmail4">Jenis Ruangan</label>
+                <select class="form-control" id="exampleFormControlSelect1" name="jenis_ruangan">
+                  <option value="eksklusif" <?php echo ($u->jenis_ruangan=='eksklusif')?'selected="selected"':''; ?>>eksklusif</option>
+                  <option value="umum" <?php echo ($u->jenis_ruangan=='umum')?'selected="selected"':''; ?>>umum</option>
+                </select>
+              </div>             
             </div>
+
             <div class="form-group">
                 <label for="">Deskripsi Ruangan </label>
                 <textarea name="deskripsi_ruangan" id="deskripsi_ruangan" class="form-control"   rows="3"><?= $u->deskripsi_ruangan; ?></textarea>

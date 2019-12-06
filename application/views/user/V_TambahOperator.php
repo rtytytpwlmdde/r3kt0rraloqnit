@@ -40,6 +40,10 @@
                     <input required type="text" name="password" class="form-control" placeholder="">
                 </div>
                 <div class="form-group">
+                    <label for="">Nama Fakultas</label>
+                    <input required type="text" name="nama_fakultas" class="form-control" placeholder="">
+                </div>
+                <div class="form-group">
                     <label for="exampleFormControlSelect1">Status</label>
                     <select name="status_operator" class="form-control" id="exampleFormControlSelect1">
                     <option>admin</option>
