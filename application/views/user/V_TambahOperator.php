@@ -36,6 +36,10 @@
                     <input required type="text" name="username" class="form-control" placeholder="">
                 </div>
                 <div class="form-group">
+                    <label for="">Nama Operator</label>
+                    <input required type="text" name="nama_operator" class="form-control" placeholder="">
+                </div>
+                <div class="form-group">
                     <label for="">Password</label>
                     <input required type="text" name="password" class="form-control" placeholder="">
                 </div>

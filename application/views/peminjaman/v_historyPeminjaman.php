@@ -215,9 +215,6 @@ if($this->session->userdata('status') == "pengguna"){
     </div>
 </div>
 
-<script>
-    $('#tblPeminjaman').DataTable();
-</script>
 
 <div class="modal fade" id="modalBatal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog" role="document">

@@ -159,7 +159,7 @@
                 </div>
                 <?php $jumRuangan++;} ?>
             </div>
-            <?php if($this->session->userdata("logged_in") == false){ ?>
+            <?php if($this->session->userdata("logged_in") == false || $this->session->userdata("status") == 'pengguna'){ ?>
             <form action="<?php echo base_url("peminjaman/kirimPeminjaman")?>" method="post">
                 <input type="hidden" name="id_peminjaman" value="<?= $id?>">
                 <input type="hidden" name="total_pembayaran" value="0">

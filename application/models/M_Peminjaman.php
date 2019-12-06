@@ -85,7 +85,7 @@ class M_Peminjaman extends CI_Model{
 		$this->db->join('ruangan','ruangan.id_ruangan = sarana_peminjaman.id_sarana','left');
 		$this->db->join('barang','barang.id_barang = sarana_peminjaman.id_sarana','left');
 			//$this->db->where('ruangan.id_operator',$operator);
-		$this->db->where('validasi_akademik ','terkirim');
+		$this->db->where('sarana_peminjaman.status_peminjaman ','terkirim');
 		$this->db->where('ruangan.id_operator', $id_operator);
 		$this->db->or_where('barang.id_operator', $id_operator);
 		$query=$this->db->get();
@@ -194,7 +194,9 @@ class M_Peminjaman extends CI_Model{
 		$this->db->join('ruangan','ruangan.id_ruangan = sarana_peminjaman.id_sarana','left');
 		$this->db->join('barang','barang.id_barang = sarana_peminjaman.id_sarana','left');
 		$this->db->join('waktu','peminjaman.jam_mulai = waktu.id_waktu');
+		$this->db->where('peminjaman.validasi_akademik !=', 'pending');
 		if($search != NULL){
+			$this->db->where_not_in('peminjaman.validasi_akademik', 'pending');
 			$this->db->like('peminjaman.id_peminjaman', $search);
 			$this->db->or_like('peminjaman.penyelenggara', $search);
 			$this->db->or_like('peminjaman.keterangan', $search);
@@ -218,6 +220,7 @@ class M_Peminjaman extends CI_Model{
 		if($status != NULL){
 			$this->db->where('peminjaman.validasi_akademik',$status);
 		}
+		
 		if($status_pembayaran != NULL){
 			$this->db->where('peminjaman.status_pembayaran',$status_pembayaran);
 		}

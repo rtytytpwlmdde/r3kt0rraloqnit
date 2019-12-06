@@ -156,37 +156,37 @@
                 <div class="form-row">
                     <div class="form-group col-md-4">
                       <label for="inputEmail4">Luas Ruangan</label>
-                      <input type="text"  required class="form-control" id="inputEmail4" name="luas_ruangan">
+                      <input type="text" class="form-control" id="inputEmail4" name="luas_ruangan">
                     </div>
                     <div class="form-group col-md-4">
                       <label for="inputPassword4">Ruang Kelas</label>
-                      <input type="text"  required class="form-control" id="inputEmail4" name="ruang_kelas">
+                      <input type="text" class="form-control" id="inputEmail4" name="ruang_kelas">
                     </div>
                     <div class="form-group col-md-4">
                       <label for="inputPassword4">Ruang Rapat</label>
-                      <input type="text"  required class="form-control" id="inputEmail4" name="ruang_rapat">
+                      <input type="text" class="form-control" id="inputEmail4" name="ruang_rapat">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-4">
                       <label for="inputPassword4">Perjamuan</label>
-                      <input type="text"  required class="form-control" id="inputEmail4" name="perjamuan">
+                      <input type="text" class="form-control" id="inputEmail4" name="perjamuan">
                     </div>
                     <div class="form-group col-md-4">
                       <label for="inputPassword4">Teater</label>
-                      <input type="text"  required class="form-control" id="inputEmail4" name="teater">
+                      <input type="text" class="form-control" id="inputEmail4" name="teater">
                     </div>
                     <div class="form-group col-md-4">
                       <label for="inputPassword4">Berbentuk U</label>
-                      <input type="text"  required class="form-control" id="inputEmail4" name="ushape">
+                      <input type="text" class="form-control" id="inputEmail4" name="ushape">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlSelect1">Alamat Ruangan</label>
+                    <label for="exampleFormControlSelect1">Lokasi Ruangan</label>
                     <select name="alamat_ruangan" required class="form-control" id="exampleFormControlSelect1">
                         <option value="">Pilih</option>
-                        <?php foreach($operator as $u): ?>
-                            <option value="<?= $u->nama_fakultas ?>"><?= $u->nama_fakultas ?></option>
+                        <?php foreach($lokasi as $u): ?>
+                            <option value="<?= $u->id_lokasi ?>"><?= $u->nama_lokasi ?></option>
                         <?php endforeach;?>         
                     </select>
                 </div>

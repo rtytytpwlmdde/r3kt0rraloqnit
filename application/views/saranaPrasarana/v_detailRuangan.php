@@ -50,7 +50,7 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
             <div class="col-md-8">
                 <div class="px-2">
                     <h5 class="font-weight-bold m-0 text-dark"><?= $u->nama_ruangan;?></h5>
-                    <h6 ><i class="fa fa-map-marker" aria-hidden="true"></i> Universitas Brawijaya Malang</h6>
+                    <h6 ><i class="fa fa-map-marker" aria-hidden="true"></i> <?= $u->nama_lokasi;?></h6>
                 </div>
             </div>
             <div class="col-md-4">

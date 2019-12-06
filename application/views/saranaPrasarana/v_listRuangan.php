@@ -78,7 +78,7 @@
                         <a href="<?php echo site_url('SaranaPrasarana/updateRuangan/'.$u->id_ruangan); ?>"  class="btn btn-sm btn-warning text-white" title="Edit">
                         <i class="fas fa-pencil-alt"></i>
                         </a>
-                        <a href="<?php echo site_url('SaranaPrasarana/hapusRuangan/'.$u->id_ruangan); ?>"  class="btn btn-sm btn-danger text-white"  title="Hapus">
+                        <a onclick="return confirm('Apakah anda benar benar ingin menghapus data ini?');" href="<?php echo site_url('SaranaPrasarana/hapusRuangan/'.$u->id_ruangan); ?>"  class="btn btn-sm btn-danger text-white"  title="Hapus">
                             <i class="fas fa-trash"></i>
                         </a>
                     </td>

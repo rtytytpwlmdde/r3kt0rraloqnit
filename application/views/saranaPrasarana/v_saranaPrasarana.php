@@ -232,11 +232,11 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                 </div>
                 <div class="card p-2 mb-2">
                     <?php $i = 0; 
-                    foreach ($operator as $a){ ?>
+                    foreach ($lokasi as $a){ ?>
                     <div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="<?= $a->username ?>" name="fakultas<?= $i?>" >
-                            <label class="form-check-label" for="inlineCheckbox1"><?= $a->nama_fakultas ?></label>
+                            <input class="form-check-input" type="checkbox" value="<?= $a->id_lokasi ?>" name="fakultas<?= $i?>" >
+                            <label class="form-check-label" for="inlineCheckbox1"><?= $a->nama_lokasi ?></label>
                         </div>
                     </div>
                     <?php $i++;} ?>

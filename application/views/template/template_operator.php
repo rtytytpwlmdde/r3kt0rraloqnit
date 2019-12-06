@@ -34,6 +34,10 @@
 
 <script src="https://unpkg.com/swiper/js/swiper.js"></script>
 <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 </head>
 
 <body id="page-top">
@@ -105,6 +109,7 @@
             <a class="collapse-item" href="<?php echo base_url('saranaPrasarana/ruangan'); ?>">Ruangan</a>
             <a  class="collapse-item" href="<?php echo base_url('saranaPrasarana/barang'); ?>">Barang</a>
             <a class="collapse-item" href="<?php echo base_url('user/user'); ?>">User</a>
+            <a class="collapse-item" href="<?php echo base_url('saranaPrasarana/lokasi'); ?>">Lokasi</a>
           </div>
         </div>
       </li>

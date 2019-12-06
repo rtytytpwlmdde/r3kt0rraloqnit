@@ -170,24 +170,37 @@
                     </div>
                 </div>
             
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Lokasi Ruangan</label>
+                    <select required  name="alamat_ruangan" id="feInputState" class="form-control">
+                    <?php foreach ($lokasi as $j) : ?>
+                        <option value="<?= $j->id_lokasi; ?>"
+                            <?php if ($u->alamat_ruangan == $j->id_lokasi) :
+                                echo "selected=selected";
+                            endif; ?>>
+                            <?= $j->nama_lokasi; ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                </div>
             <div class="form-row">
-                <div class="form-group col-md-2">
+                <div class="form-group col">
                     <label for="inputEmail4">Foto 1</label>
                     <input type="file"   class="form-control" id="inputEmail4"   value="<?= $u->foto_ruangan1; ?>" name="foto1">
                 </div>
-                <div class="form-group col-md-2">
+                <div class="form-group col">
                     <label for="inputPassword4">Foto 2</label>
                     <input type="file"   class="form-control" id="inputPassword4"   value="<?= $u->foto_ruangan2; ?>" name="foto2">
                 </div>
-                <div class="form-group col-md-2">
+                <div class="form-group col">
                     <label for="inputPassword4">Foto 3</label>
                     <input type="file"   class="form-control" id="inputPassword4"   value="<?= $u->foto_ruangan3; ?>" name="foto3">
                 </div>
-                <div class="form-group col-md-2">
+                <div class="form-group col">
                     <label for="inputPassword4">Foto 4</label>
                     <input type="file"   class="form-control" id="inputPassword4"   value="<?= $u->foto_ruangan4; ?>" name="foto4">
                 </div>
-                <div class="form-group col-md-2">
+                <div class="form-group col">
                     <label for="inputPassword4">Foto 5</label>
                     <input type="file"   class="form-control" id="inputPassword4"   value="<?= $u->foto_ruangan5; ?>" name="foto5">
                 </div>

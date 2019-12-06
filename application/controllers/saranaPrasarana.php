@@ -12,6 +12,73 @@ class SaranaPrasarana extends CI_Controller {
 		$this->load->model('M_User');
 	}
 
+	public function lokasi(){
+        if($this->session->userdata('logged_in') != 'admin' ){
+            redirect("auth/logout");
+        }
+		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
+		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+        $data['lokasi'] = $this->M_SaranaPrasarana->getDataLokasi();
+        $data['main_view'] = 'saranaPrasarana/v_listLokasi';
+        $this->load->view('template/template_operator', $data);
+    }
+
+    public function formTambahLokasi(){
+        if($this->session->userdata('logged_in') != 'admin' ){
+            redirect("auth/logout");
+        }
+		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
+		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+        $data['main_view'] = 'saranaPrasarana/v_tambahLokasi';
+        $this->load->view('template/template_operator', $data);
+    }
+
+    public function tambahLokasi(){
+        $nama_lokasi = $this->input->post('nama_lokasi');
+        
+            $data = array(
+                'nama_lokasi' => $nama_lokasi
+            );
+            $this->M_User->tambahUser($data,'lokasi_ruangan');
+            $this->session->set_flashdata('sukses', "Data lokasi ruangan berhasil ditambahkan");
+            redirect('saranaPrasarana/lokasi');
+    }
+
+    function hapusLokasi($id_lokasi){
+        if($this->session->userdata('logged_in') != 'admin' ){
+            redirect("auth/logout");
+        }
+        $where = array('id_lokasi' => $id_lokasi);
+        $this->M_User->hapusUser($where,'lokasi_ruangan');
+        $this->session->set_flashdata('sukses', "Data lokasi ruangan berhasil dihapus");
+        redirect('saranaPrasarana/lokasi');
+    }
+
+    function updateLokasi($id_lokasi){
+        if($this->session->userdata('logged_in') != 'admin' ){
+            redirect("auth/logout");
+        }
+		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
+		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+        $data['main_view'] = 'saranaPrasarana/v_editLokasi';
+        $data['lokasi'] = $this->M_SaranaPrasarana->getDataLokasiById($id_lokasi);
+        $this->load->view('template/template_operator',$data);
+	}
+	
+	function editLokasi(){
+        $id_lokasi = $this->input->post('id_lokasi');
+        $nama_lokasi = $this->input->post('nama_lokasi');
+       
+        $data = array(
+            'nama_lokasi' => $nama_lokasi
+        );
+
+        $where = array('id_lokasi' => $id_lokasi);
+
+        $this->M_SaranaPrasarana->updateRuangan($where,$data,'lokasi_ruangan');
+        $this->session->set_flashdata('notifsukses', "Data lokasi berhasil diubah");
+        redirect('SaranaPrasarana/lokasi');
+	}
 
 
 // ruangan
@@ -33,6 +100,7 @@ class SaranaPrasarana extends CI_Controller {
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
 		$data['operator'] = $this->M_User->getDataOperator()->result();
+        $data['lokasi'] = $this->M_SaranaPrasarana->getDataLokasi();
         $data['main_view'] = 'SaranaPrasarana/V_TambahRuangan';
         $this->load->view('template/template_operator', $data);
     }
@@ -176,7 +244,9 @@ class SaranaPrasarana extends CI_Controller {
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
         $data['main_view'] = 'SaranaPrasarana/v_EditRuangan';
-		$data['operator'] = $this->M_User->getDataOperator()->result();
+		$data['operator'] = $this->M_User->getDataOperator()->result();       
+		 $data['lokasi'] = $this->M_SaranaPrasarana->getDataLokasi();
+
         $data['ruangan'] = $this->M_SaranaPrasarana->getDataRuanganById($id_ruangan);
         $this->load->view('template/template_operator',$data);
     }
@@ -550,6 +620,7 @@ function saranaPrasarana(){
 	$data['jamSelesai'] = $this->input->get('jamSelesai');
 	$data['jenis'] = $jenis;
 	$data['jumlahUser'] = $this->M_User->getCountUserBaru();
+	$data['lokasi'] = $this->M_SaranaPrasarana->getDataLokasi();
 	$data['operator'] = $this->M_User->getDataOperator()->result();
 	$data['waktu'] = $this->m_peminjaman->getDataWaktu()->result();
 	$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();

@@ -134,6 +134,7 @@
                 <?php $jumRuangan++;} ?>
             </div>
 
+            <?php if($this->session->userdata("logged_in") == false || $this->session->userdata("status") == 'pengguna'){ ?>
             <form action="<?php echo base_url("peminjaman/kirimPeminjaman")?>" method="post">
                 <input type="hidden" name="id_peminjaman" value="<?= $id?>">
                 <input type="hidden" name="total_pembayaran" value="0">
@@ -148,6 +149,19 @@
                     </div>
                 </div>
             </form>
+                <?php }else{?>
+                    <div class="row">
+                    <div class="col-md-3"> <a href="<?php echo site_url('Peminjaman/hapusPeminjaman/'.$id); ?>"   type="submit" class="btn btn-user btn-block btn-outline-secondary " title="Batalkan peminjaman">
+                        Batalkan Peminjaman
+                        </a>
+                    </div>
+                    <div class="col-md-9"> 
+                        <a href="<?php echo site_url('Peminjaman/formTambahTagihanPeminjaman/'.$id); ?>"   type="submit" class="btn btn-user btn-block btn-primary " title="Batalkan peminjaman">
+                        Lanjut Proses Selanjutnya
+                        </a>
+                    </div>
+                </div>
+                    <?php }?>
         <?php } ?>
         </div>
       </div>

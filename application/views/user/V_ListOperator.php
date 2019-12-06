@@ -1,5 +1,5 @@
 
-<div class="col-md-12">
+<div class="col-md-12 ">
 <?php
         $notif = $this->session->flashdata('notif');
         if($notif != NULL){
@@ -36,13 +36,14 @@
                 </div>
             </div>
         </div>
-    <div class="bg-white  shadow" >
-        <table class="table table-bordered">
+    <div class="bg-white  p-2 shadow" >
+        <table class="table table-bordered" id="tblmatakuliah">
             <thead class="bg-thead text-white">
                 <tr>
                 <th class="text-center" scope="col">No</th>
                 <th class="text-center" scope="col">Username</th>
                 <th class="text-center" scope="col">Password</th>
+                <th class="text-center" scope="col">Nama</th>
                 <th class="text-center" scope="col">Fakultas</th>
                 <th class="text-center" scope="col">Status</th>
                 <th class="text-center" scope="col">Ruangan</th>
@@ -58,6 +59,7 @@
                     <td><?php echo $no++; ?></td>
                     <td><?php echo $u->username; ?></td>
                     <td><?php echo $u->password;?></td>
+                    <td><?php echo $u->nama_operator;?></td>
                     <td><?php echo $u->nama_fakultas;?></td>
                     <td><?php echo $u->status_operator;?></td>
                     <td class="text-left">
@@ -75,7 +77,7 @@
                         <a href="<?php echo site_url('user/updateOperator/'.$u->username); ?>"  class="btn btn-sm btn-warning text-white" title="Edit">
                         <i class="fas fa-pencil-alt"></i>
                         </a>
-                        <a href="<?php echo site_url('user/hapusOperator/'.$u->username); ?>"  class="btn btn-sm btn-danger text-white"  title="Hapus">
+                        <a href="<?php echo site_url('user/hapusOperator/'.$u->username); ?>"  onclick="return confirm('Apakah anda benar benar ingin menghapus data ini?');" class="btn btn-sm btn-danger text-white"  title="Hapus">
                             <i class="fas fa-trash"></i>
                         </a>
                     </td>
@@ -85,3 +87,7 @@
         </table>
     </div>
 </div>
+
+<script>
+    $('#tblmatakuliah').DataTable();
+</script>

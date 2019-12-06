@@ -30,6 +30,7 @@ class M_SaranaPrasarana extends CI_Model{
 			$this->db->select('ruangan.*');
 			$this->db->select('operator.nama_fakultas');
 			$this->db->join('operator','operator.username = ruangan.id_operator');
+			$this->db->join('lokasi_ruangan','lokasi_ruangan.id_lokasi = ruangan.alamat_ruangan','left');
 			if($search != NULL){
 				$this->db->like('nama_ruangan', $search);
 				$this->db->or_like('deskripsi_ruangan', $search);
@@ -324,7 +325,6 @@ class M_SaranaPrasarana extends CI_Model{
 		function getDataRuanganNonKelas(){
 			$this->db->select('*');
 			$this->db->from('ruangan');
-			$this->db->where('jenis_ruangan','ruangan');
 			$this->db->order_by("ruangan.nama_ruangan", "asc");
 			$query=$this->db->get();
 			return $query->result();
@@ -351,10 +351,27 @@ class M_SaranaPrasarana extends CI_Model{
 			return $query->result();
 		}
 
+		function getDataLokasi(){
+			$this->db->select('*');
+			$this->db->from('lokasi_ruangan');
+			$query=$this->db->get();
+			return $query->result();
+		}
+
+		function getDataLokasiById($id){
+			$this->db->select('*');
+			$this->db->from('lokasi_ruangan');
+			$this->db->where('id_lokasi',$id);
+			$query=$this->db->get();
+			return $query->result();
+		}
+
     function getDataRuanganById($id_ruangan){
 		$this->db->select('*');
-		$this->db->from('ruangan');
-		$this->db->where('id_ruangan',$id_ruangan);
+		$this->db->from('ruangan');			
+		$this->db->join('lokasi_ruangan','lokasi_ruangan.id_lokasi = ruangan.alamat_ruangan','left');
+
+		$this->db->where('ruangan.id_ruangan',$id_ruangan);
 		$query=$this->db->get();
 		return $query->result();
     }
@@ -417,7 +434,7 @@ class M_SaranaPrasarana extends CI_Model{
 			for($i=0; $i<$jumlahFakultas; $i++){
 				$fakultas = $this->input->get('fakultas'.$i);
 				if($fakultas != NULL){
-					$this->db->or_like('id_operator', $fakultas);
+					$this->db->or_like('alamat_ruangan', $fakultas);
 				}
 			}
 			$this->db->where("id_barang NOT IN 
@@ -541,7 +558,8 @@ class M_SaranaPrasarana extends CI_Model{
 			$this->db->order_by("ruangan.nama_ruangan", "asc");
 			$query=$this->db->get();
 			return $query;
-			}
+		}
+
 	
 
 		function getJumlahBarang(){

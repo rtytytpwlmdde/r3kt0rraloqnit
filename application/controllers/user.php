@@ -22,7 +22,7 @@ class User extends CI_Controller {
         }
 		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
 		$data['operator'] = $this->M_User->getDataOperator()->result();
-        $data['ruangan'] = $this->M_SaranaPrasarana->getDataRuangan()->result();
+        $data['ruangan'] = $this->M_SaranaPrasarana->getDataSemuaRuangan();
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['main_view'] = 'User/V_ListOperator';
 		$this->load->view('template/template_operator', $data);
@@ -42,6 +42,7 @@ class User extends CI_Controller {
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
 		$nama_fakultas = $this->input->post('nama_fakultas');
+		$nama_operator = $this->input->post('nama_operator');
 		$status_operator = $this->input->post('status_operator');
 		
 		if($this->M_User->cek_id_operator() == TRUE){
@@ -51,6 +52,7 @@ class User extends CI_Controller {
 			$data = array(
 				'username' => $username,
 				'status_operator' => $status_operator,
+				'nama_operator' => $nama_operator,
 				'nama_fakultas' => $nama_fakultas,
 				'password' => $password
 			);
@@ -91,11 +93,15 @@ class User extends CI_Controller {
 	function editOperator(){
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
+		$nama_fakultas = $this->input->post('nama_fakultas');
+		$nama_operator = $this->input->post('nama_operator');
 		$status_operator = $this->input->post('status_operator');
 			
 		$data = array(
 			'username' => $username,
 			'password' => $password,
+			'nama_fakultas' => $nama_fakultas,
+			'nama_operator' => $nama_operator,
 			'status_operator' => $status_operator
 		);
 

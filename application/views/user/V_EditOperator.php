@@ -38,19 +38,22 @@
                     <input disabled type="text" name="" class="form-control " value="<?= $u->password; ?>">
                 </div>
                 <div class="form-group">
+                    <label for="">Nama Operator</label>
+                    <input required type="text" name="nama_operator" class="form-control " value="<?= $u->nama_operator; ?>">
+                </div>
+                <div class="form-group">
                     <label for="">Password</label>
                     <input required type="text" name="password" class="form-control " value="<?= $u->password; ?>">
+                </div>
+                <div class="form-group">
+                    <label for="">Nama Fakultas</label>
+                    <input required type="text" name="nama_fakultas" class="form-control " value="<?= $u->nama_fakultas; ?>">
                 </div>
                 <div class="form-group">
                     <label for="feInputAddress">Status</label>
                     <select required  name="status_operator" id="feInputState" class="form-control">
                     <option value="admin" <?php echo ($u->status_operator=='admin')?'selected="selected"':''; ?>>admin</option>
                     <option value="staff pelayanan" <?php echo ($u->status_operator=='staff pelayanan')?'selected="selected"':''; ?>>staff pelayanan</option>
-                    <option value="sekretariat kuliah" <?php echo ($u->status_operator=='sekretariat kuliah')?'selected="selected"':''; ?>>sekretariat kuliah</option>
-                    <option value="kasubag akademik" <?php echo ($u->status_operator=='kasubag akademik')?'selected="selected"':''; ?>>kasubag akademik</option>
-                    <option value="kasubag kemahasiswaan" <?php echo ($u->status_operator=='kasubag kemahasiswaan')?'selected="selected"':''; ?>>kasubag kemahasiswaan</option>
-                    <option value="kasubag umum" <?php echo ($u->status_operator=='kasubag umum')?'selected="selected"':''; ?>>kasubag umum</option>
-                    <option value="wakil dekan" <?php echo ($u->status_operator=='wakil dekan')?'selected="selected"':''; ?>>wakil dekan</option>
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary btn-user btn-block">
