@@ -46,7 +46,7 @@ class User extends CI_Controller {
 		$status_operator = $this->input->post('status_operator');
 		
 		if($this->M_User->cek_id_operator() == TRUE){
-			$this->session->set_flashdata('notif', "username $username sudah terdaftar didatabase");
+			$this->session->set_flashdata('gagal', "username $username sudah terdaftar didatabase");
 			redirect('User/formTambahOperator');
 		}else{
 			$data = array(
@@ -64,7 +64,7 @@ class User extends CI_Controller {
 			);
 			$this->M_User->tambahUser($data,'operator');
 			$this->M_User->tambahUser($datas,'mahasiswa');
-			$this->session->set_flashdata('notifsukses', "Data operator berhasil ditambahkan");
+			$this->session->set_flashdata('sukses', "Data operator berhasil ditambahkan");
 			redirect('User/operator');
 		}
 	}

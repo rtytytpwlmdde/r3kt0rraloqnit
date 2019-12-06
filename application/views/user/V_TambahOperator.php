@@ -1,22 +1,22 @@
 
 <div class="col-md-12">
 <?php
-        $notif = $this->session->flashdata('notif');
-        if($notif != NULL){
+        $gagal = $this->session->flashdata('gagal');
+        if($gagal != NULL){
             echo '
             <div class="alert alert-danger alert-dismissible fade show bg-danger text-white" role="alert">
-              <strong>Gagal! </strong> '.$notif.'
+              <strong>Gagal! </strong> '.$gagal.'
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             ';
         }
-        $notifsukses = $this->session->flashdata('notifsukses');
-        if($notifsukses != NULL){
+        $sukses = $this->session->flashdata('sukses');
+        if($sukses != NULL){
             echo '
             <div class="alert alert-success alert-dismissible fade show bg-success text-white" role="alert">
-              <strong>Sukses! </strong> '.$notifsukses.'
+              <strong>Sukses! </strong> '.$sukses.'
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
