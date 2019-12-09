@@ -186,12 +186,24 @@ if($this->session->userdata('status') == "pengguna"){
                         <?php } ?> 
                         <?php if( $u->validasi_akademik == 'setuju'){ ?>
                            <?php if( $u->id_peminjam == $this->session->userdata('username') || $this->session->userdata('username') == 'admin'){ ?>
-                                <a href="https://api.whatsapp.com/send?phone=<?= $u->nomor_telpon?>&text=Hi%20Peminjaman%20Ruangan%20<?=$u->nama_ruangan;?>%20Telah%20Disetujui.%20 Terimakasih" 
+                                <a href="https://api.whatsapp.com/send?phone=<?= $u->nomor_telpon?>&text=Informasi Penggunaan Ruangan :
+                                %0AStatus Peminjaman Ruangan <?= $u->nama_ruangan?> Telah Disetujui.  
+                                %0ATanggal : <?= date("d-m-Y", strtotime($u->tanggal_mulai_penggunaan)); ?>s/d<?= date("d-m-Y", strtotime($u->tanggal_selesai_penggunaan)); ?>
+                                %0AJam 	: <?= $start ?>
+                                %0A%0ATerimakasih
+                                %0A%0ATTD 
+                                %0A%0A<?= $this->session->userdata('username');?>" 
                             target="_blank"class="btn btn-outline-success btn-sm" title="Kirim Pesan WA"><i class="fab fa-whatsapp"></i></a>
                             <?php } ?> 
                         <?php } ?>  
                            <?php if($u->validasi_akademik == 'tolak'){ ?>
-                            <a href="https://api.whatsapp.com/send?phone=<?= $u->nomor_telpon?>&text=Hi%20Peminjaman%20Ruangan%20<?=$u->nama_ruangan;?>%20Telah%20Ditolak.%20 Dengan alasan penolakan <?= $u->catatan_penolakan?>Terimakasih" 
+                            <a href="https://api.whatsapp.com/send?phone=<?= $u->nomor_telpon?>&text=Informasi Penggunaan Ruangan :
+                                %0AStatus Peminjaman Ruangan <?= $u->nama_ruangan?> Telah Ditolak.  
+                                %0ATanggal : <?= date("d-m-Y", strtotime($u->tanggal_mulai_penggunaan)); ?>s/d<?= date("d-m-Y", strtotime($u->tanggal_selesai_penggunaan)); ?>
+                                %0AJam 	: <?= $start ?>
+                                %0A%0ATerimakasih
+                                %0A%0ATTD 
+                                %0A%0A<?= $this->session->userdata('username');?>" 
                             target="_blank"class="btn btn-outline-success btn-sm" title="Kirim Pesan WA"><i class="fab fa-whatsapp"></i></a>
                            
                            <?php } ?>

@@ -48,13 +48,20 @@
             <div class="col-6 col-md-6 d-flex flex-row-reverse">
                 <div class="btn-group">
                 <?php foreach ($header as $a){
-                    $validasi_akademik = $a->validasi_akademik;
+                     $validasi_akademik = $a->validasi_akademik;
                     $nomor_telpon = $a->nomor_telpon;
                     $nama_ruangan = $a->nama_ruangan;
+                    $tgl_mulai = $a->tanggal_mulai_penggunaan;
+                    $tgl_selesai = $a->tanggal_selesai_penggunaan;
+                    $nama_ruangan = $a->nama_ruangan;
                     $id_peminjam = $a->id_peminjam;
+                    $jam_mulai = $a->jam_mulai;
+                    $jam_selesai = $a->jam_selesai;
                     $catatan_penolakan = $a->catatan_penolakan;
                     $jenis_peminjaman = $a->jenis_peminjaman;
                     $jenis = $a->jenis_peminjaman;
+                    $mulai = explode("-", $a->nama_waktu);
+                     $start = $mulai[0]; 
                 }?>
                 <?php if( $validasi_akademik == 'terkirim' && $this->session->userdata('status') != 'pengguna' && $this->session->userdata('logged_in') == true){ ?>
                     <form action="<?php echo base_url("peminjaman/validasiPeminjaman");?>" method="post">
@@ -76,16 +83,25 @@
                     <?php } ?> 
                 <?php } ?> 
                 <?php if( $validasi_akademik == 'setuju'){ ?>
-                    <?php if( $id_peminjam == $this->session->userdata('username') || $this->session->userdata('username') == 'admin'){ ?>
-                        <a href="https://api.whatsapp.com/send?phone=<?= $nomor_telpon?>&text=Hi%20Peminjaman%20Ruangan%20<?=$nama_ruangan;?>%20Telah%20Disetujui.%20 Terimakasih" 
-                    target="_blank"class="btn btn-outline-success btn-sm" title="Kirim Pesan WA"><i class="fab fa-whatsapp"></i></a>
-                    <?php } ?> 
-                <?php } ?>  
-                    <?php if($validasi_akademik == 'tolak'){ ?>
-                    <a href="https://api.whatsapp.com/send?phone=<?= $nomor_telpon?>&text=Hi%20Peminjaman%20Ruangan%20<?=$nama_ruangan;?>%20Telah%20Ditolak.%20 Dengan alasan penolakan <?= $catatan_penolakan?>Terimakasih" 
-                    target="_blank"class="btn btn-outline-success btn-sm" title="Kirim Pesan WA"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://api.whatsapp.com/send?phone=<?= $nomor_telpon?>&text=Informasi Penggunaan Ruangan :
+                                %0AStatus Peminjaman Ruangan <?= $nama_ruangan?> Telah Disetujui.  
+                                %0ATanggal : <?= date("d-m-Y", strtotime($tgl_mulai)); ?>s/d<?= date("d-m-Y", strtotime($tgl_selesai)); ?>
+                                %0AJam 	: <?= $start ?>
+                                %0A%0ATerimakasih
+                                %0A%0ATTD 
+                                %0A%0A<?= $this->session->userdata('username');?>" 
+                            target="_blank"class="btn btn-outline-success btn-sm" title="Kirim Pesan WA"><i class="fab fa-whatsapp"></i></a>
+                    <?php }if( $validasi_akademik == 'tolak'){ ?>
+                        <a href="https://api.whatsapp.com/send?phone=<?= $nomor_telpon?>&text=Informasi Penggunaan Ruangan :
+                                %0AStatus Peminjaman Ruangan <?= $nama_ruangan?> Telah Ditolak.  
+                                %0ATanggal : <?= date("d-m-Y", strtotime($tgl_mulai)); ?>s/d<?= date("d-m-Y", strtotime($tgl_selesai)); ?>
+                                %0AJam 	: <?= $start ?>
+                                %0A%0ATerimakasih
+                                %0A%0ATTD 
+                                %0A%0A<?= $this->session->userdata('username');?>" 
+                            target="_blank"class="btn btn-outline-success btn-sm" title="Kirim Pesan WA"><i class="fab fa-whatsapp"></i></a>
                     
-                <?php } ?>
+                <?php }?>
                 </div>
                 
             </div>

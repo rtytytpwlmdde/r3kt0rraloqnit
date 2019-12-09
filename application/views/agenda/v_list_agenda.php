@@ -23,6 +23,7 @@
         </div>
         <div class="fs--1 card-body">
             <?php foreach($agenda as $u){?>
+            <?php if($u->validasi_akademik == 'setuju'){?>
             <div class="media">
                 <div class="calendar">
                     <span class="calendar-month mt-0">
@@ -58,7 +59,7 @@
                     <hr class="border-dashed border-bottom-0">
                 </div>
             </div>
-            <?php } ?>
+            <?php } } ?>
             
         </div>
     </div>

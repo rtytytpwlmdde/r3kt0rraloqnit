@@ -39,7 +39,7 @@
           <!-- Content Row -->
           <div class="row card  shadow">
             <div class="table-responsive div">
-                <table class="table table-sm  table-penggunaan-ruangan  mx-0 text-center table-hover" id="myTable">
+                <table class="table  table-penggunaan-ruangan  mx-0 text-center table-hover" id="myTable">
                     <thead class="bg-thead text-white" >
                         <tr>
                                 <th style="font-size:14px;" class="text-left text-dark headcol">
@@ -58,8 +58,8 @@
                     <tbody >
                     <?php 
                             foreach ($ruangan as $r){?>
-                        <tr>
-                        <td class="text-left headcol" style="font-size:14px;"><a href="<?php echo base_url("saranaPrasarana/detailRuangan/".$r->id_ruangan)?>"><?= $r->nama_ruangan?></a> <br>
+                        <tr >
+                        <td class="text-left headcol" style="font-size:14px;" style="fon:14px;"><a href="<?php echo base_url("saranaPrasarana/detailRuangan/".$r->id_ruangan)?>"><?= $r->nama_ruangan?></a> <br></td>
                             <?php 
                             foreach ($waktu as $w){
                                 $result = 0; $terkirim = 0; $setuju = 0; 

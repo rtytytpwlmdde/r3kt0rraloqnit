@@ -39,7 +39,7 @@
           <!-- Content Row -->
           <div class="row card  shadow">
             <div class="table-responsive div">
-                <table class="table table-sm  table-penggunaan-barang  mx-0 text-center table-hover" id="myTable">
+                <table class="table  table-penggunaan-barang  mx-0 text-center table-hover" id="myTable">
                     <thead class="bg-thead text-white" >
                         <tr>
                                 <th style="font-size:14px;" class="text-left text-dark headcol">

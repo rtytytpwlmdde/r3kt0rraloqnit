@@ -15,13 +15,12 @@ class M_agenda extends CI_Model{
 				$this->db->where('peminjaman.validasi_akademik','setuju');
 				$this->db->where('peminjaman.jenis_peminjaman','ruangan');
 				if($search != null){
-					$this->db->like('peminjaman.id_peminjaman',$search);
+					$this->db->or_like('peminjaman.id_peminjaman',$search);
 					$this->db->or_like('peminjaman.id_peminjam', $search);
 					$this->db->or_like('peminjaman.penyelenggara', $search);
 					$this->db->or_like('peminjaman.keterangan', $search);
-					$this->db->or_like('ruangan.nama_ruangan', $search);
 					$this->db->or_like('waktu.nama_waktu', $search);
-					$this->db->or_like('peminjaman.validasi_akademik','setuju');
+					$this->db->where('peminjaman.validasi_akademik','setuju');
 				}	
 				if($start != null){
 					if($end != null){
@@ -35,6 +34,10 @@ class M_agenda extends CI_Model{
 					$this->db->where('peminjaman.validasi_akademik','setuju');
 				}
 				$this->db->where('peminjaman.validasi_akademik','setuju');
+				if($search != NULL){
+					$this->db->where('sarana_peminjaman.status_peminjaman', 'setuju');
+				}
+				$this->db->group_by('peminjaman.id_peminjaman');
 				$this->db->order_by('peminjaman.tanggal_mulai_penggunaan','asc');
 				$query=$this->db->get();
 				return $query;
