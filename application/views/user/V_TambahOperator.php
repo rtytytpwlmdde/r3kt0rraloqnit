@@ -30,7 +30,7 @@
             <h6 class="m-0 font-weight-bold text-white">Tambah Data Operator</h6>
         </div>
         <div class="card-body">
-            <form class="user" action="<?php echo base_url().'User/tambahOperator'; ?>" method="post">
+            <form class="user" action="<?php echo base_url().'index.php?/User/tambahOperator'; ?>" method="post">
                 <div class="form-group">
                     <label for="">Username</label>
                     <input required type="text" name="username" class="form-control" placeholder="">

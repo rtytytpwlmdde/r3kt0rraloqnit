@@ -43,7 +43,7 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">SIBORU UB</h1>
                   </div>
-                  <form class="user" action="<?php echo base_url().'auth/cek_login'; ?>" method="post">
+                  <form class="user" action="<?php echo base_url().'index.php?/Auth/cek_login'; ?>" method="post">
                     <div class="form-group">
                       <input required type="text" name="username" class="form-control form-control-user" placeholder="Username">
                     </div>
@@ -57,7 +57,7 @@
                   <hr>
                   <div class="text-center " hidden>
                     <a class="small" href="forgot-password.html">Lupa Password?</a>
-                    <a class="small ml-2" href="<?php echo base_url().'auth/formRegister'; ?>">Daftar</a>
+                    <a class="small ml-2" href="<?php echo base_url().'index.php?/Auth/formRegister'; ?>">Daftar</a>
                   </div>
                 </div>
               </div>

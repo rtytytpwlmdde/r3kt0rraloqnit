@@ -16,7 +16,7 @@
         $jam_mulai = null;
         $jam_selesai = null; 
         ?>
-         <form class="user" action="<?php echo base_url().'peminjaman/tambahPengembalianBarang'; ?>" method="post">
+         <form class="user" action="<?php echo base_url().'index.php?/Peminjaman/tambahPengembalianBarang'; ?>" method="post">
           
           <div class="form-group">
               <label for="exampleFormControlSelect1">Kode Boking</label>

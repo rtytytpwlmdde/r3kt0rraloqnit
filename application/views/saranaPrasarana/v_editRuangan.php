@@ -32,7 +32,7 @@
         </div>
         <div class="card-body">
         <?php foreach($ruangan as $u): ?>
-        <form class="user" action="<?php echo base_url().'SaranaPrasarana/editRuangan'; ?>" method="post" enctype="multipart/form-data">
+        <form class="user" action="<?php echo base_url().'index.php?/SaranaPrasarana/editRuangan'; ?>" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="">ID Ruangan</label>
                 <input hidden type="text" name="id_ruangan" class="form-control form-control-user" value="<?= $u->id_ruangan; ?>">

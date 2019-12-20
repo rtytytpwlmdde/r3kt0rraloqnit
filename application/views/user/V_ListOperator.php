@@ -31,13 +31,13 @@
                 </div>
                 <div class="col-6 col-md-4">
                     <div class="d-flex flex-row-reverse bd-highlight">
-                        <a class="btn btn-sm btn-primary"  href="<?php  echo base_url('User/formTambahOperator'); ?>" role="button">Tambah Operator</a>
+                        <a class="btn btn-sm btn-primary"  href="<?php  echo base_url('index.php?/User/formTambahOperator'); ?>" role="button">Tambah Operator</a>
                     </div>
                 </div>
             </div>
         </div>
     <div class="bg-white  p-2 shadow" >
-        <table class="table table-bordered" id="tblmatakuliah">
+        <table class="table table-bordered" id="dataTable">
             <thead class="bg-thead text-white">
                 <tr>
                 <th class="text-center" scope="col">No</th>
@@ -74,10 +74,10 @@
                 
                     </td>
                     <td >
-                        <a href="<?php echo site_url('user/updateOperator/'.$u->username); ?>"  class="btn btn-sm btn-warning text-white" title="Edit">
+                        <a href="<?php echo site_url('index.php?/User/updateOperator/'.$u->username); ?>"  class="btn btn-sm btn-warning text-white" title="Edit">
                         <i class="fas fa-pencil-alt"></i>
                         </a>
-                        <a href="<?php echo site_url('user/hapusOperator/'.$u->username); ?>"  onclick="return confirm('Apakah anda benar benar ingin menghapus data ini?');" class="btn btn-sm btn-danger text-white"  title="Hapus">
+                        <a href="<?php echo site_url('index.php?/User/hapusOperator/'.$u->username); ?>"  onclick="return confirm('Apakah anda benar benar ingin menghapus data ini?');" class="btn btn-sm btn-danger text-white"  title="Hapus">
                             <i class="fas fa-trash"></i>
                         </a>
                     </td>

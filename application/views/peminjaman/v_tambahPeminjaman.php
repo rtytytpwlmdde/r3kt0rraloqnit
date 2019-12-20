@@ -3,22 +3,22 @@
 <?php }else{?><div class="">
 <?php }?>
 <?php
-        $notif = $this->session->flashdata('notif');
-        if($notif != NULL){
+        $gagal = $this->session->flashdata('gagal');
+        if($gagal != NULL){
             echo '
             <div class="alert alert-danger alert-dismissible fade show bg-danger text-white" role="alert">
-              <strong></strong> '.$notif.'
+              <strong></strong> '.$gagal.'
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             ';
         }
-        $notifsukses = $this->session->flashdata('notifsukses');
-        if($notifsukses != NULL){
+        $sukses = $this->session->flashdata('sukses');
+        if($sukses != NULL){
             echo '
             <div class="alert alert-success alert-dismissible fade show bg-success text-white" role="alert">
-              <strong></strong> '.$notifsukses.'
+              <strong></strong> '.$sukses.'
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -50,7 +50,7 @@
           <h6 class="m-0 font-weight-bold ">Form Data Peminjaman</h6>
         </div>
         <div class="card-body">
-          <form class="user" action="<?php echo base_url().'peminjaman/tambahPeminjaman'; ?>" method="post" enctype="multipart/form-data">
+          <form class="user" action="<?php echo base_url().'index.php?/Peminjaman/tambahPeminjaman'; ?>" method="post" enctype="multipart/form-data">
           
                 <?php if($this->session->userdata('logged_in') == FALSE){ ?>
                   <div class="form-group">
@@ -70,58 +70,143 @@
               <div class="form-group">
                   <label for="exampleFormControlSelect1">NIM/NIK/NIP</label>
                   <input type="text"   name="id_peminjam" class="form-control " value="">
+                  <small>Silahkan isi dengan tanda "-" tanpa kutip, jika tidak mempunyai</small>
+                </div>
+
+            <div class="shadow-none p-3 mb-3 bg-light rounded ">
+            
+                <div class="row">
+                  <div class="col-md-12 mb-3">
+                      <div class="form-group">
+                          <h5 class="text-dark">Tanggal Dan Jam Penggunaan Ruangan</h5>
+                          <small>Input tanggal dan jam berapa ruangan akan digunakan</small>
+                      </div>
                   </div>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                  <div class="form-group">
-                      <label for="exampleFormControlSelect1">Tanggal Mulai</label>
-                      <input type="date" class="form-control" name="tanggal_mulai_penggunaan">
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                      <div class="form-group">
+                          <label for="exampleFormControlSelect1">Tanggal Mulai Penggunaan Ruangan</label>
+                          <input type="date" class="form-control" name="tanggal_mulai_penggunaan">
+                      </div>
                   </div>
-              </div>
-              <div class="col-md-6 mb-3">
-                  <div class="form-group">
-                      <label for="exampleFormControlSelect1">Tanggal Selesai</label>
-                      <input type="date" class="form-control" name="tanggal_selesai_penggunaan">
+                  <div class="col-md-6 mb-3">
+                      <div class="form-group">
+                          <label for="exampleFormControlSelect1">Tanggal Selesai Penggunaan Ruangan</label>
+                          <input type="date" class="form-control" name="tanggal_selesai_penggunaan">
+                      </div>
                   </div>
+                </div>
+                
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Jam Mulai Penggunaan Ruangan</label>
+                        <select name="jam_mulai_penggunaan" required class="form-control" id="exampleFormControlSelect1">
+                                <?php foreach ($waktu as $u) { 
+                                  $pieces = explode("-", $u->nama_waktu);
+                                  $start = $pieces[0];
+                                  $end = $pieces[1];
+                                  ?>
+                                <option value="<?= $u->id_waktu ?>">
+                                <?= $start?>
+                                </option>
+                            <?php } ?>         
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Jam Selesai Penggunaan Ruangan</label>
+                        <select name="jam_selesai_penggunaan" required class="form-control" id="exampleFormControlSelect1">
+                          <?php foreach ($waktu as $u) { 
+                                  $pieces = explode("-", $u->nama_waktu);
+                                  $start = $pieces[0];
+                                  $end = $pieces[1];
+                                  ?>
+                                <option value="<?= $u->id_waktu ?>">
+                                <?= $end?>
+                                </option>
+                            <?php } ?>        
+                        </select>
+                    </div>
+                </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                  <div class="form-group">
-                      <label for="exampleFormControlSelect1">Jam Mulai</label>
-                      <select name="jam_mulai" required class="form-control" id="exampleFormControlSelect1">
-                              <?php foreach ($waktu as $u) { 
-                                $pieces = explode("-", $u->nama_waktu);
-                                $start = $pieces[0];
-                                $end = $pieces[1];
-                                ?>
-                              <option value="<?= $u->id_waktu ?>">
-                              <?= $start?>
-                              </option>
-                          <?php } ?>         
-                      </select>
+
+            
+            <div class="shadow-none p-3 mb-3 bg-light rounded ">
+            
+                <div class="row">
+                  <div class="col-md-12 mb-3">
+                      <div class="form-group">
+                          <h5 class="text-dark">Tanggal Dan Jam Acara</h5>
+                          <small>Input tanggal dan jam berapa pelaksanaan acara saat menggunakan ruangan</small>
+                      </div>
                   </div>
-              </div>
-              <div class="col-md-6 mb-3">
-                  <div class="form-group">
-                      <label for="exampleFormControlSelect1">Jam Selesai</label>
-                      <select name="jam_selesai" required class="form-control" id="exampleFormControlSelect1">
-                        <?php foreach ($waktu as $u) { 
-                                $pieces = explode("-", $u->nama_waktu);
-                                $start = $pieces[0];
-                                $end = $pieces[1];
-                                ?>
-                              <option value="<?= $u->id_waktu ?>">
-                              <?= $end?>
-                              </option>
-                          <?php } ?>        
-                      </select>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                      <div class="form-group">
+                          <label for="exampleFormControlSelect1">Tanggal Mulai Acara</label>
+                          <input type="date" class="form-control" name="tanggal_mulai_acara">
+                      </div>
                   </div>
+                  <div class="col-md-6 mb-3">
+                      <div class="form-group">
+                          <label for="exampleFormControlSelect1">Tanggal Selesai Acara</label>
+                          <input type="date" class="form-control" name="tanggal_selesai_acara">
+                      </div>
+                  </div>
+                </div>
+                
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Jam Mulai Acara</label>
+                        <select name="jam_mulai_acara" required class="form-control" id="exampleFormControlSelect1">
+                                <?php foreach ($waktu as $u) { 
+                                  $pieces = explode("-", $u->nama_waktu);
+                                  $start = $pieces[0];
+                                  $end = $pieces[1];
+                                  ?>
+                                <option value="<?= $u->id_waktu ?>">
+                                <?= $start?>
+                                </option>
+                            <?php } ?>         
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Jam Selesai Acara</label>
+                        <select name="jam_selesai_acara" required class="form-control" id="exampleFormControlSelect1">
+                          <?php foreach ($waktu as $u) { 
+                                  $pieces = explode("-", $u->nama_waktu);
+                                  $start = $pieces[0];
+                                  $end = $pieces[1];
+                                  ?>
+                                <option value="<?= $u->id_waktu ?>">
+                                <?= $end?>
+                                </option>
+                            <?php } ?>        
+                        </select>
+                    </div>
+                </div>
               </div>
             </div>
+
+
             <div class="form-group">
-                <label for="exampleFormControlSelect1">Penyelenggara</label>
-                <input type="text"  required name="penyelenggara" class="form-control " placeholder="masukkan nama lengkap penyelenggara acara">
+                <label for="exampleFormControlSelect1">Nama Instanasi</label>
+                <select name="penyelenggara" required class="form-control" id="exampleFormControlSelect1">
+                          <option value="">Pilih.. </option>
+                          <?php foreach ($lembaga as $u) { ?>
+                                <option value="<?= $u->nama_lembaga ?>">
+                                <?= $u->nama_lembaga?>
+                                </option>
+                            <?php } ?>        
+                        </select>
             </div>
             <div class="form-group">
                 <label for="exampleFormControlSelect1">No Hp / WA</label>
@@ -132,8 +217,13 @@
                 <input type="text"  required name="keterangan" class="form-control ">
             </div>
             <div class="form-group">
-                <label for="">Lampiran</label>
-                <input type="file"  required name="file_peminjaman" class="form-control " >
+                <label for="">Lampiran surat tugas atau surat peminjaman</label>
+                <input type="file"  required name="file_peminjaman" class="form-control " >          
+               <?php if($this->session->userdata('logged_in') == FALSE){?>
+                <input type="hidden"  required name="jenis_sarana" class="pinjam">
+              <?php }else{ ?>
+                <input type="hidden"  required name="jenis_sarana" class="sewa">
+              <?php }?>
             </div>
             <?php if($this->session->userdata('status_validasi') == 'belum divalidasi' || $this->session->userdata('status_validasi') == 'tidak valid'){?>
               <a href="#" class="btn btn-secondary btn-user btn-block">

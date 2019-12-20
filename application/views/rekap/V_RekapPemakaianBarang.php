@@ -7,7 +7,7 @@
                     </div>
                     <div class="col-6 col-md-4">
                         <div class="d-flex flex-row-reverse bd-highlight">
-                            <form class="form-inline" action="<?php  echo base_url('Rekap/rekapPemakaianBarang'); ?>">
+                            <form class="form-inline" action="<?php  echo base_url('index.php?/Rekap/rekapPemakaianBarang'); ?>">
                                 <div class="form-group ">
                                     <input type="text" name="tahun" class="form-control-sm" value="<?= $tahun; ?>">
                                     <button type="submit" class="btn btn-sm btn-light"><i class="fas fa-search"></i></button>

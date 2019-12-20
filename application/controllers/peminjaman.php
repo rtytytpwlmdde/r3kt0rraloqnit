@@ -20,12 +20,12 @@ class Peminjaman extends CI_Controller {
             $this->M_User->hapusUser($where,'peminjaman');
         }
         if($this->session->userdata('logged_in') == FALSE){
-            redirect("auth/logout");
+            redirect("Auth/logout");
         }
 		$this->load->database();
         $jumlah_data = $this->M_Peminjaman->jumlahDataPeminjaman();
         $this->load->library('pagination');
-		$config['base_url'] = base_url().'/peminjaman/historyPeminjaman/';
+		$config['base_url'] = base_url().'/index.php?/Peminjaman/historyPeminjaman/';
 		$config['total_rows'] = $jumlah_data;
 		$config['per_page'] = 10;
 		$config['first_link']       = 'First';
@@ -50,17 +50,18 @@ class Peminjaman extends CI_Controller {
 		$this->pagination->initialize($config);	
         $data['peminjaman'] = $this->M_Peminjaman->getDataPeminjaman($config['per_page'],$from);
 		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
+        $data['waktu'] = $this->M_Peminjaman->getDataWaktu()->result();
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
-        $data['main_view'] = 'peminjaman/v_historyPeminjaman';
+        $data['main_view'] = 'Peminjaman/V_historyPeminjaman';
         if($this->session->userdata('status') == "pengguna" ){ 
-            $this->load->view('template/template_user',$data);
+            $this->load->view('Template/Template_user',$data);
         }else{
-            $this->load->view('template/template_operator',$data);
+            $this->load->view('Template/Template_operator',$data);
         }
     }
 
     function detailPeminjaman($id_peminjaman,$jenis_peminjaman){
-        $data['main_view'] = 'peminjaman/v_detailPeminjaman';
+        $data['main_view'] = 'Peminjaman/V_detailPeminjaman';
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
         $data['id_peminjaman'] = $id_peminjaman;
 		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
@@ -70,22 +71,22 @@ class Peminjaman extends CI_Controller {
         $data['tagihan'] = $this->M_Peminjaman->getDataTagihanByIdPeminjaman($id_peminjaman);
         $data['sarana'] = $this->M_Peminjaman->getSaranaPeminjamanById($id_peminjaman,$jenis_peminjaman);
         if($this->session->userdata('status') == "pengguna" || $this->session->userdata('logged_in') == FALSE){ 
-            $this->load->view('template/template_user',$data);
+            $this->load->view('Template/Template_user',$data);
         }else{
-            $this->load->view('template/template_operator',$data);
+            $this->load->view('Template/Template_operator',$data);
         }
     }
 
     function pilihPeminjaman(){
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
-        $data['main_view'] = 'peminjaman/v_pilihJenisPeminjaman';
+        $data['main_view'] = 'Peminjaman/V_pilihJenisPeminjaman';
         if($this->session->userdata('logged_in') == FALSE){ 
-            $this->load->view('template/template_user',$data);
+            $this->load->view('Template/Template_user',$data);
         }else if($this->session->userdata('status') == "pengguna"){ 
-            $this->load->view('template/template_user',$data);
+            $this->load->view('Template/Template_user',$data);
         }else{
-            $this->load->view('template/template_operator',$data);
+            $this->load->view('Template/Template_operator',$data);
         }
     }
 
@@ -99,16 +100,16 @@ class Peminjaman extends CI_Controller {
         }
     
         $data['jenis_peminjaman'] = $jenis_peminjaman;
-        $data['main_view'] = 'peminjaman/v_tambahPeminjaman';
+        $data['main_view'] = 'Peminjaman/V_tambahPeminjaman';
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
         $data['waktu'] = $this->M_Peminjaman->getDataWaktu()->result();
 		$data['mahasiswa'] = $this->M_User->getDataDosen()->result();
         $data['lembaga'] = $this->M_User->getDataLembaga()->result();
         if($this->session->userdata('status') == "pengguna" || $this->session->userdata('logged_in') == FALSE){ 
-            $this->load->view('template/template_user',$data);
+            $this->load->view('Template/Template_user',$data);
         }else{
-            $this->load->view('template/template_operator',$data);
+            $this->load->view('Template/Template_operator',$data);
         }
     }
 
@@ -117,16 +118,20 @@ class Peminjaman extends CI_Controller {
         $jenis_peminjaman = $this->input->post('jenis_peminjaman');
         $tanggal_mulai_penggunaan = $this->input->post('tanggal_mulai_penggunaan');
         $tanggal_selesai_penggunaan = $this->input->post('tanggal_selesai_penggunaan');
-        $jam_mulai = $this->input->post('jam_mulai');
-        $jam_selesai = $this->input->post('jam_selesai');
+        $jam_mulai_penggunaan = $this->input->post('jam_mulai_penggunaan');
+        $jam_selesai_penggunaan = $this->input->post('jam_selesai_penggunaan');
+        $tanggal_mulai_acara = $this->input->post('tanggal_mulai_acara');
+        $tanggal_selesai_acara = $this->input->post('tanggal_selesai_acara');
+        $jam_mulai_acara = $this->input->post('jam_mulai_acara');
+        $jam_selesai_acara = $this->input->post('jam_selesai_acara');
         $file_peminjaman = $this->input->post('file_peminjaman');
         $nomor_telpon = $this->input->post('nomor_telpon');
         $wa = "62".substr($nomor_telpon,1);
-        if($jam_mulai > $jam_selesai || $tanggal_mulai_penggunaan > $tanggal_selesai_penggunaan){
-            $this->session->set_flashdata('notifsukses', "Pastikan Jam / Tanggal Peminjaman Telah Sesuai");
-            redirect('peminjaman/formTambahPeminjaman/'.$jenis_peminjaman);
+        if($jam_mulai_penggunaan > $jam_selesai_penggunaan || $tanggal_mulai_penggunaan > $tanggal_selesai_penggunaan){
+            $this->session->set_flashdata('gagal', "Pastikan Jam / Tanggal Peminjaman Telah Sesuai");
+            redirect('index.php?/Peminjaman/formTambahPeminjaman/'.$jenis_peminjaman);
         }else{
-            $config['upload_path']          = './assets/peminjaman/';
+            $config['upload_path']          = './assets/Peminjaman/';
             $config['allowed_types']        = 'pdf';
             $config['max_size']             = 6000;
 
@@ -134,7 +139,7 @@ class Peminjaman extends CI_Controller {
 
             if ( ! $this->upload->do_upload('file_peminjaman')){
                 $this->session->set_flashdata('gagal', "File tidak sesuai persayaratan, periksa kembali file anda, max 1 mb, pdf");
-                redirect('peminjaman/formTambahPeminjaman/'.$jenis_peminjaman);
+                redirect('index.php?/Peminjaman/formTambahPeminjaman/'.$jenis_peminjaman);
             }else{                    	            	
                 $file = $this->upload->data();
                 $pdf = $file['file_name']; 
@@ -143,6 +148,7 @@ class Peminjaman extends CI_Controller {
             $id_lembaga = $this->input->post('id_lembaga');
             $penyelenggara = $this->input->post('penyelenggara');
             $jenis_peminjaman = $this->input->post('jenis_peminjaman');
+            $jenis_sarana = $this->input->post('jenis_sarana');
             $validasi_akademik = 'pending';
             $validasi_kemahasiswaan = 'pending';
             $validasi_umum = 'pending';
@@ -165,12 +171,17 @@ class Peminjaman extends CI_Controller {
                     'jenis_peminjaman' => $jenis_peminjaman,
                     'id_peminjam' => $id_peminjam,
                     'status_kembali' => $status_kembali,
+                    'jenis_ruangan' => $jenis_sarana,
                     'tanggal_mulai_penggunaan' => $tanggal_mulai_penggunaan,
                     'tanggal_selesai_penggunaan' => $tanggal_selesai_penggunaan,
-                    'jam_mulai' => $jam_mulai,
+                    'jam_mulai' => $jam_mulai_penggunaan,
+                    'jam_selesai' => $jam_selesai_penggunaan,
+                    'tanggal_mulai_acara' => $tanggal_mulai_acara,
+                    'tanggal_selesai_acara' => $tanggal_selesai_acara,
+                    'jam_mulai_acara' => $jam_mulai_acara,
+                    'jam_selesai_acara' => $jam_selesai_acara,
                     'id_lembaga' => $id_lembaga,
                     'nomor_telpon' => $wa,
-                    'jam_selesai' => $jam_selesai,
                     'penyelenggara' => $penyelenggara,
                     'file_peminjaman' => $pdf,
                     'validasi_akademik' => $validasi_akademik,
@@ -185,23 +196,28 @@ class Peminjaman extends CI_Controller {
                     'id_peminjaman' => $id_peminjaman,
                     'jenis_peminjaman' => $jenis_peminjaman,
                     'id_peminjam' => $id_peminjam,
+                    'id_lembaga' => $id_lembaga,
                     'tanggal_mulai_penggunaan' => $tanggal_mulai_penggunaan,
                     'tanggal_selesai_penggunaan' => $tanggal_selesai_penggunaan,
-                    'jam_mulai' => $jam_mulai,
-                    'id_lembaga' => $id_lembaga,
-                    'jam_selesai' => $jam_selesai,
+                    'jam_mulai' => $jam_mulai_penggunaan,
+                    'jam_selesai' => $jam_selesai_penggunaan,
+                    'tanggal_mulai_acara' => $tanggal_mulai_acara,
+                    'tanggal_selesai_acara' => $tanggal_selesai_acara,
+                    'jam_mulai_acara' => $jam_mulai_acara,
+                    'jam_selesai_acara' => $jam_selesai_acara,
                     'file_peminjaman' => $pdf,
                     'nomor_telpon' => $wa,
                     'penyelenggara' => $penyelenggara,
                     'validasi_akademik' => $validasi_akademik,
+                    'jenis_ruangan' => $jenis_sarana,
                     'validasi_kemahasiswaan' => $validasi_kemahasiswaan,
                     'validasi_umum' => $validasi_umum,
                     'keterangan' => $keterangan
                 );
             }
             $this->M_Peminjaman->tambahData($data,'peminjaman');
-            $this->session->set_flashdata('notifsukses', "peminjaman berhasil ditambahkan");                
-            redirect('peminjaman/formTambahSaranaPeminjaman/'.$jenis_peminjaman.'/'.$tanggal_mulai_penggunaan.'/'.$tanggal_selesai_penggunaan.'/'.$jam_mulai.'/'.$jam_selesai);
+            $this->session->set_flashdata('sukses', "peminjaman berhasil ditambahkan");                
+            redirect('index.php?/Peminjaman/formTambahSaranaPeminjaman/'.$jenis_peminjaman.'/'.$tanggal_mulai_penggunaan.'/'.$tanggal_selesai_penggunaan.'/'.$jam_mulai_penggunaan.'/'.$jam_selesai_penggunaan);
            
         }
     }
@@ -210,7 +226,7 @@ class Peminjaman extends CI_Controller {
         $peminjaman = $this->M_Peminjaman->getDataPeminjamanNonKelasByDate($tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai);
         $id_peminjam = null;
         foreach($peminjaman as $u){
-            $id_peminjam = $u->id_peminjam;
+             $id_peminjam = $u->id_peminjam;
         }
         $data['peminjaman'] = $this->M_Peminjaman->getDataPeminjamanNonKelasByDate($tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai);
 		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
@@ -218,18 +234,18 @@ class Peminjaman extends CI_Controller {
         $data['jenis_peminjaman'] = $jenis;
         $data['waktu'] = $this->M_Peminjaman->getDataWaktu()->result();
         if($jenis == "ruangan" ){ 
-            $data['main_view'] = 'peminjaman/v_tambahSaranaPeminjaman'; 
+            $data['main_view'] = 'Peminjaman/V_tambahSaranaPeminjaman'; 
             $data['sarana'] = $this->M_Peminjaman->getRuanganPeminjamanNonKelasByDate($tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai);
             $data['sarana_tersedia'] = $this->M_Peminjaman->getRuanganTersedia($id_peminjam, $tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai);
         }else{
-            $data['main_view'] = 'peminjaman/v_tambahSaranaPeminjamanBarang'; 
+            $data['main_view'] = 'Peminjaman/V_tambahSaranaPeminjamanBarang'; 
             $data['sarana'] = $this->M_Peminjaman->getBarangPeminjamanBarangByDate($tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai);
             $data['sarana_tersedia'] = $this->M_Peminjaman->getBarangTersedia($id_peminjam, $tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai);
         }
         if($this->session->userdata('status') == "pengguna" || $this->session->userdata('logged_in') == FALSE ){ 
-            $this->load->view('template/template_user',$data);
+            $this->load->view('Template/Template_user',$data);
         }else{
-            $this->load->view('template/template_operator',$data);
+            $this->load->view('Template/Template_operator',$data);
         }
     }
 
@@ -242,32 +258,33 @@ class Peminjaman extends CI_Controller {
         $status_pembayaran = "belum bayar";
         $total_tagihan = null; $i=0;  $f =0;
         $harga_satuan = null; $jumlah = 1; 
-        $hapus_data = array('id_peminjaman' => $id_peminjaman);
+        $hapus_data = array('id_peminjaman' => $id_peminjaman, 'jenis_tagihan' => '1');
+        $status_operator = $this->session->userdata('status');
         $this->M_Peminjaman->hapusData($hapus_data,'tagihan');
         
-        $peminjaman = $this->M_Peminjaman->getDataPeminjamanUntukControllerTagihan($id_peminjaman);
-        
-        foreach($peminjaman as $u){
-            $i++;
-            if($jenis == 'ruangan'){
-                $harga_satuan = $u->harga_ruangan;
-            }else{
-                $harga_satuan = $u->harga_barang;
+        //if($status_operator != 'admin'){
+             $peminjaman = $this->M_Peminjaman->getDataPeminjamanUntukControllerTagihan($id_peminjaman);
+            foreach($peminjaman as $u){
+                $i++;
+                if($jenis == 'ruangan'){
+                    $harga_satuan = $u->harga_ruangan;
+                }else{
+                    $harga_satuan = $u->harga_barang;
+                }
+                $total_tagihan += $harga_satuan;
+                $nama_tagihan = "Harga sewa sarana prasarana ".$u->nama_ruangan."".$u->nama_barang;
+                $data = array(
+                    'id_peminjaman' => $id_peminjaman,
+                    'nama_tagihan' => $nama_tagihan,
+                    'jumlah' => $jumlah,
+                    'harga_satuan' => $harga_satuan,
+                    'jenis_tagihan' => '1',
+                    'total_tagihan' => $harga_satuan
+                );
+                    $this->M_Peminjaman->tambahData($data,'tagihan');
             }
-            $total_tagihan += $harga_satuan;
-            $nama_tagihan = "Harga sewa sarana prasarana ".$u->nama_ruangan."".$u->nama_barang;
-            $data = array(
-                'id_peminjaman' => $id_peminjaman,
-                'nama_tagihan' => $nama_tagihan,
-                'jumlah' => $jumlah,
-                'harga_satuan' => $harga_satuan,
-                'total_tagihan' => $harga_satuan
-            );
             
-            $this->M_Peminjaman->tambahData($data,'tagihan');
-
-            
-        }
+        //}
         
         $data['peminjaman'] = $this->M_Peminjaman->getDataPeminjamanByIdTagihan($id_peminjaman);
         $data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
@@ -277,11 +294,11 @@ class Peminjaman extends CI_Controller {
         $data['harga_sewa'] = $this->M_Peminjaman->getDataHargaSewaPeminjaman($id_peminjaman);
       
         $data['waktu'] = $this->M_Peminjaman->getDataWaktu()->result();
-        $data['main_view'] = 'peminjaman/v_tambahTagihan'; 
+        $data['main_view'] = 'Peminjaman/V_tambahTagihan'; 
         if($this->session->userdata('logged_in') == FALSE){
-             $this->load->view('template/template_user',$data);
+             $this->load->view('Template/Template_user',$data);
         }else{
-            $this->load->view('template/template_operator',$data);
+            $this->load->view('Template/Template_operator',$data);
         }
     }
 
@@ -309,8 +326,9 @@ class Peminjaman extends CI_Controller {
         $this->M_Peminjaman->tambahData($data,$peminjaman);
         $this->M_Peminjaman->updateData($id,$data_peminjaman,'peminjaman');
         $this->session->set_flashdata('notifsukses', "Data sarana peminjaman berhasil ditambahkan");
-        redirect('peminjaman/formTambahSaranaPeminjaman/'.$jenis.'/'.$tgl_mulai.'/'.$tgl_selesai.'/'.$jam_mulai.'/'.$jam_selesai);
+        redirect('index.php?/Peminjaman/formTambahSaranaPeminjaman/'.$jenis.'/'.$tgl_mulai.'/'.$tgl_selesai.'/'.$jam_mulai.'/'.$jam_selesai);
     }
+
 
     function hapusSaranaPeminjaman($jenis, $id_peminjaman, $id_sarana, $tgl_mulai, $tgl_selesai, $jam_mulai, $jam_selesai){
        
@@ -318,7 +336,7 @@ class Peminjaman extends CI_Controller {
                         'id_sarana' => $id_sarana);
         $this->M_Peminjaman->hapusData($where,'sarana_peminjaman');
         $this->session->set_flashdata('sukses', "Data sarana peminjaman berhasil dihapus");
-        redirect('peminjaman/formTambahSaranaPeminjaman/'.$jenis.'/'.$tgl_mulai.'/'.$tgl_selesai.'/'.$jam_mulai.'/'.$jam_selesai);
+        redirect('index.php?/Peminjaman/formTambahSaranaPeminjaman/'.$jenis.'/'.$tgl_mulai.'/'.$tgl_selesai.'/'.$jam_mulai.'/'.$jam_selesai);
     }
 
     function hapusPeminjaman($id){
@@ -330,7 +348,7 @@ class Peminjaman extends CI_Controller {
         $sarana = array('id_peminjaman' => $id_peminjaman);
         $this->M_Peminjaman->hapusData($sarana,'sarana_peminjaman');
         $this->session->set_flashdata('sukses', "Peminjaman Telah Dibatalkan");
-        redirect('peminjaman/formTambahPeminjaman/ruangan');
+        redirect('index.php?/Peminjaman/formTambahPeminjaman/ruangan');
     }
 
     function batalPeminjaman(){
@@ -344,7 +362,7 @@ class Peminjaman extends CI_Controller {
         );
         $this->M_Peminjaman->updateData($id,$data,'peminjaman');
         $this->session->set_flashdata('notifsukses', "Data peminjaman berhasil dibatalkan");
-        redirect('peminjaman/historyPeminjaman/');
+        redirect('index.php?/Peminjaman/historyPeminjaman/');
     }
 
     function tambahTagihan(){
@@ -361,7 +379,7 @@ class Peminjaman extends CI_Controller {
             'total_tagihan' => $total_tagihan
         );
         $this->M_Peminjaman->tambahData($data,'tagihan');
-        redirect('peminjaman/formTambahTagihanPeminjaman/'.$id_peminjaman);
+        redirect('index.php?/Peminjaman/formTambahTagihanPeminjaman/'.$id_peminjaman);
     }
 
     function kirimPeminjaman(){
@@ -372,7 +390,7 @@ class Peminjaman extends CI_Controller {
         
         
             $status = 'terkirim';
-            $nama_kode = base_url().'peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis_peminjaman;
+            $nama_kode = base_url().'Peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis_peminjaman;
             $this->load->library('ciqrcode'); //pemanggilan library QR CODE
 
             $config['cacheable']	= true; //boolean, the default is true
@@ -407,7 +425,7 @@ class Peminjaman extends CI_Controller {
         $this->M_Peminjaman->updateData($id,$data,'peminjaman');
         $this->session->set_flashdata('sukses', "PEMINJAMAN BERHASIL DIKIRIM");
         
-        redirect('peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis_peminjaman);
+        redirect('index.php?/Peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis_peminjaman);
     }
 
 
@@ -461,20 +479,20 @@ class Peminjaman extends CI_Controller {
             $this->M_Peminjaman->updateData($where_sarana,$sarana,'sarana_peminjaman');
         }
         $this->session->set_flashdata('sukses', "Data peminjaman telah berhasil disetujui");
-       redirect('peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis_peminjaman);
+       redirect('index.php?/Peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis_peminjaman);
     }
 
     function tolakPeminjaman(){        
         $username = $this->session->userdata('username');
 
 		$id_peminjaman = $this->input->post('id_peminjaman');
-		$jenis = $this->input->post('jenis');
+		$jenis = $this->input->post('jenis_peminjaman');
         $catatan_penolakan = $this->input->post('catatan_penolakan');
         $status = "tolak";
         
         $peminjaman = $this->M_Peminjaman->getSaranaPeminjamanByOperator($id_peminjaman,$jenis);
         foreach($peminjaman as $u){
-            echo $id_sarana = $u->id_sarana_peminjaman;       
+            $id_sarana = $u->id_sarana_peminjaman;       
             $where_sarana = array('id_sarana_peminjaman' => $id_sarana);
 
             $sarana=array(
@@ -493,21 +511,21 @@ class Peminjaman extends CI_Controller {
         );
         $this->M_Peminjaman->updateData($where,$data,'peminjaman');
         $this->session->set_flashdata('sukses', "Data peminjaman telah berhasil ditolak");
-        redirect('peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis);
+        redirect('index.php?/Peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis);
     }
 
     function formCekPeminjaman(){
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
-        $data['main_view'] = 'peminjaman/v_formCekPeminjaman';
+        $data['main_view'] = 'Peminjaman/V_formCekPeminjaman';
         if($this->session->userdata('status') == "pengguna" ){ 
-            $this->load->view('template/template_user',$data);
+            $this->load->view('Template/Template_user',$data);
         }else if($this->session->userdata('status') == "admin"){
-            $this->load->view('template/template_operator',$data);
+            $this->load->view('Template/Template_operator',$data);
         }else if($this->session->userdata('status') == "staff pelayanan"){
-            $this->load->view('template/template_operator',$data);
+            $this->load->view('Template/Template_operator',$data);
         }else{
-            $this->load->view('template/template_user',$data);
+            $this->load->view('Template/Template_user',$data);
         }
     }
 
@@ -517,35 +535,35 @@ class Peminjaman extends CI_Controller {
     //     $jenis_peminjaman = null;
     //     if($this->M_Peminjaman->getJenisPeminjaman($id_peminjaman) != false){
     //         foreach ($peminjaman as $u){ $jenis_peminjaman = $u->jenis_peminjaman; }
-    //         $data['main_view'] = 'peminjaman/v_detailPeminjaman';
+    //         $data['main_view'] = 'Peminjaman/V_detailPeminjaman';
     //         $data['peminjaman'] = $this->M_Peminjaman->getDetailPeminjaman($id_peminjaman,$jenis_peminjaman);
     //         $data['sarana'] = $this->M_Peminjaman->getSaranaPeminjamanById($id_peminjaman,$jenis_peminjaman);
-    //         $this->load->view('template/template_user',$data);
+    //         $this->load->view('Template/Template_user',$data);
     //     }else{
     //         $this->session->set_flashdata('notif', "ID peminjaman tidak ditemukan");
-    //         redirect('peminjaman/formCekPeminjaman');
+    //         redirect('index.php?/Peminjaman/formCekPeminjaman');
     //     }
     // }
 
     function cekPeminjaman(){
         if($this->M_Peminjaman->getDataCekPeminjaman() == false){            
             $this->session->set_flashdata('gagal', "Data peminjaman tidak ditemukan");
-            redirect('peminjaman/formCekPeminjaman');
+            redirect('index.php?/Peminjaman/formCekPeminjaman');
         }else{
             
-        $data['main_view'] = 'peminjaman/v_hasilCekPeminjaman';
+        $data['main_view'] = 'Peminjaman/V_hasilCekPeminjaman';
             $data['peminjaman'] = $this->M_Peminjaman->getDataCekPeminjaman();
             if($this->session->userdata('status') == "pengguna" || $this->session->userdata('logged_in') == FALSE){ 
-                $this->load->view('template/template_user',$data);
+                $this->load->view('Template/Template_user',$data);
             }else{
-                $this->load->view('template/template_operator',$data);
+                $this->load->view('Template/Template_operator',$data);
             }
         }
         
     }
 
     function formPengembalianBarang($id_peminjaman){
-        $data['main_view'] = 'peminjaman/v_tambahPengembalianBarang';
+        $data['main_view'] = 'Peminjaman/V_tambahPengembalianBarang';
         $jenis_peminjaman = 'barang';
 		$data['jenis_peminjaman'] = 'barang';
 		$data['id_peminjaman'] = $id_peminjaman;
@@ -557,9 +575,9 @@ class Peminjaman extends CI_Controller {
 		$data['mahasiswa'] = $this->M_User->getDataDosen()->result();
         $data['lembaga'] = $this->M_User->getDataLembaga()->result();
         if($this->session->userdata('status') == "pengguna"){ 
-            $this->load->view('template/template_user',$data);
+            $this->load->view('Template/Template_user',$data);
         }else{
-            $this->load->view('template/template_operator',$data);
+            $this->load->view('Template/Template_operator',$data);
         }
     }
 
@@ -581,7 +599,7 @@ class Peminjaman extends CI_Controller {
 
         $this->M_Peminjaman->updateData($id,$data,'peminjaman');
         $this->session->set_flashdata('notifsukses', "Pengembalian barang telah disimpan");
-        redirect('peminjaman/detailPeminjaman/'.$id_peminjaman.'/barang');
+        redirect('index.php?/Peminjaman/detailPeminjaman/'.$id_peminjaman.'/barang');
     }
 
     function bayarPeminjaman(){
@@ -599,7 +617,7 @@ class Peminjaman extends CI_Controller {
 
         if ( ! $this->upload->do_upload('buktiPembayaran')){
             $this->session->set_flashdata('gagal', "File tidak sesuai persayaratan, periksa kembali file anda, max 1 mb, png, jpg");
-            redirect('peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis);
+            redirect('index.php?/Peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis);
         }else{                    	            	
             $file = $this->upload->data();
             $image = $file['file_name']; 
@@ -614,7 +632,7 @@ class Peminjaman extends CI_Controller {
 
         $this->M_Peminjaman->updateData($id,$data,'peminjaman');
         $this->session->set_flashdata('sukses', "Upload bukti pembayaran telah berhasil");
-        redirect('peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis);
+        redirect('index.php?/Peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis);
     }
 
     function validasiPembayaran(){
@@ -630,11 +648,11 @@ class Peminjaman extends CI_Controller {
 
         $this->M_Peminjaman->updateData($id,$data,'peminjaman');
         $this->session->set_flashdata('sukses', "Validasi pembayaran untuk peminjaman $id_peminjaman telah berhasil dilakukan");
-        redirect('peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis);
+        redirect('index.php?/Peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis);
     }
 
     function qrcode($id_peminjaman,$jenis_peminjaman){
-        $nama_kode = base_url().'peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis_peminjaman;
+        $nama_kode = base_url().'Peminjaman/detailPeminjaman/'.$id_peminjaman.'/'.$jenis_peminjaman;
 		$this->load->library('ciqrcode'); //pemanggilan library QR CODE
 
 		$config['cacheable']	= true; //boolean, the default is true
@@ -661,7 +679,7 @@ class Peminjaman extends CI_Controller {
         $id = array('id_peminjaman' => $id_peminjaman);
 
         $this->M_Peminjaman->updateData($id,$data,'peminjaman');
-		redirect('peminjaman/historyPeminjaman'); //redirect ke mahasiswa usai simpan data
+		redirect('index.php?/Peminjaman/historyPeminjaman'); //redirect ke mahasiswa usai simpan data
     }
 
     function buktiPeminjaman(){
@@ -674,10 +692,72 @@ class Peminjaman extends CI_Controller {
         $data['tagihan'] = $this->M_Peminjaman->getDataTagihanByIdPeminjaman($id_peminjaman);
         $data['id_peminjaman'] = $id_peminjaman;
 
-        $this->load->view('peminjaman/v_buktiPeminjaman',$data);
+        $this->load->view('Peminjaman/V_buktiPeminjaman',$data);
   }
 
+  function geser($id_peminjaman){
+    $tanggal_mulai_penggunaan = null; 
+    $tanggal_selesai_penggunaan = null; 
+    $jam_mulai = null; 
+    $jam_selesai = null;
+    $peminjaman = $this->M_Peminjaman->getDataPeminjamanById($id_peminjaman);$id_peminjam = null;
+    $jenis = null;
+    foreach($peminjaman as $u){
+         $id_peminjam = $u->id_peminjam;
+         $tanggal_mulai_penggunaan = $u->tanggal_mulai_penggunaan; 
+         $tanggal_selesai_penggunaan = $u->tanggal_selesai_penggunaan; 
+         $jam_mulai = $u->jam_mulai; 
+         $jam_selesai = $u->jam_selesai;
+         $jenis = $u->jenis_peminjaman;
+    }
+    $data['peminjaman'] = $this->M_Peminjaman->getDetailPeminjaman($id_peminjaman);
+    $data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
+    $data['jumlahUser'] = $this->M_User->getCountUserBaru();
+    $data['jenis_peminjaman'] = $jenis;
+    $data['waktu'] = $this->M_Peminjaman->getDataWaktu()->result();
+    if($jenis == "ruangan" ){ 
+        $data['main_view'] = 'Peminjaman/V_geserPeminjamanRuangan'; 
+        $data['sarana'] = $this->M_Peminjaman->getRuanganPeminjamanNonKelasByDate($tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai);
+        $data['sarana_tersedia'] = $this->M_Peminjaman->getRuanganTersedia($id_peminjam, $tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai);
+    }else{
+        $data['main_view'] = 'Peminjaman/V_geserPeminjamanBarang'; 
+        $data['sarana'] = $this->M_Peminjaman->getBarangPeminjamanBarangByDate($tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai);
+        $data['sarana_tersedia'] = $this->M_Peminjaman->getBarangTersedia($id_peminjam, $tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai);
+    }
+    if($this->session->userdata('status') == "pengguna" || $this->session->userdata('logged_in') == FALSE ){ 
+        $this->load->view('Template/Template_user',$data);
+    }else{
+        $this->load->view('Template/Template_operator',$data);
+    }
+}
+
+    function geserRuangan(){
+		$jenis = $this->input->post('jenis');
+		$id_peminjaman = $this->input->post('id_peminjaman');
+		$id_operator = $this->input->post('id_operator');
+		$id_sarana = $this->input->post('id_sarana');
+		$id_ruangan_dipinjam = $this->input->post('id_ruangan_dipinjam');
+		$status_peminjaman = 'setuju';
+        $data = array(
+            'status_peminjaman' => $status_peminjaman,
+            'id_sarana' => $id_sarana
+        );
+        $data_peminjaman = array(
+            'id_peminjaman' => $id_peminjaman,
+            'operator' => $id_operator
+        );
+        $id = array('id_peminjaman' => $id_peminjaman);
+        $id_sarana_peminjaman = array('id_sarana_peminjaman' => $id_ruangan_dipinjam);
+        $peminjaman = 'sarana_peminjaman';
+        $this->M_Peminjaman->updateData($id_sarana_peminjaman,$data,'sarana_peminjaman');
+        $this->M_Peminjaman->updateData($id,$data_peminjaman,'peminjaman');
+        $this->session->set_flashdata('sukses', "Data ruangan telah diganti");
+        redirect('index.php?/Peminjaman/geser/'.$id_peminjaman);
+    }
 
 
+   
 
 }
+
+

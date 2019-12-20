@@ -31,16 +31,16 @@
                 </div>
                 <div class="col-6 col-md-4">
                     <div class="d-flex flex-row-reverse bd-highlight">
-                            <a href="<?php echo site_url('user/updateUser/'.$username); ?>"  class="btn  btn-sm btn-warning text-white" title="Edit">
+                            <a href="<?php echo site_url('index.php?/User/updateUser/'.$username); ?>"  class="btn  btn-sm btn-warning text-white" title="Edit">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
-                            <a href="<?php echo site_url('user/hapusUser/'.$username); ?>"  class="btn  btn-sm btn-danger text-white"  title="Hapus">
+                            <a href="<?php echo site_url('index.php?/User/hapusUser/'.$username); ?>"  class="btn  btn-sm btn-danger text-white"  title="Hapus">
                                 <i class="fas fa-trash"></i>
                             </a>
-                            <a href="<?php echo site_url('user/validasiUser/'.$username); ?>"  class="btn  btn-sm btn-outline-primary"  title="Validasi Status User">
+                            <a href="<?php echo site_url('index.php?/User/validasiUser/'.$username); ?>"  class="btn  btn-sm btn-outline-primary"  title="Validasi Status User">
                                 <i class="fas fa-check"></i>
                             </a>
-                            <a href="<?php echo site_url('user/validasiUser/'.$username); ?>"  class="btn  btn-sm btn-outline-danger"  title="Tolak Status User">
+                            <a href="<?php echo site_url('index.php?/User/validasiUser/'.$username); ?>"  class="btn  btn-sm btn-outline-danger"  title="Tolak Status User">
                                 <i class="fas fa-window-close"></i>
                             </a>
                     </div>

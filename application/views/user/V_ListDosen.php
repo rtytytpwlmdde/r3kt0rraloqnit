@@ -31,13 +31,13 @@
                 </div>
                 <div class="col-6 col-md-4">
                     <div class="d-flex flex-row-reverse bd-highlight">
-                        <a class="btn btn-primary"  href="<?php  echo base_url('User/formTambahDosen'); ?>" role="button">Tambah Dosen</a>
+                        <a class="btn btn-primary"  href="<?php  echo base_url('index.php?/User/formTambahDosen'); ?>" role="button">Tambah Dosen</a>
                     </div>
                 </div>
             </div>
         </div>
     <div class="kotak py-2 px-2 shadow" >
-        <table class="table table-bordered" id="tblmatakuliah">
+        <table class="table table-bordered" id="dataTable">
             <thead class="bg-thead text-white">
                 <tr>
                 <th class="text-center" scope="col">No</th>
@@ -56,10 +56,10 @@
                     <td><?php echo $u->id_dosen; ?></td>
                     <td><?php echo $u->nama_dosen;?></td>
                     <td >
-                        <a href="<?php echo site_url('user/updateDosen/'.$u->id_dosen); ?>"  class="btn btn-warning text-white" title="Edit">
+                        <a href="<?php echo site_url('index.php?/User/updateDosen/'.$u->id_dosen); ?>"  class="btn btn-warning text-white" title="Edit">
                         <i class="fas fa-pencil-alt"></i>
                         </a>
-                        <a href="<?php echo site_url('user/hapusDosen/'.$u->id_dosen); ?>"  class="btn btn-danger text-white"  title="Hapus">
+                        <a href="<?php echo site_url('index.php?/User/hapusDosen/'.$u->id_dosen); ?>"  class="btn btn-danger text-white"  title="Hapus">
                             <i class="fas fa-trash"></i>
                         </a>
                     </td>

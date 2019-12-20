@@ -33,7 +33,7 @@
             <h6 class="m-0 font-weight-bold text-white">Tambah Data Barang</h6>
         </div>
         <div class="card-body">
-            <form class="user" action="<?php echo base_url().'SaranaPrasarana/tambahBarang'; ?>" method="post"  enctype="multipart/form-data">
+            <form class="user" action="<?php echo base_url().'index.php?/SaranaPrasarana/tambahBarang'; ?>" method="post"  enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="">Nama Barang</label>
                     <input required type="text" name="nama_barang" class="form-control" placeholder="">

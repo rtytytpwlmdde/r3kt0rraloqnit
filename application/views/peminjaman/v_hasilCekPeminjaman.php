@@ -38,12 +38,12 @@ if($this->session->userdata('status') == "pengguna"){
                 <div class="col-6 col-md-6">
                     <div class="d-flex flex-row-reverse bd-highlight">
                         <?php if($this->session->userdata('status') != "pengguna"){?>
-                        <a class="btn btn-sm btn-success text-white mb-2 ml-1" href="<?php echo base_url("rekap/exportHistoryPeminjaman");?>"><i class="fas fa-file-excel"></i>  </a>
+                        <a class="btn btn-sm btn-success text-white mb-2 ml-1" href="<?php echo base_url("index.php?/Rekap/exportHistoryPeminjaman");?>"><i class="fas fa-file-excel"></i>  </a>
                         <?php } ?>
                         <button class="btn btn-sm btn-secondary mb-2" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                         <i class="fas fa-filter"></i>
                         </button>
-                        <form class="pr-2 form-inline" action="<?php echo base_url("peminjaman/historyPeminjaman")?>" method="get">
+                        <form class="pr-2 form-inline" action="<?php echo base_url("index.php?/Peminjaman/historyPeminjaman")?>" method="get">
                             <div class="form-group mb-2">
                                 <input type="text" name="search" class="form-control-sm " placeholder="quick search">
                             </div>
@@ -58,7 +58,7 @@ if($this->session->userdata('status') == "pengguna"){
                 <div class="">
                     <h6>FILTER DATA PEMINJAMAN</h6>
                 </div>
-            <form action="<?php echo base_url("peminjaman/historyPeminjaman");?>" method="get">
+            <form action="<?php echo base_url("index.php?/Peminjaman/historyPeminjaman");?>" method="get">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Pengguna</label>
                     <input type="text" class="form-control" name="pengguna" placeholder="username / nama pengguna">
@@ -175,7 +175,7 @@ if($this->session->userdata('status') == "pengguna"){
                     <?php if($this->session->userdata('status') == 'staff pelayanan' || $this->session->userdata('status') == 'admin' ) { ?>
                         <td class="text-center">
                         <?php if( $u->validasi_akademik == 'terkirim'){ ?>
-                            <form action="<?php echo base_url("peminjaman/validasiPeminjaman");?>" method="post">
+                            <form action="<?php echo base_url("index.php?/Peminjaman/validasiPeminjaman");?>" method="post">
                                 <input hidden type="text" name="id_peminjaman" value="<?= $u->id_peminjaman;?>">
                                 <input hidden type="text" name="jenis_peminjaman" value="<?= $u->jenis_peminjaman;?>">
                                 <button type="submit" class="btn btn-success btn-sm" title="Setuju Peminjaman">Setuju</button>
@@ -237,7 +237,7 @@ if($this->session->userdata('status') == "pengguna"){
   <div class="modal-dialog modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-body">
-        <form action="<?php echo base_url().'Peminjaman/tolakPeminjaman'; ?>" method="post">
+        <form action="<?php echo base_url().'index.php?/Peminjaman/tolakPeminjaman'; ?>" method="post">
         Alasan Penolakan : <br>
         <input type="text"  hidden class="form-control" name="id_peminjaman" id="id_peminjaman" value=""/>
         <input type="text"  hidden class="form-control" name="jenis" id="jenis"  value=""/>
@@ -259,7 +259,7 @@ if($this->session->userdata('status') == "pengguna"){
         <div>
             <h6>Silahkan Isi Alasan Pembatalan</h6>
         </div>
-        <form action="<?php echo base_url().'Peminjaman/batalPeminjaman'; ?>" method="post">
+        <form action="<?php echo base_url().'index.php?/Peminjaman/batalPeminjaman'; ?>" method="post">
         <input type="text"  hidden class="form-control" name="id_peminjaman" id="id_peminjaman" value=""/>
         <textarea class="form-control"  name="catatan_penolakan" rows="3"></textarea>
             <div class="d-flex flex-row-reverse bd-highlight py-2">
@@ -296,7 +296,7 @@ $(document).on("click", ".modalBatalPeminjaman", function () {
 <div class="modal fade" id="gardenImage" tabindex="-1" role="dialog" aria-labelledby="gardenImageLabel">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <form action="<?php echo base_url("peminjaman/buktiPeminjaman")?>" method="post">
+            <form action="<?php echo base_url("index.php?/Peminjaman/buktiPeminjaman")?>" method="post">
                 <div class="modal-body text-center">
                     <img id="myImage" style="width: 300px;" class="img-responsive" src="" alt="">
                     <h6><input type="text" name="id_peminjaman" class="form-control text-center" style="border-width:0px; border:none;" id="id_peminjaman" value=""/></h6>

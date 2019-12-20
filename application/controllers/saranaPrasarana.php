@@ -8,29 +8,29 @@ class SaranaPrasarana extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->model('M_SaranaPrasarana');
 		$this->load->model('M_JadwalKuliah');
-		$this->load->model('m_peminjaman');
+		$this->load->model('M_Peminjaman');
 		$this->load->model('M_User');
 	}
 
 	public function lokasi(){
         if($this->session->userdata('logged_in') != 'admin' ){
-            redirect("auth/logout");
+            redirect("Auth/logout");
         }
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
-		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
         $data['lokasi'] = $this->M_SaranaPrasarana->getDataLokasi();
-        $data['main_view'] = 'saranaPrasarana/v_listLokasi';
-        $this->load->view('template/template_operator', $data);
+        $data['main_view'] = 'SaranaPrasarana/V_listLokasi';
+        $this->load->view('Template/Template_operator', $data);
     }
 
     public function formTambahLokasi(){
         if($this->session->userdata('logged_in') != 'admin' ){
-            redirect("auth/logout");
+            redirect("Auth/logout");
         }
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
-		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
-        $data['main_view'] = 'saranaPrasarana/v_tambahLokasi';
-        $this->load->view('template/template_operator', $data);
+		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
+        $data['main_view'] = 'SaranaPrasarana/V_tambahLokasi';
+        $this->load->view('Template/Template_operator', $data);
     }
 
     public function tambahLokasi(){
@@ -41,28 +41,28 @@ class SaranaPrasarana extends CI_Controller {
             );
             $this->M_User->tambahUser($data,'lokasi_ruangan');
             $this->session->set_flashdata('sukses', "Data lokasi ruangan berhasil ditambahkan");
-            redirect('saranaPrasarana/lokasi');
+            redirect('index.php?/SaranaPrasarana/lokasi');
     }
 
     function hapusLokasi($id_lokasi){
         if($this->session->userdata('logged_in') != 'admin' ){
-            redirect("auth/logout");
+            redirect("Auth/logout");
         }
         $where = array('id_lokasi' => $id_lokasi);
         $this->M_User->hapusUser($where,'lokasi_ruangan');
         $this->session->set_flashdata('sukses', "Data lokasi ruangan berhasil dihapus");
-        redirect('saranaPrasarana/lokasi');
+        redirect('index.php?/SaranaPrasarana/lokasi');
     }
 
     function updateLokasi($id_lokasi){
         if($this->session->userdata('logged_in') != 'admin' ){
-            redirect("auth/logout");
+            redirect("Auth/logout");
         }
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
-		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
-        $data['main_view'] = 'saranaPrasarana/v_editLokasi';
+		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
+        $data['main_view'] = 'SaranaPrasarana/V_editLokasi';
         $data['lokasi'] = $this->M_SaranaPrasarana->getDataLokasiById($id_lokasi);
-        $this->load->view('template/template_operator',$data);
+        $this->load->view('Template/Template_operator',$data);
 	}
 	
 	function editLokasi(){
@@ -77,36 +77,36 @@ class SaranaPrasarana extends CI_Controller {
 
         $this->M_SaranaPrasarana->updateRuangan($where,$data,'lokasi_ruangan');
         $this->session->set_flashdata('notifsukses', "Data lokasi berhasil diubah");
-        redirect('SaranaPrasarana/lokasi');
+        redirect('index.php?/SaranaPrasarana/lokasi');
 	}
 
 
 // ruangan
     public function ruangan(){
         if($this->session->userdata('logged_in') != 'admin' ){
-            redirect("auth/logout");
+            redirect("Auth/logout");
         }
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
-		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
         $data['ruangan'] = $this->M_SaranaPrasarana->getDataSemuaRuangan();
-        $data['main_view'] = 'SaranaPrasarana/V_ListRuangan';
-        $this->load->view('template/template_operator', $data);
+        $data['main_view'] = 'SaranaPrasarana/V_listRuangan';
+        $this->load->view('Template/Template_operator', $data);
     }
 
     public function formTambahRuangan(){
         if($this->session->userdata('logged_in') != 'admin' ){
-            redirect("auth/logout");
+            redirect("Auth/logout");
         }
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
-		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
 		$data['operator'] = $this->M_User->getDataOperator()->result();
         $data['lokasi'] = $this->M_SaranaPrasarana->getDataLokasi();
-        $data['main_view'] = 'SaranaPrasarana/V_TambahRuangan';
-        $this->load->view('template/template_operator', $data);
+        $data['main_view'] = 'SaranaPrasarana/V_tambahRuangan';
+        $this->load->view('Template/Template_operator', $data);
     }
 
     public function tambahRuangan(){
-		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
         $nama_ruangan = $this->input->post('nama_ruangan');
         $jenis_ruangan = $this->input->post('jenis_ruangan');
 
@@ -155,35 +155,35 @@ class SaranaPrasarana extends CI_Controller {
 
 		if ( ! $this->upload->do_upload('foto1') && $foto1 != null){
 			$this->session->set_flashdata('gagal', "Gambar 1 tidak sesuai persayaratan, periksa kembali gambar anda, max 1 mb, jpg/png");
-			redirect('saranaPrasarana/formTambahRuangan');
+			redirect('index.php?/SaranaPrasarana/formTambahRuangan');
 		}else{                    	            	
 			$file = $this->upload->data();
 			$gambar1 = $file['file_name']; 
 		}
 		if ( ! $this->upload->do_upload('foto2') && $foto2 != null){
 			$this->session->set_flashdata('gagal', "Gambar 2 tidak sesuai persayaratan, periksa kembali gambar anda, max 1 mb, jpg/png");
-			redirect('saranaPrasarana/formTambahRuangan');
+			redirect('index.php?/SaranaPrasarana/formTambahRuangan');
 		}else{                    	            	
 			$file = $this->upload->data();
 			$gambar2 = $file['file_name']; 
 		}
 		if ( ! $this->upload->do_upload('foto3') && $foto3 != null){
 			$this->session->set_flashdata('gagal', "Gambar 3 tidak sesuai persayaratan, periksa kembali gambar anda, max 1 mb, jpg/png");
-			redirect('saranaPrasarana/formTambahRuangan');
+			redirect('index.php?/SaranaPrasarana/formTambahRuangan');
 		}else{                    	            	
 			$file = $this->upload->data();
 			$gambar3 = $file['file_name']; 
 		}
 		if ( ! $this->upload->do_upload('foto4') && $foto4 != null){
 			$this->session->set_flashdata('gagal', "Gambar 4 tidak sesuai persayaratan, periksa kembali gambar anda, max 1 mb, jpg/png");
-			redirect('saranaPrasarana/formTambahRuangan');
+			redirect('index.php?/SaranaPrasarana/formTambahRuangan');
 		}else{                    	            	
 			$file = $this->upload->data();
 			$gambar4 = $file['file_name']; 
 		}
 		if ( ! $this->upload->do_upload('foto5') && $foto5 != null){
 			$this->session->set_flashdata('gagal', "Gambar 5 tidak sesuai persayaratan, periksa kembali gambar anda, max 1 mb, jpg/png");
-			redirect('saranaPrasarana/formTambahRuangan');
+			redirect('index.php?/SaranaPrasarana/formTambahRuangan');
 		}else{                    	            	
 			$file = $this->upload->data();
 			$gambar5 = $file['file_name']; 
@@ -224,31 +224,31 @@ class SaranaPrasarana extends CI_Controller {
 		);
 		$this->M_SaranaPrasarana->tambahRuangan($data,'ruangan');
 		$this->session->set_flashdata('notifsukses', "Data ruangan berhasil ditambahkan");
-		redirect('SaranaPrasarana/ruangan');
+		redirect('index.php?/SaranaPrasarana/ruangan');
     }
 
     function hapusRuangan($id_ruangan){
         if($this->session->userdata('logged_in') != 'admin' ){
-            redirect("auth/logout");
+            redirect("Auth/logout");
         }
         $where = array('id_ruangan' => $id_ruangan);
         $this->M_SaranaPrasarana->hapusRuangan($where,'ruangan');
         $this->session->set_flashdata('notifsukses', "Data ruangan berhasil dihapus");
-        redirect('SaranaPrasarana/ruangan');
+        redirect('index.php?/SaranaPrasarana/ruangan');
     }
 
     function updateRuangan($id_ruangan){
         if($this->session->userdata('logged_in') != 'admin' ){
-            redirect("auth/logout");
+            redirect("Auth/logout");
         }
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
-		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
-        $data['main_view'] = 'SaranaPrasarana/v_EditRuangan';
+		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
+        $data['main_view'] = 'SaranaPrasarana/V_editRuangan';
 		$data['operator'] = $this->M_User->getDataOperator()->result();       
 		 $data['lokasi'] = $this->M_SaranaPrasarana->getDataLokasi();
 
         $data['ruangan'] = $this->M_SaranaPrasarana->getDataRuanganById($id_ruangan);
-        $this->load->view('template/template_operator',$data);
+        $this->load->view('Template/Template_operator',$data);
     }
 
     function editRuangan(){
@@ -297,35 +297,35 @@ class SaranaPrasarana extends CI_Controller {
 
 		if ( ! $this->upload->do_upload('foto1') && $foto1 != null){
 			$this->session->set_flashdata('gagal', "Gambar 1 tidak sesuai persayaratan, periksa kembali gambar anda, max 1 mb, jpg/png");
-			redirect('saranaPrasarana/formTambahRuangan');
+			redirect('index.php?/SaranaPrasarana/formTambahRuangan');
 		}else{                    	            	
 			$file = $this->upload->data();
 			$gambar1 = $file['file_name']; 
 		}
 		if ( ! $this->upload->do_upload('foto2') && $foto2 != null){
 			$this->session->set_flashdata('gagal', "Gambar 2 tidak sesuai persayaratan, periksa kembali gambar anda, max 1 mb, jpg/png");
-			redirect('saranaPrasarana/formTambahRuangan');
+			redirect('index.php?/SaranaPrasarana/formTambahRuangan');
 		}else{                    	            	
 			$file = $this->upload->data();
 			$gambar2 = $file['file_name']; 
 		}
 		if ( ! $this->upload->do_upload('foto3') && $foto3 != null){
 			$this->session->set_flashdata('gagal', "Gambar 3 tidak sesuai persayaratan, periksa kembali gambar anda, max 1 mb, jpg/png");
-			redirect('saranaPrasarana/formTambahRuangan');
+			redirect('index.php?/SaranaPrasarana/formTambahRuangan');
 		}else{                    	            	
 			$file = $this->upload->data();
 			$gambar3 = $file['file_name']; 
 		}
 		if ( ! $this->upload->do_upload('foto4') && $foto4 != null){
 			$this->session->set_flashdata('gagal', "Gambar 4 tidak sesuai persayaratan, periksa kembali gambar anda, max 1 mb, jpg/png");
-			redirect('saranaPrasarana/formTambahRuangan');
+			redirect('index.php?/SaranaPrasarana/formTambahRuangan');
 		}else{                    	            	
 			$file = $this->upload->data();
 			$gambar4 = $file['file_name']; 
 		}
 		if ( ! $this->upload->do_upload('foto5') && $foto5 != null){
 			$this->session->set_flashdata('gagal', "Gambar 5 tidak sesuai persayaratan, periksa kembali gambar anda, max 1 mb, jpg/png");
-			redirect('saranaPrasarana/formTambahRuangan');
+			redirect('index.php?/SaranaPrasarana/formTambahRuangan');
 		}else{                    	            	
 			$file = $this->upload->data();
 			$gambar5 = $file['file_name']; 
@@ -380,7 +380,7 @@ class SaranaPrasarana extends CI_Controller {
 
         $this->M_SaranaPrasarana->updateRuangan($where,$data,'ruangan');
         $this->session->set_flashdata('notifsukses', "Data ruangan berhasil diubah");
-        redirect('SaranaPrasarana/ruangan');
+        redirect('index.php?/SaranaPrasarana/ruangan');
 	}
 	
 
@@ -388,28 +388,28 @@ class SaranaPrasarana extends CI_Controller {
 
 public function barang(){
 	if($this->session->userdata('logged_in') != 'admin' ){
-		redirect("auth/logout");
+		redirect("Auth/logout");
 	}
 	$data['jumlahUser'] = $this->M_User->getCountUserBaru();
-	$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+	$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
 	$data['barang'] = $this->M_SaranaPrasarana->getDataBarang();
-	$data['main_view'] = 'SaranaPrasarana/V_ListBarang';
-	$this->load->view('template/template_operator', $data);
+	$data['main_view'] = 'SaranaPrasarana/V_listBarang';
+	$this->load->view('Template/Template_operator', $data);
 }
 
 public function formTambahBarang(){
 	if($this->session->userdata('logged_in') != 'admin' ){
-		redirect("auth/logout");
+		redirect("Auth/logout");
 	}
 	$data['jumlahUser'] = $this->M_User->getCountUserBaru();
-	$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+	$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
 	$data['operator'] = $this->M_User->getDataOperator()->result();
-	$data['main_view'] = 'SaranaPrasarana/V_TambahBarang';
-	$this->load->view('template/template_operator', $data);
+	$data['main_view'] = 'SaranaPrasarana/V_tambahBarang';
+	$this->load->view('Template/Template_operator', $data);
 }
 
 public function tambahBarang(){
-	$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+	$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
 	$nama_barang = $this->input->post('nama_barang');
 	$id_operator = $this->input->post('id_operator');
 	$deskripsi_barang = $this->input->post('deskripsi_barang');
@@ -436,35 +436,35 @@ public function tambahBarang(){
 
 	if ( ! $this->upload->do_upload('foto1') && $foto1 != null){
 		$this->session->set_flashdata('gagal', "Gambar 1 tidak sesuai persayaratan, periksa kembali gambar anda, max 1 mb, jpg/png");
-		redirect('saranaPrasarana/formTambahBarang');
+		redirect('index.php?/SaranaPrasarana/formTambahBarang');
 	}else{                    	            	
 		$file = $this->upload->data();
 		$foto_barang1 = $file['file_name']; 
 	}
 	if ( ! $this->upload->do_upload('foto2') && $foto2 != null){
 		$this->session->set_flashdata('gagal', "Gambar 2 tidak sesuai persayaratan, periksa kembali gambar anda, max 1 mb, jpg/png");
-		redirect('saranaPrasarana/formTambahBarang');
+		redirect('index.php?/SaranaPrasarana/formTambahBarang');
 	}else{                    	            	
 		$file = $this->upload->data();
 		$foto_barang2 = $file['file_name']; 
 	}
 	if ( ! $this->upload->do_upload('foto3') && $foto3 != null){
 		$this->session->set_flashdata('gagal', "Gambar 3 tidak sesuai persayaratan, periksa kembali gambar anda, max 1 mb, jpg/png");
-		redirect('saranaPrasarana/formTambahBarang');
+		redirect('index.php?/SaranaPrasarana/formTambahBarang');
 	}else{                    	            	
 		$file = $this->upload->data();
 		$foto_barang3 = $file['file_name']; 
 	}
 	if ( ! $this->upload->do_upload('foto4') && $foto4 != null){
 		$this->session->set_flashdata('gagal', "Gambar 4 tidak sesuai persayaratan, periksa kembali gambar anda, max 1 mb, jpg/png");
-		redirect('saranaPrasarana/formTambahBarang');
+		redirect('index.php?/SaranaPrasarana/formTambahBarang');
 	}else{                    	            	
 		$file = $this->upload->data();
 		$foto_barang4 = $file['file_name']; 
 	}
 	if ( ! $this->upload->do_upload('foto5') && $foto5 != null){
 		$this->session->set_flashdata('gagal', "Gambar 5 tidak sesuai persayaratan, periksa kembali gambar anda, max 1 mb, jpg/png");
-		redirect('saranaPrasarana/formTambahBarang');
+		redirect('index.php?/SaranaPrasarana/formTambahBarang');
 	}else{                    	            	
 		$file = $this->upload->data();
 		$foto_barang5 = $file['file_name']; 
@@ -485,29 +485,29 @@ public function tambahBarang(){
 	);
 	$this->M_SaranaPrasarana->tambahRuangan($data,'barang');
 	$this->session->set_flashdata('notifsukses', "Data barang berhasil ditambahkan");
-	redirect('SaranaPrasarana/barang');
+	redirect('index.php?/SaranaPrasarana/barang');
 }
 
 function hapusBarang($id_barang){
 	if($this->session->userdata('logged_in') != 'admin' ){
-		redirect("auth/logout");
+		redirect("Auth/logout");
 	}
 	$where = array('id_barang' => $id_barang);
 	$this->M_SaranaPrasarana->hapusRuangan($where,'barang');
 	$this->session->set_flashdata('notifsukses', "Data barang berhasil dihapus");
-	redirect('SaranaPrasarana/barang');
+	redirect('index.php?/SaranaPrasarana/barang');
 }
 
 function updateBarang($id_barang){
 	if($this->session->userdata('logged_in') != 'admin' ){
-		redirect("auth/logout");
+		redirect("Auth/logout");
 	}
 	$data['jumlahUser'] = $this->M_User->getCountUserBaru();
-	$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
-	$data['main_view'] = 'SaranaPrasarana/v_EditBarang';
+	$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
+	$data['main_view'] = 'SaranaPrasarana/V_editBarang';
 	$data['operator'] = $this->M_User->getDataOperator()->result();
 	$data['barang'] = $this->M_SaranaPrasarana->getDataBarangById($id_barang);
-	$this->load->view('template/template_operator',$data);
+	$this->load->view('Template/Template_operator',$data);
 }
 
 function editBarang(){
@@ -527,7 +527,7 @@ function editBarang(){
 
 	$this->M_SaranaPrasarana->updateRuangan($where,$data,'barang');
 	$this->session->set_flashdata('notifsukses', "Data barang berhasil diubah");
-	redirect('SaranaPrasarana/barang');
+	redirect('index.php?/SaranaPrasarana/barang');
 }//
 
 
@@ -538,19 +538,19 @@ function penggunaanRuangan(){
 		$tanggal = date("Y-m-d");
 	}
 	$level = $this->session->userdata('status');
-	$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
-	$data['peminjaman'] = $this->m_peminjaman->getSaranaPeminjaman('ruangan');
-	$data['waktu'] = $this->m_peminjaman->getDataWaktu()->result();
+	$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
+	$data['peminjaman'] = $this->M_Peminjaman->getSaranaPeminjaman('ruangan');
+	$data['waktu'] = $this->M_Peminjaman->getDataWaktu()->result();
 	$data['ruangan'] = $this->M_SaranaPrasarana->getDataRuanganNonKelas();
 	$data['tanggal'] = $tanggal;
 	$data['jumlahUser'] = $this->M_User->getCountUserBaru();
-	$data['main_view'] = 'SaranaPrasarana/v_penggunaanRuangan';
+	$data['main_view'] = 'SaranaPrasarana/V_penggunaanRuangan';
 	if($level == 'admin'){
-		$this->load->view('template/template_operator',$data);
+		$this->load->view('Template/Template_operator',$data);
 	}else if($level == 'staff pelayanan'){
-		$this->load->view('template/template_operator',$data);
+		$this->load->view('Template/Template_operator',$data);
 	}else{
-		$this->load->view('template/template_user',$data);
+		$this->load->view('Template/Template_user',$data);
 	}
 }
 
@@ -560,37 +560,37 @@ function penggunaanBarang(){
 		$tanggal = date("Y-m-d");
 	}
 	$level = $this->session->userdata('status');
-	$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
-	$data['peminjaman'] = $this->m_peminjaman->getSaranaPeminjaman('barang');
-	$data['waktu'] = $this->m_peminjaman->getDataWaktu()->result();
+	$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
+	$data['peminjaman'] = $this->M_Peminjaman->getSaranaPeminjaman('barang');
+	$data['waktu'] = $this->M_Peminjaman->getDataWaktu()->result();
 	$data['barang'] = $this->M_SaranaPrasarana->getDataSemuaBarang();
 	$data['tanggal'] = $tanggal;
 	$data['jumlahUser'] = $this->M_User->getCountUserBaru();
-	$data['main_view'] = 'SaranaPrasarana/v_penggunaanBarang';
+	$data['main_view'] = 'SaranaPrasarana/V_penggunaanBarang';
 	if($level == 'admin'){
-		$this->load->view('template/template_operator',$data);
+		$this->load->view('Template/Template_operator',$data);
 	}else if($level == 'staff pelayanan'){
-		$this->load->view('template/template_operator',$data);
+		$this->load->view('Template/Template_operator',$data);
 	}else{
-		$this->load->view('template/template_user',$data);
+		$this->load->view('Template/Template_user',$data);
 	}
 }
 
 function detailRuangan($id_ruangan){
 	$jenis = 'ruangan';
 	$data['jumlahUser'] = $this->M_User->getCountUserBaru();
-	$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+	$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
 	$data['ruangan'] = $this->M_SaranaPrasarana->getDataRuanganById($id_ruangan);
-	$data['waktu'] = $this->m_peminjaman->getDataWaktu()->result();
-	$data['penggunaanRuangan'] = $this->m_peminjaman->getPenggunaanRuanganByRuangan($jenis,$id_ruangan);
+	$data['waktu'] = $this->M_Peminjaman->getDataWaktu()->result();
+	$data['penggunaanRuangan'] = $this->M_Peminjaman->getPenggunaanRuanganByRuangan($jenis,$id_ruangan);
 	$level = $this->session->userdata('status');
-	$data['main_view'] = 'SaranaPrasarana/v_detailRuangan';
+	$data['main_view'] = 'SaranaPrasarana/V_detailRuangan';
 	if($level == 'admin'){
-		$this->load->view('template/template_operator',$data);
+		$this->load->view('Template/Template_operator',$data);
 	}else if($level == 'staff pelayanan'){
-		$this->load->view('template/template_operator',$data);
+		$this->load->view('Template/Template_operator',$data);
 	}else{
-		$this->load->view('template/template_user',$data);
+		$this->load->view('Template/Template_user',$data);
 	}
 }
 
@@ -598,17 +598,17 @@ function detailRuangan($id_ruangan){
 function detailBarang($id_barang){
 	$jenis = 'barang';
 	$data['jumlahUser'] = $this->M_User->getCountUserBaru();
-	$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
-	$data['penggunaanBarang'] = $this->m_peminjaman->getPenggunaanBarangByBarang($jenis,$id_barang);
+	$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
+	$data['penggunaanBarang'] = $this->M_Peminjaman->getPenggunaanBarangByBarang($jenis,$id_barang);
 	$data['barang'] = $this->M_SaranaPrasarana->getDataBarangById($id_barang);
 	$level = $this->session->userdata('status');
-	$data['main_view'] = 'SaranaPrasarana/v_detailBarang';
+	$data['main_view'] = 'SaranaPrasarana/V_detailBarang';
 	if($level == 'admin'){
-		$this->load->view('template/template_operator',$data);
+		$this->load->view('Template/Template_operator',$data);
 	}else if($level == 'staff pelayanan'){
-		$this->load->view('template/template_operator',$data);
+		$this->load->view('Template/Template_operator',$data);
 	}else{
-		$this->load->view('template/template_user',$data);
+		$this->load->view('Template/Template_user',$data);
 	}
 }
 
@@ -622,14 +622,14 @@ function saranaPrasarana(){
 	$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 	$data['lokasi'] = $this->M_SaranaPrasarana->getDataLokasi();
 	$data['operator'] = $this->M_User->getDataOperator()->result();
-	$data['waktu'] = $this->m_peminjaman->getDataWaktu()->result();
-	$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+	$data['waktu'] = $this->M_Peminjaman->getDataWaktu()->result();
+	$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
 	if($jenis == 'ruangan' || $jenis == null){
 		//
 		$this->load->database();
 		$jumlahRuangan = $this->M_SaranaPrasarana->jumlahDataSaranaRuangan();
 		$this->load->library('pagination');
-		$config['base_url'] = base_url().'/saranaPrasarana/saranaPrasarana/';
+		$config['base_url'] = base_url().'/SaranaPrasarana/SaranaPrasarana/';
 		$config['total_rows'] = $jumlahRuangan;
 		$config['per_page'] = 10;
 		$config['first_link']       = 'First';
@@ -654,13 +654,13 @@ function saranaPrasarana(){
 		$this->pagination->initialize($config);	
 		//
         $data['sarana'] = $this->M_SaranaPrasarana->getDataSaranaRuangan($config['per_page'],$from);
-		$data['main_view'] = 'SaranaPrasarana/v_saranaPrasarana';
+		$data['main_view'] = 'SaranaPrasarana/V_saranaPrasarana';
 	}else{
 		//
 		$this->load->database();
 		$jumlahBarang = $this->M_SaranaPrasarana->jumlahDataSaranaBarang();
 		$this->load->library('pagination');
-		$config['base_url'] = base_url().'/saranaPrasarana/saranaPrasarana/';
+		$config['base_url'] = base_url().'/SaranaPrasarana/SaranaPrasarana/';
 		$config['total_rows'] = $jumlahBarang;
 		$config['per_page'] = 10;
 		$config['first_link']       = 'First';
@@ -685,15 +685,15 @@ function saranaPrasarana(){
 		$this->pagination->initialize($config);	
 		//
         $data['sarana'] = $this->M_SaranaPrasarana->getDataSaranaBarang($config['per_page'],$from);
-		$data['main_view'] = 'SaranaPrasarana/v_saranaBarang';
+		$data['main_view'] = 'SaranaPrasarana/V_saranaBarang';
 	}
 	$level = $this->session->userdata('status');
 	if($level == 'admin'){
-		$this->load->view('template/template_operator',$data);
+		$this->load->view('Template/Template_operator',$data);
 	}else if($level == 'staff pelayanan'){
-		$this->load->view('template/template_operator',$data);
+		$this->load->view('Template/Template_operator',$data);
 	}else{
-		$this->load->view('template/template_user',$data);
+		$this->load->view('Template/Template_user',$data);
 	}
 }
 //akhir barang

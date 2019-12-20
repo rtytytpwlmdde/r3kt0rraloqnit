@@ -9,7 +9,7 @@ class Rekap extends CI_Controller {
 		$this->load->model('M_Rekap');
 		$this->load->model('M_SaranaPrasarana');
 		$this->load->model('M_User');
-		$this->load->model('m_peminjaman');
+		$this->load->model('M_Peminjaman');
 		if($this->session->userdata('logged_in') == FALSE ){
 				redirect("auth/logout");
 		}
@@ -38,10 +38,10 @@ class Rekap extends CI_Controller {
 			$data['jumlahDosen'] = $this->M_User->getJumlahDosen();
 			$data['jumlahOperator'] = $this->M_User->getJumlahOperator();
 			$data['jumlahLembaga'] = $this->M_User->getJumlahLembaga();
-			$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+			$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
 			$data['jumlahUser'] = $this->M_User->getCountUserBaru();
-			$data['main_view'] = 'rekap/V_Dashboard';
-			$this->load->view('template/template_operator',$data);
+			$data['main_view'] = 'Rekap/V_dashboard';
+			$this->load->view('Template/Template_operator',$data);
 		}
 		
 	function rekapPeminjaman(){
@@ -50,7 +50,7 @@ class Rekap extends CI_Controller {
 			$tahun = date("Y");
 		}
 		$data['tahun'] = $tahun;
-		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
 		$data['peminjamanPerBulan'] = $this->M_Rekap->getDataRekapPeminjamanPerbulan();
 		$data['peminjamanPertahun'] = $this->M_Rekap->getDataRekapPeminjamanPertahun();
 		$data['peminjamanLunasPerBulan'] = $this->M_Rekap->getDataRekapPeminjamanLunasPerbulan();
@@ -58,8 +58,8 @@ class Rekap extends CI_Controller {
 		$data['peminjamanBelumBayarPerBulan'] = $this->M_Rekap->getDataRekapPeminjamanBelumBayarPerbulan();
 		$data['peminjamanBelumBayarPertahun'] = $this->M_Rekap->getDataRekapPeminjamanBelumBayarPertahun();
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
-		$data['main_view'] = 'Rekap/V_RekapPeminjaman';
-		$this->load->view('template/template_operator',$data);
+		$data['main_view'] = 'Rekap/V_rekapPeminjaman';
+		$this->load->view('Template/Template_operator',$data);
 	}
 
 	function rekapPemakaianRuangan(){
@@ -68,13 +68,13 @@ class Rekap extends CI_Controller {
 			$tahun = date("Y");
 		}
 		$data['tahun'] = $tahun;
-		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
 		$data['ruanganPerBulan'] = $this->M_Rekap->getDataRekapPemakaianRuanganPerBulan();
 		$data['ruanganPerTahun'] = $this->M_Rekap->getDataRekapPemakaianRuanganPerTahun();
         $data['ruangan'] = $this->M_SaranaPrasarana->getDataRuangan()->result();
 				$data['jumlahUser'] = $this->M_User->getCountUserBaru();
-		$data['main_view'] = 'Rekap/V_RekapPemakaianRuangan';
-		$this->load->view('template/template_operator',$data);
+		$data['main_view'] = 'Rekap/V_rekapPemakaianRuangan';
+		$this->load->view('Template/Template_operator',$data);
 	}
 
 	function rekapPemakaianBarang(){
@@ -83,13 +83,13 @@ class Rekap extends CI_Controller {
 			$tahun = date("Y");
 		}
 		$data['tahun'] = $tahun;
-		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['barangPerBulan'] = $this->M_Rekap->getDataRekapPemakaianBarangPerBulan();
 		$data['barangPerTahun'] = $this->M_Rekap->getDataRekapPemakaianBarangPerTahun();
         $data['barang'] = $this->M_SaranaPrasarana->getDataBarang();
-		$data['main_view'] = 'Rekap/V_RekapPemakaianBarang';
-		$this->load->view('template/template_operator',$data);
+		$data['main_view'] = 'Rekap/V_rekapPemakaianBarang';
+		$this->load->view('Template/Template_operator',$data);
 	}
 
 	
@@ -99,7 +99,7 @@ class Rekap extends CI_Controller {
 			$tahun = date("Y");
 		}
 		$data['tahun'] = $tahun;
-		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
+		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
 		$data['keuanganPerBulan'] = $this->M_Rekap->getDataRekapKeuanganPerbulan();
 		$data['keuanganPertahun'] = $this->M_Rekap->getDataRekapKeuanganPertahun();
 		$data['keuanganLunasPerBulan'] = $this->M_Rekap->getDataRekapKeuanganLunasPerbulan();
@@ -107,8 +107,8 @@ class Rekap extends CI_Controller {
 		$data['keuanganBelumBayarPerBulan'] = $this->M_Rekap->getDataRekapKeuanganBelumBayarPerbulan();
 		$data['keuanganBelumBayarPertahun'] = $this->M_Rekap->getDataRekapKeuanganBelumBayarPertahun();
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
-		$data['main_view'] = 'Rekap/v_rekapKeuangan';
-		$this->load->view('template/template_operator',$data);
+		$data['main_view'] = 'Rekap/V_rekapKeuangan';
+		$this->load->view('Template/Template_operator',$data);
 	}
   
   public function exportHistoryPeminjaman(){
@@ -180,11 +180,11 @@ class Rekap extends CI_Controller {
 			$excel->getActiveSheet()->getStyle('J3')->applyFromArray($style_col);
 			$excel->getActiveSheet()->getStyle('K3')->applyFromArray($style_col);
 			// Panggil function view yang ada di SiswaModel untuk menampilkan semua data siswanya
-        $waktu = $this->m_peminjaman->getDataWaktu()->result();
+        $waktu = $this->M_Peminjaman->getDataWaktu()->result();
 			if($this->session->userdata('status') == "staff pelayanan"){
-				$peminjaman = $this->m_peminjaman->getDataPeminjaman("nonkelas")->result();
+				$peminjaman = $this->M_Peminjaman->getDataPeminjaman("nonkelas")->result();
 			}else {
-				$peminjaman = $this->m_peminjaman->getDataPeminjamanNonKelasBarang()->result();
+				$peminjaman = $this->M_Peminjaman->getDataPeminjamanNonKelasBarang()->result();
 			}
 			$no = 1; // Untuk penomoran tabel, di awal set dengan 1
 			$numrow = 4; // Set baris pertama untuk isi tabel adalah baris ke 4

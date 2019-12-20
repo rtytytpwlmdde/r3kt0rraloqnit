@@ -28,91 +28,194 @@
                 <label for="exampleFormControlSelect1">Nama</label>
                 <input disabled type="text"  required name="id_peminjam" class="form-control " value="<?= $u->nama_mahasiswa; ?><?= $u->nama_peminjam; ?>">
             </div>
-            <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="exampleFormControlSelect1">Tanggal Penggunaan</label>
-                <input disabled type="text"  required name="tanggal_mulai_penggunaan" class="form-control " 
-                value="<?php 
-                $day = date("l", strtotime($u->tanggal_mulai_penggunaan));
-                $hari = null;
-                if($day == "Sunday"){
-                    echo $hari = "Minggu";
-                }else if($day == "Monday"){
-                    echo $hari = "Senin";
-                }else if($day == "Tuesday"){
-                    echo $hari = "Selasa";
-                }else if($day == "Wednesday"){
-                    echo $hari = "Rabu";
-                }else if($day == "Thursday"){
-                    echo $hari = "Kamis";
-                }else if($day == "Friday"){
-                    echo $hari = "Jumat";
-                }else if($day == "Saturday"){
-                    echo $hari = "Sabtu";
-                }
-                ?><?= ","?>
-            <?= date("d-m-Y", strtotime($u->tanggal_mulai_penggunaan)); ?>">
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="exampleFormControlSelect1">Tanggal Selesai Penggunaan</label>
-                <input disabled type="text"  required name="tanggal_mulai_penggunaan" class="form-control " 
-                value="<?php 
-                $day = date("l", strtotime($u->tanggal_selesai_penggunaan));
-                $hari = null;
-                if($day == "Sunday"){
-                    echo $hari = "Minggu";
-                }else if($day == "Monday"){
-                    echo $hari = "Senin";
-                }else if($day == "Tuesday"){
-                    echo $hari = "Selasa";
-                }else if($day == "Wednesday"){
-                    echo $hari = "Rabu";
-                }else if($day == "Thursday"){
-                    echo $hari = "Kamis";
-                }else if($day == "Friday"){
-                    echo $hari = "Jumat";
-                }else if($day == "Saturday"){
-                    echo $hari = "Sabtu";
-                }
-                ?><?= ","?>
-            <?= date("d-m-Y", strtotime($u->tanggal_selesai_penggunaan)); ?>">
-            </div>
-            </div>
-            <?php   $tgl_mulai = $u->tanggal_mulai_penggunaan;
-                                        $tgl_selesai = $u->tanggal_selesai_penggunaan; 
-                                        $jenis = $u->jenis_peminjaman; 
-                                        $jam_mulai = $u->jam_mulai;
-                                        $jam_selesai = $u->jam_selesai;?>
-            <div class="row">
-            <div class="col-md-6 mb-3">
-                <div class="form-group">
-                    <label for="exampleFormControlSelect1">Jam Mulai</label>
-                    <input hidden type="text"  required name="tanggal_mulai_penggunaan" class="form-control " value="
-                    <?php foreach ($waktu as $a) { 
-                        if($a->id_waktu == $u->jam_mulai){
-                            $pieces = explode("-", $a->nama_waktu);
-                            echo $start = $pieces[0];
+            <div class="shadow-none p-2 mb-3 bg-light rounded">
+                <div class="row">
+                  <div class="col-md-12 mb-3">
+                      <div class="form-group">
+                          <h5 class="text-dark">Tanggal Dan Jam Penggunaan</h5>
+                      </div>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="exampleFormControlSelect1">Tanggal Penggunaan</label>
+                        <input disabled type="text"  required name="tanggal_mulai_penggunaan" class="form-control " 
+                        value="<?php 
+                        $day = date("l", strtotime($u->tanggal_mulai_penggunaan));
+                        $hari = null;
+                        if($day == "Sunday"){
+                            echo $hari = "Minggu";
+                        }else if($day == "Monday"){
+                            echo $hari = "Senin";
+                        }else if($day == "Tuesday"){
+                            echo $hari = "Selasa";
+                        }else if($day == "Wednesday"){
+                            echo $hari = "Rabu";
+                        }else if($day == "Thursday"){
+                            echo $hari = "Kamis";
+                        }else if($day == "Friday"){
+                            echo $hari = "Jumat";
+                        }else if($day == "Saturday"){
+                            echo $hari = "Sabtu";
                         }
-                                ?>
-                          <?php } ?>  ">
-                    <input disabled type="text" class="form-control" value="<?= $start;?>">
+                        ?><?= ","?>
+                    <?= date("d-m-Y", strtotime($u->tanggal_mulai_penggunaan)); ?>">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="exampleFormControlSelect1">Tanggal Selesai Penggunaan</label>
+                        <input disabled type="text"  required name="tanggal_mulai_penggunaan" class="form-control " 
+                        value="<?php 
+                        $day = date("l", strtotime($u->tanggal_selesai_penggunaan));
+                        $hari = null;
+                        if($day == "Sunday"){
+                            echo $hari = "Minggu";
+                        }else if($day == "Monday"){
+                            echo $hari = "Senin";
+                        }else if($day == "Tuesday"){
+                            echo $hari = "Selasa";
+                        }else if($day == "Wednesday"){
+                            echo $hari = "Rabu";
+                        }else if($day == "Thursday"){
+                            echo $hari = "Kamis";
+                        }else if($day == "Friday"){
+                            echo $hari = "Jumat";
+                        }else if($day == "Saturday"){
+                            echo $hari = "Sabtu";
+                        }
+                        ?><?= ","?>
+                    <?= date("d-m-Y", strtotime($u->tanggal_selesai_penggunaan)); ?>">
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-6 mb-3">
-                <div class="form-group">
-                    <label for="exampleFormControlSelect1">Jam Selesai</label>
-                    <input hidden type="text"  required name="tanggal_mulai_penggunaan" class="form-control " value="
-                         <?php foreach ($waktu as $a) { 
-                                 if($a->id_waktu == $u->jam_selesai){
+                <?php   $tgl_mulai = $u->tanggal_mulai_penggunaan;
+                                            $tgl_selesai = $u->tanggal_selesai_penggunaan; 
+                                            $jam_mulai = $u->jam_mulai;
+                                            $jam_selesai = $u->jam_selesai;?>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Jam Mulai Penggunaan</label>
+                            <input hidden type="text"  required name="tanggal_mulai_penggunaan" class="form-control " value="
+                            <?php foreach ($waktu as $a) { 
+                                if($a->id_waktu == $u->jam_mulai){
                                     $pieces = explode("-", $a->nama_waktu);
-                                    echo $end = $pieces[1];
-                                    }
-                                ?>
-                          <?php } ?>  
-                            ">
-                    <input disabled type="text" class="form-control" value="<?= $end;?>">
+                                    echo $start = $pieces[0];
+                                }
+                                        ?>
+                                <?php } ?>  ">
+                            <input disabled type="text" class="form-control" value="<?= $start;?>">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Jam Selesai Penggunaan</label>
+                            <input hidden type="text"  required name="tanggal_mulai_penggunaan" class="form-control " value="
+                                <?php foreach ($waktu as $a) { 
+                                        if($a->id_waktu == $u->jam_selesai){
+                                            $pieces = explode("-", $a->nama_waktu);
+                                            echo $end = $pieces[1];
+                                            }
+                                        ?>
+                                <?php } ?>  
+                                    ">
+                            <input disabled type="text" class="form-control" value="<?= $end;?>">
+                        </div>
+                    </div>
                 </div>
             </div>
+            
+            <div class="shadow-none p-2 mb-3 bg-light rounded">
+                <div class="row">
+                  <div class="col-md-12 mb-3">
+                      <div class="form-group">
+                          <h5 class="text-dark">Tanggal Dan Jam Acara</h5>
+                      </div>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="exampleFormControlSelect1">Tanggal Acara</label>
+                        <input disabled type="text"  required name="tanggal_mulai_acara" class="form-control " 
+                        value="<?php 
+                        $day = date("l", strtotime($u->tanggal_mulai_acara));
+                        $hari = null;
+                        if($day == "Sunday"){
+                            echo $hari = "Minggu";
+                        }else if($day == "Monday"){
+                            echo $hari = "Senin";
+                        }else if($day == "Tuesday"){
+                            echo $hari = "Selasa";
+                        }else if($day == "Wednesday"){
+                            echo $hari = "Rabu";
+                        }else if($day == "Thursday"){
+                            echo $hari = "Kamis";
+                        }else if($day == "Friday"){
+                            echo $hari = "Jumat";
+                        }else if($day == "Saturday"){
+                            echo $hari = "Sabtu";
+                        }
+                        ?><?= ","?>
+                    <?= date("d-m-Y", strtotime($u->tanggal_mulai_acara)); ?>">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="exampleFormControlSelect1">Tanggal Selesai Acara</label>
+                        <input disabled type="text"  required name="tanggal_mulai_penggunaan" class="form-control " 
+                        value="<?php 
+                        $day = date("l", strtotime($u->tanggal_selesai_acara));
+                        $hari = null;
+                        if($day == "Sunday"){
+                            echo $hari = "Minggu";
+                        }else if($day == "Monday"){
+                            echo $hari = "Senin";
+                        }else if($day == "Tuesday"){
+                            echo $hari = "Selasa";
+                        }else if($day == "Wednesday"){
+                            echo $hari = "Rabu";
+                        }else if($day == "Thursday"){
+                            echo $hari = "Kamis";
+                        }else if($day == "Friday"){
+                            echo $hari = "Jumat";
+                        }else if($day == "Saturday"){
+                            echo $hari = "Sabtu";
+                        }
+                        ?><?= ","?>
+                    <?= date("d-m-Y", strtotime($u->tanggal_selesai_acara)); ?>">
+                    </div>
+                </div>
+                <?php   $tgl_mulai = $u->tanggal_mulai_acara;
+                                            $tgl_selesai = $u->tanggal_selesai_acara; 
+                                            $jam_mulai = $u->jam_mulai_acara;
+                                            $jam_selesai = $u->jam_selesai_acara;?>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Jam Mulai Acara</label>
+                            <input hidden type="text"  required name="tanggal_mulai_penggunaan" class="form-control " value="
+                            <?php foreach ($waktu as $a) { 
+                                if($a->id_waktu == $u->jam_mulai_acara){
+                                    $pieces = explode("-", $a->nama_waktu);
+                                    echo $start = $pieces[0];
+                                }
+                                        ?>
+                                <?php } ?>  ">
+                            <input disabled type="text" class="form-control" value="<?= $start;?>">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Jam Selesai Acara</label>
+                            <input hidden type="text"  required name="tanggal_mulai_penggunaan" class="form-control " value="
+                                <?php foreach ($waktu as $a) { 
+                                        if($a->id_waktu == $u->jam_selesai_acara){
+                                            $pieces = explode("-", $a->nama_waktu);
+                                            echo $end = $pieces[1];
+                                            }
+                                        ?>
+                                <?php } ?>  
+                                    ">
+                            <input disabled type="text" class="form-control" value="<?= $end;?>">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Penyelenggara</label>
@@ -166,12 +269,12 @@
                     </tbody>
                </table>                     
             </div>
-            <form action="<?php echo base_url("peminjaman/kirimPeminjaman")?>" method="post">
+            <form action="<?php echo base_url("index.php?/Peminjaman/kirimPeminjaman")?>" method="post">
                 <input type="hidden" name="id_peminjaman" value="<?= $id?>">
                 <input type="hidden" name="total_pembayaran" value="<?= $total?>">
                 <input type="hidden" name="jenis" value="<?= $jenis?>">
                 <div class="row">
-                    <div class="col-md-3"> <a href="<?php echo site_url('Peminjaman/hapusPeminjaman/'.$id); ?>"   type="submit" class="btn btn-user btn-block btn-outline-secondary " title="Batalkan peminjaman">
+                    <div class="col-md-3"> <a href="<?php echo site_url('index.php?/Peminjaman/hapusPeminjaman/'.$id); ?>"   type="submit" class="btn btn-user btn-block btn-outline-secondary " title="Batalkan peminjaman">
                         Batalkan Peminjaman
                         </a>
                     </div>
@@ -198,7 +301,7 @@
             <a  data-toggle="modal" data-target="#modalPanduan"><span class="" title="panduan"><i class="far fa-question-circle"></i></span></a></h6>
         </div>
         <div class="card-body" >
-            <form class="user" action="<?php echo base_url().'peminjaman/tambahTagihan'; ?>" method="post" >
+            <form class="user" action="<?php echo base_url().'index.php?/Peminjaman/tambahTagihan'; ?>" method="post" >
                   
                 <input type="hidden" name="id_peminjaman"  value="<?= $id?>">
                 <?php if ($total == 0){?>

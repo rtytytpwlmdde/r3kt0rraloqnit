@@ -86,8 +86,11 @@ class M_Peminjaman extends CI_Model{
 		$this->db->join('barang','barang.id_barang = sarana_peminjaman.id_sarana','left');
 			//$this->db->where('ruangan.id_operator',$operator);
 		$this->db->where('sarana_peminjaman.status_peminjaman ','terkirim');
-		$this->db->where('ruangan.id_operator', $id_operator);
-		$this->db->or_where('barang.id_operator', $id_operator);
+		if($this->session->userdata('status') != 'admin'){
+			$this->db->where('ruangan.id_operator', $id_operator);
+			$this->db->or_where('barang.id_operator', $id_operator);
+
+		}
 		$query=$this->db->get();
 		return $query->result();
 	}
@@ -103,6 +106,14 @@ class M_Peminjaman extends CI_Model{
 		}else{
 			return false;
 		}
+	}
+
+	function getDataPeminjamanById($id){
+        $this->db->select('*');
+        $this->db->from('peminjaman');
+		$this->db->where('peminjaman.id_peminjaman', $id);
+		$query=$this->db->get();
+		return $query->result();
 	}
 
 	function getDataPeminjamanByIdTagihan($id){
@@ -180,6 +191,7 @@ class M_Peminjaman extends CI_Model{
 		$operator = $this->session->userdata('username');
 		$search = $this->input->get('search');
 		$status = $this->input->get('status');
+		$statusa = $this->input->get('statusa');
 		$pengguna = $this->input->get('pengguna');
 		$bulan = $this->input->get('bulan');
 		$tahun = $this->input->get('tahun');
@@ -218,6 +230,11 @@ class M_Peminjaman extends CI_Model{
 		
 		if($status != NULL){
 			$this->db->where('peminjaman.validasi_akademik',$status);
+		}
+
+		
+		if($statusa != NULL){
+			$this->db->where('peminjaman.validasi_akademik',$statusa);
 		}
 		
 		if($status_pembayaran != NULL){
@@ -559,6 +576,10 @@ class M_Peminjaman extends CI_Model{
 
 	function getDataPeminjamanNonKelasByDate($tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai){
 		$this->db->select('*');
+		$this->db->select('jam_mulai as jmp');
+		$this->db->select('jam_selesai as jsp');
+		$this->db->select('jam_mulai_acara as jma');
+		$this->db->select('jam_selesai_acara as jsa');
         $this->db->from('peminjaman');
 		$this->db->join('mahasiswa','peminjaman.id_peminjam = mahasiswa.id_mahasiswa','left');
 		$this->db->where('peminjaman.tanggal_mulai_penggunaan',$tanggal_mulai_penggunaan);
@@ -572,8 +593,8 @@ class M_Peminjaman extends CI_Model{
 	function getRuanganPeminjamanNonKelasByDate($tanggal_mulai_penggunaan, $tanggal_selesai_penggunaan, $jam_mulai, $jam_selesai){
 		$this->db->select('sarana_peminjaman.id_sarana, ruangan.nama_ruangan, ruangan.id_operator');
         $this->db->from('peminjaman');
-		$this->db->join('sarana_peminjaman','sarana_peminjaman.id_peminjaman = peminjaman.id_peminjaman');
-		$this->db->join('ruangan','sarana_peminjaman.id_sarana = ruangan.id_ruangan');
+		$this->db->join('sarana_peminjaman','sarana_peminjaman.id_peminjaman = peminjaman.id_peminjaman','left');
+		$this->db->join('ruangan','sarana_peminjaman.id_sarana = ruangan.id_ruangan','left');
 		$this->db->where('peminjaman.tanggal_mulai_penggunaan',$tanggal_mulai_penggunaan);
 		$this->db->where('peminjaman.tanggal_selesai_penggunaan',$tanggal_selesai_penggunaan);
 		$this->db->where('peminjaman.jam_mulai',$jam_mulai);

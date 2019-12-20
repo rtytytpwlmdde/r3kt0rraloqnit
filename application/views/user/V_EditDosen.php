@@ -38,7 +38,7 @@
         </div>
     <div class="kotak py-2 px-2 shadow" >
         <?php foreach($dosen as $u): ?>
-        <form class="user" action="<?php echo base_url().'User/editDosen'; ?>" method="post">
+        <form class="user" action="<?php echo base_url().'index.php?/User/editDosen'; ?>" method="post">
             <div class="form-group">
                 <label for="">NIK</label>
                 <input hidden type="text" name="id_dosen" class="form-control form-control-user" value="<?= $u->id_dosen; ?>">

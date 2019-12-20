@@ -6,9 +6,9 @@ class Agenda extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->helper('url');
-		$this->load->model('m_agenda');
-		$this->load->model('m_peminjaman');
-		$this->load->model('m_user');
+		$this->load->model('M_Agenda');
+		$this->load->model('M_Peminjaman');
+		$this->load->model('M_User');
 	}
 
 	public function index()
@@ -16,15 +16,15 @@ class Agenda extends CI_Controller {
 		$data['search'] = $this->input->get('search');
 		$data['start'] = $this->input->get('start');
 		$data['end'] = $this->input->get('end');
-		$data['jumlahPeminjaman'] = $this->m_peminjaman->getCountPeminjamanTerkirim();
-		$data['jumlahUser'] = $this->m_user->getCountUserBaru();
-        $data['agenda'] = $this->m_agenda->getDataAgenda()->result();
-        $data['waktu'] = $this->m_peminjaman->getDataWaktu()->result();
-		$data['main_view'] = 'agenda/v_list_agenda';
+		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
+		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
+        $data['agenda'] = $this->M_Agenda->getDataAgenda()->result();
+        $data['waktu'] = $this->M_Peminjaman->getDataWaktu()->result();
+		$data['main_view'] = 'Agenda/V_list_agenda';
 		if($this->session->userdata('status') == "pengguna" || $this->session->userdata('logged_in') == FALSE){ 
-            $this->load->view('template/template_user',$data);
+            $this->load->view('Template/Template_user',$data);
         }else{
-           $this->load->view('template/template_operator',$data);
+           $this->load->view('Template/Template_operator',$data);
         }
 	}
 

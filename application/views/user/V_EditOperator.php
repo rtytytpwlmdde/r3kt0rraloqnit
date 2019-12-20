@@ -30,7 +30,7 @@
             <h6 class="m-0 font-weight-bold text-white">Edit Data Operator</h6>
         </div>
         <div class="card-body">
-            <form class="user" action="<?php echo base_url().'User/editOperator'; ?>" method="post">
+            <form class="user" action="<?php echo base_url().'index.php?/User/editOperator'; ?>" method="post">
             <?php foreach($operator as $u): ?>
                 <div class="form-group">
                     <label for="">Username</label>

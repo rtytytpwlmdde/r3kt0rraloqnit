@@ -36,7 +36,7 @@
         </div>
         <div class="card-body">
         <?php foreach($lokasi as $u): ?>
-        <form class="user" action="<?php echo base_url().'saranaPrasarana/editLokasi'; ?>" method="post">
+        <form class="user" action="<?php echo base_url().'index.php?/SaranaPrasarana/editLokasi'; ?>" method="post">
             <div class="form-group">
                 <label for="">ID</label>
                 <input hidden type="text" name="id_lokasi" class="form-control form-control-user" value="<?= $u->id_lokasi; ?>">

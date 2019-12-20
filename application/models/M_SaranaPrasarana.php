@@ -118,23 +118,23 @@ class M_SaranaPrasarana extends CI_Model{
 				}
 			}
 			$this->db->where("id_ruangan NOT IN 
-		(
-			SELECT id_sarana  
-			FROM sarana_peminjaman  
-			JOIN peminjaman ON (sarana_peminjaman.id_peminjaman = peminjaman.id_peminjaman)
-			WHERE (((tanggal_mulai_penggunaan <= '$tanggal_mulai_penggunaan') and ('$tanggal_mulai_penggunaan' <= tanggal_selesai_penggunaan)) 
-			OR ((tanggal_mulai_penggunaan <= '$tanggal_selesai_penggunaan') and ('$tanggal_selesai_penggunaan' <= tanggal_selesai_penggunaan))
-		OR (('$tanggal_mulai_penggunaan' <= tanggal_mulai_penggunaan) and (tanggal_mulai_penggunaan <= '$tanggal_selesai_penggunaan')) 
-			OR (('$tanggal_mulai_penggunaan' <= tanggal_selesai_penggunaan) and (tanggal_selesai_penggunaan <= '$tanggal_selesai_penggunaan')))
-		AND
-		(((jam_mulai <= '$jam_mulai') and ('$jam_mulai' <= jam_selesai)) 
-			OR ((jam_mulai <= '$jam_selesai') and ('$jam_selesai' <= jam_selesai))
-		OR (('$jam_mulai' <= jam_mulai) and (jam_mulai <= '$jam_selesai')) 
-			OR (('$jam_mulai' <= jam_selesai) and (jam_selesai <= '$jam_selesai')))
-		AND
-		((peminjaman.validasi_akademik != 'batal') || (peminjaman.validasi_akademik != 'tolak'))
-		)"
-		, NULL, FALSE);
+				(
+					SELECT id_sarana  
+					FROM sarana_peminjaman  
+					JOIN peminjaman ON (sarana_peminjaman.id_peminjaman = peminjaman.id_peminjaman)
+					WHERE (((tanggal_mulai_penggunaan <= '$tanggal_mulai_penggunaan') and ('$tanggal_mulai_penggunaan' <= tanggal_selesai_penggunaan)) 
+					OR ((tanggal_mulai_penggunaan <= '$tanggal_selesai_penggunaan') and ('$tanggal_selesai_penggunaan' <= tanggal_selesai_penggunaan))
+				OR (('$tanggal_mulai_penggunaan' <= tanggal_mulai_penggunaan) and (tanggal_mulai_penggunaan <= '$tanggal_selesai_penggunaan')) 
+					OR (('$tanggal_mulai_penggunaan' <= tanggal_selesai_penggunaan) and (tanggal_selesai_penggunaan <= '$tanggal_selesai_penggunaan')))
+				AND
+				(((jam_mulai <= '$jam_mulai') and ('$jam_mulai' <= jam_selesai)) 
+					OR ((jam_mulai <= '$jam_selesai') and ('$jam_selesai' <= jam_selesai))
+				OR (('$jam_mulai' <= jam_mulai) and (jam_mulai <= '$jam_selesai')) 
+					OR (('$jam_mulai' <= jam_selesai) and (jam_selesai <= '$jam_selesai')))
+				AND
+				((peminjaman.validasi_akademik != 'batal') || (peminjaman.validasi_akademik != 'tolak'))
+				)"
+				, NULL, FALSE);
 			$this->db->order_by("jenis_ruangan", "asc");
 			$this->db->order_by("nama_ruangan", "asc");
 			$query = $this->db->get('ruangan',$number,$offset);

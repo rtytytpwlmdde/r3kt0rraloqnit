@@ -36,7 +36,7 @@
             </div>
         </div>
     <div class="kotak py-2 px-2 shadow" >
-        <form class="user" action="<?php echo base_url().'User/tambahDosen'; ?>" method="post">
+        <form class="user" action="<?php echo base_url().'index.php?/User/tambahDosen'; ?>" method="post">
             <div class="form-group">
                 <label for="">NIK</label>
                 <input required type="text" name="id_dosen" class="form-control form-control-user" placeholder="">

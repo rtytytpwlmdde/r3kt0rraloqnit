@@ -30,7 +30,7 @@
             <h6 class="m-0 font-weight-bold text-white">Edit Data User</h6>
         </div>
         <div class="card-body">
-            <form class="user" action="<?php echo base_url().'User/editUser'; ?>" method="post">
+            <form class="user" action="<?php echo base_url().'index.php?/User/editUser'; ?>" method="post">
             <?php foreach($mahasiswa as $u): ?>
                 <div class="form-group">
                     <label for="">Username</label>

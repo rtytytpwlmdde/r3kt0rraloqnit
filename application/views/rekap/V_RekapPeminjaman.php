@@ -8,7 +8,7 @@
                         </div>
                         <div class="col-6 col-md-4">
                             <div class="d-flex flex-row-reverse bd-highlight">
-                                <form class="form-inline" action="<?php  echo base_url('Rekap/rekapPeminjaman'); ?>">
+                                <form class="form-inline" action="<?php  echo base_url('index.php?/Rekap/rekapPeminjaman'); ?>">
                                     <div class="form-group sm">
                                         <input type="text" name="tahun" class="form-control" value="<?= $tahun; ?>">
                                         <button type="submit" class="btn btn-light"><i class="fas fa-search"></i></button>

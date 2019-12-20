@@ -8,7 +8,7 @@
                         </div>
                         <div class="col-6 col-md-4">
                             <div class="d-flex flex-row-reverse bd-highlight">
-                                <form class="form-inline" action="<?php  echo base_url('Rekap/rekapKeuangan'); ?>">
+                                <form class="form-inline" action="<?php  echo base_url('index.php?/Rekap/rekapKeuangan'); ?>">
                                     <div class="form-group sm">
                                         <input type="text" name="tahun" class="form-control" value="<?= $tahun; ?>">
                                         <button type="submit" class="btn btn-light"><i class="fas fa-search"></i></button>
@@ -60,7 +60,7 @@
                                     }else{
                                         ?>
 
-                                        <form action="<?php echo base_url("peminjaman/historyPeminjaman");?>" method="get">
+                                        <form action="<?php echo base_url("index.php?/Peminjaman/historyPeminjaman");?>" method="get">
                                             <input type="hidden" name="tahun" value="<?= $tahun?>">
                                             <input type="hidden" name="bulan" value="<?= $bulan?>">
                                             <button type="submit" class="btn btn-link text-dark"><?php  echo "Rp " . number_format($result,0,',','.');?></button>
@@ -85,7 +85,7 @@
                                         <?php
                                     }else{?>
                                     
-                                    <form action="<?php echo base_url("peminjaman/historyPeminjaman");?>" method="get">
+                                    <form action="<?php echo base_url("index.php?/Peminjaman/historyPeminjaman");?>" method="get">
                                             <input type="hidden" name="tahun" value="<?= $tahun?>">
                                             <input type="hidden" name="bulan" value="<?= $bulan?>">
                                             <input type="hidden" name="status_pembayaran" value="lunas">
@@ -111,7 +111,7 @@
                                         </form>
                                         <?php
                                     }else{ ?>
-                                        <form action="<?php echo base_url("peminjaman/historyPeminjaman");?>" method="get">
+                                        <form action="<?php echo base_url("index.php?/Peminjaman/historyPeminjaman");?>" method="get">
                                             <input type="hidden" name="tahun" value="<?= $tahun?>">
                                             <input type="hidden" name="bulan" value="<?= $bulan?>">
                                             <input type="hidden" name="status_pembayaran" value="belum bayar">
@@ -129,7 +129,7 @@
                             <td> <?php 
                             foreach($keuanganPertahun as $u){
                                 ?>
-                                <form action="<?php echo base_url("peminjaman/historyPeminjaman");?>" method="get">
+                                <form action="<?php echo base_url("index.php?/Peminjaman/historyPeminjaman");?>" method="get">
                                     <input type="hidden" name="tahun" value="<?= $tahun?>">
                                     <button type="submit" class="btn btn-link text-dark"><?php  echo "Rp " . number_format($u->jumPeminjamanPertahun,0,',','.');?></button>
                                 </form>
@@ -148,7 +148,7 @@
                                     <?php
                                 }else{
                                     ?>
-                                    <form action="<?php echo base_url("peminjaman/historyPeminjaman");?>" method="get">
+                                    <form action="<?php echo base_url("index.php?/Peminjaman/historyPeminjaman");?>" method="get">
                                         <input type="hidden" name="tahun" value="<?= $tahun?>">                        
                                          <input type="hidden" name="status_pembayaran" value="lunas">
                                         <button type="submit" class="btn btn-link text-dark"><?php  echo "Rp " . number_format($u->jumPeminjamanPertahun,0,',','.');?></button>
@@ -169,7 +169,7 @@
                                     <?php
                                 }else{
                                     ?>
-                                    <form action="<?php echo base_url("peminjaman/historyPeminjaman");?>" method="get">
+                                    <form action="<?php echo base_url("index.php?/Peminjaman/historyPeminjaman");?>" method="get">
                                         <input type="hidden" name="tahun" value="<?= $tahun?>">                                       
                                          <input type="hidden" name="status_pembayaran" value="belum bayar">
 

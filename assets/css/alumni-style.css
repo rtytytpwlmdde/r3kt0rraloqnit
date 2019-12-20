@@ -269,21 +269,61 @@ box-shadow: 0 7px 14px 0 rgba(59,65,94,.1),0 3px 6px 0 rgba(0,0,0,.07);
   padding-left:11em; 
   overflow-y:visible;
 }
-.headcol {
-  width: 100%; 
-  height: 50px;
-  position:absolute; 
-  width:12em; 
-  left:0em;
-  margin-left:4px;
-  top:auto;
-  border-top-width:3px; /*only relevant for first row*/
-  overflow:hidden;
-  background-color : #fff;
-}
+
 
 .image-preview{
   display:none;
   width : 100%;
   height : 260px;
 }
+
+
+.table-scroll {
+	position:relative;
+	width:600px;
+	margin:auto;
+	overflow:hidden;
+	border:0.4px solid #000;
+}
+.table-wrap {
+	width:100%;
+	overflow:auto;
+}
+.table-scroll table {
+	width:100%;
+	margin:auto;
+	border-collapse:separate;
+	border-spacing:0;
+}
+.table-scroll th, .table-scroll td {
+	padding:5px 10px;
+	border:0.4px solid #000;
+	background:#fff;
+	white-space:nowrap;
+	vertical-align:top;
+}
+.table-scroll thead, .table-scroll tfoot {
+	background:#f9f9f9;
+}
+.clone {
+	position:absolute;
+	top:0;
+	left:0;
+	pointer-events:none;
+}
+.clone th, .clone td {
+	visibility:hidden
+}
+.clone td, .clone th {
+	border-color:transparent
+}
+.clone tbody th {
+	visibility:visible;
+	color:red;
+}
+.clone .fixed-side {
+	border:0.4px solid #000;
+	background:rgb(255, 255, 255);
+	visibility:visible;
+}
+.clone thead, .clone tfoot{background:transparent;}

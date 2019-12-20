@@ -38,10 +38,10 @@ if($this->session->userdata('logged_in') == FALSE){  ?>
                 <div class="card-body">
                     <div class="row text-center">
                         <div class="col-md-6 text-right">
-                        <a class="btn btn-outline-secondary" style="width:300px; height:100px;" href="<?php echo base_url("peminjaman/formTambahPeminjaman/ruangan")?>"><i class="fas fa-home fa-3x"></i> <br>Ruangan</a>
+                        <a class="btn btn-outline-secondary" style="width:300px; height:100px;" href="<?php echo base_url("index.php?/Peminjaman/formTambahPeminjaman/ruangan")?>"><i class="fas fa-home fa-3x"></i> <br>Ruangan</a>
                         </div>
                         <div class="col-md-6 text-left">
-                        <a class="btn btn-outline-secondary" style="width:300px; height:100px;" href="<?php echo base_url("peminjaman/formTambahPeminjaman/barang")?>"><i class="fas fa-car fa-3x"></i> <br>Barang</a>
+                        <a class="btn btn-outline-secondary" style="width:300px; height:100px;" href="<?php echo base_url("index.php?/Peminjaman/formTambahPeminjaman/barang")?>"><i class="fas fa-car fa-3x"></i> <br>Barang</a>
 
                         </div>
                     </div>

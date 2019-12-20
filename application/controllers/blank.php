@@ -12,7 +12,7 @@ class Blank extends CI_Controller {
 
 	public function index()
 	{
-		$data['main_view'] = 'template/v_404';
+		$data['main_view'] = 'template/V_404';
 		$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 		$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
 		if($this->session->userdata('status') == "pengguna" || $this->session->userdata('logged_in') == FALSE){ 

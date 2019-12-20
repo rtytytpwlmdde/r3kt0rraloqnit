@@ -30,7 +30,7 @@
                   <h6 class="m-0 font-weight-bold  d-flex justify-content-between">Form Cek Peminjaman </h6>
                 </div>
                 <div class="card-body">
-                  <form  action="<?php echo base_url().'Peminjaman/cekPeminjaman'; ?>" method="get" >
+                  <form  action="<?php echo base_url().'index.php?/Peminjaman/cekPeminjaman'; ?>" method="get" >
                     <div class="row">
                       <div class="col-md-12 mb-3">
                         <label for="">Kode Boking</label>

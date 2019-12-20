@@ -50,20 +50,20 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                 <div class="card p-2 mb-2">
                     <div class="row">
                         <div class="col-md-6 text-right">
-                            <form method="get" action="<?php echo base_url("saranaPrasarana/saranaPrasarana")?>">
+                            <form method="get" action="<?php echo base_url("index.php?/SaranaPrasarana/saranaPrasarana")?>">
                                 <input type="hidden" name="jenis" value="ruangan">
                                 <button class="btn btn-outline-primary"><i class="fas fa-home"></i> <br>Ruangan</button>
                             </form>
                         </div>
                         <div class="col-md-6 text-left">
-                            <form method="get" action="<?php echo base_url("saranaPrasarana/saranaPrasarana")?>">
+                            <form method="get" action="<?php echo base_url("index.php?/SaranaPrasarana/saranaPrasarana")?>">
                                 <input type="hidden" name="jenis" value="barang">
                                 <button class="btn btn-outline-primary"><i class="fas fa-car"></i> <br>Barang</button>
                             </form>
                         </div>
                     </div>
                 </div>
-                    <form method="get" action="<?php echo base_url("saranaPrasarana/saranaPrasarana")?>">
+                    <form method="get" action="<?php echo base_url("index.php?/SaranaPrasarana/saranaPrasarana")?>">
                 <div class="card px-2 pt-2 mb-2">
                     <div class="row">
                         <div class="col-md-12">
@@ -322,7 +322,7 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                             <?php }?>
                         </div>
                         <div class="col-md-8">
-                            <a href="<?php echo base_url("saranaPrasarana/detailRuangan/".$u->id_ruangan);?>"><h4 class="font-weight-bold text-dark m-0" style="font-size: 20px !important; font-family: 'Roboto', sans-serif;" ><?= $u->nama_ruangan;?></h4></a>
+                            <a href="<?php echo base_url("index.php?/SaranaPrasarana/detailRuangan/".$u->id_ruangan);?>"><h4 class="font-weight-bold text-dark m-0" style="font-size: 20px !important; font-family: 'Roboto', sans-serif;" ><?= $u->nama_ruangan;?></h4></a>
                             <span class="text-info m-0 p-0" style="font-size:12px;"><?= $u->nama_fakultas ?> </span><br> 
                             <span style="font-size:14px;">Kapasitas : <?= $u->kapasitas ?> orang</span> <br>
                             <span style="font-size:14px;">Luas : <?= $u->luas_ruangan ?> </span><br>
@@ -338,21 +338,3 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
         </div>
     </div>
 </div>
-
-<script>
-
-
-$('#demo').pagination({
-        dataSource: [1, 2, 3, 4, 5, 6, 7, ... , 100],
-        pageSize: 5,
-        showPrevious: false,
-        showNext: false,
-        callback: function(data, pagination) {
-            // template method of yourself
-            var html = template(data);
-            dataContainer.html(html);
-        }
-    })
-
-
-</script>

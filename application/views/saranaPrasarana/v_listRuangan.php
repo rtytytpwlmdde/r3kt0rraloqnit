@@ -35,14 +35,14 @@
                         Filter
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <form action="<?php  echo base_url('saranaPrasarana/ruangan'); ?>" method="post"><input hidden name="status" value="bagus">
+                            <form action="<?php  echo base_url('index.php?/SaranaPrasarana/ruangan'); ?>" method="post"><input hidden name="status" value="bagus">
                                 <button class="dropdown-item text-success" type="submit">Bagus</button>
                             </form>
-                            <form action="<?php  echo base_url('saranaPrasarana/ruangan'); ?>" method="post"><input hidden name="status" value="rusak">
+                            <form action="<?php  echo base_url('index.php?/SaranaPrasarana/ruangan'); ?>" method="post"><input hidden name="status" value="rusak">
                                 <button class="dropdown-item text-danger" type="submit">Rusak</button>
                             </form>
                         </div>
-                        <a class="btn btn-sm btn-primary mb-2"  href="<?php  echo base_url('SaranaPrasarana/formTambahRuangan'); ?>" role="button">Tambah Ruangan</a>
+                        <a class="btn btn-sm btn-primary mb-2"  href="<?php  echo base_url('index.php?/SaranaPrasarana/formTambahRuangan'); ?>" role="button">Tambah Ruangan</a>
                     </div>
                 </div>
             </div>
@@ -68,17 +68,17 @@
                 <tr class="text-center">
                     <td><?php echo $no++; ?></td>
                     <td><?php echo $u->id_ruangan; ?></td>
-                    <td><a href="<?php echo site_url('SaranaPrasarana/detailRuangan/'.$u->id_ruangan); ?>" >
+                    <td><a href="<?php echo site_url('index.php?/SaranaPrasarana/detailRuangan/'.$u->id_ruangan); ?>" >
                         <?php echo $u->nama_ruangan;?>  
                         </a></td>
                     <td><?php echo $u->kapasitas;?></td>
                     <td><?php echo $u->id_operator;?></td>
                     <td><?php echo $u->status_ruangan;?></td>
                     <td >
-                        <a href="<?php echo site_url('SaranaPrasarana/updateRuangan/'.$u->id_ruangan); ?>"  class="btn btn-sm btn-warning text-white" title="Edit">
+                        <a href="<?php echo site_url('index.php?/SaranaPrasarana/updateRuangan/'.$u->id_ruangan); ?>"  class="btn btn-sm btn-warning text-white" title="Edit">
                         <i class="fas fa-pencil-alt"></i>
                         </a>
-                        <a onclick="return confirm('Apakah anda benar benar ingin menghapus data ini?');" href="<?php echo site_url('SaranaPrasarana/hapusRuangan/'.$u->id_ruangan); ?>"  class="btn btn-sm btn-danger text-white"  title="Hapus">
+                        <a onclick="return confirm('Apakah anda benar benar ingin menghapus data ini?');" href="<?php echo site_url('index.php?/SaranaPrasarana/hapusRuangan/'.$u->id_ruangan); ?>"  class="btn btn-sm btn-danger text-white"  title="Hapus">
                             <i class="fas fa-trash"></i>
                         </a>
                     </td>

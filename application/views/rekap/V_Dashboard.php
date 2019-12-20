@@ -51,7 +51,7 @@
                   <h6 class="m-0 font-weight-bold text-white">Grafik Jumlah Peminjaman</h6>
                   <div  class="dropdown  no-arrow">
                   
-                  <form class="form-inline" action="<?php  echo base_url('Rekap/dashboard'); ?>" method="get">
+                  <form class="form-inline" action="<?php  echo base_url('index.php?/Rekap/dashboard'); ?>" method="get">
                               <div class="form-group">
                                   <input type="text" required name="tahun" class="form-control-sm" placeholder="<?php echo $tahun; ?>">
                                   <button type="submit" class="btn btn-sm btn-light"><i class="fas fa-search"></i></button>

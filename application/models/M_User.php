@@ -66,6 +66,18 @@ class M_User extends CI_Model{
 		$query=$this->db->get();
 		return $query->result();
 		}
+
+		function getDataLembaga(){
+			return $this->db->get('lembaga');
+	}
+
+	function getDataLembagaById($id_lembaga){
+	$this->db->select('*');
+	$this->db->from('lembaga');
+	$this->db->where('id_lembaga',$id_lembaga);
+	$query=$this->db->get();
+	return $query->result();
+	}
 		
 		function getCountUserBaru(){
 			$this->db->select('id_mahasiswa ,count(id_mahasiswa) as jumUserBaru');
@@ -116,17 +128,7 @@ class M_User extends CI_Model{
 		}
 	}
 
-	function getDataLembaga(){
-		return $this->db->get('lembaga');
-	}
 
-	function getDataLembagaById($id_lembaga){
-		$this->db->select('*');
-		$this->db->from('lembaga');
-		$this->db->where('id_lembaga',$id_lembaga);
-		$query=$this->db->get();
-		return $query->result();
-	}
 
 	function getJumlahDosen(){
 		$this->db->select('count(id_dosen) as jumDosen');

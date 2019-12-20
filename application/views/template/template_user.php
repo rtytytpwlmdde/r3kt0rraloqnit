@@ -10,12 +10,26 @@
   <meta name="author" content="">
 
   <title>SIBORU - UB</title>
+  <meta property="og:title" content="SIBORU Universitas Brawijaya">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Official Site - Siboru (Universitas Brawijaya) ">
+	<meta name="keywords" content="Siboru,Universitas,Brawijaya,UB, Siboru UB">
+	<meta name="robots" content="index, follow">
+  <meta name="HandheldFriendly" content="true">
+  <meta http-equiv="cleartype" content="on">
+
+    
+  <meta property="og:site_name" content="Siboru Universitas Brawijaya">
+   	    	
+  <meta property="og:description" content="Official Site - Siboru Universitas Brawijaya">
+  <meta http-equiv="cache-control" content="no-cache">
+	<meta name="rating" content="Mature">
   <link rel="icon" href="<?php echo base_url() ?>/assets/img/ub.png">
   <!-- Custom fonts for this template-->
 
   <link href="<?php echo base_url() ?>/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-  <link href="<?php echo base_url() ?>/assets/css/image-css.scss" rel="stylesheet" type="text/css">
+  <link href="<?php echo base_url() ?>/assets/css/image-css.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"> 
   <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.11.2/css/pro.min.css">  
 
@@ -38,6 +52,7 @@
 
 <script src="https://unpkg.com/swiper/js/swiper.js"></script>
 <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -45,35 +60,35 @@
     <div class="">
         <nav class="navbar navbar-expand-lg navbar-light bg-biru shadow">
           <div class="container">
-            <a class="navbar-brand text-white " href="<?php echo base_url('saranaPrasarana/saranaPrasarana'); ?>"><img src="<?php echo base_url(); ?>/assets/img/ub.png" width="35" height="35" alt=""> Siboru <sup>UB</sup></a>
+            <a class="navbar-brand text-white " href="<?php echo base_url('index.php?/SaranaPrasarana/saranaPrasarana'); ?>"><img src="<?php echo base_url(); ?>/assets/img/ub.png" width="35" height="35" alt=""> Siboru <sup>UB</sup></a>
             <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon text-white"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto ml-3">
                 <li class="nav-item active">
-                    <a class="nav-link text-white" href="<?php echo base_url('saranaPrasarana/saranaPrasarana'); ?>">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link text-white" href="<?php echo base_url('index.php?/SaranaPrasarana/saranaPrasarana'); ?>">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link text-white" href="<?php echo base_url('agenda'); ?>">Agenda <span class="sr-only">(current)</span></a>
+                    <a class="nav-link text-white" href="<?php echo base_url('index.php?/Agenda'); ?>">Agenda <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link text-white" href="<?php echo base_url('saranaPrasarana/penggunaanRuangan'); ?>">Ruangan <span class="sr-only">(current)</span></a>
+                    <a class="nav-link text-white" href="<?php echo base_url('index.php?/SaranaPrasarana/penggunaanRuangan'); ?>">Ruangan <span class="sr-only">(current)</span></a>
                 </li>
                 <li  class="nav-item active">
-                    <a class="nav-link text-white" href="<?php echo base_url('saranaPrasarana/penggunaanBarang'); ?>">Barang <span class="sr-only">(current)</span></a>
+                    <a class="nav-link text-white" href="<?php echo base_url('index.php?/SaranaPrasarana/penggunaanBarang'); ?>">Barang <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link text-white" href="<?php echo base_url('peminjaman/pilihPeminjaman'); ?>">Peminjaman</a>
+                    <a class="nav-link text-white" href="<?php echo base_url('index.php?/Peminjaman/pilihPeminjaman'); ?>">Peminjaman</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="<?php echo base_url('peminjaman/formCekPeminjaman'); ?>">Cek Peminjaman</a>
+                    <a class="nav-link text-white" href="<?php echo base_url('index.php?/Peminjaman/formCekPeminjaman'); ?>">Cek Peminjaman</a>
                 </li>
                 
                <?php
                 if($this->session->userdata('status') == "pengguna" ){ ?>
                   <li class="nav-item">
-                      <a class="nav-link text-white" href="<?php echo base_url('peminjaman/historyPeminjaman'); ?>">History Peminjaman</a>
+                      <a class="nav-link text-white" href="<?php echo base_url('index.php?/Peminjaman/historyPeminjaman'); ?>">History Peminjaman</a>
                   </li>
                 <?php
                 }
@@ -81,14 +96,14 @@
                 </ul>
                 <form class="form-inline my-2 my-lg-0 ">
                 <?php if($this->session->userdata('logged_in') == FALSE){ ?>
-                    <a class="my-2 my-sm-0 text-white" href="<?php echo base_url('auth/login') ?>">Login</a>
+                    <a class="my-2 my-sm-0 text-white" href="<?php echo base_url('index.php?/Auth/login') ?>">Login</a>
                       <?php }else{ ?>
                         <div class="btn-group">
                           <a  class="dropdown-toggle text-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <?= $this->session->userdata('nama')?>
                           </a>
                           <div class="dropdown-menu dropdown-menu-right">
-                            <a class="my-2 my-sm-0  dropdown-item" href="<?php echo base_url('auth/profil') ?>" >Profil</a>
+                            <a class="my-2 my-sm-0  dropdown-item" href="<?php echo base_url('index.php?/Auth/profil') ?>" >Profil</a>
                             <a class="my-2 my-sm-0  text-danger dropdown-item" data-toggle="modal" data-target="#logoutModal" >Logout</a>
                           </div>
                         </div>
@@ -122,7 +137,7 @@
         <div class="modal-body">Pilih "Logout" untuk keluar dari sistem.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="<?php echo base_url('auth/logout'); ?>">Logout</a>
+          <a class="btn btn-primary" href="<?php echo base_url('index.php?/Auth/logout'); ?>">Logout</a>
         </div>
       </div>
     </div>
@@ -139,10 +154,10 @@
         <div class="modal-body">
         <div class="row text-center">
             <div class="col-md-6 text-right">
-              <a class="btn btn-outline-secondary" href="<?php echo base_url("peminjaman/formTambahPeminjaman/ruangan")?>"><i class="fas fa-home"></i> <br>Ruangan</a>
+              <a class="btn btn-outline-secondary" href="<?php echo base_url("index.php?/Peminjaman/formTambahPeminjaman/ruangan")?>"><i class="fas fa-home"></i> <br>Ruangan</a>
             </div>
             <div class="col-md-6 text-left">
-              <a class="btn btn-outline-secondary" href="<?php echo base_url("peminjaman/formTambahPeminjaman/barang")?>"><i class="fas fa-car"></i> <br>Barang</a>
+              <a class="btn btn-outline-secondary" href="<?php echo base_url("index.php?/Peminjaman/formTambahPeminjaman/barang")?>"><i class="fas fa-car"></i> <br>Barang</a>
 
             </div>
           </div>

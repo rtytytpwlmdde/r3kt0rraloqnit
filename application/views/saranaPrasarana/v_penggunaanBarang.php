@@ -28,8 +28,10 @@
         
         </h6>
             </div>
-            <form class="pr-2 form-inline" action="<?php echo site_url('saranaPrasarana/penggunaanBarang');?>"  method="get">
-                <div class="form-group mb-2">
+            <form class="pr-2 form-inline" action="<?php echo site_url('index.php?/SaranaPrasarana/penggunaanBarang');?>"  method="get">
+                <div class="form-group mb-2">                                   
+                     <input type="text"  class="form-control-sm" placeholder="Cari Barang" id="myInput" onkeyup="myFunction()">
+
                     <input type="date" name="tanggal" class="form-control-sm " >
                 </div>
                 <button type="submit" class="btn btn-sm btn-primary mb-2">Search</button>
@@ -37,16 +39,15 @@
           </div>
 
           <!-- Content Row -->
-          <div class="row card  shadow">
-            <div class="table-responsive div">
-                <table class="table  table-penggunaan-barang  mx-0 text-center table-hover" id="myTable">
+          <div class="row card  shadow table-scroll" id="table-scroll" style="width:100%;">
+            <div class="table-responsive table-wrap">
+                <table class="table  main-table mx-0 text-center table-hover" id="myTable">
                     <thead class="bg-thead text-white" >
                         <tr>
-                                <th style="font-size:14px;" class="text-left text-dark headcol">
-                                    <input type="text"  class="form-control-sm" placeholder="Cari Barang" id="myInput" onkeyup="myFunction()">
+                                <th class="text-left text-dark fixed-side">Barang
                                 </th>
                                 <?php foreach ($waktu as $r){?>
-                                <th style="font-size:10px;">
+                                <th class="text-dark" >
                             <?php 
                              $mulai = explode("-", $r->nama_waktu);
                              $start = $mulai[0];
@@ -59,7 +60,7 @@
                     <?php 
                             foreach ($barang as $r){?>
                         <tr>
-                        <td class="text-left headcol" style="font-size:14px;"><a href="<?php echo base_url("saranaPrasarana/detailBarang/".$r->id_barang)?>"><?= $r->nama_barang?></a> <br>
+                        <td class="text-left fixed-side" style="font-size:14px;"><a href="<?php echo base_url("index.php?/SaranaPrasarana/detailBarang/".$r->id_barang)?>"><?= $r->nama_barang?></a> <br>
                             <?php 
                             foreach ($waktu as $w){
                                 $result = 0; $terkirim = 0; $setuju = 0; 
@@ -176,4 +177,12 @@ function myFunction() {
     }       
   }
 }
+</script>
+
+<script>
+// requires jquery library
+jQuery(document).ready(function() {
+   jQuery(".main-table").clone(true).appendTo('#table-scroll').addClass('clone');   
+ });
+
 </script>

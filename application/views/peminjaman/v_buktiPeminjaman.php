@@ -63,11 +63,11 @@
                 <tbody>
                         <tr>
                             <td>Nama:</td>
-                            <td class="text-left">: <?= $u->nama_mahasiswa; ?></td>
+                            <td class="text-left">: <?= $u->nama_mahasiswa; ?><?= $u->nama_peminjam; ?></td>
                         </tr>
                         <tr>
                             <td>Username:</td>
-                            <td class="text-left">: <?= $u->id_mahasiswa; ?></td>
+                            <td class="text-left">: <?= $u->id_peminjam; ?></td>
                         </tr>
                         <tr>
                             <td>Penyelenggara:</td>

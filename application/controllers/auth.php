@@ -12,26 +12,26 @@ class Auth extends CI_Controller {
 	}
 
 	function login(){
-		$data['main_view'] = 'auth/v_login';
-		$this->load->view('template/template_user',$data);
+		$data['main_view'] = 'Auth/V_login';
+		$this->load->view('Template/Template_user',$data);
 	}
 
 	function formRegister(){
-		$data['main_view'] = 'auth/v_register';
-		$this->load->view('template/template_user',$data);
+		$data['main_view'] = 'Auth/V_register';
+		$this->load->view('Template/Template_user',$data);
 	}
 
 	function profil(){
 		$username = $this->session->userdata('username');
-		$data['main_view'] = 'auth/v_profil';
+		$data['main_view'] = 'Auth/V_profil';
 		if($this->session->userdata('status') == 'pengguna'){
 			$data['mahasiswa'] = $this->M_User->getDataMahasiswaById($username);
-			$this->load->view('template/template_user',$data);
+			$this->load->view('Template/Template_user',$data);
 		}else{
 			$data['jumlahUser'] = $this->M_User->getCountUserBaru();
 			$data['jumlahPeminjaman'] = $this->M_Peminjaman->getCountPeminjamanTerkirim();
 			$data['operator'] = $this->M_User->getDataOperatorById($username);
-			$this->load->view('template/template_operator',$data);
+			$this->load->view('Template/Template_operator',$data);
 		}
 	}
 
@@ -55,7 +55,7 @@ class Auth extends CI_Controller {
 
         $this->M_User->updateUser($where,$data,'mahasiswa');
         $this->session->set_flashdata('notifsukses', "Data  berhasil diubah");
-        redirect('auth/profil');
+        redirect('index.php?/Auth/profil');
     }
 
 	public function register(){
@@ -69,7 +69,7 @@ class Auth extends CI_Controller {
         
         if($this->M_User->cek_id_mahasiswa() == TRUE){
             $this->session->set_flashdata('notif', "nik $id_mahasiswa sudah terdaftar didatabase");
-            redirect('User/formTambahMahasiswa');
+            redirect('index.php?/User/formTambahMahasiswa');
         }else{
             $data = array(
                 'id_mahasiswa' => $id_mahasiswa,
@@ -82,7 +82,7 @@ class Auth extends CI_Controller {
             );
             $this->M_User->tambahUser($data,'mahasiswa');
             $this->session->set_flashdata('notifsukses', "Proses Pendaftaran Akun Telah Terkirim");
-            redirect('auth/login');
+            redirect('index.php?/Auth/login');
         }
     }
     
@@ -91,30 +91,30 @@ class Auth extends CI_Controller {
 				if($this->M_Auth->cek_user() == TRUE){
 					$status = $this->session->userdata('status');
 					if($status=='admin'){
-						redirect('rekap/dashboard');
+						redirect('index.php?/rekap/dashboard');
 					}elseif($status=='staff pelayanan'){
-						redirect('agenda');
+						redirect('index.php?/agenda');
 					}else{
-						redirect('auth/logout');
+						redirect('index.php?/Auth/logout');
 					}
 				}else if($this->M_Auth->cek_mahasiswa() == TRUE){
-					redirect('agenda');
+					redirect('index.php?/agenda');
 				}else{
 					$this->session->set_flashdata('notifsukses', 'Username atau Password salah');
-					redirect('auth/login');
+					redirect('index.php?/Auth/login');
 				}
 		}else {
-			redirect('auth/logout');
+			redirect('index.php?/Auth/logout');
 		}
 	}
 
 	 function logout(){
 		$this->session->sess_destroy();
-		redirect('auth/login');
+		redirect('index.php?/Auth/login');
 	}
 
 	function editPassword(){
-		$data['main_view'] = 'v_lupa_password';
-		$this->load->view('v_lupa_password', $data);
+		$data['main_view'] = 'V_lupa_password';
+		$this->load->view('V_lupa_password', $data);
 	}
 }

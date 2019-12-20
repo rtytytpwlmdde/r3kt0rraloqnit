@@ -43,7 +43,7 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Gazebo UB</h1>
                   </div>
-                  <form class="user" action="<?php echo base_url().'auth/register'; ?>" method="post">
+                  <form class="user" action="<?php echo base_url().'index.php?/Auth/register'; ?>" method="post">
                     <div class="form-group">
                       <input required type="text" name="id_mahasiswa" class="form-control form-control-user" placeholder="Username">
                     </div>
@@ -73,7 +73,7 @@
                   <hr>
                   <div class="text-center">
                     <a class="small" href="forgot-password.html">Lupa Password?</a>
-                    <a class="small ml-2" href="<?php echo base_url().'auth/login'; ?>">Login</a>
+                    <a class="small ml-2" href="<?php echo base_url().'index.php?/Auth/login'; ?>">Login</a>
                   </div>
                 </div>
               </div>

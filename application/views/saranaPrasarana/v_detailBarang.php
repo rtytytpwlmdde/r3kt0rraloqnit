@@ -39,7 +39,7 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
             <div class="col-6 col-md-4">
                 <div class="d-flex flex-row-reverse bd-highlight">
                     <?php if($this->session->userdata('status') == 'admin'){ ?>
-                    <a class="btn btn-sm btn-primary mb-2"  href="<?php  echo base_url('SaranaPrasarana/updateBarang/'.$u->id_barang); ?>" role="button">Edit Barang</a>
+                    <a class="btn btn-sm btn-primary mb-2"  href="<?php  echo base_url('index.php?/SaranaPrasarana/updateBarang/'.$u->id_barang); ?>" role="button">Edit Barang</a>
                         <?php }?>
                 </div>
             </div>

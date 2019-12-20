@@ -31,7 +31,7 @@
                 </div>
                 <div class="col-6 col-md-4">
                     <div class="d-flex flex-row-reverse bd-highlight">
-                        <a class="btn btn-primary"  href="<?php  echo base_url('saranaPrasarana/formTambahLokasi'); ?>" role="button">Tambah Lokasi</a>
+                        <a class="btn btn-primary"  href="<?php  echo base_url('index.php?/SaranaPrasarana/formTambahLokasi'); ?>" role="button">Tambah Lokasi</a>
                     </div>
                 </div>
             </div>
@@ -56,10 +56,10 @@
                     <td><?php echo $u->id_lokasi; ?></td>
                     <td><?php echo $u->nama_lokasi;?></td>
                     <td >
-                        <a href="<?php echo site_url('saranaPrasarana/updateLokasi/'.$u->id_lokasi); ?>"  class="btn btn-warning text-white" title="Edit">
+                        <a href="<?php echo site_url('index.php?/SaranaPrasarana/updateLokasi/'.$u->id_lokasi); ?>"  class="btn btn-warning text-white" title="Edit">
                         <i class="fas fa-pencil-alt"></i>
                         </a>
-                        <a href="<?php echo site_url('saranaPrasarana/hapusLokasi/'.$u->id_lokasi); ?>"  class="btn btn-danger text-white"  title="Hapus">
+                        <a href="<?php echo site_url('index.php?/SaranaPrasarana/hapusLokasi/'.$u->id_lokasi); ?>"  class="btn btn-danger text-white"  title="Hapus">
                             <i class="fas fa-trash"></i>
                         </a>
                     </td>

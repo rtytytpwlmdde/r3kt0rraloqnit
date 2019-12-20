@@ -50,20 +50,20 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                 <div class="card p-2 mb-2">
                     <div class="row">
                         <div class="col-md-6 text-right">
-                            <form method="get" action="<?php echo base_url("saranaPrasarana/saranaPrasarana")?>">
+                            <form method="get" action="<?php echo base_url("index.php?/SaranaPrasarana/saranaPrasarana")?>">
                                 <input type="hidden" name="jenis" value="ruangan">
                                 <button class="btn btn-outline-primary"><i class="fas fa-home"></i> <br>Ruangan</button>
                             </form>
                         </div>
                         <div class="col-md-6 text-left">
-                            <form method="get" action="<?php echo base_url("saranaPrasarana/saranaPrasarana")?>">
+                            <form method="get" action="<?php echo base_url("index.php?/SaranaPrasarana/saranaPrasarana")?>">
                                 <input type="hidden" name="jenis" value="barang">
                                 <button class="btn btn-outline-primary"><i class="fas fa-car"></i> <br>Barang</button>
                             </form>
                         </div>
                     </div>
                 </div>
-                <form method="get" action="<?php echo base_url("saranaPrasarana/saranaPrasarana")?>">
+                <form method="get" action="<?php echo base_url("index.php?/SaranaPrasarana/saranaPrasarana")?>">
                 <div class="card px-2 pt-2 mb-2">
                     <div>
                         <div class="form-group">
@@ -192,7 +192,7 @@ if($this->session->userdata('status') == "pengguna" || $this->session->userdata(
                             <?php }?>
                         </div>
                         <div class="col-md-8">
-                        <a href="<?php echo base_url("saranaPrasarana/detailBarang/".$u->id_barang);?>"><h4 class="font-weight-bold text-dark m-0" style="font-size: 20px !important; font-family: 'Roboto', sans-serif;" ><?= $u->nama_barang;?></h4></a>
+                        <a href="<?php echo base_url("index.php?/SaranaPrasarana/detailBarang/".$u->id_barang);?>"><h4 class="font-weight-bold text-dark m-0" style="font-size: 20px !important; font-family: 'Roboto', sans-serif;" ><?= $u->nama_barang;?></h4></a>
                             <span class="text-info m-0 p-0" style="font-size:12px;"><?= $u->nama_fakultas ?> </span><br> 
                             <span class="text-warning"><?php  echo "Rp " . number_format($u->harga_barang,0,',','.');?></span> <br>
 

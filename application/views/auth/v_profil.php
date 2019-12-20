@@ -34,7 +34,7 @@
             <?php 
             if($this->session->userdata('status') == 'pengguna'){?>
                 <?php foreach($mahasiswa as $u): ?>
-                <form class="user" action="<?php echo base_url().'auth/editProfil'; ?>" method="post">
+                <form class="user" action="<?php echo base_url().'index.php?/Auth/editProfil'; ?>" method="post">
                     <div class="form-group">
                         <label for="">Username</label>
                         <input hidden type="text" name="id_mahasiswa" class="form-control " value="<?= $u->id_mahasiswa; ?>">
@@ -70,7 +70,7 @@
                 <?php endforeach ?>
                 </form> 
             <?php }else{ ?>
-                <form class="user" action="<?php echo base_url().'User/editOperator'; ?>" method="post">
+                <form class="user" action="<?php echo base_url().'index.php?/User/editOperator'; ?>" method="post">
                 <?php foreach($operator as $u): ?>
                     <div class="form-group">
                         <label for="">Username</label>
